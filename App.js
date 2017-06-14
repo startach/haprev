@@ -1,3 +1,5 @@
-import App from './src/views/App'
+//import App from './src/views/App'
+import Nav from './src/navigation/AppNavigator'
 
-export default App
+export default Nav
+//export default App
