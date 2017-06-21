@@ -1,21 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import DashboardView from './DashboardView'
+import { connect } from 'react-redux'
+import {dummy}  from '../../store/actions'
 
-export default class Dashboard extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>This will be dashboarf screen</Text>
-      </View>
-    );
-  }
+const mapStateToProps =  state =>  {
+  return (
+    { screenName: state.dummyReducer.dummy,
+      dummyMessage:'wwwww'})
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default connect(mapStateToProps, {sendDummy:dummy})(DashboardView)
