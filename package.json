@@ -2,14 +2,6 @@
   "name": "haprev",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "eslint": "^4.1.1",
-    "eslint-plugin-react": "^7.1.0",
-    "eslint-plugin-react-native": "^2.3.2",
-    "jest-expo": "~1.0.1",
-    "react-native-scripts": "0.0.31",
-    "react-test-renderer": "16.0.0-alpha.6"
-  },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "react-native-scripts start",
@@ -31,5 +23,14 @@
     "react-native": "^0.44.0",
     "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.5"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-react-native": "^2.3.2",
+    "jest-expo": "~1.0.1",
+    "react-native-scripts": "0.0.31",
+    "react-test-renderer": "16.0.0-alpha.6"
   }
 }
