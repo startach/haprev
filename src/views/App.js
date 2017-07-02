@@ -6,8 +6,7 @@ import {
   Button,
   Text,
   connectStyle,
-  Grid,
-  Col
+  Icon
 } from 'native-base';
 import Expo from 'expo';
 import PropTypes from 'prop-types';
@@ -39,7 +38,8 @@ class App extends React.Component {
           <Text style={styles.title}>הרשמו והפכו לחלק ממהפכה של שמחה!</Text>
           <View style={styles.buttonsContainer}>
             <Button rounded style={styles.button}>
-              <Text>התחברו באמצעות F</Text>
+              <Icon name="logo-facebook" />
+              <Text>התחברו באמצעות </Text>
             </Button>
           </View>
           <View style={styles.buttonsContainer}>
@@ -58,11 +58,11 @@ const styles = {
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    alignItems: 'center'    
+    alignItems: 'center'
   },
   contentContainer: {
     flex: 1,
-    justifyContent:'center',
+    justifyContent: 'center',
     padding: 20
   },
   title: {
@@ -75,11 +75,10 @@ const styles = {
   button: {
     justifyContent: 'center',
     marginTop: 20,
-    width: '100%'    
+    width: '100%'
   },
   buttonsContainer: {
     justifyContent: 'center'
-    
   }
 };
 
