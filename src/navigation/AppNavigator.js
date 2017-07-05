@@ -1,12 +1,15 @@
-import React from 'react';
 import { StackNavigator } from 'react-navigation';
-import HomeScreen from '../views/App'
-import DashboardScreen from '../views/Dashboard'
-import SearchScreen from '../views/search'
+import HomeScreen from '../views/App';
+import DashboardScreen from '../views/Dashboard';
+import SearchScreen from '../views/search';
+import HospitalScreen from '../views/hospitalList/HospitalList';
 
 
-export default HapRev = StackNavigator({
+export default  StackNavigator({
   Home: { screen: HomeScreen },
   Dashbaord: {screen:DashboardScreen},
-  Search: {screen:SearchScreen}
+  Search: {screen:SearchScreen},
+  Hospital : {screen:HospitalScreen}
+},{
+  initialRouteName :'Hospital'
 });
