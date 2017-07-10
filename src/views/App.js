@@ -34,18 +34,21 @@ class App extends React.Component {
     }
     return (
       <Container style={styles.container}>
+        <Text style={styles.loginExist}>חשבון קיים</Text>
         <Content contentContainerStyle={styles.contentContainer}>
-          <Text style={styles.title}>הרשמו והפכו לחלק ממהפכה של שמחה!</Text>
-          <View style={styles.buttonsContainer}>
-            <Button rounded style={styles.button}>
-              <Icon name="logo-facebook" />
-              <Text>התחברו באמצעות </Text>
-            </Button>
-          </View>
-          <View style={styles.buttonsContainer}>
-            <Button rounded style={styles.button}>
-              <Text>צרו חשבון חדש</Text>
-            </Button>
+          <View style={styles.contentView}>
+            <Text style={styles.title}>הרשמו והפכו לחלק ממהפכה של שמחה!</Text>
+            <View style={styles.buttonsContainer}>
+              <Button rounded style={styles.button}>
+                <Icon name="logo-facebook" />
+                <Text>התחברו באמצעות </Text>
+              </Button>
+            </View>
+            <View style={styles.buttonsContainer}>
+              <Button rounded style={styles.registerButton}>
+                <Text>צרו חשבון חדש</Text>
+              </Button>
+            </View>
           </View>
         </Content>
       </Container>
@@ -57,13 +60,21 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'center'   
   },
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 20
+  },
+  loginExist: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    fontSize: 15,
+    textAlign: 'right',
+    padding: 20,
+    textDecorationLine: 'underline'
   },
   title: {
     justifyContent: 'center',
@@ -77,6 +88,12 @@ const styles = {
     marginTop: 20,
     width: '100%'
   },
+  registerButton: {
+    backgroundColor: 'rgb(211,75,53)',
+    justifyContent: 'center',
+    marginTop: 20,
+    width: '100%'    
+  },  
   buttonsContainer: {
     justifyContent: 'center'
   }
