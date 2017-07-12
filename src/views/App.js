@@ -6,7 +6,7 @@ import {
   Button,
   Text,
   connectStyle,
-  Icon
+  Icon,
 } from 'native-base';
 import Expo from 'expo';
 import PropTypes from 'prop-types';
@@ -15,14 +15,14 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      isReady: false
+      isReady: false,
     };
   }
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf')
+      Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf'),
     });
 
     this.setState({ isReady: true });
@@ -60,13 +60,13 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center'   
+    justifyContent: 'center',
   },
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20
+    padding: 20,
   },
   loginExist: {
     justifyContent: 'flex-start',
@@ -74,33 +74,33 @@ const styles = {
     fontSize: 15,
     textAlign: 'right',
     padding: 20,
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
   },
   title: {
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 28,
     fontFamily: 'Roboto_medium',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   button: {
     justifyContent: 'center',
     marginTop: 20,
-    width: '100%'
+    width: '100%',
   },
   registerButton: {
     backgroundColor: 'rgb(211,75,53)',
     justifyContent: 'center',
     marginTop: 20,
-    width: '100%'    
-  },  
+    width: '100%',
+  },
   buttonsContainer: {
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 };
 
 App.propTypes = {
-  style: PropTypes.object.isRequired
+  style: PropTypes.object.isRequired,
 };
 // connect the component to the theme
 export default connectStyle('yourTheme.CustomComponent', styles)(App);

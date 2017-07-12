@@ -1,14 +1,17 @@
-import {DUMMY} from  '../actions/actionList'
+import { DUMMY } from '../actions/actionList';
 
 const initalState = {
-    dummy:'stam'
-}
+  dummy: 'stam',
+};
 
-export default  dummyReducer = (state =initalState, action ) =>{
-    switch(action.type){
-        case DUMMY:
-            return ({...state, dummy:action.payload})
-        default:
-            return state
-    }
+const dummyReducer = (state = initalState, action) => {
+  switch (action.type) {
+    case DUMMY:
+      return ({ ...state, dummy: action.payload });
+    default:
+      return state;
+  }
 }
+;
+
+export default dummyReducer;
