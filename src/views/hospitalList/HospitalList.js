@@ -1,10 +1,9 @@
-import HospitalView from './HospitalListView';
 import { connect } from 'react-redux';
+import HospitalListView from './HospitalListView';
 
-const mapStateToProps =  state =>  {
-  return (
-    { 
-      dummyMessage:'wwwww'});
-};
 
-export default connect(mapStateToProps)(HospitalView);
+const mapStateToProps = state => (
+  {
+    dummyMessage: 'wwwww' });
+
+export default connect(mapStateToProps)(HospitalListView);

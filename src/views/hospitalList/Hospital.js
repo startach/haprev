@@ -1,19 +1,21 @@
-import React,{Component} from 'react';
-import {Card,CardItem,Body,Text} from 'native-base';
-import { Image} from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import { Image, Text } from 'react-native';
+import { Container, Header, Left, Card, CardItem, Body } from 'native-base';
+import styles from './HospitalStyle';
 
-
-class Hospital extends Component{
-  render(){
+class Hospital extends Component {
+  render() {
+    const { name, pictureUrl, city } = this.props;
     return (
-      <Card  >
+      <Card >
         <CardItem>
           <Body>
             <Image
-              style={{width:50,height:50}}
-              source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+              style={styles.image}
+              source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }}
             />
-            <Text>hospital name</Text>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.city}>{city}</Text>
           </Body>
         </CardItem>
       </Card>
@@ -21,5 +23,11 @@ class Hospital extends Component{
     );
   }
 }
+
+Hospital.propTypes = {
+  name: PropTypes.string.isRequired,
+  pictureUrl: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
+};
 
 export default Hospital;
