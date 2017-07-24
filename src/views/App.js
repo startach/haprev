@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, TouchableHighlight } from 'react-native';
+import { View, Image } from 'react-native';
 import {
   Container,
   Content,
@@ -37,11 +37,11 @@ class App extends React.Component {
     }
     return (
       <Image source={bg} style={styles.backgroundImage}>
-          <View style={styles.loginExistButtonView}>
-            <Button rounded bordered style={styles.loginExistButton}>
-              <Text style={styles.loginExistButtonText}>חשבון קיים</Text>
-            </Button>
-          </View>
+        <View style={styles.loginExistButtonView}>
+          <Button rounded bordered style={styles.loginExistButton}>
+            <Text style={styles.loginExistButtonText}>חשבון קיים</Text>
+          </Button>
+        </View>
         <Container style={styles.container}>
           <Content contentContainerStyle={styles.contentContainer}>
             <View style={styles.contentView}>
@@ -51,7 +51,7 @@ class App extends React.Component {
                 <Text style={styles.subtitle}>ממהפכה של שמחה!</Text>
               </View>
               <View style={styles.buttonsContainer}>
-                <Button rounded style={styles.button}>                  
+                <Button rounded style={styles.button}>
                   <Text>התחברו באמצעות </Text>
                   <Icon name="logo-facebook" />
                 </Button>
@@ -187,7 +187,7 @@ const styles = {
   loginExistButtonText: {
     color: '#FFF',
     paddingLeft: 0,
-    paddingRight: 0,
+    paddingRight: 0
   }
 };
 
