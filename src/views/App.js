@@ -37,12 +37,11 @@ class App extends React.Component {
     }
     return (
       <Image source={bg} style={styles.backgroundImage}>
-        <TouchableHighlight
-          style={styles.loginExistView}
-          onPress={() => this.setState({ toggled: !this.state.toggled })}
-        >
-          <Text style={styles.loginExist}>חשבון קיים</Text>
-        </TouchableHighlight>
+          <View style={styles.loginExistButtonView}>
+            <Button rounded bordered style={styles.loginExistButton}>
+              <Text style={styles.loginExistButtonText}>חשבון קיים</Text>
+            </Button>
+          </View>
         <Container style={styles.container}>
           <Content contentContainerStyle={styles.contentContainer}>
             <View style={styles.contentView}>
@@ -52,9 +51,9 @@ class App extends React.Component {
                 <Text style={styles.subtitle}>ממהפכה של שמחה!</Text>
               </View>
               <View style={styles.buttonsContainer}>
-                <Button rounded style={styles.button}>
-                  <Icon name="logo-facebook" />
+                <Button rounded style={styles.button}>                  
                   <Text>התחברו באמצעות </Text>
+                  <Icon name="logo-facebook" />
                 </Button>
               </View>
               <View style={styles.buttonsContainer}>
@@ -171,6 +170,24 @@ const styles = {
   orText: {
     textAlign: 'center',
     color: '#FFF'
+  },
+  loginExistButtonView: {
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
+    marginTop: 10,
+    borderColor: '#FFF'
+  },
+  loginExistButton: {
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
+    marginTop: 20,
+    height: 30,
+    borderColor: '#FFF'
+  },
+  loginExistButtonText: {
+    color: '#FFF',
+    paddingLeft: 0,
+    paddingRight: 0,
   }
 };
 
