@@ -1,28 +1,22 @@
-import React, { Component, PropTypes } from 'react';
-import { Image, Text } from 'react-native';
-import { Container, Header, Left, Card, CardItem, Body } from 'native-base';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Image, Text, View } from 'react-native';
 import styles from './HospitalStyle';
 
-class Hospital extends Component {
-  render() {
-    const { name, pictureUrl, city } = this.props;
-    return (
-      <Card >
-        <CardItem>
-          <Body>
-            <Image
-              style={styles.image}
-              source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }}
-            />
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.city}>{city}</Text>
-          </Body>
-        </CardItem>
-      </Card>
 
-    );
-  }
-}
+const Hospital = ({ name, pictureUrl, city }) => (
+  <View style={styles.container}>
+    <Image
+      style={styles.image}
+      source={{ uri: pictureUrl }}
+      resizeMode="stretch"
+    />
+    <Text style={styles.name}>{name}</Text>
+    <Text style={styles.city}>{city}</Text>
+
+  </View>
+
+);
 
 Hospital.propTypes = {
   name: PropTypes.string.isRequired,

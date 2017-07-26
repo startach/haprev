@@ -12,8 +12,8 @@ export default StackNavigator(
       headerMode: 'none',
       header: null,
       navigationOptions: {
-        header: null
-      }
+        header: null,
+      },
     },
     Dashbaord: { screen: DashboardScreen },
     Search: { screen: SearchScreen },
@@ -23,11 +23,11 @@ export default StackNavigator(
       headerMode: 'none',
       header: null,
       navigationOptions: {
-        header: null
-      }
+        header: null,
+      },
     },
   },
   {
-    initialRouteName: 'Splash'
-  }
+    initialRouteName: 'Hospital',
+  },
 );
