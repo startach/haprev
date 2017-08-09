@@ -1,7 +1,7 @@
 import { StackNavigator } from 'react-navigation';
 import HomeScreen from '../views/App';
 import DashboardScreen from '../views/Dashboard';
-import SearchScreen from '../views/search';
+import SearchScreen from '../views/search/Search';
 import HospitalScreen from '../views/hospitalList/HospitalList';
 import SplashScreen from '../views/Splash';
 import LoggedIn from './LogedInNavigator';
@@ -46,6 +46,7 @@ export default StackNavigator(
     },
   },
   {
-    initialRouteName: 'Splash',
+    //initialRouteName: 'Splash',
+    initialRouteName: 'LoggedIn',
   },
 );

@@ -2,7 +2,7 @@ import React from 'react';
 import { TabNavigator } from 'react-navigation';
 import { Entypo } from '@expo/vector-icons';
 import DashboardScreen from '../views/Dashboard';
-import SearchScreen from '../views/search';
+import SearchScreen from '../views/search/Search';
 import ContactScreen from '../views/Contacts/Contacts';
 import ChatScreen from '../views/chat/ChatView';
 import ProfileScreen from '../views/profile/ProfileView';
