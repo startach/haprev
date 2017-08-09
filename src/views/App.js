@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, I18nManager } from 'react-native';
 import {
   Container,
   Content,
@@ -8,19 +8,24 @@ import {
   connectStyle,
   Icon,
 } from 'native-base';
+
 import Expo from 'expo';
 import PropTypes from 'prop-types';
 
 const bg = require('../images/bg.jpg');
 const logo = require('../images/logo.png');
 
+const IS_RTL = I18nManager.isRTL;
+
 class App extends React.Component {
+
   constructor() {
     super();
     this.state = {
       isReady: false,
     };
   }
+
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
@@ -29,6 +34,10 @@ class App extends React.Component {
     });
 
     this.setState({ isReady: true });
+  }
+  componentDidMount()
+  {
+
   }
   render() {
     const styles = this.props.style;
@@ -47,28 +56,33 @@ class App extends React.Component {
             <View style={styles.contentView}>
               <Image source={logo} style={styles.logoImage} />
               <View style={styles.titlesContainer}>
-                <Text style={styles.title}>הרשמו והפכו לחלק</Text>
-                <Text style={styles.subtitle}>ממהפכה של שמחה!</Text>
-              </View>
+                        <Text style={styles.title}>הרשמו והפכו לחלק</Text>
+                        <Text style={styles.subtitle}>ממהפכה של שמחה!</Text>
+                      </View>
               <View style={styles.buttonsContainer}>
-                <Button rounded style={styles.button}>
+                        <Button rounded style={styles.button}>
                   <Text>התחברו באמצעות </Text>
                   <Icon name="logo-facebook" />
                 </Button>
-              </View>
+                      </View>
               <View style={styles.buttonsContainer}>
-                <Button rounded style={styles.registerButton}>
+                        <Button rounded style={styles.registerButton}>
                   <Text>צרו חשבון חדש</Text>
                 </Button>
-              </View>
+                      </View>
               <View style={styles.orTextContainer}>
-                <Text style={styles.orText}>או</Text>
-              </View>
+                        <Text style={styles.orText}>או</Text>
+                      </View>
               <View style={styles.buttonsContainer}>
-                <Button rounded bordered style={styles.guestButton}>
+                        <Button
+                  rounded
+                  bordered
+                  style={styles.guestButton}
+                  onPress={() => this.props.navigation.navigate('GuestIntro')}
+                >
                   <Text style={styles.guestButtonText}>התחברו כאורחים</Text>
                 </Button>
-              </View>
+                      </View>
             </View>
           </Content>
         </Container>
@@ -178,8 +192,8 @@ const styles = {
     borderColor: '#FFF',
   },
   loginExistButton: {
-    justifyContent: 'flex-start',
-    alignSelf: 'flex-start',
+    justifyContent: IS_RTL ? 'flex-start' : 'flex-end',
+    alignSelf: IS_RTL ? 'flex-start' : 'flex-end',
     marginTop: 20,
     height: 30,
     borderColor: '#FFF',
