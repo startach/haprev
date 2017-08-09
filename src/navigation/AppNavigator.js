@@ -46,7 +46,7 @@ export default StackNavigator(
     },
   },
   {
-    //initialRouteName: 'Splash',
-    initialRouteName: 'LoggedIn',
+    initialRouteName: 'Splash',
+    //initialRouteName: 'LoggedIn',
   },
 );

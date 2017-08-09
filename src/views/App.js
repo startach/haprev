@@ -82,6 +82,14 @@ class App extends React.Component {
                 >
                   <Text style={styles.guestButtonText}>התחברו כאורחים</Text>
                 </Button>
+                <Button
+                  rounded
+                  bordered
+                  style={styles.guestButton}
+                  onPress={() => this.props.navigation.navigate('LoggedIn')}
+                >
+                  <Text style={styles.guestButtonText}>התחברו בחווע</Text>
+                </Button>
                       </View>
             </View>
           </Content>
