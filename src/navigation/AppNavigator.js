@@ -4,6 +4,7 @@ import DashboardScreen from '../views/Dashboard';
 import SearchScreen from '../views/search';
 import HospitalScreen from '../views/hospitalList/HospitalList';
 import SplashScreen from '../views/Splash';
+import LoggedIn from './LogedInNavigator';
 
 export default StackNavigator(
   {
@@ -26,8 +27,9 @@ export default StackNavigator(
         header: null,
       },
     },
+    LoggedIn: { screen: LoggedIn },
   },
   {
-    initialRouteName: 'Hospital',
+    initialRouteName: 'LoggedIn',
   },
 );

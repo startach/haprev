@@ -6,7 +6,7 @@ import {
   Button,
   Text,
   connectStyle,
-  Icon
+  Icon,
 } from 'native-base';
 import Expo from 'expo';
 import PropTypes from 'prop-types';
@@ -18,14 +18,14 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      isReady: false
+      isReady: false,
     };
   }
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf')
+      Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf'),
     });
 
     this.setState({ isReady: true });
@@ -84,31 +84,31 @@ const styles = {
     height: undefined,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10
+    padding: 10,
   },
   logoImage: {
     alignSelf: 'center',
     width: 150,
     resizeMode: 'contain',
     padding: 20,
-    margin: 0
+    margin: 0,
   },
   contentView: {
     flex: 0,
     padding: 0,
-    margin: 0
+    margin: 0,
   },
   container: {
-    flex: 1
+    flex: 1,
   },
   contentContainer: {
-    flex: 0
+    flex: 0,
   },
   loginExistView: {
     flex: 0,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
   loginExist: {
     fontSize: 15,
@@ -117,7 +117,7 @@ const styles = {
     paddingRight: 20,
     paddingBottom: 0,
     textDecorationLine: 'underline',
-    color: '#FFF'
+    color: '#FFF',
   },
   title: {
     justifyContent: 'center',
@@ -125,10 +125,10 @@ const styles = {
     fontSize: 28,
     fontFamily: 'Roboto_medium',
     textAlign: 'center',
-    color: '#FFF'
+    color: '#FFF',
   },
   titlesContainer: {
-    padding: 20
+    padding: 20,
   },
   subtitle: {
     justifyContent: 'center',
@@ -137,62 +137,62 @@ const styles = {
     fontFamily: 'Roboto_medium',
     textAlign: 'center',
     fontWeight: 'bold',
-    color: '#FFF'
+    color: '#FFF',
   },
   button: {
     justifyContent: 'center',
     marginTop: 20,
-    width: '100%'
+    width: '100%',
   },
   registerButton: {
     backgroundColor: 'rgb(211,75,53)',
     justifyContent: 'center',
     marginTop: 20,
-    width: '100%'
+    width: '100%',
   },
   guestButton: {
     justifyContent: 'center',
     marginTop: 20,
     width: '100%',
-    borderColor: '#FFF'
+    borderColor: '#FFF',
   },
   guestButtonText: {
-    color: '#FFF'
+    color: '#FFF',
   },
   buttonsContainer: {
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   orTextContainer: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: 10
+    paddingTop: 10,
   },
   orText: {
     textAlign: 'center',
-    color: '#FFF'
+    color: '#FFF',
   },
   loginExistButtonView: {
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
     marginTop: 10,
-    borderColor: '#FFF'
+    borderColor: '#FFF',
   },
   loginExistButton: {
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
     marginTop: 20,
     height: 30,
-    borderColor: '#FFF'
+    borderColor: '#FFF',
   },
   loginExistButtonText: {
     color: '#FFF',
     paddingLeft: 0,
-    paddingRight: 0
-  }
+    paddingRight: 0,
+  },
 };
 
 App.propTypes = {
-  style: PropTypes.object.isRequired
+  style: PropTypes.object.isRequired,
 };
 // connect the component to the theme
 export default connectStyle('yourTheme.CustomComponent', styles)(App);

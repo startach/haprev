@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import dummyReducer from './dummy';
+import user from './user';
+import contacts from './contacts';
 
 const reducers = combineReducers({
-  dummyReducer,
+  user,
+  contacts,
 });
 
 export default reducers;

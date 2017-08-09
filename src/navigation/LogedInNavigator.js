@@ -3,7 +3,7 @@ import { TabNavigator } from 'react-navigation';
 import { Entypo } from '@expo/vector-icons';
 import DashboardScreen from '../views/Dashboard';
 import SearchScreen from '../views/search';
-import ContactScreen from '../views/Contacts/ContactsView';
+import ContactScreen from '../views/Contacts/Contacts';
 import ChatScreen from '../views/chat/ChatView';
 import ProfileScreen from '../views/profile/ProfileView';
 
@@ -27,7 +27,7 @@ const LoggedInNavigator = TabNavigator(
     Dashbaord: { screen: DashboardScreen },
     Profile: { screen: ProfileScreen },
     Search: { screen: SearchScreen },
-    Hospital: { screen: HospitalScreen },
+    //Hospital: { screen: HospitalScreen },
   },
   {
     initialRouteName: 'Contacts',

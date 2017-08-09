@@ -2,7 +2,16 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import PropTypes from 'prop-types';
 
-class Dashboard extends Component {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+class ChatView extends Component {
   render() {
     const { screenName, dummyMessage, sendDummy } = this.props;
     return (
@@ -19,19 +28,10 @@ class Dashboard extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
 
-Dashboard.propTypes = {
+ChatView.propTypes = {
   screenName: PropTypes.string,
-  dummyMessage: PropTypes.string,
-  sendDummy: PropTypes.func
+  sendDummy: PropTypes.func,
 };
 
-export default Dashboard;
+export default ChatView;
