@@ -8,7 +8,7 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js --watch",
+    "test": "node node_modules/jest/bin/jest.js --watch && ava",
     "lint": "eslint --fix *.js"
   },
   "jest": {
@@ -17,6 +17,7 @@
   "dependencies": {
     "@expo/vector-icons": "^5.0.0",
     "expo": "^17.0.0",
+    "firebase": "^4.2.0",
     "native-base": "^2.1.5",
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.6",
@@ -34,7 +35,11 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-react-native": "^2.3.2",
+    "jasmine": "^2.7.0",
+    "jasmine-core": "^2.3.4",
     "jest-expo": "~1.0.1",
+    "karma": "^0.13.9",
+    "karma-jasmine": "^0.3.6",
     "react-native-scripts": "0.0.31",
     "react-test-renderer": "16.0.0-alpha.6",
     "remote-redux-devtools": "^0.5.0"
