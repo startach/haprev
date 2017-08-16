@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import _ from 'lodash';
+import Header from '../../app/Header';
 import Region from './Region';
 import Hospital from './Hospital';
 
@@ -9,37 +11,46 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F2F2F2',
   },
-  header: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#D81A4C',
-    height: 60,
-  },
-  headerText: {
-    color: 'white',
-    fontSize: 30,
-    textAlign: 'center',
-  },
   main: {
     marginTop: 20,
     marginBottom: 40,
   },
 });
 
-const Header = () => (
-  <View style={styles.header}>
-    <Text style={styles.headerText}>בתי חולים</Text>
-  </View>
-);
-
-
 class HospitalListView extends Component {
   render() {
+    const { navigation, avatar, hospitals } = this.props;
+
+    const regions = _.groupBy(hospitals, 'region');
+    const res = _.map(regions, (hospitalsInRegion, region) => {
+      const hospitalsElemnts = _.map(hospitalsInRegion, hospital => (
+        <Hospital
+          name={hospital.name}
+          city={hospital.city}
+          pictureUrl={hospital.pictureUrl}
+        />
+      ));
+      return (
+        <Region
+          name={region}
+          key={region}
+        >
+          {hospitalsElemnts}
+        </Region>
+      );
+    });
+
     return (
       <View style={styles.container}>
-        <Header />
+        <Header
+          caption="בחר בית חולים"
+          userAvatar={avatar}
+          navigation={navigation}
+        />
+
         <ScrollView horizontal={false} style={styles.main}>
+          {res}
+          {/*
           <Region name="בצפון הארץ" >
             <Hospital
               name="מרכז רפואי בני ציון"
@@ -65,6 +76,7 @@ class HospitalListView extends Component {
             />
           </Region>
           <Region name="בדרום הארץ" />
+          */}
         </ScrollView>
       </View>
     );

@@ -24,11 +24,11 @@ export const getContactsFromService = async () => {
 export const GetHospitalsFromService = async () => {
   await timeout(DELAY);
   return ([
-    { id: 1, name: 'Assuta ashdod', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', area: 'south' },
-    { id: 2, name: 'Ichilov', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', area: 'center' },
-    { id: 3, name: 'Belinson', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', area: 'center' },
-    { id: 4, name: 'Tel hashomer', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', area: 'south' },
-    { id: 5, name: 'Rambam', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', area: 'north' },
+    { id: 1, name: 'Assuta ashdod', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'דרום', city: 'אשדוד' },
+    { id: 2, name: 'Ichilov', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'מרכז', city: 'תל אביב' },
+    { id: 3, name: 'Belinson', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'מרכז', city: 'פתח תקווה' },
+    { id: 4, name: 'Tel hashomer', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'מרכז', city: 'רמת גן'  },
+    { id: 5, name: 'Rambam', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'צפון', city: 'חיפה' },
   ]);
 };
 
