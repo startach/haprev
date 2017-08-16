@@ -25,6 +25,7 @@ class HospitalListView extends Component {
     const res = _.map(regions, (hospitalsInRegion, region) => {
       const hospitalsElemnts = _.map(hospitalsInRegion, hospital => (
         <Hospital
+          key={hospital.id}
           name={hospital.name}
           city={hospital.city}
           pictureUrl={hospital.pictureUrl}
@@ -50,33 +51,6 @@ class HospitalListView extends Component {
 
         <ScrollView horizontal={false} style={styles.main}>
           {res}
-          {/*
-          <Region name="בצפון הארץ" >
-            <Hospital
-              name="מרכז רפואי בני ציון"
-              city="חיפה"
-              pictureUrl="https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a"
-            />
-            <Hospital
-              name="בית חולים  ממשלתי פוריה"
-              city="טבריה"
-              pictureUrl="https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a"
-            />
-          </Region>
-          <Region name="במרכז הארץ" >
-            <Hospital
-              name="איכילוב"
-              city="תל אביב"
-              pictureUrl="https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a"
-            />
-            <Hospital
-              name="שניידר"
-              city="פתח תקווה"
-              pictureUrl="https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a"
-            />
-          </Region>
-          <Region name="בדרום הארץ" />
-          */}
         </ScrollView>
       </View>
     );
