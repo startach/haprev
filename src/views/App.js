@@ -1,16 +1,11 @@
 import React from 'react';
 import { View, Image, I18nManager } from 'react-native';
-import {
-  Container,
-  Content,
-  Button,
-  Text,
-  connectStyle,
-  Icon,
-} from 'native-base';
+import { Container, Content, Button, Text, connectStyle, Icon } from 'native-base';
 
 import Expo from 'expo';
 import PropTypes from 'prop-types';
+
+import { loginWithFacebook } from '../services/services_firebase';
 
 const bg = require('../images/bg.jpg');
 const logo = require('../images/logo.png');
@@ -18,7 +13,6 @@ const logo = require('../images/logo.png');
 const IS_RTL = I18nManager.isRTL;
 
 class App extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -35,10 +29,7 @@ class App extends React.Component {
 
     this.setState({ isReady: true });
   }
-  componentDidMount()
-  {
-
-  }
+  componentDidMount() {}
   render() {
     const styles = this.props.style;
     if (!this.state.isReady) {
@@ -56,25 +47,25 @@ class App extends React.Component {
             <View style={styles.contentView}>
               <Image source={logo} style={styles.logoImage} />
               <View style={styles.titlesContainer}>
-                        <Text style={styles.title}>הרשמו והפכו לחלק</Text>
-                        <Text style={styles.subtitle}>ממהפכה של שמחה!</Text>
-                      </View>
+                <Text style={styles.title}>הרשמו והפכו לחלק</Text>
+                <Text style={styles.subtitle}>ממהפכה של שמחה!</Text>
+              </View>
               <View style={styles.buttonsContainer}>
-                        <Button rounded style={styles.button}>
+                <Button rounded style={styles.button} onPress={() => loginWithFacebook()}>
                   <Text>התחברו באמצעות </Text>
                   <Icon name="logo-facebook" />
                 </Button>
-                      </View>
+              </View>
               <View style={styles.buttonsContainer}>
-                        <Button rounded style={styles.registerButton}>
+                <Button rounded style={styles.registerButton}>
                   <Text>צרו חשבון חדש</Text>
                 </Button>
-                      </View>
+              </View>
               <View style={styles.orTextContainer}>
-                        <Text style={styles.orText}>או</Text>
-                      </View>
+                <Text style={styles.orText}>או</Text>
+              </View>
               <View style={styles.buttonsContainer}>
-                        <Button
+                <Button
                   rounded
                   bordered
                   style={styles.guestButton}
@@ -90,7 +81,7 @@ class App extends React.Component {
                 >
                   <Text style={styles.guestButtonText}>התחברו בחווע</Text>
                 </Button>
-                      </View>
+              </View>
             </View>
           </Content>
         </Container>

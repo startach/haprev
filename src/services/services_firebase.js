@@ -1,56 +1,79 @@
 import * as firebase from 'firebase';
+import Expo from 'expo';
 
 // Initialize Firebase
 const firebaseConfig = {
-   apiKey: "AIzaSyDiRuZXqde0_r4I1FvkuAzq8HpfzvQ2lC8",
-   authDomain: "happrev.firebaseapp.com",
-   databaseURL: "https://happrev.firebaseio.com",
-   storageBucket: "happrev.appspot.com",
+  apiKey: 'AIzaSyDiRuZXqde0_r4I1FvkuAzq8HpfzvQ2lC8',
+  authDomain: 'happrev.firebaseapp.com',
+  databaseURL: 'https://happrev.firebaseio.com',
+  storageBucket: 'happrev.appspot.com',
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-//firebase.database.enableLogging(true);
+
+// firebase.database.enableLogging(true);
+
 const DELAY = 200;
 
 const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export const getUserData = async (uid) => {
   await timeout(DELAY);
-  return ({
+  return {
     uid,
     first: 'dan',
     last: 'shamir',
-    avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAy-AAAAJDQ2NDI3ZTFlLWE1YzAtNDBjOC1iMzJhLTVkYTQxN2MzNjdmMQ.jpg',
-  });
+    avatar:
+      'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAy-AAAAJDQ2NDI3ZTFlLWE1YzAtNDBjOC1iMzJhLTVkYTQxN2MzNjdmMQ.jpg',
+  };
 };
 
 const getDataFromService = async (repo) => {
-  const db = await firebase.database().ref(repo)
-   .orderByKey();
-  
+  const db = await firebase.database().ref(repo).orderByKey();
+
   const data = await db.once('value');
   const valued = data.val();
+  const result = Object.keys(valued).map(key => valued[key]);
 
-   var result = Object.keys(valued).map(function(key){
-    return valued[key];
-   });
-
-   console.log(result);
+  console.log(result);
   return result; // return only values and not all dictionary with keys
-
-}
+};
 
 export const getContactsFromService = async () => {
-    console.log('get users');
-  return await getDataFromService('users/');
+  console.log('get users');
+  await getDataFromService('users/');
 };
 
 export const getHospitalsFromService = async () => {
-    console.log('get hospitals');
-  return await getDataFromService('hospitals/');
+  console.log('get hospitals');
+  await getDataFromService('hospitals/');
 };
 
 export const dummy = () => null;
+// Listen for authentication state to change.
+firebase.auth().onAuthStateChanged((user) => {
+  if (user != null) {
+    console.log('We are authenticated now!', user);
+  }
+
+  // Do other things
+});
+
+export async function loginWithFacebook() {
+  const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('711733609025916', {
+    permissions: ['public_profile'],
+  });
+
+  if (type === 'success') {
+    // Build Firebase credential with the Facebook access token.
+    const credential = firebase.auth.FacebookAuthProvider.credential(token);
+
+    // Sign in with credential from the Facebook user.
+    firebase.auth().signInWithCredential(credential).catch((error) => {
+      // Handle Errors here.
+    });
+  }
+}
 
 /*
         // firebase.database.enableLogging(true);
@@ -72,9 +95,6 @@ export const dummy = () => null;
                 "users": mitnadvim,
                 "hospital": hospital
             };
-
-
-
             ref.set(dataToSend, function() {
                 console.log('saved');
             });
@@ -163,7 +183,7 @@ export const dummy = () => null;
 
 
         function createOptionListGeneric(collectionName, htmlSelector, labelSelector) {
-            return firebase.database().ref(collectionName).orderByKey().once('value').then(function(snapshot) {
+                return firebase.database().ref(collectionName).orderByKey().once('value').then(function(snapshot) {
                 console.log('start');
                 var entities = snapshot.val();
                 var keys = Object.keys(entities);
@@ -211,9 +231,7 @@ export const dummy = () => null;
         }
 
         function refreshDataGeneric(collectionName, htmlSelector, formatFunction) {
-
-
-            firebase.database().ref(collectionName).orderByKey().once('value').then(function(snapshot) {
+        firebase.database().ref(collectionName).orderByKey().once('value').then(function(snapshot) {
                 console.log('start');
                 var users = snapshot.val();
                 var keys = Object.keys(users);
@@ -267,9 +285,6 @@ export const dummy = () => null;
                 "avatarUrl": avatarUrl,
                 "name": name
             };
-
-
-
             ref.set(dataToSend, function() {
                 refresUserData();
             });
