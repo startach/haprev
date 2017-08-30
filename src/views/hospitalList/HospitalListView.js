@@ -19,16 +19,18 @@ const styles = StyleSheet.create({
 
 class HospitalListView extends Component {
   render() {
-    const { navigation, avatar, hospitals } = this.props;
+    const { navigation, avatar, hospitals, selectHospital } = this.props;
 
     const regions = _.groupBy(hospitals, 'region');
     const res = _.map(regions, (hospitalsInRegion, region) => {
       const hospitalsElemnts = _.map(hospitalsInRegion, hospital => (
         <Hospital
           key={hospital.id}
+          id={hospital.id}
           name={hospital.name}
           city={hospital.city}
           pictureUrl={hospital.pictureUrl}
+          selectHospital={selectHospital}
         />
       ));
       return (

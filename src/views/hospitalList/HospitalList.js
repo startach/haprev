@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HospitalListView from './HospitalListView';
-import { getHospitals } from '../../store/modules/hospitals';
+import { getHospitals, selectHospital } from '../../store/modules/hospitals';
 
 class Search extends Component {
   componentDidMount() {
@@ -15,6 +15,7 @@ class Search extends Component {
         navigation={navigation}
         avatar={avatar}
         hospitals={hospitals}
+        selectHospital={selectHospital}
       />
     );
   }
@@ -27,4 +28,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default connect(mapStateToProps, { getHospitals })(Search);
+export default connect(mapStateToProps, { getHospitals, selectHospital })(Search);
