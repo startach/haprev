@@ -4,18 +4,28 @@ import HospitalListView from './HospitalListView';
 import { getHospitals, selectHospital } from '../../store/modules/hospitals';
 
 class Search extends Component {
+
+constructor(){
+  super()
+  this.onHospitalSelected = this.onHospitalSelected.bind(this)
+}
+
   componentDidMount() {
     this.props.getHospitals();
   }
 
+  onHospitalSelected(hospitalId) {
+    selectHospital(hospitalId);
+    this.props.navigation.navigate('SelectDate');
+  }
+
   render() {
-    const { navigation, avatar, hospitals } = this.props;
+    const {  avatar, hospitals } = this.props;
     return (
       <HospitalListView
-        navigation={navigation}
         avatar={avatar}
         hospitals={hospitals}
-        selectHospital={selectHospital}
+        onHospitalSelected={this.onHospitalSelected}
       />
     );
   }

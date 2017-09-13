@@ -6,6 +6,7 @@ import HospitalScreen from '../views/hospitalList/HospitalList';
 import SplashScreen from '../views/Splash';
 import LoggedIn from './LogedInNavigator';
 import GuestIntro from '../views/login/GuestIntro';
+import SelectDateScreen from '../views/hospitalList/SelectDate';
 
 export default StackNavigator(
   {
@@ -44,9 +45,9 @@ export default StackNavigator(
         header: null,
       },
     },
+    SelectDate: { screen: SelectDateScreen },
   },
   {
     initialRouteName: 'Splash',
-    //initialRouteName: 'LoggedIn',
   },
 );

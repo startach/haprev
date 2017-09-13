@@ -18,8 +18,9 @@ const styles = StyleSheet.create({
 });
 
 class HospitalListView extends Component {
+  
   render() {
-    const { navigation, avatar, hospitals, selectHospital } = this.props;
+    const { navigation, avatar, hospitals, onHospitalSelected } = this.props;
 
     const regions = _.groupBy(hospitals, 'region');
     const res = _.map(regions, (hospitalsInRegion, region) => {
@@ -30,7 +31,7 @@ class HospitalListView extends Component {
           name={hospital.name}
           city={hospital.city}
           pictureUrl={hospital.pictureUrl}
-          selectHospital={selectHospital}
+          hospitalSelected={onHospitalSelected}
         />
       ));
       return (
