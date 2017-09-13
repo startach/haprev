@@ -87,8 +87,14 @@ const LoggedInNavigator = TabNavigator(
       style: {
         backgroundColor: "white"
       },
-      activeTintColor: "white",
-      inactiveTintColor: "black"
+      activeTintColor: 'white',
+      inactiveTintColor: 'black',
+      indicatorStyle: {
+        backgroundColor: 'red',
+        borderRadius: 43/2,
+        height: 43,
+        //width: 43
+      },
     }
   }
 );
