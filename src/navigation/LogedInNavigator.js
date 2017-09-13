@@ -86,12 +86,11 @@ const LoggedInNavigator = TabNavigator(
       showIcon: true,
       showLabel: false,
       style: {
-        backgroundColor: 'transparent',
+        backgroundColor: 'white',
       },
-      activeTintColor: 'red',
+      activeTintColor: 'white',
       inactiveTintColor: 'black',
     }
-
   },
 );
 
