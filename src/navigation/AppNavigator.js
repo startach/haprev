@@ -18,7 +18,11 @@ export default StackNavigator(
         header: null,
       },
     },
-    LoggedIn: { screen: LoggedIn },
+    LoggedIn: { screen: LoggedIn,
+      navigationOptions: {
+        header: null,
+      }, 
+    },
     GuestIntro: {
       screen: GuestIntro,
       navigationOptions: {

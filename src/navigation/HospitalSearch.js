@@ -4,8 +4,15 @@ import SelectDateScreen from '../views/hospitalList/SelectDate';
 
 export default StackNavigator(
   {
-    SearchHospital: { screen: SearchHospital },
-    SelectDate: { screen: SelectDateScreen },
+    SearchHospital: { screen: SearchHospital ,
+      navigationOptions:{
+        header: null,
+      }},
+    SelectDate: { screen: SelectDateScreen,
+      navigationOptions:{
+        header:null,
+      }
+     },
   },
   {
     initialRouteName: 'SearchHospital',

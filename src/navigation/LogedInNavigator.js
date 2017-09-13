@@ -66,6 +66,7 @@ const LoggedInNavigator = TabNavigator(
     Search: {
       screen: HospitalScreen,
       navigationOptions: {
+        header:null,
         tabBarIcon: ({ tintColor }) => (
           <Image
             source={require("../images/search_icon.png")}
