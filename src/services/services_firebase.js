@@ -65,13 +65,15 @@ export async function loginWithFacebook() {
   });
 
   if (type === 'success') {
+    console.log('elad1', token);
+
     // Build Firebase credential with the Facebook access token.
-    const credential = firebase.auth.FacebookAuthProvider.credential(token);
+    const firebaseToken = firebase.auth.FacebookAuthProvider.credential(token);
+    console.log('elad2', firebaseToken);
 
     // Sign in with credential from the Facebook user.
-    firebase.auth().signInWithCredential(credential).catch((error) => {
-      // Handle Errors here.
-    });
+    let res = await firebase.auth().signInWithCredential(firebaseToken);
+    console.log('res', res);
   }
 }
 
