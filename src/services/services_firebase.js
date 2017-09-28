@@ -52,6 +52,7 @@ export const getHospitalsFromService = async () => {
 export const dummy = () => null;
 // Listen for authentication state to change.
 firebase.auth().onAuthStateChanged((user) => {
+  console.log('onAuth', user);
   if (user != null) {
     console.log('We are authenticated now!', user);
   }
@@ -68,228 +69,237 @@ export async function loginWithFacebook() {
     console.log('elad1', token);
 
     // Build Firebase credential with the Facebook access token.
-    const firebaseToken = firebase.auth.FacebookAuthProvider.credential(token);
-    console.log('elad2', firebaseToken);
+    const credential = firebase.auth.FacebookAuthProvider.credential(token);
+    console.log('elad2', credential);
 
     // Sign in with credential from the Facebook user.
-    let res = await firebase.auth().signInWithCredential(firebaseToken);
-    console.log('res', res);
+    firebase.auth().signInWithCredential(credential).catch((error) => {
+      console.log('error', error);
+    });
   }
 }
 
 /*
-        // firebase.database.enableLogging(true);
+// firebase.database.enableLogging(true);
 
-        $("#hitnadvutSubmit").click(function() {
-            var date = $("#date").val();
-            var hospital = $("#hospital_option").val();
-            var mitnadvim = $("#mitnadvim_option").val();
+$('#hitnadvutSubmit').click(() => {
+  const date = $('#date').val();
+  const hospital = $('#hospital_option').val();
+  const mitnadvim = $('#mitnadvim_option').val();
 
-            var key = hospital + '-' + date;
+  const key = `${hospital}-${date}`;
 
-            console.log(date, hospital, mitnadvim);
+  console.log(date, hospital, mitnadvim);
 
-            var ref = firebase.database().ref('hitnadvut/' + key)
+  const ref = firebase.database().ref(`hitnadvut/${key}`);
 
-            dataToSend = {
+  dataToSend = {
+    date,
+    users: mitnadvim,
+    hospital,
+  };
+  ref.set(dataToSend, () => {
+    console.log('saved');
+  });
+});
 
-                "date": date,
-                "users": mitnadvim,
-                "hospital": hospital
-            };
-            ref.set(dataToSend, function() {
-                console.log('saved');
-            });
-        })
+function createHospitalOptions() {
+  createOptionListGeneric('hospitals/', '#hospital_option', hospital => hospital.name);
+}
 
-        function createHospitalOptions() {
-            createOptionListGeneric("hospitals/", "#hospital_option", function(hospital) {
-                return hospital.name;
-            })
+function createMitndadvimOptions() {
+  const q = createOptionListGeneric('users/', '#mitnadvim_option', user => user.email);
+
+  q.then(() => {
+    $('#mitnadvim_option').SumoSelect();
+  });
+}
+
+$('#btnFacebookLogin').click(() => {
+  loginWithFacebook();
+});
+
+function loginWithFacebook() {
+  const provider = new firebase.auth.FacebookAuthProvider();
+
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API. var token = result.credential.accessToken; // The signed-in user info. var user = result.user;
+      const profile = result.additionalUserInfo.profile;
+
+      const email = profile.email;
+      const name = profile.name;
+      const imgUrl = profile.picture.data.url;
+
+      addMitnadev(email, email, imgUrl, name);
+
+      console.log(result);
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      console.log(error);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      const credential = error.credential;
+      // ...
+    });
+}
+
+function createHitnadvutList() {
+  let userStore = [];
+  let hospitalStore = [];
+  // first set user store
+  firebase
+    .database()
+    .ref('users/')
+    .orderByKey()
+    .once('value')
+    .then((snapshot) => {
+      console.log('start');
+      userStore = snapshot.val();
+    })
+    .then(
+      firebase.database().ref('hospitals/').orderByKey().once('value').then((snapshot) => {
+        console.log('start');
+        hospitalStore = snapshot.val();
+      }),
+    )
+    .then(() => {
+      refreshDataGeneric('hitnadvut/', '#hitnadvuts', (hitnadvut, keys) => {
+        const hospitalLabel = hospitalStore[hitnadvut.hospital].name;
+
+        let userHtml;
+        for (var i = 0; i < hitnadvut.users.length; i++) {
+          const user = userStore[hitnadvut.users[i]];
+
+          userHtml += `<div>${user.email}
+							  <img src="${user.avatarUrl}" width="32" height="32"/>
+							</div>`;
         }
 
-        function createMitndadvimOptions() {
-            var q = createOptionListGeneric("users/", "#mitnadvim_option", function(user) {
-                return user.email;
-            })
+        return `<div class="hitnadvut" id="${keys[i]}">
+							${hospitalLabel} ${hitnadvut.date}
+							${userHtml}
+						</div>`;
+      });
+    });
+}
 
-            q.then(function() {
-                $("#mitnadvim_option").SumoSelect();
-            })
+function createOptionListGeneric(collectionName, htmlSelector, labelSelector) {
+  return firebase
+    .database()
+    .ref(collectionName)
+    .orderByKey()
+    .once('value')
+    .then((snapshot) => {
+      console.log('start');
+      const entities = snapshot.val();
+      const keys = Object.keys(entities);
 
+      $(htmlSelector).html('');
 
-        }
+      for (i = 0; i < keys.length; i++) {
+        const entity = entities[keys[i]];
 
-        $("#btnFacebookLogin").click(function() {
-            loginWithFacebook();
-        })
+        const label = labelSelector(entity);
 
-        function loginWithFacebook() {
-            var provider = new firebase.auth.FacebookAuthProvider();
+        $(htmlSelector).append(`<option value='${keys[i]}'>${label}</option>`);
+      }
 
-            firebase.auth().signInWithPopup(provider).then(function(result) { // This gives you a Facebook Access Token. You can use it to access the Facebook API. var token = result.credential.accessToken; // The signed-in user info. var user = result.user;
-                var profile = result.additionalUserInfo.profile;
+      $(htmlSelector).append('</select>');
+    });
+}
 
-                var email = profile.email;
-                var name = profile.name;
-                var imgUrl = profile.picture.data.url;
+function refresUserData() {
+  refreshDataGeneric('users/', '#users', (user, keys) => {
+    return (
+      `<div class="user" id="${
+        keys[i]
+      }">` +
+      `<img width="100" height="100" src="${
+        user.avatarUrl
+      }"></img>` +
+      `<div class="left"><span><b>email:</b>${
+        user.email
+      }</span>` +
+      `<div class="aligner-item">${
+        keys[i]
+      }</div></div>`
+    );
+    ('</div>');
+  });
+}
 
-                addMitnadev(email, email, imgUrl, name);
-
-                console.log(result);
-            }).catch(function(error) {
-                // Handle Errors here.
-                console.log(error);
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // ...
-            });
-        }
-
-        function createHitnadvutList() {
-            var userStore = [];
-            var hospitalStore = [];
-            // first set user store
-            firebase.database().ref('users/').orderByKey().once('value').then(function(snapshot) {
-                console.log('start');
-                userStore = snapshot.val();
-            }).then(
-                firebase.database().ref('hospitals/').orderByKey().once('value').then(function(snapshot) {
-                    console.log('start');
-                    hospitalStore = snapshot.val();
-                })).then(function() {
-
-                refreshDataGeneric('hitnadvut/', '#hitnadvuts', function(hitnadvut, keys) {
-                    var hospitalLabel = hospitalStore[hitnadvut.hospital].name;
-
-                    var userHtml;
-                    for (var i = 0; i < hitnadvut.users.length; i++) {
-                        var user = userStore[hitnadvut.users[i]];
-
-                        userHtml += `<div>${user.email}
-                              <img src="${user.avatarUrl}" width="32" height="32"/>
-                            </div>`
-                    }
-
-                    return `<div class="hitnadvut" id="${keys[i]}"> 
-                            ${hospitalLabel} ${hitnadvut.date}
-                            ${userHtml}
-                        </div>`;
-                })
-            })
-        }
+function refreshHospitalsData() {
+  refreshDataGeneric('hospitals/', '#hospitals', (hospital, keys) => `
+		<div class="hospital">
+			  <h2> ${hospital.name}</h2>
+			  <img class="hospital_image" src="${hospital.pictureUrl}"></img>
+			  <img class="hospital_logo" src="${hospital.logoUrl}"></img>
+			  <h3>${hospital.racazName}</h3>
+			<h3>${hospital.racazPhone}</h3>
+			<h3>${hospital.racazUsername}<h3>
+			</div>
 
 
-        function createOptionListGeneric(collectionName, htmlSelector, labelSelector) {
-                return firebase.database().ref(collectionName).orderByKey().once('value').then(function(snapshot) {
-                console.log('start');
-                var entities = snapshot.val();
-                var keys = Object.keys(entities);
+		`);
+}
 
-                $(htmlSelector).html(``);
+function refreshDataGeneric(collectionName, htmlSelector, formatFunction) {
+  firebase.database().ref(collectionName).orderByKey().once('value').then((snapshot) => {
+    console.log('start');
+    const users = snapshot.val();
+    const keys = Object.keys(users);
 
-                for (i = 0; i < keys.length; i++) {
+    $(htmlSelector).html('<div class="cards">');
 
-                    var entity = entities[keys[i]];
+    for (i = 0; i < keys.length; i++) {
+      const user = users[keys[i]];
 
-                    var label = labelSelector(entity);
+      $(htmlSelector).append(formatFunction(user, keys));
+    }
 
-                    $(htmlSelector).append(`<option value='${keys[i]}'>${label}</option>`);
-                }
+    $(htmlSelector).append('</div>');
+  });
+}
 
-                $(htmlSelector).append('</select>');
-            });
-        }
+$(document).ready(() => {
+  refresUserData();
+  refreshHospitalsData();
+  createHospitalOptions();
+  createMitndadvimOptions();
 
-        function refresUserData() {
-            refreshDataGeneric('users/', '#users', function(user, keys) {
-                return '<div class="user" id="' + keys[i] + '">' +
-                    '<img width="100" height="100" src="' + user.avatarUrl + '"></img>' +
-                    '<div class="left"><span><b>email:</b>' + user.email + '</span>' +
-                    '<div class="aligner-item">' + keys[i] + '</div></div>'
-                '</div>';
-            })
-        }
+  createHitnadvutList();
+});
 
-        function refreshHospitalsData() {
-            refreshDataGeneric('hospitals/', '#hospitals', function(hospital, keys) {
-                return `
-        <div class="hospital">
-              <h2> ${hospital.name}</h2>
-              <img class="hospital_image" src="${hospital.pictureUrl}"></img>
-              <img class="hospital_logo" src="${hospital.logoUrl}"></img>
-              <h3>${hospital.racazName}</h3>
-            <h3>${hospital.racazPhone}</h3>
-            <h3>${hospital.racazUsername}<h3>
-            </div>
+$('#submit').click(() => {
+  const dataToSend = {};
+  const userName = $('#userName').val();
+  const email = $('#email').val();
+  const avatarUrl = $('#avatarUrl').val();
 
+  addMitnadev(userName, email, avatarUrl);
 
-        `;
-            })
-        }
+  console.log('clilck');
+});
 
-        function refreshDataGeneric(collectionName, htmlSelector, formatFunction) {
-        firebase.database().ref(collectionName).orderByKey().once('value').then(function(snapshot) {
-                console.log('start');
-                var users = snapshot.val();
-                var keys = Object.keys(users);
+function addMitnadev(userName, email, avatarUrl, name) {
+  userName = userName.replace(/\W/g, '');
+  console.log(userName);
+  const ref = firebase.database().ref(`users/${userName}`);
 
-                $(htmlSelector).html('<div class="cards">');
-
-                for (i = 0; i < keys.length; i++) {
-
-                    var user = users[keys[i]];
-
-
-                    $(htmlSelector).append(
-                        formatFunction(user, keys)
-
-                    );
-                }
-
-                $(htmlSelector).append('</div>')
-            });
-        }
-
-        $(document).ready(function() {
-            refresUserData();
-            refreshHospitalsData();
-            createHospitalOptions();
-            createMitndadvimOptions();
-
-            createHitnadvutList();
-        });
-
-        $("#submit").click(function() {
-
-
-            var dataToSend = {};
-            var userName = $("#userName").val();
-            var email = $("#email").val();
-            var avatarUrl = $("#avatarUrl").val();
-
-            addMitnadev(userName, email, avatarUrl);
-
-            console.log('clilck');
-        })
-
-        function addMitnadev(userName, email, avatarUrl, name) {
-            userName = userName.replace(/\W/g, '')
-            console.log(userName);
-            var ref = firebase.database().ref('users/' + userName)
-
-            dataToSend = {
-                "email": email,
-                "avatarUrl": avatarUrl,
-                "name": name
-            };
-            ref.set(dataToSend, function() {
-                refresUserData();
-            });
-        }
-
-        */
+  dataToSend = {
+    email,
+    avatarUrl,
+    name,
+  };
+  ref.set(dataToSend, () => {
+    refresUserData();
+  });
+}
+*/
