@@ -93,7 +93,8 @@ const LoggedInNavigator = TabNavigator(
         backgroundColor: 'red',
         borderRadius: 43/2,
         height: 43,
-        //width: 43
+        position: 'relative',
+        top: 3
       },
     }
   }
