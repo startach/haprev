@@ -28,8 +28,23 @@ export const GetHospitalsFromService = async () => {
     { id: 1, name: 'אסותא אשדוד', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'דרום', city: 'אשדוד' },
     { id: 2, name: 'איכילוב', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'מרכז', city: 'תל אביב' },
     { id: 3, name: 'ביילינסון', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'מרכז', city: 'פתח תקווה' },
-    { id: 4, name: 'תל השומר', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'מרכז', city: 'רמת גן'  },
+    { id: 4, name: 'תל השומר', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'מרכז', city: 'רמת גן' },
     { id: 5, name: 'רמבם', pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/happrev.appspot.com/o/Layer%2025.jpg?alt=media&token=da5592af-8eaa-472b-a255-3d4fdca0f13a', region: 'צפון', city: 'חיפה' },
+  ]);
+};
+
+
+export const GetHospitalEvents = async (hospitalId) => {
+  await timeout(DELAY);
+  return ([
+    '2017-06-15', '2017-06-10', '2017-06-01',
+  ]);
+};
+
+export const GetHospitalEventsForUser = async (hospitalId,userId) => {
+  await timeout(DELAY);
+  return ([
+    '2017-06-15', '2017-06-08', '2017-06-05',
   ]);
 };
 
