@@ -17,17 +17,28 @@ export default (state = initalState, action = {}) => {
     case REQUEST_EVENTS:
       return {
         ...state,
-        usersEvents: [
+        userEvents: [
           ...state.userEvents,
           {
             userId: action.userId,
             hospitalId: action.hospitalId,
-            status: 'request',
-          },
-        ],
+            status: "request"
+          }
+        ]
       };
     case RESPONSE_EVENTS:
-      return { ...state, status: "", contacts: action.contacts };
+      const record = state.userEvents.find(
+        e => e.hospitalId === action.hospitalId && e.userId === action.userId,
+      );
+      Object.assign(record, {
+        status: "",
+        events: action.data
+      });
+
+      return {
+        ...state,
+        userEvents: [...state.userEvents, record]
+      };
 
     default:
       return state;
