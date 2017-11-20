@@ -4,12 +4,12 @@ import DashboardScreen from '../views/Dashboard';
 import SearchScreen from '../views/search/Search';
 import HospitalScreen from '../views/hospitalList/HospitalList';
 import SplashScreen from '../views/Splash';
-import LoggedIn from './LogedInNavigator';
+import Root from './LogedInNavigator';
 import GuestIntro from '../views/login/GuestIntro';
 import SelectDateScreen from '../views/hospitalList/SelectDate';
 
 export default StackNavigator(
-  {
+  { 
     Home: {
       screen: HomeScreen,
       headerMode: 'none',
@@ -18,7 +18,7 @@ export default StackNavigator(
         header: null,
       },
     },
-    LoggedIn: { screen: LoggedIn,
+    LoggedIn: { screen: Root,
       navigationOptions: {
         header: null,
       }, 
