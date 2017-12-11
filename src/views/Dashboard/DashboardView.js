@@ -11,6 +11,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#9DD6EB',
+  },
   text: {
     color: '#fff',
     fontSize: 30,
