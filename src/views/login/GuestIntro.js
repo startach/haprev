@@ -36,6 +36,7 @@ class GuestIntro extends React.Component {
 
     render() {
         const styles = this.props.style;
+        const {navigation} = this.props;
         if (!this.state.isReady) {
             return <Expo.AppLoading/>;
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         }
@@ -48,7 +49,7 @@ class GuestIntro extends React.Component {
                         <Text style={styles.subtitle}>כניסת אורחים לא מאפשרת רישום מתנדבים.</Text>
                     </View>
                     <View style={styles.buttonsContainer}>
-                        <Button rounded style={styles.registerButton}>
+                        <Button rounded style={styles.registerButton} onPress={() => this.props.navigation.navigate('LoggedIn')}                        >
                             <Text>הבנתי. המשך...</Text>
                         </Button>
                     </View>

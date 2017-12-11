@@ -1,14 +1,102 @@
-import React from "react";
-import { Image, StyleSheet } from "react-native";
+import React, {Component} from "react";
+import { Image, Button,StyleSheet, Dimensions ,TouchableHighlight, Linking } from "react-native";
+import LoggedInNavigator from './TabNav';
+import {DrawerNavigator,StackNavigator } from "react-navigation"; 
+import Icon from "react-native-vector-icons/FontAwesome"; 
+import ContactScreen from "../views/Contacts/Contacts";
+import ProfileScreen from "../views/profile/ProfileView";
+import HelpScreen from "../components/help/HelpView"; 
+
 
 import { TabNavigator } from "react-navigation";
 import DashboardScreen from "../views/Dashboard";
-import ContactScreen from "../views/Contacts/Contacts";
+
 import ChatScreen from "../views/chat/ChatView";
-import ProfileScreen from "../views/profile/ProfileView";
+
 //import HospitalScreen from "../views/hospitalList/HospitalList";
 import HospitalScreen from'./HospitalSearch';
 
+const { width } = Dimensions.get('screen'); 
+
+const Drawer = DrawerNavigator ({
+  HomeTabs:{
+    screen: LoggedInNavigator, 
+  },  
+  Home:{
+    screen: ContactScreen, 
+    navigationOptions: { 
+        drawerLabel: 'בית',
+        drawerIcon: ({ tintColor }) => <Icon name="home" size={24} />
+      }, 
+  },  
+  Facebook_haprev: {
+    screen: () => { Linking.canOpenURL('fb://page/arevolutionofhappiness')
+    .then((supported) => {
+      if (!supported) {
+        Linking.openURL('http://facebook.com/arevolutionofhappiness/')
+      } else {
+        Linking.openURL('fb://page/arevolutionofhappiness')
+      }})
+    .catch(err => console.error('An error occurred', err))
+   return null},
+  navigationOptions: {
+      drawerLabel: 'סטארט-אח',
+      drawerIcon: ({ tintColor }) => <Icon name="facebook" size={24} />
+    }, 
+},
+  Facebook_startach: {
+    screen: () => { Linking.canOpenURL('fb://page/StartAchCom')
+      .then((supported) => {
+        if (!supported) {
+          Linking.openURL('http://facebook.com/StartAchCom/')
+        } else {
+          Linking.openURL('fb://page/StartAchCom')
+        }})
+      .catch(err => console.error('An error occurred', err))
+     return null},
+    navigationOptions: {
+        drawerLabel: 'סטארט-אח',
+        drawerIcon: ({ tintColor }) => <Icon name="facebook" size={24} />
+      }, 
+  },
+  Profile:{
+    screen: ProfileScreen,
+    navigationOptions: {
+        drawerLabel: "פרופיל",
+        drawerIcon: ({ tintColor }) => <Icon name="user" size={24} />,
+      },
+  },  
+  Help:{
+    screen: HelpScreen,
+    navigationOptions: {
+        drawerLabel: 'עזרה',
+        drawerIcon: ({ tintColor }) => <Icon name="info" size={24} />
+      },
+      itemsContainerStyle: {
+        backgroundColor: 'blue',
+      },
+      backgroundColor: 'pink'
+  },   
+  
+}, 
+{
+  drawerWidth: width/1.6,
+  contentOptions: {
+    activeTintColor: '#e91e63',
+    itemsContainerStyle: {
+      marginVertical: 0,
+    },
+    iconContainerStyle: {
+      opacity: 1
+    },
+    style: {
+     // direction: 'rtl' //for ios
+    },
+  },
+},
+);
+
+/*
 const styles = StyleSheet.create({
   icon: {
     height: 24,
@@ -16,8 +104,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent"
   }
 });
-
-const LoggedInNavigator = TabNavigator(
+const TabNav = TabNavigator(
   {
     Contacts: {
       screen: ContactScreen,
@@ -75,9 +162,9 @@ const LoggedInNavigator = TabNavigator(
         )
       }
     }
-  },
+  }, 
   {
-    initialRouteName: "Contacts",
+    initialRouteName: "Contacts", 
     tabBarPosition: "bottom",
     swipeEnabled: false,
     showLabel: false,
@@ -97,7 +184,87 @@ const LoggedInNavigator = TabNavigator(
         top: 3
       },
     }
+  },
+  {
+    tabBarPosition: 'bottom',
   }
 );
 
-export default () => <LoggedInNavigator onNavigationStateChange={null} />;
+
+const Drawer = DrawerNavigator ({
+  HomeTabs:{
+    screen: LoggedInNavigator, 
+  },  
+  Home:{
+    screen: ContactScreen, 
+    navigationOptions: { 
+        drawerLabel: 'בית',
+        drawerIcon: ({ tintColor }) => <Icon name="home" size={24} />
+      }, 
+  },  
+  Facebook_haprev: {
+    screen: () => { Linking.openURL('https://www.facebook.com/StartAchCom/').catch(err => console.error('An error occurred', err)); return null },
+    navigationOptions: {
+        drawerLabel: 'מהפכה של שמחה',
+        drawerIcon: ({ tintColor }) => <Icon name="facebook" size={24} />
+      }, 
+  },
+  Facebook_startach: {
+    screen: () => { Linking.openURL('https://www.facebook.com/StartAchCom/').catch(err => console.error('An error occurred', err)); return null},
+    navigationOptions: {
+        drawerLabel: 'סטארט-אח',
+        drawerIcon: ({ tintColor }) => <Icon name="facebook" size={24} />
+      }, 
+  },
+  Profile:{
+    screen: ProfileScreen,
+    navigationOptions: {
+        drawerLabel: "פרופיל",
+        drawerIcon: ({ tintColor }) => <Icon name="user" size={24} />,
+      },
+  },  
+  Help:{
+    screen: HelpScreen,
+    navigationOptions: {
+        drawerLabel: 'עזרה',
+        drawerIcon: ({ tintColor }) => <Icon name="info" size={24} />
+      },
+      itemsContainerStyle: {
+        backgroundColor: 'blue',
+      },
+      backgroundColor: 'pink'
+  },   
+  
+}, 
+{
+  drawerWidth: width/1.6,
+  contentOptions: {
+    activeTintColor: '#e91e63',
+    itemsContainerStyle: {
+      marginVertical: 0,
+    },
+    iconContainerStyle: {
+      opacity: 1
+    },
+    style: {
+     // direction: 'rtl' //for ios
+    },
+  },
+},
+);
+
+ const StackNav= StackNavigator({
+Home: { screen: TabNav },
+Drawer: { screen: Drawer }
+}, stackNavigatorConfig);
+*/
+class Root extends Component {
+  render(){
+    return(
+      <Drawer>
+
+      </Drawer>
+    ) 
+  }
+}
+export default Root;
