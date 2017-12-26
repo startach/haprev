@@ -7,11 +7,20 @@ import SplashScreen from '../views/Splash';
 import Root from './LogedInNavigator';
 import GuestIntro from '../views/login/GuestIntro';
 import SelectDateScreen from '../views/hospitalList/SelectDate';
+import RegisterScreen from '../views/register/Register';
 
 export default StackNavigator(
   { 
     Home: {
       screen: HomeScreen,
+      headerMode: 'none',
+      header: null,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    Register: {
+      screen: RegisterScreen,
       headerMode: 'none',
       header: null,
       navigationOptions: {
@@ -52,6 +61,6 @@ export default StackNavigator(
     SelectDate: { screen: SelectDateScreen },
   },
   {
-    initialRouteName: 'Splash',
+    initialRouteName: 'Register',
   },
 );
