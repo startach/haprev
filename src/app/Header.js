@@ -10,7 +10,7 @@ class Header extends Component {
       <TouchableOpacity  onPress={() => navigation.navigate('DrawerOpen')}>
         <Icon style={styles.back} name="bars" size={32} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => { navigation.goBack(); }}>
+      <TouchableOpacity onPress={() => { navigation.goBack(null); }}>
         <Text style={styles.back}>{back}</Text>
       </TouchableOpacity>
         <Text style={styles.headerText}>{caption}</Text>
