@@ -25,7 +25,7 @@ const Drawer = DrawerNavigator ({
   Home:{
     screen: ContactScreen, 
     navigationOptions: { 
-        drawerLabel: 'áéú',
+        drawerLabel: '×“×£ ×”×‘×™×ª',
         drawerIcon: ({ tintColor }) => <Icon name="home" size={24} />
       }, 
   },  
@@ -40,7 +40,7 @@ const Drawer = DrawerNavigator ({
     .catch(err => console.error('An error occurred', err))
    return null},
   navigationOptions: {
-      drawerLabel: 'ñèàøè-àç',
+      drawerLabel: '×ž×”×¤×›×” ×©×œ ×©×ž×—×” ×‘×¤×™×™×¡×‘×•×§',
       drawerIcon: ({ tintColor }) => <Icon name="facebook" size={24} />
     }, 
 },
@@ -55,21 +55,21 @@ const Drawer = DrawerNavigator ({
       .catch(err => console.error('An error occurred', err))
      return null},
     navigationOptions: {
-        drawerLabel: 'ñèàøè-àç',
+        drawerLabel: '×¡×˜××¨×˜××— ×‘×¤×™×™×¡×‘×•×§',
         drawerIcon: ({ tintColor }) => <Icon name="facebook" size={24} />
       }, 
   },
   Profile:{
     screen: ProfileScreen,
     navigationOptions: {
-        drawerLabel: "ôøåôéì",
+        drawerLabel: "×¤×¨×•×¤×™×œ",
         drawerIcon: ({ tintColor }) => <Icon name="user" size={24} />,
       },
   },  
   Help:{
     screen: HelpScreen,
     navigationOptions: {
-        drawerLabel: 'òæøä',
+        drawerLabel: '×¢×–×¨×”',
         drawerIcon: ({ tintColor }) => <Icon name="info" size={24} />
       },
       itemsContainerStyle: {
@@ -198,35 +198,35 @@ const Drawer = DrawerNavigator ({
   Home:{
     screen: ContactScreen, 
     navigationOptions: { 
-        drawerLabel: 'áéú',
+        drawerLabel: 'ï¿½ï¿½ï¿½',
         drawerIcon: ({ tintColor }) => <Icon name="home" size={24} />
       }, 
   },  
   Facebook_haprev: {
     screen: () => { Linking.openURL('https://www.facebook.com/StartAchCom/').catch(err => console.error('An error occurred', err)); return null },
     navigationOptions: {
-        drawerLabel: 'îäôëä ùì ùîçä',
+        drawerLabel: 'ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½',
         drawerIcon: ({ tintColor }) => <Icon name="facebook" size={24} />
       }, 
   },
   Facebook_startach: {
     screen: () => { Linking.openURL('https://www.facebook.com/StartAchCom/').catch(err => console.error('An error occurred', err)); return null},
     navigationOptions: {
-        drawerLabel: 'ñèàøè-àç',
+        drawerLabel: 'ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½',
         drawerIcon: ({ tintColor }) => <Icon name="facebook" size={24} />
       }, 
   },
   Profile:{
     screen: ProfileScreen,
     navigationOptions: {
-        drawerLabel: "ôøåôéì",
+        drawerLabel: "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
         drawerIcon: ({ tintColor }) => <Icon name="user" size={24} />,
       },
   },  
   Help:{
     screen: HelpScreen,
     navigationOptions: {
-        drawerLabel: 'òæøä',
+        drawerLabel: 'ï¿½ï¿½ï¿½ï¿½',
         drawerIcon: ({ tintColor }) => <Icon name="info" size={24} />
       },
       itemsContainerStyle: {
