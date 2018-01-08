@@ -20,20 +20,16 @@
     "eslint-config-defaults": "^9.0.0",
     "expo": "^21.0.0",
     "firebase": "^4.3.0",
-    "immutable": "^3.8.2",
-    "link": "^0.1.5",
+    
     "native-base": "^2.2.1",
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.12",
     "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
     "react-native-calendars": "^1.6.2",
-    "react-native-clean-form": "^0.4.2",
-    "react-native-elements": "^0.18.5",
-    "react-native-form-validator": "^0.2.0",
-    "react-native-forms": "^1.0.1",
+   
+   
     "react-native-material-dialog": "^0.7.3",
-    "react-native-material-ui": "^1.18.0",
-    "react-native-swiper": "^1.5.13",
+   
     "react-native-textinput-effects": "^0.4.2",
     "react-native-vector-icons": "^4.4.3",
     "react-navigation": "^1.0.0-beta.11",
