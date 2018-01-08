@@ -5,9 +5,7 @@ import DashboardScreen from "../views/Dashboard";
 import ContactScreen from "../views/Contacts/Contacts";
 import ChatScreen from "../views/chat/ChatView";
 import ProfileScreen from "../views/profile/ProfileView";
-//import HospitalScreen from "../views/hospitalList/HospitalList";
 import HospitalScreen from'./HospitalSearch';
-
 
 const styles = StyleSheet.create({
   icon: {
@@ -17,7 +15,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const LoggedInNavigator = TabNavigator(
+const TabNav = TabNavigator(
   {
     Contacts: {
       screen: ContactScreen,
@@ -100,5 +98,4 @@ const LoggedInNavigator = TabNavigator(
   }
 );
 
-export default LoggedInNavigator;
-//export default () => <LoggedInNavigator onNavigationStateChange={null} />
+export default TabNav;
