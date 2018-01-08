@@ -61,6 +61,10 @@ export default StackNavigator(
     SelectDate: { screen: SelectDateScreen },
   },
   {
+
     initialRouteName: 'Splash',
+
+    //initialRouteName: 'LoggedIn',
+
   },
 );
