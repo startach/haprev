@@ -29,6 +29,20 @@ export default StyleSheet.create({
         color:'white',
         fontSize: 36,
         fontWeight:'400'
-    
+      },
+      registerButton: {
+        justifyContent: 'center',
+        marginTop: 24,
+        height: 60,
+        width: '100%',
+      },
+      buttonsContainer: {
+        marginHorizontal: 36,
+        justifyContent: 'center'
+      },
+      buttonText: {
+        color:'white',
+        fontSize: 26,
+        fontWeight: '400',
       }
 });
