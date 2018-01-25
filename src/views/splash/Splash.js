@@ -1,36 +1,20 @@
-import React from 'react';
-import { View, Image } from 'react-native';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import SplashView from './SplashView'
+import {authorize} from '../../store/modules/user'
 
-const splashImg = require('../../images/splash.jpg');
+class Splash extends Component{
 
-export default class SplashScreen extends React.Component {
-  componentWillMount() {
-    const { navigate } = this.props.navigation;
-    setTimeout(() => {
-      navigate('Register');
-    }, 2000);
-  }
-  render() {
-    return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: 'red',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <Image
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '100%'
-          }}
-          source={splashImg}
-        />
-      </View>
-    );
-  }
+    componentDidMount(){
+        this.props.authorize(Expo.Constants.deviceId)
+    }
+
+    render(){
+        const { navigate } = this.props.navigation;
+        return (
+            <SplashView navigate={navigate} />
+        )
+    }
 }
+
+export default connect(null,{authorize})(Splash)

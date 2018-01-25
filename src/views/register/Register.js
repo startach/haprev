@@ -1,19 +1,19 @@
-import React from 'react'
-import {View,Text,StyleSheet} from 'react-native'
+import React, { Component } from 'react'
+import RegisterView from './RegisterView'
+import { connect } from 'react-redux'
 
-const styles = StyleSheet.create({
-    container:{
-        marginTop:50
-    }
-})
 
-const Register = (props) =>
-{
-    return(
-        <View style={styles.container}>
-            <Text> this will be Register screen </Text>
-        </View>
-    )
+class Register extends Component{
+    render(){
+        return(
+        <RegisterView user={this.props.user} />
+        )}
 }
 
-export default Register
+const mapStateToProps =state =>{ 
+return ({
+            user:state.user.user
+        })
+}
+
+export default connect(mapStateToProps)( Register)
