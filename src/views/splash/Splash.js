@@ -1,19 +1,36 @@
-import React from 'react'
-import {View,Text,StyleSheet} from 'react-native'
+import React from 'react';
+import { View, Image } from 'react-native';
 
-const styles = StyleSheet.create({
-    container:{
-        marginTop:50
-    }
-})
+const splashImg = require('../../images/splash.jpg');
 
-const Splash = (props) =>
-{
-    return(
-        <View style={styles.container}>
-            <Text> this will be splash screen </Text>
-        </View>
-    )
+export default class SplashScreen extends React.Component {
+  componentWillMount() {
+    const { navigate } = this.props.navigation;
+    setTimeout(() => {
+      navigate('Register');
+    }, 2000);
+  }
+  render() {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: 'red',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <Image
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            width: '100%',
+            height: '100%'
+          }}
+          source={splashImg}
+        />
+      </View>
+    );
+  }
 }
-
-export default Splash
