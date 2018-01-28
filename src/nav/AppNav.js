@@ -1,27 +1,14 @@
 import { StackNavigator } from 'react-navigation';
-import Home from '../views/home/Home'
-import Institutes from '../views/institutes/Institutes'
-import Profile from '../views/profile/Profile'
+import DrawerNav from './DrawerNav'
 
 export default StackNavigator({
-    Home:{
-        screen: Home,
-        headerMode: 'none',
-        header: null,
-        navigationOptions: { header: null, },
+        DrawerNav:{
+            screen: DrawerNav,
+            headerMode: 'screen',
+            navigationOptions: {
+                headerTitle: 'דף הבית',
+            },
+        },
     },
-    Institutes:{
-        screen: Institutes,
-        headerMode: 'none',
-        header: null,
-        navigationOptions: { header: null, },
-    },
-    Profile:{
-        screen: Profile,
-        headerMode: 'none',
-        header: null,
-        navigationOptions: { header: null, },
-    },
-    },
-        { initialRouteName: 'Home',}
+    { initialRouteName: 'DrawerNav',}
 )
