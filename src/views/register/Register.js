@@ -1,23 +1,19 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import RegisterView from './RegisterView';
+import React, { Component } from 'react'
+import RegisterView from './RegisterView'
+import { connect } from 'react-redux'
 
-class Register extends Component {
 
-  
-  render() {
-    return (
-      <RegisterView     />
-    );
-  }
+class Register extends Component{
+    render(){
+        return(
+        <RegisterView user={this.props.user} />
+        )}
 }
 
-const mapStateToProps = state => (
-  {
-    avatar: state.user.user.avatar,
-    hospitals: state.hospitals.hospitals,
-  }
-);
+const mapStateToProps =state =>{ 
+return ({
+            user:state.user.user
+        })
+}
 
-//export default connect(mapStateToProps, { getHospitals, selectHospital })(Search);
-export default Register;
+export default connect(mapStateToProps)( Register)

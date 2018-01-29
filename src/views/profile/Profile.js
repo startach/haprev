@@ -7,14 +7,13 @@ const styles = StyleSheet.create({
     }
 })
 
-const Register = (props) =>
+const Profile = (props) =>
 {
-    console.log('kuku', props.user)
     return(
         <View style={styles.container}>
-            <Text> this will be Register screen </Text>
+            <Text> this will be Profile screen </Text>
         </View>
     )
 }
 
-export default Register
+export default Profile

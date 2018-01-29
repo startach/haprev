@@ -1,8 +1,0 @@
-{
-    "eslint.enable": true,
-    "react-native": {
-        "packager": {
-            "port": 19003
-        }
-    }
-}

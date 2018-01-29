@@ -1,3 +1,10 @@
-import App from './src/app/App';
+import React from 'react';
+import Nav from './src/app/App'
 
-export default App;
+export default class App extends React.Component {
+  render() {
+    return (
+      <Nav/>
+    )
+  }
+}

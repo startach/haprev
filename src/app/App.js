@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import Expo from 'expo';
 import getStore from '../store/createStore';
-import Nav from '../navigation/AppNavigator';
-
+import Nav from '../nav/RegisterNav';
 
 const store = getStore;
 
@@ -16,13 +15,14 @@ class App extends Component {
   }
 
   async componentWillMount() {
+      /*
     await Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     });
+    */
     this.setState({ fontsAreLoaded: true });
   }
-
 
   render() {
     if (this.state.fontsAreLoaded) {
