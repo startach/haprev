@@ -7,7 +7,7 @@ export default class SplashScreen extends React.Component {
   componentWillMount() {
     const { navigate } = this.props;
     setTimeout(() => {
-      navigate('Register');
+      navigate('AppNav');
     }, 2000);
   }
   render() {
