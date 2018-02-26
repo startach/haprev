@@ -16,12 +16,12 @@ export default StackNavigator({
         header: null,
         navigationOptions: { header: null, },
     },
-        AppNav:{
-            screen: AppNav,
-            headerMode: 'none',
-            header: null,
-            navigationOptions: { header: null, },
-        },
+    AppNav: {
+        screen: AppNav,
+        headerMode: 'none',
+        header: null,
+        navigationOptions: { header: null, },
+    }
     },
-        { initialRouteName: 'Splash',}
+    { initialRouteName: 'Splash',}
 )

@@ -24,5 +24,7 @@ export default DrawerNavigator({
             drawerLabel: 'הפרופיל שלי',
             title: 'הפרופיל שלי',
         }
+    }
     },
-})
+    { initialRouteName: 'Home',}
+)
