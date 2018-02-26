@@ -23,5 +23,8 @@ export default StackNavigator({
             navigationOptions: { header: null, },
         },
     },
-        { initialRouteName: 'Register',}
+        { initialRouteName: 'Splash',
+            headerMode: 'none',
+        }
 )
+

@@ -7,13 +7,13 @@ const styles = StyleSheet.create({
     }
 })
 
-const Institutes = (props) =>
+const Help = (props) =>
 {
     return(
         <View style={styles.container}>
-            <Text> this will be Institutes screen </Text>
+            <Text> this will be Help screen </Text>
         </View>
     )
 }
 
-export default Institutes
+export default Help
