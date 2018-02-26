@@ -12,7 +12,7 @@ export const Authorize = async appId => {
       phone: '054-5283004',
       email:'shamir.dan@gmail.com',
       avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAy-AAAAJDQ2NDI3ZTFlLWE1YzAtNDBjOC1iMzJhLTVkYTQxN2MzNjdmMQ.jpg',
-      cordinator:[],
+      coordinator:['zzz'],
       messages:[],  
     });
   };

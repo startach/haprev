@@ -1,19 +1,21 @@
-import React from 'react'
-import {View,Text,StyleSheet} from 'react-native'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import HomeView from './HomeView'
 
-const styles = StyleSheet.create({
-    container:{
-        marginTop:50
+class Home extends Component{
+
+    render(){
+        return (
+            <HomeView user={this.props.user}/>
+            //<HomeView user={{first: "Dan"}}/>
+        )
     }
-})
-
-const Home = (props) =>
-{
-    return(
-        <View style={styles.container}>
-            <Text> this will be Home screen </Text>
-        </View>
-    )
 }
 
-export default Home
+const mapStateToProps =state =>{ 
+    return ({
+                user:state.user
+            })
+    }
+
+export default connect(mapStateToProps)(Home)
