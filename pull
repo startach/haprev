@@ -1,0 +1,465 @@
+[33mcommit fbd476c61680a1cd290209cebaae57aebda46f1b[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 810b429 33e834c
+Author: idanlevi <idanlevi2@gmail.com>
+Date:   Tue Feb 27 16:40:56 2018 +0200
+
+    Merge branch 'master' of https://github.com/startach/haprev
+
+[33mcommit 810b429405ceb13baa7d4fe7589497dd22451167[m
+Author: idanlevi <idanlevi2@gmail.com>
+Date:   Tue Feb 27 10:58:10 2018 +0200
+
+    test
+
+[33mcommit 33e834c2ff401ffcaa96f0aad22e2ca19ae25110[m
+Merge: dfccd73 fb0341e
+Author: dansha <shamir.dan@gmail.com>
+Date:   Thu Feb 22 13:00:29 2018 +0200
+
+    Merge pull request #12 from towstt/master
+    
+    test change
+
+[33mcommit bfb0833b5837c2669c434c8ec55db5a307e9b73d[m
+Author: idanlevi <idanlevi2@gmail.com>
+Date:   Wed Feb 21 23:11:49 2018 +0200
+
+    Help screen
+
+[33mcommit dc1ab3b89760b7aa872a70316e1b6ca065ce8911[m
+Merge: 52e643b ca014a6
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Jan 29 20:03:15 2018 +0200
+
+    Merge pull request #14 from dansha/v2
+    
+    nav to homepage
+
+[33mcommit ca014a693839038e67c679c54a3003025c16a980[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Jan 29 20:01:30 2018 +0200
+
+    nav
+
+[33mcommit 52e643b264555a18c910bd61d4818b11c4edeaf7[m
+Merge: dfccd73 424cb52
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Jan 29 19:20:41 2018 +0200
+
+    Merge pull request #13 from dansha/v2
+    
+    initial
+
+[33mcommit 424cb52fdb9b3c618b39d471cfb88a776aa8d02d[m
+Author: chenezra <chen.h.ezra@gmail.com>
+Date:   Sun Jan 28 02:11:07 2018 +0200
+
+    navigators
+
+[33mcommit 2e5c341523393d412be2bd7f83f4187880529c1a[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Thu Jan 25 20:26:33 2018 +0200
+
+    authorize
+
+[33mcommit 257469f1e06f275935bbfbbb53b6194875678ccc[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Thu Jan 25 18:29:43 2018 +0200
+
+    added splash image
+
+[33mcommit 3f0080cfb9dfb94b4a8b9d44ed95d925ca92e173[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jan 24 18:57:28 2018 +0200
+
+    added store
+
+[33mcommit c73cc6efca3f02b43448f9db269897321ebe2474[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jan 24 18:32:30 2018 +0200
+
+    added nav
+
+[33mcommit 16df424bc2b1836cf5b7889ea0dde4421083753a[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Jan 22 22:17:17 2018 +0200
+
+    added files
+
+[33mcommit d45fca4b7f03545540e6c6d84775420c6fcc418b[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Jan 22 21:51:25 2018 +0200
+
+    'inital'
+
+[33mcommit fb0341e10f48198a8b089d55f9f8ed76e3a29408[m
+Author: Andrey Markovytch <andrey.markovytch@argus-sec.com>
+Date:   Mon Jan 22 16:54:41 2018 +0200
+
+    test change
+
+[33mcommit dfccd738e6974b1242b6a45f69d82d02683532f1[m
+Merge: 0cb2f80 5884fbf
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Jan 15 21:16:36 2018 +0200
+
+    Merge branch 'master' of https://github.com/startach/haprev
+
+[33mcommit 5884fbf2a769c834b6a2b2c16ec49c164b55d895[m
+Author: Yishai Brown <ybrown.jm@gmail.com>
+Date:   Mon Jan 8 21:43:47 2018 +0200
+
+    Initial registration screen
+
+[33mcommit 0cb2f800ef3c7d8f6ae8557b58ab7e780c685afe[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Jan 8 21:18:35 2018 +0200
+
+    removed unused packaged
+
+[33mcommit 6bf96aa46cb32367c8919f1840e7cf952af8956f[m
+Merge: d65bd87 28cc841
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Jan 8 20:49:26 2018 +0200
+
+    merge
+
+[33mcommit d65bd8765332b1f4afac2a6293680f237449aa92[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Jan 8 20:41:20 2018 +0200
+
+    fixed loggedin navigator labels
+
+[33mcommit 4de82571e77990b99f12fd2a4e8d1fc07e72c5d2[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Jan 8 20:37:25 2018 +0200
+
+    fixed loggedin navigation lables
+
+[33mcommit 28cc841a42a35fa57904da0fbd01d9227401b2bf[m
+Merge: 59f626c 0bf1807
+Author: idanlevi <idanlevi2@gmail.com>
+Date:   Mon Jan 8 18:48:15 2018 +0200
+
+    update navigator
+
+[33mcommit 59f626ce798cc70c35ba02e414cbeb1f92bbb60f[m
+Author: idanlevi <idanlevi2@gmail.com>
+Date:   Mon Jan 8 18:35:09 2018 +0200
+
+    Update navigator
+
+[33mcommit 0bf18072306be516e8f8fb67b26f4901a9731ba6[m
+Author: idanlevi <idanlevi2@gmail.com>
+Date:   Mon Jan 8 17:15:57 2018 +0200
+
+    Update SideMenu and remove TabNav
+
+[33mcommit 9d76ff7e09e3c671d34f1288d7b8b480396cca85[m
+Author: idanlevi <idanlevi2@gmail.com>
+Date:   Mon Jan 1 21:40:07 2018 +0200
+
+    Fix drawerNavigator and add HelpView page
+
+[33mcommit b53e959153f01f91fcb379f011697df639351d03[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Tue Dec 26 19:45:51 2017 +0200
+
+    wip
+
+[33mcommit e400bd4786e4cbc85ccebfef91e02c73ef79eaff[m
+Merge: 1613395 4a30618
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Dec 11 20:50:08 2017 +0200
+
+    Merge branch 'master' of https://github.com/startach/haprev
+
+[33mcommit 4a30618b057db49dc8c07125b7b27bc485f9f18b[m
+Author: Andrey Markovytch <towstt@gmail.com>
+Date:   Mon Dec 11 20:36:52 2017 +0200
+
+    Fix bug in DashboardView (missing '}')
+    
+    Signed-off-by: Andrey Markovytch <towstt@gmail.com>
+
+[33mcommit 16133952c25dc87b95da0cbb43456cad015578b9[m
+Merge: 89beb03 6d1701f
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Dec 11 14:11:43 2017 +0200
+
+    Merge branch 'master' of https://github.com/startach/haprev
+
+[33mcommit 6d1701fcc6d8600f3a2342b99acc84032a6377aa[m
+Author: unknown <idanlevi2@gmail.com>
+Date:   Tue Nov 21 01:04:57 2017 +0200
+
+    add side menu`
+
+[33mcommit 2448c80ab9c11e33ee97f2bd5f7ea63bd0ada453[m
+Author: Andrey Markovytch <towstt@gmail.com>
+Date:   Mon Nov 13 21:20:28 2017 +0200
+
+    Initial Swipe view in 'Home' bar
+    
+    Signed-off-by: Andrey Markovytch <towstt@gmail.com>
+
+[33mcommit 89beb03bae45aa4557f0bbb18dea34e72cb93be1[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Nov 13 20:46:37 2017 +0200
+
+    wip
+
+[33mcommit dcc392b0736b1ab135a92c6b757b97e6ad0986b3[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Nov 13 20:45:37 2017 +0200
+
+    wip
+
+[33mcommit bab2e45168b7213fef49564bac10303741d20cfc[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Thu Sep 28 09:36:44 2017 +0300
+
+    Upgraded expo to v21
+
+[33mcommit a9714f65a573edc5d91dbcdc95c21c574db62067[m
+Author: Andrey Markovytch <towstt@gmail.com>
+Date:   Sun Oct 1 19:56:02 2017 +0300
+
+    Beautified TabNavigator icons
+    
+    Signed-off-by: Andrey Markovytch <towstt@gmail.com>
+
+[33mcommit d4b2c4355b503881dc169bc66952a1b64d2cc32a[m
+Author: Elad Cohen <elad@morphisec.com>
+Date:   Tue Sep 19 16:38:14 2017 +0300
+
+    Changed .gitignore & Set debugger
+
+[33mcommit 872a34c199334942d199ffd938f8d0ea98e47dd4[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Mon Sep 18 21:21:04 2017 +0300
+
+    added calander
+
+[33mcommit fc05b8983ba5ad3ed3ed85c5ad7cb4e2053a88a8[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Fri Sep 15 10:09:01 2017 +0300
+
+    Fixed expo version in app.json
+
+[33mcommit e292758791f89933b7f71740b91571022fd34e80[m
+Author: Andrey Markovytch towstt@gmail.com <amarkovy@amazon.com>
+Date:   Wed Sep 13 21:34:57 2017 +0300
+
+    More work on TabNavigator icons
+    
+    Signed-off-by: Andrey Markovytch towstt@gmail.com <towstt@gmail.com>
+
+[33mcommit 3ec60fbb6021d10c2a6a540fac973434e601a7df[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Sep 13 21:29:23 2017 +0300
+
+    removed header from navigator
+
+[33mcommit 867f073cb131d63a8a2b823d74275df758d9771e[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Sep 13 21:01:26 2017 +0300
+
+    select hospital
+
+[33mcommit 6700fe4079ef8b7ae7c7b7de0ff260489312d6ce[m
+Merge: 70a396d d440d91
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Sep 13 20:38:06 2017 +0300
+
+    Merge branch 'master' of https://github.com/startach/haprev
+
+[33mcommit d440d91724f5bf0a9e2be2831abcff1d71db0ee2[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Thu Sep 7 00:31:03 2017 +0300
+
+    Fixed package.json
+
+[33mcommit aba9317dd170d686213acd484f8f50c31dcbda67[m
+Author: Andrey Markovytch towstt@gmail.com <amarkovy@amazon.com>
+Date:   Wed Sep 6 20:48:57 2017 +0300
+
+    Updated LoggedInNavigator icons
+    
+    Signed-off-by: Andrey Markovytch towstt@gmail.com
+
+[33mcommit 70a396d8498bffb7c65ccaa1f4989f7be3b2d4ba[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Aug 30 20:10:22 2017 +0300
+
+    select hospital
+
+[33mcommit 987fa8615ed716304d8e45f9300c960ea1dab0c4[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Fri Aug 25 18:02:42 2017 +0300
+
+    Prepare facebook login
+
+[33mcommit f5e32a24114a2ec015225c0e86baf44ce53c490a[m
+Author: Andrey Markovytch <towstt@gmail.com>
+Date:   Wed Aug 23 22:24:35 2017 +0300
+
+    LoggedInNavigator: tabs initial icons and colors
+
+[33mcommit 145df7e464369db6f0032297babc50ccdca85eb0[m
+Merge: 672e360 75937a7
+Author: Ygal Bellaiche <ygalbel@gmail.com>
+Date:   Wed Aug 16 22:14:07 2017 +0300
+
+    Merge branch 'master' of https://github.com/startach/haprev
+
+[33mcommit 672e360e97de77bbba9223a3a7801b6c75cb6d15[m
+Author: Ygal Bellaiche <ygalbel@gmail.com>
+Date:   Wed Aug 16 22:13:48 2017 +0300
+
+    start firebase service
+
+[33mcommit 75937a7ed64d22c90dc1ae0796f42f8fa39a94b3[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Aug 16 22:08:40 2017 +0300
+
+    added hebrew
+
+[33mcommit d0083464caaf652c0fbb75f3d798400a9d270688[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Aug 16 22:05:41 2017 +0300
+
+    search takes from service
+
+[33mcommit 926548e15748f1829bfd580ca01d243c21d04fdf[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Aug 9 20:54:17 2017 +0300
+
+    addeed mock login
+
+[33mcommit 669996d101cc12c602c76edeeaca38bb853ed81c[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Aug 9 20:48:35 2017 +0300
+
+    added hospital services for search view
+
+[33mcommit 5ca96b1aabeea0223ca62d6dd0562731ffb08f6f[m
+Merge: be0f18b 22edb97
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Aug 9 19:06:43 2017 +0300
+
+    after merge
+
+[33mcommit be0f18b233a9de9d936b66cc5819367da9390873[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Aug 9 13:48:38 2017 +0300
+
+    added logedin nav + async actions + mock services
+
+[33mcommit 22edb978d335ce6606380fb0722f3a602c2d1709[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Thu Aug 3 01:24:00 2017 +0300
+
+    Added GuestIntro Screen
+
+[33mcommit 6738d91de9be95ea9b6f3d6db353c521bc223241[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Sun Jul 30 09:42:34 2017 +0300
+
+    removed naviagtion logging
+
+[33mcommit ee2cceb72975fa12a93ffaa39af9470790558ddc[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jul 26 21:37:55 2017 +0300
+
+    styles hospitals
+
+[33mcommit 64c92a3678929784ad481e91c2941acef32c200c[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Mon Jul 24 23:10:12 2017 +0300
+
+    Added a splash screen
+
+[33mcommit 2c5ebc262509894bc59c72b9d16cc8afd44dbe7e[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Mon Jul 24 22:50:03 2017 +0300
+
+    implemented new home design
+
+[33mcommit a8b7e5a5ab8cb1876396d9cd74f33d164426053f[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Fri Jul 14 04:23:15 2017 +0300
+
+    Finished Home screen layout design
+
+[33mcommit 7907518b8490acc49caa69704e53b5b4ae850e0d[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jul 12 22:00:05 2017 +0300
+
+    hosiptal views
+
+[33mcommit cc34b5501f4f176a0665c10db3072b630ad5115c[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jul 12 21:59:40 2017 +0300
+
+    LINTING PROBLEMS
+
+[33mcommit 27f513f17e4fb30b6d40795868bd7d4b4cadd77a[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jul 12 21:58:58 2017 +0300
+
+    airbnb eslint
+
+[33mcommit 39bb012219fc3c4e0f9f88f7222b2d68703494fa[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Mon Jul 10 23:53:15 2017 +0300
+
+    #1 - Login screen - add "login exist" button
+
+[33mcommit a76fd5d97bc95b33ab0cace732ed6b469104de5e[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jul 5 22:02:07 2017 +0300
+
+    added hospita List  , load async fonts for native base and started hosiptal views
+
+[33mcommit 62eed235548fbe30404d88ea6990ea3b82056ecf[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Sun Jul 2 23:53:44 2017 +0300
+
+    Added FB icon
+
+[33mcommit d2583449838c1c4d8387bbc3e5868bdfe81d08db[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Sun Jul 2 23:45:21 2017 +0300
+
+    added eslint rules & fixed App.js style
+
+[33mcommit 1c3507f1c897e5e3d552887638d2a4eede9df44d[m
+Author: Elad Cohen <eladc.android@gmail.com>
+Date:   Fri Jun 30 17:48:44 2017 +0300
+
+    Added eslint & nativeBase support
+
+[33mcommit 405f0fa336e59a4f2ccafdb4eacf930abd951f9f[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jun 21 22:38:46 2017 +0300
+
+    added dummy store
+
+[33mcommit 252ec2e721337dee82b5c06aaba048133f788828[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jun 14 22:01:22 2017 +0300
+
+    added navigation
+
+[33mcommit 74a6df22fd0b1d533ef3319674015bebbb607c41[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jun 14 21:22:41 2017 +0300
+
+    moved app to src
+
+[33mcommit d7886d98ee3921f12b74b5e3c1e4e102d89bbf37[m
+Author: dansha <shamir.dan@gmail.com>
+Date:   Wed Jun 14 21:08:07 2017 +0300
+
+    inital files
