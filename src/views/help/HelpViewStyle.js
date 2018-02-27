@@ -4,6 +4,7 @@ export default StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
+      justifyContent: "center",
     },
     titlesContainer: {
       paddingTop: 15,
@@ -64,8 +65,9 @@ export default StyleSheet.create({
       fontWeight: 'bold',
       textAlign:'center',
     },
-    popup: {
-      textAlign:'center',
-      alignItems: 'flex-end'
-    },
+      modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'grey',
+      },
   });  

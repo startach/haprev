@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity,TextInput,Keyboard,ScrollView,TouchableWithoutFeedback } from 'react-native';
+import {View, Text, TouchableOpacity,TextInput,Keyboard,ScrollView,Modal,TouchableWithoutFeedback,KeyboardAvoidingView } from 'react-native';
 import styles from './HelpViewStyle';
-import { MaterialDialog } from 'react-native-material-dialog';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 const ERRORMESSAGE = "יש להזין תוכן (לפחות 2 תווים)";
 const SUCCESS_SEND = {title: "ההודעה נשלחה בהצלחה!", subtitle: "צוות מהפכה של שמחה יענה בהקדם"};
 const FAIL_SEND ={title: "בעיה בשליחה!", subtitle: "נסה שוב מאוחר יותר"};
-//test
+
 class HelpView extends Component {
   constructor(props) {
     super(props);
     this.state = { 
       content:'',
-      visiblePopup: false, 
+      modalVisible: false,
       contentValidate:true,
       isButtonDisabled:false,
       success:false,
@@ -34,15 +32,15 @@ class HelpView extends Component {
     res = await helpReqHandler(first, last, email, this.state.content)
     if(res.request ==='ok') 
       this.setState({success : true});
-    this.setState({visiblePopup : true});
+    this.setState({modalVisible : true});
   }
 
   render() { 
     const { first, last, email, navigation } = this.props;
     return (
-      <View style={styles.container}>
-
-        <ScrollView > 
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
           <View style={styles.titlesContainer}>
             <Text style={styles.title}>נתקלת בבעיה? צריך עזרה?</Text>
             <Text style={styles.subtitle}>בדיוק בשביל זה אנחנו פה! {"\n"} שלח לנו הודעה ונחזור אליך בהקדם.</Text>
@@ -68,23 +66,30 @@ class HelpView extends Component {
               onPress={ () => { this.Validation() ? this.SandMessage(): null } } 
               style={styles.button}>
               <Text style={styles.buttonText}>שלח</Text>
-            </TouchableOpacity>
-          </View>   
-        </ScrollView>
-        <KeyboardSpacer topSpacing={0}/>
-        <MaterialDialog
-          title= {this.state.success ? SUCCESS_SEND.title : FAIL_SEND.title}
-          titleColor='#D81A4C'
-          colorAccent='#D81A4C'
-          okLabel="סגור"
-          cancelLabel=''
-          visible={this.state.visiblePopup}
-          onOk={() => {this.setState({visiblePopup: false}); this.state.success ? navigation.goBack() : this.setState({isButtonDisabled: false})} }
-          onCancel={() => { this.setState({visiblePopup: false}); this.state.success ? navigation.goBack() : this.setState({isButtonDisabled: false})} }
-          >
-          <Text style={styles.popup}>{"\n"} {this.state.success ? SUCCESS_SEND.subtitle : FAIL_SEND.subtitle} </Text>        
-        </MaterialDialog>
-      </View>
+          </TouchableOpacity>
+          </View> 
+        </View>
+      </TouchableWithoutFeedback>
+      <Modal
+        visible={this.state.modalVisible}
+        animationType={'slide'}
+        onRequestClose={() => this.setState({modalVisible:true})}
+        >
+        <View style={styles.modalContainer}>
+          <View style={styles.innerContainer}>
+            <Text style={[styles.title,{color:'white'}]}>{"\n"} {this.state.success ? SUCCESS_SEND.title : FAIL_SEND.title} </Text>
+            <Text style={[styles.subtitle,{color:'white'}]}>{"\n"} {this.state.success ? SUCCESS_SEND.subtitle : FAIL_SEND.subtitle} {"\n"}  </Text>        
+              <TouchableOpacity
+                rounded
+                style={styles.button}
+                onPress={() => {this.setState({modalVisible:true}); this.state.success ? navigation.goBack() : this.setState({modalVisible:false,isButtonDisabled: false})}}
+              >
+              <Text style={styles.buttonText}>סגור</Text>
+              </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      </KeyboardAvoidingView> 
     );
   }
 } 

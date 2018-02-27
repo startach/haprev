@@ -28,4 +28,3 @@ return ({
 }
 
 export default connect(mapStateToProps)(Help)
-//
