@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { Component } from 'react'
 import HelpView from './HelpView'
 import { connect } from 'react-redux'
@@ -29,24 +28,4 @@ return ({
 }
 
 export default connect(mapStateToProps)(Help)
-=======
-import React from 'react'
-import {View,Text,StyleSheet} from 'react-native'
-
-const styles = StyleSheet.create({
-    container:{
-        marginTop:50
-    }
-})
-
-const Help = (props) =>
-{
-    return(
-        <View style={styles.container}>
-            <Text> this will be Help screen </Text>
-        </View>
-    )
-}
-
-export default Help
->>>>>>> 6f83c1c3d0a5c3f9c80ee9fde336779a17c9172c
+//
