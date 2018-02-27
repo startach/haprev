@@ -7,7 +7,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 const ERRORMESSAGE = "יש להזין תוכן (לפחות 2 תווים)";
 const SUCCESS_SEND = {title: "ההודעה נשלחה בהצלחה!", subtitle: "צוות מהפכה של שמחה יענה בהקדם"};
 const FAIL_SEND ={title: "בעיה בשליחה!", subtitle: "נסה שוב מאוחר יותר"};
-
+//test
 class HelpView extends Component {
   constructor(props) {
     super(props);
