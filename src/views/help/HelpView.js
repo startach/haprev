@@ -76,17 +76,15 @@ class HelpView extends Component {
         onRequestClose={() => this.setState({modalVisible:true})}
         >
         <View style={styles.modalContainer}>
-          <View style={styles.innerContainer}>
-            <Text style={[styles.title,{color:'white'}]}>{"\n"} {this.state.success ? SUCCESS_SEND.title : FAIL_SEND.title} </Text>
-            <Text style={[styles.subtitle,{color:'white'}]}>{"\n"} {this.state.success ? SUCCESS_SEND.subtitle : FAIL_SEND.subtitle} {"\n"}  </Text>        
-              <TouchableOpacity
-                rounded
-                style={styles.button}
-                onPress={() => {this.setState({modalVisible:true}); this.state.success ? navigation.goBack() : this.setState({modalVisible:false,isButtonDisabled: false})}}
-              >
-              <Text style={styles.buttonText}>סגור</Text>
-              </TouchableOpacity>
-          </View>
+          <Text style={[styles.title,{color:'white'}]}>{this.state.success ? SUCCESS_SEND.title : FAIL_SEND.title} </Text>
+          <Text style={[styles.subtitle,{color:'white'}]}>{"\n"} {this.state.success ? SUCCESS_SEND.subtitle : FAIL_SEND.subtitle} {"\n"}  </Text>        
+            <TouchableOpacity
+              rounded
+              style={styles.button}
+              onPress={() => { this.state.success ? navigation.goBack() : this.setState({modalVisible:false,isButtonDisabled: false})}}
+            >
+            <Text style={styles.buttonText}>סגור</Text>
+            </TouchableOpacity>
         </View>
       </Modal>
       </KeyboardAvoidingView> 
