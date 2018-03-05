@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {View, Text, Button, StyleSheet, FlatList} from 'react-native'
-import { MaterialDialog } from 'react-native-material-dialog';
 
 const styles = StyleSheet.create({
     container:{
@@ -73,7 +72,7 @@ class AdminActivity extends Component
                 <View style={styles.bottomButtons}>
                     <Button style={styles.button} title="בטל התנדבות" onPress={toggleCancelDialog}/>
                 </View>
-                <MaterialDialog
+                {/* <MaterialDialog
                     title="האם לבטל את ההתנדבות?"
                     visible={this.state.cancelDialogVisible}
                     onOk={() => this.cancelActivity()}
@@ -82,7 +81,7 @@ class AdminActivity extends Component
                     cancelLabel='השאר התנדבות'
                     colorAccent='#00c'>
                     <View></View>
-                </MaterialDialog>
+                </MaterialDialog> */}
             </View>
         )
     }
