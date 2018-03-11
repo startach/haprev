@@ -3,6 +3,8 @@ import { Provider } from 'react-redux';
 import Expo from 'expo';
 import getStore from '../store/createStore';
 import Nav from '../nav/RegisterNav';
+//import * as firebase from 'firebase';
+import initdb from './initDb';
 
 const store = getStore;
 
@@ -21,6 +23,7 @@ class App extends Component {
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     });
     */
+    initdb();
     this.setState({ fontsAreLoaded: true });
   }
 

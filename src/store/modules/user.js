@@ -1,4 +1,5 @@
 import { Authorize } from "../../services";
+import * as firebase from 'firebase';
 
 const AUTHORIZE_REQ = "haprev/user/AUTHORIZE_REQ";
 const AUTHORIZE_RES = "haprev/user/AUTHORIZE_RES";
@@ -13,7 +14,9 @@ export default (state = initalState, action = {}) => {
     case AUTHORIZE_REQ:
       return { ...state, status: "request", user: {} };
     case AUTHORIZE_RES:
-      return { ...state, status: "", user: action.payload };
+    {
+      //console.log (action)
+      return { ...state, status: "", user: action.payload }}
     default:
       return state;
   }
@@ -36,6 +39,8 @@ const authRes = data => {
 
 export const authorize = (appId) => async (dispatch)  => {
   dispatch(authReq(appId));
-  const user = await Authorize(appId);
-  dispatch (authRes( user));
+  firebase.database().ref('users/'+appId).on('value' , 
+    snapshot => {
+    dispatch (authRes( snapshot.val()));
+  })
 };

@@ -1,8 +1,10 @@
+
 const DELAY = 200;
 
 const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-export const Authorize = async appId => {
+  /*
+  } )  
     await timeout(DELAY);
     return ({
       userId:'234',
@@ -16,7 +18,7 @@ export const Authorize = async appId => {
       messages:[],  
     });
   };
-  
+  */
   export const HelpRequest = async (first,last,email,content) => {
     await timeout(DELAY);
     return ({request:'ok'});
