@@ -17,3 +17,7 @@ export const Authorize = async appId => {
     });
   };
   
+  export const HelpRequest = async (first,last,email,content) => {
+    await timeout(DELAY);
+    return ({request:'ok'});
+  };

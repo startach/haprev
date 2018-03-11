@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {View, Text, Button, StyleSheet, FlatList} from 'react-native'
-import { MaterialDialog } from 'react-native-material-dialog';
+import {View, Text, Button, StyleSheet, FlatList, Modal,TouchableOpacity} from 'react-native'
+//import { MaterialDialog } from 'react-native-material-dialog';
 
 const styles = StyleSheet.create({
     container:{
@@ -37,7 +37,31 @@ const styles = StyleSheet.create({
     },
     button:{
         margin: 20
-    }
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'grey',
+      },
+      title: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        textAlign: 'center',
+      },
+      modalButton:{
+        width:200,
+        margin:20,
+        padding:10,
+        backgroundColor:'#D81A4C',
+        borderRadius:15,
+        alignSelf:'center'
+      },
+      modalButtonText: {
+        color:'white',
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign:'center',
+      },
 })
 
 const ParticipantItem = ({participant}) => {
@@ -73,16 +97,33 @@ class AdminActivity extends Component
                 <View style={styles.bottomButtons}>
                     <Button style={styles.button} title="בטל התנדבות" onPress={toggleCancelDialog}/>
                 </View>
-                <MaterialDialog
-                    title="האם לבטל את ההתנדבות?"
+
+                <Modal
                     visible={this.state.cancelDialogVisible}
-                    onOk={() => this.cancelActivity()}
-                    onCancel={() => this.setState({cancelDialogVisible: false})}
-                    okLabel='בטל התנדבות'
-                    cancelLabel='השאר התנדבות'
-                    colorAccent='#00c'>
-                    <View></View>
-                </MaterialDialog>
+                    animationType={'slide'}
+                    onRequestClose={() => this.setState({cancelDialogVisible:true})}
+                >
+                    <View style={styles.modalContainer}>
+                        <View>
+                            <Text style={[styles.title,{color:'white'}]}> האם לבטל את ההתנדבות? {"\n"} </Text>
+                            <TouchableOpacity
+                                rounded
+                                style={styles.modalButton}
+                                onPress={() => { this.setState({cancelDialogVisible:false}); this.cancelActivity()}}
+                                >
+                                <Text style={styles.modalButtonText}>בטל התנדבות</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                rounded
+                                style={[styles.modalButton,{backgroundColor:'green'}]}
+                                onPress={() => { this.setState({cancelDialogVisible:false})}}
+                                >
+                                <Text style={styles.modalButtonText}>השאר התנדבות</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+
             </View>
         )
     }
