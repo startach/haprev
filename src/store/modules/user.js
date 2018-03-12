@@ -3,6 +3,8 @@ import * as firebase from 'firebase';
 
 const AUTHORIZE_REQ = "haprev/user/AUTHORIZE_REQ";
 const AUTHORIZE_RES = "haprev/user/AUTHORIZE_RES";
+const REGISTER_REQ = "haprev/user/REGISTER_REQ";
+const REGISTER_RES = "haprev/user/REGISTER_RES";
 
 const initalState = {
   user: {},
@@ -37,10 +39,32 @@ const authRes = data => {
   return tmpRes;
 };
 
-export const authorize = (appId) => async (dispatch)  => {
-  dispatch(authReq(appId));
-  firebase.database().ref('users/'+appId).on('value' , 
+export const authorize = appId =>  dispatch  => {
+  dispatch(authReq(appId))
+  firebase.database().ref('users/'+appId).once('value' , 
     snapshot => {
-    dispatch (authRes( snapshot.val()));
+      let dbRes = snapshot.val();
+      if (dbRes)
+        dispatch (authRes( snapshot.val()))
+      else
+        console.log('handle user not found')
+        //handle no user found
   })
-};
+}
+
+const registerReq = user => ({
+  type: REGISTER_REQ,
+  payload: user
+})
+
+const registerRes = data => {
+  let tmpRes = {};
+  if (data)
+    tmpRes = {
+      type: REGISTER_RES,
+      payload: data
+    }
+  return tmpRes;
+}
+
+
