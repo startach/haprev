@@ -37,10 +37,15 @@ const authRes = data => {
   return tmpRes;
 };
 
-export const authorize = (appId) => async (dispatch)  => {
+export const authorize = (appId) =>  (dispatch)  => {
   dispatch(authReq(appId));
-  firebase.database().ref('users/'+appId).on('value' , 
+  firebase.database().ref('users/'+appId).once('value' , 
     snapshot => {
-    dispatch (authRes( snapshot.val()));
+      let dbRes = snapshot.val();
+      if (dbRes)
+        dispatch (authRes( snapshot.val()));
+      else
+        console.log('handle user not found');
+        //handle no user found
   })
 };
