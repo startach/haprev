@@ -13,11 +13,25 @@ export const Authorize = async appId => {
       email:'shamir.dan@gmail.com',
       avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAy-AAAAJDQ2NDI3ZTFlLWE1YzAtNDBjOC1iMzJhLTVkYTQxN2MzNjdmMQ.jpg',
       cordinator:[],
-      messages:[],  
+      messages:[], 
     });
-  };
+};
   
-  export const HelpRequest = async (first,last,email,content) => {
-    await timeout(DELAY);
-    return ({request:'ok'});
-  };
+export const HelpRequest = async (first,last,email,content) => {
+  await timeout(DELAY);
+  return ({request:'ok'});
+};
+
+export const GetMessages = async userId =>{ 
+  await timeout(DELAY);
+  return ([
+    //  {id: 'qw34', message: 'ההתנדבות ב 3.1 בבית חולים ביילינסון בוטלה' },
+    //  {id: 'ee67', message: 'הפעילות ב10.4.18 הועברה ל11.4.18 יום שלישי' },
+  ]);
+  
+};
+
+export const ReadMessage = async msgId => {
+  await timeout(DELAY);
+  return ({status:'ok'});
+};
