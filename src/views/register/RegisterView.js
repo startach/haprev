@@ -3,7 +3,6 @@ import { Button, Text, View, ScrollView, Image, ImageBackground, TouchableOpacit
 import styles from './RegisterViewStyles';
 import RegisterInput from './RegisterInputField';
 import { connect } from 'react-redux';
-import { register } from '../../store/modules/user';
 import {YellowBox} from 'react-native';
 
 {/* https://medium.freecodecamp.org/how-to-make-your-react-native-app-respond-gracefully-when-the-keyboard-pops-up-7442c1535580 */}
@@ -55,7 +54,7 @@ class RegisterView extends React.Component {
                 <TouchableOpacity>
                 <Image style = {styles.userImage} source ={require('../../images/emptyUserIcon.png')} />
                 </TouchableOpacity>
-                <Text style={styles.title}>חשבון חדש</Text>
+                <Text style={styles.title}>{this.props.title}</Text>
             </View>
             <RegisterInput placeholder="שם פרטי"
                 ref={input => {this.inputs[FIRSTNAME] = input;}}
@@ -81,15 +80,14 @@ class RegisterView extends React.Component {
                 onSubmitEditing={() => {}}
                 imageSource={require('../../images/emailIcon.png')}/>
             <View style={styles.buttonsContainer}>
-                <Button title="הרשמה" disabled={this.state.disabled} style={styles.registerButton}
+                <Button title={this.props.actionTitle} disabled={this.state.disabled} style={styles.registerButton}
                     color='#B000B0' onPress={() => {
                         let user = {};
                         user[FIRSTNAME] = this.state.firstName;
                         user[LASTNAME] = this.state.lastName;
                         user[PHONE] = this.state.phone;
                         user[EMAIL] = this.state.email;
-                        this.props.register(user);}}>
-{/*}                        this.props.navigation.navigate('LoggedIn')}}> */}
+                        this.props.onAction(user);}}>
                 </Button>
             </View>
             <View style={{ height: 100 }} />
@@ -110,5 +108,4 @@ const mapStateToProps = (state) => {
   );
 };
   
-{/*export default RegisterView;*/}
-export default connect(mapStateToProps, { register })(RegisterView);
+export default RegisterView;
