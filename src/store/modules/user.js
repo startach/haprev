@@ -1,5 +1,5 @@
 import { Authorize } from "../../services";
-import { Register } from "../../services";
+import * as firebase from 'firebase';
 
 const AUTHORIZE_REQ = "haprev/user/AUTHORIZE_REQ";
 const AUTHORIZE_RES = "haprev/user/AUTHORIZE_RES";
@@ -16,11 +16,9 @@ export default (state = initalState, action = {}) => {
     case AUTHORIZE_REQ:
       return { ...state, status: "request", user: {} };
     case AUTHORIZE_RES:
-      return { ...state, status: "", user: action.payload };
-    case REGISTER_REQ:
-      return { ...state, status: "request" };
-    case REGISTER_RES:
-      return { ...state, status: "", user: action.payload };
+    {
+      //console.log (action)
+      return { ...state, status: "", user: action.payload }}
     default:
       return state;
   }
@@ -57,15 +55,9 @@ const registerRes = data => {
 };
 
 export const authorize = (appId) => async (dispatch)  => {
-  dispatch(authReq(appId));
-  const user = await Authorize(appId);
-  dispatch (authRes(user));
-};
-
-export const register = (user) => async (dispatch)  => {
-  let userApp = {...user, appId:Expo.Constants.deviceId}
-  dispatch(registerReq(userApp));
-  const response = await Register(userApp);
-  alert(JSON.stringify(response));
-  dispatch (registerRes(response));
+  // dispatch(authReq(appId));
+  // firebase.database().ref('users/'+appId).on('value' , 
+  //   snapshot => {
+  //   dispatch (authRes( snapshot.val()));
+  // })
 };
