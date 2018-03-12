@@ -52,7 +52,7 @@ export default StyleSheet.create({
       alignSelf:'center'
     },
     button:{
-      width:200,
+      width:150,
       marginTop:20,
       padding:10, 
       backgroundColor:'#D81A4C',
@@ -65,9 +65,14 @@ export default StyleSheet.create({
       fontWeight: 'bold',
       textAlign:'center',
     },
-      modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: 'grey',
-      },
+    modalContainer: {
+      marginTop: "40%",
+      justifyContent: 'center',
+      alignSelf:'center',        
+      backgroundColor: 'grey',
+      height:'50%',
+      width: '90%',
+      borderWidth:2,
+      borderRadius:15,
+    },
   });  

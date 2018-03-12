@@ -73,6 +73,7 @@ class HelpView extends Component {
       <Modal
         visible={this.state.modalVisible}
         animationType={'slide'}
+        transparent
         onRequestClose={() => this.setState({modalVisible:true})}
         >
         <View style={styles.modalContainer}>
