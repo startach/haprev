@@ -9,8 +9,8 @@ const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
     return ({
       userId:'234',
       appId:appId,
-      first: 'dan',
-      last: 'shamir',
+      firstName: 'dan',
+      lastName: 'shamir',
       phone: '054-5283004',
       email:'shamir.dan@gmail.com',
       avatar: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAy-AAAAJDQ2NDI3ZTFlLWE1YzAtNDBjOC1iMzJhLTVkYTQxN2MzNjdmMQ.jpg',
@@ -19,7 +19,8 @@ const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
     });
   };
   */
-  export const HelpRequest = async (first,last,email,content) => {
-    await timeout(DELAY);
-    return ({request:'ok'});
-  };
+  
+export const HelpRequest = async (first,last,email,content) => {
+  await timeout(DELAY);
+  return ({request:'ok'});
+};
