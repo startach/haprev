@@ -80,17 +80,24 @@ class RegisterView extends React.Component {
                 onSubmitEditing={() => {}}
                 imageSource={require('../../images/emailIcon.png')}/>
             <View style={styles.buttonsContainer}>
-                <Button title={this.props.actionTitle} disabled={this.state.disabled} style={styles.registerButton}
-                    color='#B000B0' onPress={() => {
+                <TouchableOpacity
+                    rounded
+                    title={this.props.actionTitle} 
+                    disabled={this.state.disabled} 
+                    style={[styles.registerButton, this.state.disabled ? { backgroundColor:'#c6c6c6'} : { }] }
+                    onPress={() => {
                         let user = {};
                         user[FIRSTNAME] = this.state.firstName;
                         user[LASTNAME] = this.state.lastName;
                         user[PHONE] = this.state.phone;
                         user[EMAIL] = this.state.email;
-                        this.props.onAction(user);}}>
-                </Button>
+                        this.props.onAction(user);
+                    }}
+                    >
+                    <Text style={styles.registerButtonText}>עדכן</Text>
+                </TouchableOpacity>
             </View>
-            <View style={{ height: 100 }} />
+             <View style={{ height: 100 }} />
         </KeyboardAvoidingView>
         </ImageBackground>
     );}

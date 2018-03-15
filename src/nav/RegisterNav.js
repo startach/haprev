@@ -3,7 +3,7 @@ import Splash from '../views/splash/Splash'
 import Register from '../views/register/Register'
 import AppNav from "./AppNav";
 
-export default StackNavigator(
+let MainStack = StackNavigator(
     {
         Register:{
             screen: Register,
@@ -27,6 +27,8 @@ export default StackNavigator(
     {
         initialRouteName: 'Splash',
         headerMode: 'none',
+        lazy: true,
     }
 )
 
+export default MainStack;

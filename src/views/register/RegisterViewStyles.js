@@ -16,13 +16,12 @@ export default StyleSheet.create({
         alignItems: 'center',
       },
       background:{
-        top: 30,
         position: 'absolute',
         width: '100%',
         height: '100%'
       },
       userView:{
-        marginTop: 24,
+        marginTop: '15%',
         alignItems:'center',
         justifyContent:'center',
       },
@@ -35,19 +34,23 @@ export default StyleSheet.create({
         fontSize: 36,
         fontWeight:'400'
       },
-      registerButton: {
-        color: 'black',
-        justifyContent: 'center',
-        fontSize: 26,
-        fontWeight: '400',
-        marginTop: 24,
-        height: 60,
-        borderRadius: 30,
-        width: '100%',
-      },
       buttonsContainer: {
-        marginTop: 36, 
+        marginTop: 20, 
         marginHorizontal: 36,
         justifyContent: 'center'
+      },
+      registerButton:{
+        width:150,
+        padding:10, 
+        backgroundColor:'#D81A4C',
+        borderWidth:1,
+        borderRadius:15,
+        alignSelf:'center'
+      },
+      registerButtonText: {
+        color:'white',
+        fontSize: 28,
+        fontWeight: 'bold',
+        textAlign:'center',
       },
 });

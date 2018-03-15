@@ -12,9 +12,6 @@ class MessagesView extends Component {
 
 async messageAction(){
     await this.props.onReadMessageHandler(this.props.messages[0].id);
-    this.setState({modalVisible:false});
-    if(this.props.messages[0])
-        this.setState({modalVisible:true});
   }
 
 switchMessages(messages){
@@ -26,7 +23,7 @@ switchMessages(messages){
                 style={styles.button}
                 onPress={() => { this.messageAction()}}
                 >
-                <Text style={styles.buttonText}>קראתי</Text>
+                <Text style={styles.buttonText}>אישור</Text>
             </TouchableOpacity>
         </View>
         );
@@ -37,11 +34,11 @@ switchMessages(messages){
     return ( 
         <Modal
             visible={this.state.modalVisible}
-            animationType={'fade'}
+            animationType={'slide'}
             transparent
             onRequestClose={() => this.setState({modalVisible:true})}
             >
-            {messages[0] ? this.switchMessages(messages) : null  }
+            { this.switchMessages(messages) }
        </Modal>
     );
   } 

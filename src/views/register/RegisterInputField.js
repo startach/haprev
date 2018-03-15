@@ -30,13 +30,14 @@ const styles = StyleSheet.create({
         height: 40,
         width: '80%',
         color:'white',
-        fontSize: 26,
+        fontSize: 22,
         fontWeight: '400',
         textAlign: 'right',
     },
     image: {
         height: 32, width: 32,
-        padding: 4
+        padding: 4,
+        marginRight:5,
     },
 })
 

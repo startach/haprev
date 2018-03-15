@@ -82,9 +82,9 @@ class HelpView extends Component {
             <TouchableOpacity
               rounded
               style={styles.button}
-              onPress={() => { this.state.success ? navigation.goBack() : this.setState({modalVisible:false,isButtonDisabled: false})}}
+              onPress={() => { this.state.success ? navigation.navigate('Home') : this.setState({modalVisible:false,isButtonDisabled: false})}}
             >
-            <Text style={styles.buttonText}>סגור</Text>
+            <Text style={styles.buttonText}>אישור</Text>
             </TouchableOpacity>
         </View>
       </Modal>

@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
 class Profile extends Component{
     render(){
         return(
-            <RegisterView user={this.props.user} title="פרטי משתמש" actionTitle="עדכן"
-            onAction = {(user) => {console.log(user);}}/>
+            <RegisterView user={this.props.user} title="פרטי משתמש" actionTitle="עדכן"       
+          onAction = {(user) => {console.log(user); this.props.navigation.navigate('Home')}} />
         )}
 }
 
