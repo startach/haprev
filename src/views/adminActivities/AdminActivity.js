@@ -39,9 +39,14 @@ const styles = StyleSheet.create({
         margin: 20
     },
     modalContainer: {
-        flex: 1,
+        marginTop: "40%",
         justifyContent: 'center',
+        alignSelf:'center',        
         backgroundColor: 'grey',
+        height:'50%',
+        width: '90%',
+        borderWidth:2,
+        borderRadius:15,
       },
       title: {
         fontSize: 22,
@@ -99,6 +104,7 @@ class AdminActivity extends Component
                 </View>
 
                 <Modal
+                    transparent
                     visible={this.state.cancelDialogVisible}
                     animationType={'slide'}
                     onRequestClose={() => this.setState({cancelDialogVisible:true})}
@@ -109,14 +115,14 @@ class AdminActivity extends Component
                             <TouchableOpacity
                                 rounded
                                 style={styles.modalButton}
-                                onPress={() => { this.setState({cancelDialogVisible:false}); this.cancelActivity()}}
+                                onPress={() => { this.setState({cancelDialogVisible:false}); this.cancelActivity(); this.props.navigation.goBack()}}
                                 >
                                 <Text style={styles.modalButtonText}>בטל התנדבות</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 rounded
                                 style={[styles.modalButton,{backgroundColor:'green'}]}
-                                onPress={() => { this.setState({cancelDialogVisible:false})}}
+                                onPress={() => { this.setState({cancelDialogVisible:false});}}
                                 >
                                 <Text style={styles.modalButtonText}>השאר התנדבות</Text>
                             </TouchableOpacity>
