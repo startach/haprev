@@ -4,7 +4,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import { DrawerNavigator, StackNavigator, NavigationActions } from 'react-navigation';
 import SideMenu from './SideMenu';
 import Home from "../views/home/Home";
-import Institutes from "../views/institutes/Institute";
+import Institutes from "../views/institutes/InstitutesList";
+import SelectDate from "../views/institutes/SelectDate"
 import Profile from "../views/profile/Profile";
 import Activities from "../views/activities/Activities";
 import AdminActivities from "../views/adminActivities/AdminActivities";
@@ -45,7 +46,9 @@ homeNavigationOptions = ({ navigation }) => ({
 
 function RenderStackNavigator(screens, isHome) {
     const Nav = {};
+    let startScreen = null;
     for (let screen of screens){
+        startScreen = startScreen || screen.screenName.name;
         Nav[screen.screenName.name] = {
             screen: screen.screenName,
             headerMode: 'float',
@@ -57,12 +60,12 @@ function RenderStackNavigator(screens, isHome) {
             }
         }
     }
-    return StackNavigator(Nav, {navigationOptions: isHome ? homeNavigationOptions: appNavigationOptions});
+    return StackNavigator(Nav, {navigationOptions: isHome ? homeNavigationOptions: appNavigationOptions, initialRouteName: startScreen});
 }
-
 export default DrawerNavigator({
     Home: RenderStackNavigator([{screenName: Home, title: 'מסך הבית'}], true),
-    Institutes: RenderStackNavigator([{screenName: Institutes, title: 'בתי חולים'}]),
+    Institutes: RenderStackNavigator([{screenName: SelectDate, title: 'בחר תאריך'},{screenName: Institutes, title: 'בתי חולים'}
+      ]),
     Activities: RenderStackNavigator([{screenName: Activities, title: 'ההתנדבויות שלי'}]),
     ActivitiesAdmin: RenderStackNavigator([{screenName: AdminActivities, title: 'ניהול התנדבויות'},
         {screenName: AdminActivity, title: 'התנדבות'}]),

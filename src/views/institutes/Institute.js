@@ -5,10 +5,10 @@ import styles from './InstituteStyle'
 
 class Institute extends Component {
   render() {
-    const { id, name, pictureUrl, city, hospitalSelected } = this.props;
+    const { id, name, pictureUrl, city, instituteSelected } = this.props;
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => hospitalSelected(id)}>
+        <TouchableOpacity onPress={() => instituteSelected(id)}>
           <Image
             style={styles.image}
             source={{ uri: pictureUrl }}
@@ -26,7 +26,7 @@ Institute.propTypes = {
   name: PropTypes.string.isRequired,
   pictureUrl: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  hospitalSelected: PropTypes.func.isRequired,
+  instituteSelected: PropTypes.func.isRequired,
 };
 
 export default Institute;
