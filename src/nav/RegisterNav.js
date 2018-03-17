@@ -3,25 +3,32 @@ import Splash from '../views/splash/Splash'
 import Register from '../views/register/Register'
 import AppNav from "./AppNav";
 
-export default StackNavigator({
-    Splash:{
-        screen: Splash,
-        headerMode: 'none',
-        header: null,
-        navigationOptions: { header: null, },
+let MainStack = StackNavigator(
+    {
+        Register:{
+            screen: Register,
+            headerMode: 'none',
+            header: null,
+            navigationOptions: { header: null, },
+        },
+        Splash:{
+            screen: Splash,
+            headerMode: 'none',
+            header: null,
+            navigationOptions: { header: null, },
+        },
+        AppNav:{
+            screen: AppNav,
+            headerMode: 'none',
+            header: null,
+            navigationOptions: { header: null, },
+        },
     },
-    Register:{
-        screen: Register,
+    {
+        initialRouteName: 'Splash',
         headerMode: 'none',
-        header: null,
-        navigationOptions: { header: null, },
-    },
-    AppNav: {
-        screen: AppNav,
-        headerMode: 'none',
-        header: null,
-        navigationOptions: { header: null, },
+        lazy: true,
     }
-    },
-    { initialRouteName: 'Splash',}
 )
+
+export default MainStack;

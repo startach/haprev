@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Image } from 'react-native';
-
 const splashImg = require('../../images/splash.jpg');
 
 export default class SplashScreen extends React.Component {

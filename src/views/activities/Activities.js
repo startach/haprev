@@ -7,13 +7,13 @@ const styles = StyleSheet.create({
     }
 })
 
-const Mssages = (props) =>
+const Activities = (props) =>
 {
     return(
         <View style={styles.container}>
-            <Text> this will be Mssages screen </Text>
+            <Text> this will be Activities screen </Text>
         </View>
     )
 }
 
-export default Mssages
+export default Activities
