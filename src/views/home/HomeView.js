@@ -8,9 +8,10 @@ const HomeView = (props) => {
     onAllActivity = () => { }
     onCreateActivity = () => { }
 
+    const { first, last, coordinator } = props
+    const isAdmin = (coordinator > 0)
+    console.log(first, last, coordinator)
     
-
-    const isAdmin = (props.user.user.coordinator.length > 0)
 
     const arrow = (<Icon name="long-arrow-left" size={30} color="#900" />)
     const arrowDown = (<Icon name="arrow-down" size={30} color="#900" />)
@@ -47,7 +48,7 @@ const HomeView = (props) => {
         <View style={styles.container}>
             {!isAdmin ?
                 <View style={styles.helloBox}>
-                    <Text style={styles.text}> הי {props.user.user.first} {props.user.user.last} כיף לראות אותך פה ! </Text>
+                    <Text style={styles.text}> הי {first} {last} כיף לראות אותך פה ! </Text>
                     <Text style={styles.text}> כדי להירשם להנדבות הבאה אפשר </Text>
                     <View style={styles.registerButton}>
                         <Text style={styles.text}> {arrow} להתחיל פה  </Text>
@@ -56,7 +57,7 @@ const HomeView = (props) => {
                 </View>
             :
                 <View style={styles.helloBox}>
-                    <Text style={styles.text}> הי {props.user.user.first} {props.user.user.last} המתנדבים של {props.user.user.coordinator} </Text>
+                    <Text style={styles.text}> הי {first} {last} המתנדבים של {coordinator} </Text>
                     <Text style={styles.text}> מחכים להתנדבות הבאה שלהם </Text>
                     <Text style={styles.text}> בשביל לעזור להם ולהתחיל התנדבות </Text>
                     <Text style={styles.text}> {arrowDown} חדשה אפשר להתחיל כאן </Text>
