@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet,Dimensions} from 'react-native'
+import {StyleSheet,Dimensions,I18nManager} from 'react-native'
 import { FontAwesome } from '@expo/vector-icons';
 import { DrawerNavigator, StackNavigator, NavigationActions } from 'react-navigation';
 import SideMenu from './SideMenu';
@@ -74,8 +74,8 @@ export default DrawerNavigator({
     Profile: RenderStackNavigator([{screenName: Profile, title: 'הפרופיל שלי'}]),
     Help: RenderStackNavigator([{screenName: Help, title: 'עזרה'}])
 },{
-    contentComponent: (props)=> <SideMenu {...props}/>,
-    drawerPosition: 'left',
+    contentComponent: (props)=> <SideMenu activeItemKey={props.activeItemKey} {...props}/>,
+    drawerPosition: I18nManager.localeIdentifier.includes('IL') ? 'left' : 'right',
     drawerWidth: width*0.70,
 })
 
