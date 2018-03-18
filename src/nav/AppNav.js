@@ -75,7 +75,7 @@ export default DrawerNavigator({
     Help: RenderStackNavigator([{screenName: Help, title: 'עזרה'}])
 },{
     contentComponent: (props)=> <SideMenu activeItemKey={props.activeItemKey} {...props}/>,
-    drawerPosition: I18nManager.localeIdentifier.includes('IL') ? 'left' : 'right',
+    drawerPosition: I18nManager.isRTL && !I18nManager.localeIdentifier.includes('IL') ? 'right': 'left',
     drawerWidth: width*0.70,
 })
 
