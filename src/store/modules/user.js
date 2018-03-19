@@ -6,22 +6,26 @@ const AUTHORIZE_RES = "haprev/user/AUTHORIZE_RES";
 const REGISTER_REQ = "haprev/user/REGISTER_REQ";
 const REGISTER_RES = "haprev/user/REGISTER_RES";
 const NO_USER_FOUND = "haprev/user/NO_USER_FOUND";
+const SPLASH = "haprev/user/SPLASH";
 
 const initalState = {
   user: {},
-  status: ""
+  status: '',
+  splashStatus:false,
+  authStatus:''
 };
 
 export default (state = initalState, action = {}) => {
   switch (action.type) {
     case AUTHORIZE_REQ:
-      return { ...state, status: "auth_request", user: {} };
+      return { ...state, authStatus: 'auth_request', user: {} };
     case AUTHORIZE_RES:
     {
-      //console.log (action)
-      return { ...state, status: "", user: action.payload }}
+      return { ...state, authStatus: 'user', user: action.payload ,status:canProceed(state) }}
     case NO_USER_FOUND:
-      return {...state,status:"no_user" }
+      return {...state,authStatus:'no_user',status:canProceed(state) }
+      case SPLASH:
+      return {...state, splashStatus: action.payload,status:canProceed(state)}
     default:
       return state;
   }
@@ -59,6 +63,10 @@ export const authorize = appId =>  dispatch  => {
   })
 }
 
+const canProceed = state =>{
+  return  (!state.user.splashStatus && state.user.authStatus!='auth_request')
+}
+
 const registerReq = user => ({
   type: REGISTER_REQ,
   payload: user
@@ -74,4 +82,4 @@ const registerRes = data => {
   return tmpRes;
 }
 
-
+export const splash = (display) => ({type:SPLASH , payload:display})  

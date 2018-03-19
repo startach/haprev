@@ -1,20 +1,34 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SplashView from './SplashView'
-import {authorize} from '../../store/modules/user'
+import {authorize,splash} from '../../store/modules/user'
 
 class Splash extends Component{
 
     componentDidMount(){
+        this.props.splash(true)
         this.props.authorize(Expo.Constants.deviceId)
+        setTimeout( () => this.props.splash(false), 2000)
     }
 
     render(){
-        const { navigate } = this.props.navigation;
+        const {status,userStatus ,navigation} = this.props
+        console.log('kuku',status)
+        if (status){
+            if (userStatus=='user')
+                navigation.navigate('AppNav')
+            if (userStatus=='no_user')
+                navigation.navigate('Register')
+        }
         return (
-            <SplashView navigate={navigate} />
+            <SplashView  />
         )
     }
 }
 
-export default connect(null,{authorize})(Splash)
+const mapStateToProps = state => ({
+    status: state.user.status,
+    userStatus: state.user.authStatus
+})
+
+export default connect(mapStateToProps,{authorize,splash})(Splash)

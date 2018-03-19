@@ -4,10 +4,7 @@ const splashImg = require('../../images/splash.jpg');
 
 export default class SplashScreen extends React.Component {
   componentWillMount() {
-    const { navigate } = this.props;
-    setTimeout(() => {
-      navigate('AppNav');
-    }, 2000);
+    
   }
   render() {
     return (
