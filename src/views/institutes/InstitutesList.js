@@ -40,5 +40,5 @@ const mapStateToProps = state =>{
 )
 }
 
-//export default connect(mapStateToProps, { getInstitutes, selectInstitute })(InstitutesList);
-export default InstitutesList
+export default connect(mapStateToProps, { getInstitutes, selectInstitute })(InstitutesList);
+//export default InstitutesList
