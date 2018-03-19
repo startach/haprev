@@ -64,8 +64,31 @@ function RenderStackNavigator(screens, isHome) {
 }
 export default DrawerNavigator({
     Home: RenderStackNavigator([{screenName: Home, title: 'מסך הבית'}], true),
-    Institutes: RenderStackNavigator([{screenName: SelectDate, title: 'בחר תאריך'},{screenName: Institutes, title: 'בתי חולים'}
-      ]),
+   // Institutes: RenderStackNavigator([{screenName: Institutes, title: 'בתי חולים'},
+   //    {screenName: SelectDate, title: 'בחר תאריך'}]),
+     Institutes:  StackNavigator(
+        {
+            Institutes:{
+            screen: Institutes,
+            headerMode: 'float',
+            headerTransitionPreset: 'fade-in-place',
+            navigationOptions: {
+                title: 'בתי חולים', 
+                headerStyle: styles.headerStyle,
+                headerTitleStyle: styles.headerTitleStyle,
+            }
+            },
+            SelectDate:{
+                screen: SelectDate,                
+                headerMode: 'float',
+                headerTransitionPreset: 'fade-in-place',
+                navigationOptions: {
+                    title: 'בחר תאריך', 
+                    headerStyle: styles.headerStyle,
+                    headerTitleStyle: styles.headerTitleStyle,
+            }
+            },
+        }),
     Activities: RenderStackNavigator([{screenName: Activities, title: 'ההתנדבויות שלי'}]),
     ActivitiesAdmin: RenderStackNavigator([{screenName: AdminActivities, title: 'ניהול התנדבויות'},
         {screenName: AdminActivity, title: 'התנדבות'}]),
