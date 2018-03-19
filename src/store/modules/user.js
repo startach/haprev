@@ -46,18 +46,24 @@ const noUserFound = () =>({
   type: NO_USER_FOUND
 })
 
-export const authorize = appId =>  dispatch  => {
-  dispatch(authReq(appId))
-  firebase.database().ref('users/'+appId).once('value' , 
-    snapshot => {
-      let dbRes = snapshot.val();
-      if (dbRes)
-        dispatch (authRes( snapshot.val()))
-      else
-        dispatch (noUserFound())
-        //console.log('handle user not found')
-  })
-}
+// export const authorize = appId =>  dispatch  => {
+//   dispatch(authReq(appId))
+//   firebase.database().ref('users/'+appId).once('value' , 
+//     snapshot => {
+//       let dbRes = snapshot.val();
+//       if (dbRes)
+//         dispatch (authRes( snapshot.val()))
+//       else
+//         dispatch (noUserFound())
+//         //console.log('handle user not found')
+//   })
+// }
+
+export const authorize = (appId) => async (dispatch)  => {
+    dispatch(authReq(appId));
+    const user = await Authorize(appId);
+    dispatch (authRes( user));
+};
 
 const registerReq = user => ({
   type: REGISTER_REQ,
