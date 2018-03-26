@@ -20,8 +20,7 @@ export default (state = initalState, action = {}) => {
     case AUTHORIZE_REQ:
       return { ...state, authStatus: 'auth_request', user: {} };
     case AUTHORIZE_RES:
-    {
-      return { ...state, authStatus: 'user', user: action.payload ,status:canProceed(state) }}
+      return { ...state, authStatus: 'user', user: action.payload ,status:canProceed(state) }
     case NO_USER_FOUND:
       return {...state,authStatus:'no_user',status:canProceed(state) }
       case SPLASH:
