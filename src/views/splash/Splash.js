@@ -13,7 +13,7 @@ class Splash extends Component{
 
     render(){
         const {status,userStatus ,navigation} = this.props
-        console.log('kuku',status)
+        // console.log('Splash.js: render with status=',status)
         if (status){
             if (userStatus=='user')
                 navigation.navigate('AppNav')

@@ -46,7 +46,7 @@ export default class RegisterInputField extends Component {
     super(props);
     this.focus = this.focus.bind(this);
     this.state = {
-      text: '',
+      text: this.props.value || '',
       imageSource: '',
       secured: false,
       focusDiff: {},

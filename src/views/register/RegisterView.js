@@ -24,7 +24,13 @@ class RegisterView extends React.Component {
       this.validInput = this.validInput.bind(this);
 
       this.inputs = {};
-      this.state = {disabled: true};
+      this.state = {
+          disabled: true,
+          firstName: this.props.user.firstName,
+          lastName: this.props.user.lastName,
+          phone: this.props.user.phone,
+          email: this.props.user.email,
+        };
     }
   
     focusNextField(id) {
@@ -57,22 +63,26 @@ class RegisterView extends React.Component {
                 <Text style={styles.title}>{this.props.title}</Text>
             </View>
             <RegisterInput placeholder="שם פרטי"
+                value={this.props.user.firstName}
                 ref={input => {this.inputs[FIRSTNAME] = input;}}
                 onChangeText={(value) => this.updateField(FIRSTNAME, value)}
                 onSubmitEditing={() => {this.focusNextField(LASTNAME);}}
                 imageSource={require('../../images/personIcon.png')}/>
             <RegisterInput placeholder="שם משפחה"
+                value={this.props.user.lastName}
                 ref={input => {this.inputs[LASTNAME] = input;}}
                 onChangeText={(value) => this.updateField(LASTNAME, value)}
                 onSubmitEditing={() => {this.focusNextField(PHONE);}}
                 imageSource={require('../../images/personIcon.png')}/>
             <RegisterInput placeholder='מספר טלפון'
+                value={this.props.user.phone}
                 keyboardType='phone-pad'
                 ref={input => {this.inputs[PHONE] = input;}}
                 onChangeText={(value) => this.updateField(PHONE, '' + value)}
                 onSubmitEditing={() => {this.focusNextField(EMAIL);}}
                 imageSource={require('../../images/phoneIcon.png')}/>
             <RegisterInput placeholder='כתובת דוא"ל'
+                value={this.props.user.email}
                 keyboardType='email-address'
                 ref={input => {this.inputs[EMAIL] = input;}}
                 returnKeyType={"done"}
@@ -94,7 +104,7 @@ class RegisterView extends React.Component {
                         this.props.onAction(user);
                     }}
                     >
-                    <Text style={styles.registerButtonText}>עדכן</Text>
+                    <Text style={styles.registerButtonText}>{this.props.actionTitle}</Text>
                 </TouchableOpacity>
             </View>
              <View style={{ height: 100 }} />
@@ -103,16 +113,4 @@ class RegisterView extends React.Component {
     );}
 };
 
-const mapStateToProps = (state) => {
-  return (
-    {
-      avatar: state.user.user.avatar,
-      firstName: state.user.user.firstName,
-      lastName: state.user.user.lastName,
-      phone: state.user.user.phone,
-      email: state.user.user.email,
-    }
-  );
-};
-  
 export default RegisterView;

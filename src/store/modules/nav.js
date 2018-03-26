@@ -37,6 +37,6 @@ const authRes = data => {
 export const authorize = (appId) => async (dispatch)  => {
   dispatch(authReq(appId));
   const user = await Authorize(appId);
-  console.log('kuku' , user)
+  console.log('Authorizing @ nav' , user)
   //dispatch (authRes( user));
 };
