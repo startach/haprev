@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SplashView from './SplashView'
 import {authorize,splash} from '../../store/modules/user'
+import AppNav from '../../nav/AppNav'
+import Register from '../../views/register/Register'
 
 class Splash extends Component{
 
@@ -12,17 +14,21 @@ class Splash extends Component{
     }
 
     render(){
-        const {status,userStatus ,navigation} = this.props
-        // console.log('Splash.js: render with status=',status)
+        const {status,userStatus} = this.props
         if (status){
             if (userStatus=='user')
-                navigation.navigate('AppNav')
+                return (
+                    <AppNav />
+                )
             if (userStatus=='no_user')
-                navigation.navigate('Register')
+                return (
+                    <Register />
+                )
         }
         return (
             <SplashView  />
         )
+
     }
 }
 
