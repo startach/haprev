@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import Expo from 'expo';
 import getStore from '../store/createStore';
-import RegisterNav from '../nav/RegisterNav';
+import Splash from '../views/splash/Splash'
 //import * as firebase from 'firebase';
 import initdb from './initDb';
 
@@ -31,7 +31,7 @@ class App extends Component {
     if (this.state.fontsAreLoaded) {
       return (
         <Provider store={store} >
-          <RegisterNav />
+          <Splash />
         </Provider>);
     }
     return (<Expo.AppLoading />);
