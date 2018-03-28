@@ -41,16 +41,6 @@ export default StyleSheet.create({
       alignItems: 'center',
       textAlign: 'center',
     },
-    errorField: {
-      borderWidth : 2,
-      borderColor:'darkred' 
-    },
-    errorMessage:{
-      color:'darkred',
-      fontSize:14,
-      height:16,
-      alignSelf:'center'
-    },
     button:{
       width:150,
       marginTop:20,
