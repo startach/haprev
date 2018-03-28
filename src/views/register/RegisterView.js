@@ -94,7 +94,7 @@ class RegisterView extends React.Component {
                         this.props.onAction(user);
                     }}
                     >
-                    <Text style={styles.registerButtonText}>עדכן</Text>
+                    <Text style={styles.registerButtonText}>{this.props.actionTitle}</Text>
                 </TouchableOpacity>
             </View>
              <View style={{ height: 100 }} />

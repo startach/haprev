@@ -11,26 +11,11 @@ class MessagesView extends Component {
   }
 
 async messageAction(){
-    await this.props.onReadMessageHandler(this.props.messages[0].id);
+    await this.props.onReadMessageHandler(this.props.message.id);
   }
 
-switchMessages(messages){
-    return( 
-        <View style={styles.modalContainer}>
-        <Text style={[styles.title,{color:'white'}]}>  {messages[0].message}  </Text>
-            <TouchableOpacity
-                rounded
-                style={styles.button}
-                onPress={() => { this.messageAction()}}
-                >
-                <Text style={styles.buttonText}>אישור</Text>
-            </TouchableOpacity>
-        </View>
-        );
-};
-
   render() { 
-    const { messages, navigation } = this.props;
+    const { message, navigation } = this.props;
     return ( 
         <Modal
             visible={this.state.modalVisible}
@@ -38,7 +23,16 @@ switchMessages(messages){
             transparent
             onRequestClose={() => this.setState({modalVisible:true})}
             >
-            { this.switchMessages(messages) }
+            <View style={styles.modalContainer}>
+                <Text style={[styles.title,{color:'white'}]}>  {message.message}  </Text>
+                <TouchableOpacity
+                    rounded
+                    style={styles.button}
+                    onPress={() => { this.messageAction()}}
+                    >
+                    <Text style={styles.buttonText}>אישור</Text>
+                </TouchableOpacity>
+            </View>
        </Modal>
     );
   } 
