@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import HelpView from './HelpView'
 import { connect } from 'react-redux'
-import {HelpRequest} from '../../services'
+import * as firebase from 'firebase';
 
 class Help extends Component{
     render(){
@@ -16,7 +16,16 @@ class Help extends Component{
 }
 
 helpReqHandler = async (first,last,email,content) => {
-    return await HelpRequest(first,last,email,content);
+    let currDate =new Date().toJSON().slice(0,10);
+    let res = await firebase.database().ref('contactUs').child(currDate).push()
+        .set({
+            name: first + ' ' + last, 
+            email: email,
+            content: content
+        })
+        .then(() => {return 'ok'})
+        .catch(error => {console.log('Data could not be saved.',error); return 'err'});
+    return res
 }
 
 const mapStateToProps = state =>{

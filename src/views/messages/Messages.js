@@ -2,42 +2,35 @@ import React, { Component } from 'react'
 import {View, Text, TouchableOpacity, Modal } from 'react-native';
 import MessagesView from './MessagesView'
 import { connect } from 'react-redux'
-import {messageResult, readMessagesRes,readMessagesReq} from '../../store/modules/messages'
-import {ReadMessage} from '../../services'
+import {readMessage} from '../../store/modules/user'
 
 class Messages extends Component{
-    componentDidMount(){
-        this.props.onMessageResult(Expo.Constants.deviceId);
-    }
 
     readMessageHandler = async (msgId) => {
-        await this.props.onReadMessagesReq();
-        res = await ReadMessage(msgId);
-        if(res.status==='ok')
-            await this.props.onReadMessagesRes(msgId);
+        await this.props.onReadMessage(msgId);
     }
 
     render(){
+        let msgKey = Object.keys(this.props.messages);
         return(
-            this.props.messages[0] ?
-                <MessagesView messages={this.props.messages} navigation={this.props.navigation} onReadMessageHandler={this.readMessageHandler}/>  
-                : 
-                null
-            )
+            this.props.messages[msgKey[0]] ?
+               <MessagesView message={this.props.messages[msgKey[0]]} navigation={this.props.navigation} onReadMessageHandler={this.readMessageHandler}/>  
+               :
+               null
+           )
     }
 }
 
 const mapStateToProps = (state) => {
-    return ({
-            messages: state.messages.messages,
-            })
+        return (
+            state.user.user.messages ?  
+            { messages: state.user.user.messages } : { messages: [] } 
+            )
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onMessageResult: (appId) => dispatch(messageResult(appId)),
-        onReadMessagesReq: () => dispatch(readMessagesReq()),
-        onReadMessagesRes: (msgId) => dispatch(readMessagesRes(msgId)),
+        onReadMessage: (msgId) => dispatch(readMessage(msgId)),
     };
 };
 
