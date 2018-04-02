@@ -8,13 +8,15 @@ class Register extends Component{
     render(){
         return(
         <RegisterView user={this.props.user} title="חשבון חדש" actionTitle="הרשמה"
-          onAction = {(user) => {console.log(user);
+          onAction = {(user) => {
+            // console.log('Registering user:', user);
             this.props.register(user);}}/>
         )}
 }
 
-const mapStateToProps =state =>{ 
-return ({
+const mapStateToProps = state => {
+    // console.log('Register.js: Current redux storage', state.user)
+    return ({
             user:state.user.user
         })
 }
