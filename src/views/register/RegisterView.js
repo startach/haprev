@@ -8,8 +8,8 @@ import {YellowBox} from 'react-native';
 {/* https://medium.freecodecamp.org/how-to-make-your-react-native-app-respond-gracefully-when-the-keyboard-pops-up-7442c1535580 */}
 {/* https://medium.com/reactnative/tabbing-through-input-fields-ef283f923ab1 */}
 
-const FIRSTNAME = 'firstName';
-const LASTNAME = 'lastName';
+const FIRSTNAME = 'first';
+const LASTNAME = 'last';
 const PHONE = 'phone';
 const EMAIL = 'email';
 
@@ -26,8 +26,8 @@ class RegisterView extends React.Component {
       this.inputs = {};
       this.state = {
           disabled: true,
-          firstName: this.props.user.firstName,
-          lastName: this.props.user.lastName,
+          first: this.props.user.first,
+          last: this.props.user.last,
           phone: this.props.user.phone,
           email: this.props.user.email,
         };
@@ -38,8 +38,8 @@ class RegisterView extends React.Component {
     }
   
     validInput() {
-        return notEmpty(this.state.firstName) &&
-            notEmpty(this.state.lastName) &&
+        return notEmpty(this.state.first) &&
+            notEmpty(this.state.last) &&
             notEmpty(this.state.phone);
     }
     
@@ -63,13 +63,13 @@ class RegisterView extends React.Component {
                 <Text style={styles.title}>{this.props.title}</Text>
             </View>
             <RegisterInput placeholder="שם פרטי"
-                value={this.props.user.firstName}
+                value={this.props.user.first}
                 ref={input => {this.inputs[FIRSTNAME] = input;}}
                 onChangeText={(value) => this.updateField(FIRSTNAME, value)}
                 onSubmitEditing={() => {this.focusNextField(LASTNAME);}}
                 imageSource={require('../../images/personIcon.png')}/>
             <RegisterInput placeholder="שם משפחה"
-                value={this.props.user.lastName}
+                value={this.props.user.last}
                 ref={input => {this.inputs[LASTNAME] = input;}}
                 onChangeText={(value) => this.updateField(LASTNAME, value)}
                 onSubmitEditing={() => {this.focusNextField(PHONE);}}
@@ -97,8 +97,8 @@ class RegisterView extends React.Component {
                     style={[styles.registerButton, this.state.disabled ? { backgroundColor:'#c6c6c6'} : { }] }
                     onPress={() => {
                         let user = {};
-                        user[FIRSTNAME] = this.state.firstName;
-                        user[LASTNAME] = this.state.lastName;
+                        user[FIRSTNAME] = this.state.first;
+                        user[LASTNAME] = this.state.last;
                         user[PHONE] = this.state.phone;
                         user[EMAIL] = this.state.email;
                         this.props.onAction(user);
