@@ -4,7 +4,7 @@ import styles from './RegisterViewStyles';
 import RegisterInput from './RegisterInputField';
 import { connect } from 'react-redux';
 import {YellowBox} from 'react-native';
-
+import { ImagePicker } from 'expo';
 {/* https://medium.freecodecamp.org/how-to-make-your-react-native-app-respond-gracefully-when-the-keyboard-pops-up-7442c1535580 */}
 {/* https://medium.com/reactnative/tabbing-through-input-fields-ef283f923ab1 */}
 
@@ -30,6 +30,7 @@ class RegisterView extends React.Component {
           last: this.props.user.last,
           phone: this.props.user.phone,
           email: this.props.user.email,
+          image: null
         };
     }
   
@@ -49,7 +50,20 @@ class RegisterView extends React.Component {
         this.setState(obj);
         this.setState({disabled: !this.validInput()});
     }
+
+    pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          allowsEditing: true,
+          aspect: [4, 3],
+        });
     
+        console.log(result);
+    
+        if (!result.cancelled) {
+          this.setState({ image: result.uri });
+        }
+    };
+
     render() {
       return(
         <ImageBackground style={styles.background} source={require('../../images/backGround.jpg')}>
@@ -57,8 +71,18 @@ class RegisterView extends React.Component {
             style={styles.topContainer}
             behavior="padding">
             <View style={styles.userView}>
-                <TouchableOpacity>
-                <Image style = {styles.userImage} source ={require('../../images/emptyUserIcon.png')} />
+                <TouchableOpacity 
+                    onPress={this.pickImage}
+                >
+                { this.state.image ? 
+                    <Image style = {styles.userImage} 
+                       source={{ uri: this.state.image }}
+                    />
+                    :
+                    <Image style = {styles.emptyUserImage} 
+                        source = {require('../../images/emptyUserIcon.png')} 
+                    />  
+                }
                 </TouchableOpacity>
                 <Text style={styles.title}>{this.props.title}</Text>
             </View>
