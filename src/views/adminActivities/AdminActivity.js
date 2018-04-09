@@ -1,73 +1,6 @@
 import React, {Component} from 'react'
 import {View, Text, Button, StyleSheet, FlatList, Modal,TouchableOpacity} from 'react-native'
-//import { MaterialDialog } from 'react-native-material-dialog';
-
-const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        justifyContent: 'space-around',
-    },
-    h1:{
-        textAlign:'center',
-        fontSize:18,
-        padding:10,
-    },
-    h2:{
-        textAlign:'center',
-        fontSize:16,
-        paddingTop:30,
-    },
-    participantItem: {
-        marginHorizontal: '10%',
-        width: '80%',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        borderTopColor: '#333',
-        borderTopWidth: StyleSheet.hairlineWidth,
-    },
-    img:{
-        height: 40,
-        width: 40,
-        backgroundColor:'#080',
-        margin: 5,
-    },
-    bottomButtons:{
-        bottom:0,
-    },
-    button:{
-        margin: 20
-    },
-    modalContainer: {
-        marginTop: "40%",
-        justifyContent: 'center',
-        alignSelf:'center',        
-        backgroundColor: 'grey',
-        height:'50%',
-        width: '90%',
-        borderWidth:2,
-        borderRadius:15,
-      },
-      title: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        textAlign: 'center',
-      },
-      modalButton:{
-        width:200,
-        margin:20,
-        padding:10,
-        backgroundColor:'#D81A4C',
-        borderRadius:15,
-        alignSelf:'center'
-      },
-      modalButtonText: {
-        color:'white',
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign:'center',
-      },
-})
+import {adminActivityStyle as styles, modalActivityStyle as modalStyles } from './styles' 
 
 const ParticipantItem = ({participant}) => {
     return <View style={styles.participantItem}>
@@ -78,18 +11,25 @@ const ParticipantItem = ({participant}) => {
 
 class AdminActivity extends Component
 {
-    state = {cancelDialogVisible: false};
-    cancelActivity() {
-        this.setState({cancelDialogVisible: false});
-        console.log('cancel activity');
-    };
+    state = {displayCancelEventDialog: false};
+    
+    showCancelEventDialog = () => 
+        this.setState({displayCancelEventDialog: true})
 
+    hideCancelEventDialog = () => 
+        this.setState({displayCancelEventDialog: false});
+
+    deleteActivity = () =>{
+        //todo delete the event
+        console.log('todo - come on - really delete the event')
+        this.hideCancelEventDialog();
+        this.props.navigation.goBack();
+    }
+    
     render() {
+        
         const {params} = this.props.navigation.state;
-        const activity = params ? params.activity : null;
-
-
-        const toggleCancelDialog = () => this.setState({cancelDialogVisible: true})
+        const activity = params ? params.event : null;
 
         return (
             <View style={styles.container}>
@@ -100,31 +40,31 @@ class AdminActivity extends Component
                           renderItem={({item}) => <ParticipantItem participant={item}/>}
                           keyExtractor={(item) => item.id}/>
                 <View style={styles.bottomButtons}>
-                    <Button style={styles.button} title="בטל התנדבות" onPress={toggleCancelDialog}/>
+                    <Button style={styles.button} title="בטל התנדבות" onPress={this.showCancelEventDialog}/>
                 </View>
 
                 <Modal
                     transparent
-                    visible={this.state.cancelDialogVisible}
+                    visible={this.state.displayCancelEventDialog}
                     animationType={'slide'}
-                    onRequestClose={() => this.setState({cancelDialogVisible:true})}
                 >
-                    <View style={styles.modalContainer}>
+                    <View style={modalStyles.modalContainer}>
                         <View>
-                            <Text style={[styles.title,{color:'white'}]}> האם לבטל את ההתנדבות? {"\n"} </Text>
+                            <Text style={[modalStyles.title,{color:'white'}]}> האם לבטל את ההתנדבות? {"\n"} </Text>
                             <TouchableOpacity
                                 rounded
-                                style={styles.modalButton}
-                                onPress={() => { this.setState({cancelDialogVisible:false}); this.cancelActivity(); this.props.navigation.goBack()}}
+                                style={modalStyles.modalButton}
+                                onPress={() =>  this.deleteActivity()}
                                 >
-                                <Text style={styles.modalButtonText}>בטל התנדבות</Text>
+                                <Text style={modalStyles.modalButtonText}>בטל התנדבות</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 rounded
-                                style={[styles.modalButton,{backgroundColor:'green'}]}
-                                onPress={() => { this.setState({cancelDialogVisible:false});}}
+                                style={[modalStyles.modalButton,{backgroundColor:'green'}]}
+                                //onPress={() => { this.setState({cancelDialogVisible:false});}}
+                                onPress={() => { this.hideCancelEventDialog()}}
                                 >
-                                <Text style={styles.modalButtonText}>השאר התנדבות</Text>
+                                <Text style={modalStyles.modalButtonText}>השאר התנדבות</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

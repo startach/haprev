@@ -8,7 +8,7 @@ import Institutes from "../views/institutes/InstitutesList";
 import SelectDate from "../views/institutes/SelectDate"
 import Profile from "../views/profile/Profile";
 import Activities from "../views/activities/Activities";
-import AdminActivities from "../views/adminActivities/AdminActivities";
+import AdminActivities from "../views/adminActivities/AdminActivitiyList";
 import AdminActivity from "../views/adminActivities/AdminActivity";
 import Help from "../views/help/Help";
 

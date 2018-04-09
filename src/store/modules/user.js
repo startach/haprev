@@ -110,10 +110,10 @@ export const register = user =>  dispatch  => {
       // console.log('Register response', snapshot)
       let dbRes = snapshot.val()
       if (dbRes) {
-        console.log(dbRes)
+        //console.log(dbRes)
         dispatch (registerRes(dbRes))
       } else {
-        console.log('handle user not found')
+        //console.log('handle user not found')
         dispatch (noUserFound())
       }
   })
