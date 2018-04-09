@@ -20,7 +20,6 @@ constructor(){
   }
 
   render() {
-    console.log(this.props)
     const {  institutes } = this.props;
     return (
       <InstitutesListView
@@ -32,13 +31,9 @@ constructor(){
 }
 
 const mapStateToProps = state =>{
-  //console.log('state:',state)
-  return (
-  {
+  return ({
     institutes: state.institues.institutes,
-  }
-)
+  })
 }
 
 export default connect(mapStateToProps, { getInstitutes, selectInstitute })(InstitutesList);
-//export default InstitutesList

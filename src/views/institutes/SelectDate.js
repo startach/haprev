@@ -25,6 +25,7 @@ class SelectDate extends Component {
 }
 
 mapStateToProps = state =>{
+  console.log('selectDate', state)
   return {
     vols:state.institues.vols
   }
