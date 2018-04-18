@@ -10,17 +10,18 @@ class Help extends Component{
             first={this.props.first} 
             last={this.props.last} 
             email={this.props.email}
+            phone={this.props.phone}
             navigation={this.props.navigation}
         />
         )}
 }
 
-helpReqHandler = async (first,last,email,content) => {
+helpReqHandler = async (first,last,contact,content) => {
     let currDate =new Date().toJSON().slice(0,10);
     let res = await firebase.database().ref('contactUs').child(currDate).push()
         .set({
             name: first + ' ' + last, 
-            email: email,
+            email_phone: contact,
             content: content
         })
         .then(() => {return 'ok'})
@@ -33,6 +34,7 @@ return ({
            first:state.user.user.first,
            last:state.user.user.last,
            email:state.user.user.email,
+           phone:state.user.user.phone,
         })
 }
 

@@ -27,13 +27,15 @@ export default StyleSheet.create({
       },
       emptyUserImage:{
         width:150,
-        height:150,
+        height:150,   
       },
       userImage:{
         marginTop:10,
         width:135,
         height:135,
         borderRadius:100,
+        borderWidth:1,
+        borderColor: 'white'
       },
       title:{
         color:'white',
