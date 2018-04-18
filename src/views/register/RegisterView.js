@@ -120,9 +120,9 @@ class RegisterView extends React.Component {
                     disabled={this.state.disabled} 
                     style={[styles.registerButton, this.state.disabled ? { backgroundColor:'#c6c6c6'} : { }] }
                     onPress={() => {
-                        let user = {};
-                        user[FIRSTNAME] = this.state.first;
-                        user[LASTNAME] = this.state.last;
+                        let user = {...this.props.user};
+                        user[FIRSTNAME] = this.state.firstName;
+                        user[LASTNAME] = this.state.lastName;
                         user[PHONE] = this.state.phone;
                         user[EMAIL] = this.state.email;
                         this.props.onAction(user);
