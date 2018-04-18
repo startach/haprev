@@ -68,16 +68,26 @@ const noUserFound = () =>({
 })
 
 export const authorize = appId =>  dispatch  => {
-  // console.log('user.js: Authorizing')
+  console.log('user.js: Authorizing')
   dispatch(authReq(appId))
-  firebase.database().ref('users/'+appId).once('value' , 
+  // firebase.database().ref('users/'+appId).once('value' ,
+  // Is there any user associated with this appId? 
+  firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' , 
     snapshot => {
-      let dbRes = snapshot.val();
-      if (dbRes)
-        dispatch (authRes( snapshot.val()))
-      else
+      let dbResList = snapshot.val()
+      if (dbResList) {
+        // Get the 1st response
+        console.log('Query by appId:', dbResList)
+        let userId = Object.keys(dbResList)[0]
+        let dbRes = dbResList[userId]
+        // Keep the key for later updates!!
+        dbRes.userId = userId
+        console.log('authorize found user by appId:', dbRes)
+        dispatch (authRes(dbRes))
+      } else {
         dispatch (noUserFound())
-        //console.log('handle user not found')
+        console.log('handle user not found')
+      }
   })
 }
 
@@ -101,23 +111,26 @@ const registerRes = data => {
 }
 
 export const register = user =>  dispatch  => {
-  // console.log('Registering @ user')
+  console.log('Registering @ user.js: ', user)
   user.appId = Expo.Constants.deviceId
-  dispatch(registerReq(user))
-  let ref = firebase.database().ref('users/'+user.appId)
-  ref.once('value', 
+  let ref = firebase.database().ref('users')
+  // Query by phone first...
+  ref.orderByChild('phone').equalTo(user.phone).once('value' , 
     snapshot => {
-      // console.log('Register response', snapshot)
-      let dbRes = snapshot.val()
-      if (dbRes) {
-        //console.log(dbRes)
-        dispatch (registerRes(dbRes))
-      } else {
-        //console.log('handle user not found')
-        dispatch (noUserFound())
+      let dbResList = snapshot.val()
+      if (dbResList) {
+        // Assume that the user changed the device & we need to update
+        let userId = Object.keys(dbResList)[0]
+        user.userId = userId
+        console.log('updating existing user:', user)
+        update(user)(dispatch)
+      } else { // New user
+        dispatch(registerReq(user))
+        user.userId = ref.push(user).key
+        console.log('Register new user:', user)
+        dispatch (registerRes(user))
       }
   })
-  ref.set(user) 
 }
 
 const updateReq = user => ({
@@ -136,9 +149,9 @@ const updateRes = data => {
 }
 
 export const update = user =>  dispatch  => {
-  // console.log('Updating profile @ user')
+  console.log('Updating profile @ user.js')
   dispatch(registerReq(user))
-  let ref = firebase.database().ref('users/'+Expo.Constants.deviceId)
+  let ref = firebase.database().ref('users/'+user.userId)
   ref.once('value', 
     snapshot => {
       // console.log('Register response', snapshot)
