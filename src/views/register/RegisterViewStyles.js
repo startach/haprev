@@ -30,7 +30,7 @@ export default StyleSheet.create({
         height:150,   
       },
       userImage:{
-        marginTop:10,
+        marginTop:15,
         width:135,
         height:135,
         borderRadius:100,

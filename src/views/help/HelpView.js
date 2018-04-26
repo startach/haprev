@@ -22,7 +22,7 @@ class HelpView extends Component {
  async SandMessage(){
     const { first, last, email, phone } = this.props;
     content = this.state.content.replace(/\n/g,' ');
-    res = await helpReqHandler(first, last, email || phone, content)
+    res = await this.props.onHelpReq(first, last, email || phone, content)
     if(res ==='ok') 
       this.setState({success : true});
     this.setState({modalVisible : true});
@@ -73,7 +73,7 @@ class HelpView extends Component {
           <Text style={[styles.subtitle,{color:'white'}]}>{'\n'} {this.state.success ? SUCCESS_SEND.subtitle : FAIL_SEND.subtitle} {'\n'}  </Text>        
             <TouchableOpacity
               rounded
-              style={styles.button}
+              style={[styles.button,{marginTop:0}]}
               onPress={() => { this.state.success ? navigation.navigate('Home') : this.setState({modalVisible:false,isButtonDisabled: false})}}
             >
             <Text style={styles.buttonText}>אישור</Text>

@@ -52,7 +52,16 @@ class RegisterView extends React.Component {
         this.setState(obj);
         this.setState({disabled: !this.validInput()});
     }
-
+    getAvatarImage(){
+        const avatarImage = this.state.avatarUrl ? 
+            (<Image style={styles.userImage} source={{ uri: this.state.avatarUrl }} />) 
+            : 
+            (<Image
+                style={styles.emptyUserImage}
+                source={require('../../images/emptyUserIcon.png')}
+            />);
+        return (<TouchableOpacity onPress={this.pickImage}>{avatarImage}</TouchableOpacity>)
+    }
     pickImage = async () => {
         let pickerResult = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
@@ -72,40 +81,30 @@ class RegisterView extends React.Component {
 
     updateAvatar = async () =>{
         this.setState({spinner: true})
+        let userFolder = this.state.email || this.state.phone;
         try {
-            //Cloudinary api
-            let apiUrlUpload = 'https://api.cloudinary.com/v1_1/startach/image/upload';
-            let userFolder = this.state.email || this.state.phone;
-            let dataUp = {
-                "file": this.base64Img,
-                "upload_preset": 'atuhnhof',
-                "public_id": userFolder + '_' + Date.now(),
-                "folder": 'avatars/' + userFolder ,
-            }
-            
-            await fetch(apiUrlUpload, {
-            body: JSON.stringify(dataUp),
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: 'POST',
-            })
-            .then( response => {
-            let data = response._bodyText
-            let newAvatarUrl = JSON.parse(data).secure_url;
-            console.log("Avatar URL:",newAvatarUrl);
+            newAvatarUrl = await this.props.onUploadImage(userFolder,this.base64Img);
             this.setState({ avatarUrl: newAvatarUrl });
-            })
-            .catch(err => console.log(err))
-            
         } catch (e) {
-            console.log(e);
+            console.log(e); 
             alert('Upload failed',e);
         }
         finally{
             this.setState({spinner: false})
         }      
     };
+    
+    handlePress = async ()=>{
+            if(this.base64Img)
+                await this.updateAvatar();
+            let user = {...this.props.user};
+            user[FIRSTNAME] = this.state.first;
+            user[LASTNAME] = this.state.last;
+            user[PHONE] = this.state.phone;
+            user[EMAIL] = this.state.email || null;
+            user[AVATAR_URL] = this.state.avatarUrl || null;
+            this.props.onAction(user);
+    }
 
     render() {
       return(
@@ -114,13 +113,7 @@ class RegisterView extends React.Component {
             style={styles.topContainer}
             behavior="padding">
             <View style={styles.userView}>
-                <TouchableOpacity onPress={this.pickImage}>
-                    { this.state.avatarUrl ? 
-                        <Image style = {styles.userImage} source={{ uri: this.state.avatarUrl }} />
-                        :
-                        <Image style = {styles.emptyUserImage} source = {require('../../images/emptyUserIcon.png')} />  
-                    }
-                </TouchableOpacity>
+                { this.getAvatarImage() }
                 <Text style={styles.title}>{this.props.title}</Text>
             </View>
             <RegisterInput placeholder="שם פרטי"
@@ -156,18 +149,7 @@ class RegisterView extends React.Component {
                     title={this.props.actionTitle} 
                     disabled={this.state.disabled} 
                     style={[styles.registerButton, this.state.disabled ? { backgroundColor:'#c6c6c6'} : { }] }
-                    onPress={ async () => {
-                        if(this.base64Img)
-                            await this.updateAvatar();
-                        let user = {...this.props.user};
-                        console.log("this.state.email",this.state.email)
-                        user[FIRSTNAME] = this.state.first;
-                        user[LASTNAME] = this.state.last;
-                        user[PHONE] = this.state.phone;
-                        user[EMAIL] = this.state.email || null;
-                        user[AVATAR_URL] = this.state.avatarUrl || null;
-                        this.props.onAction(user);
-                    }}
+                    onPress={ this.handlePress}
                     >
                     {
                     !this.state.spinner ?
