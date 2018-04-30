@@ -25,9 +25,17 @@ export default StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
       },
-      userImage:{
+      emptyUserImage:{
         width:150,
-        height:150,
+        height:150,   
+      },
+      userImage:{
+        marginTop:15,
+        width:135,
+        height:135,
+        borderRadius:100,
+        borderWidth:1,
+        borderColor: 'white'
       },
       title:{
         color:'white',

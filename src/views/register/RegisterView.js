@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Text, View, ScrollView, Image, ImageBackground, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { Button, Text, View, ScrollView, Image, ImageBackground, TouchableOpacity, KeyboardAvoidingView,ActivityIndicator } from 'react-native';
 import styles from './RegisterViewStyles';
 import RegisterInput from './RegisterInputField';
 import { connect } from 'react-redux';
-import {YellowBox} from 'react-native';
-
+import { ImagePicker } from 'expo';
 {/* https://medium.freecodecamp.org/how-to-make-your-react-native-app-respond-gracefully-when-the-keyboard-pops-up-7442c1535580 */}
 {/* https://medium.com/reactnative/tabbing-through-input-fields-ef283f923ab1 */}
 
@@ -12,6 +11,7 @@ const FIRSTNAME = 'first';
 const LASTNAME = 'last';
 const PHONE = 'phone';
 const EMAIL = 'email';
+const AVATAR_URL = 'avatarUrl';
 
 function notEmpty(s) {return s && s.length > 0}
 
@@ -24,12 +24,15 @@ class RegisterView extends React.Component {
       this.validInput = this.validInput.bind(this);
 
       this.inputs = {};
+      this.base64Img = null;
       this.state = {
           disabled: true,
           first: this.props.user.first,
           last: this.props.user.last,
           phone: this.props.user.phone,
           email: this.props.user.email,
+          avatarUrl: this.props.user.avatarUrl,
+          spinner: false
         };
     }
   
@@ -49,7 +52,60 @@ class RegisterView extends React.Component {
         this.setState(obj);
         this.setState({disabled: !this.validInput()});
     }
+    getAvatarImage(){
+        const avatarImage = this.state.avatarUrl ? 
+            (<Image style={styles.userImage} source={{ uri: this.state.avatarUrl }} />) 
+            : 
+            (<Image
+                style={styles.emptyUserImage}
+                source={require('../../images/emptyUserIcon.png')}
+            />);
+        return (<TouchableOpacity onPress={this.pickImage}>{avatarImage}</TouchableOpacity>)
+    }
+    pickImage = async () => {
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 0.8,
+            base64: true,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images 
+        });
+        
+        if (!pickerResult.cancelled) {
+            console.log("avatarUrl:", pickerResult.uri)
+            this.setState({ avatarUrl: pickerResult.uri, disabled: false});
+            let base64Img = `data:image/jpg;base64,${pickerResult.base64}`
+            this.base64Img = base64Img;
+        }
+    };
+
+    updateAvatar = async () =>{
+        this.setState({spinner: true})
+        let userFolder = this.state.email || this.state.phone;
+        try {
+            newAvatarUrl = await this.props.onUploadImage(userFolder,this.base64Img);
+            this.setState({ avatarUrl: newAvatarUrl });
+        } catch (e) {
+            console.log(e); 
+            alert('Upload failed',e);
+        }
+        finally{
+            this.setState({spinner: false})
+        }      
+    };
     
+    handlePress = async ()=>{
+            if(this.base64Img)
+                await this.updateAvatar();
+            let user = {...this.props.user};
+            user[FIRSTNAME] = this.state.first;
+            user[LASTNAME] = this.state.last;
+            user[PHONE] = this.state.phone;
+            user[EMAIL] = this.state.email || null;
+            user[AVATAR_URL] = this.state.avatarUrl || null;
+            this.props.onAction(user);
+    }
+
     render() {
       return(
         <ImageBackground style={styles.background} source={require('../../images/backGround.jpg')}>
@@ -57,9 +113,7 @@ class RegisterView extends React.Component {
             style={styles.topContainer}
             behavior="padding">
             <View style={styles.userView}>
-                <TouchableOpacity>
-                <Image style = {styles.userImage} source ={require('../../images/emptyUserIcon.png')} />
-                </TouchableOpacity>
+                { this.getAvatarImage() }
                 <Text style={styles.title}>{this.props.title}</Text>
             </View>
             <RegisterInput placeholder="שם פרטי"
@@ -95,16 +149,14 @@ class RegisterView extends React.Component {
                     title={this.props.actionTitle} 
                     disabled={this.state.disabled} 
                     style={[styles.registerButton, this.state.disabled ? { backgroundColor:'#c6c6c6'} : { }] }
-                    onPress={() => {
-                        let user = {...this.props.user};
-                        user[FIRSTNAME] = this.state.firstName;
-                        user[LASTNAME] = this.state.lastName;
-                        user[PHONE] = this.state.phone;
-                        user[EMAIL] = this.state.email;
-                        this.props.onAction(user);
-                    }}
+                    onPress={ this.handlePress}
                     >
+                    {
+                    !this.state.spinner ?
                     <Text style={styles.registerButtonText}>{this.props.actionTitle}</Text>
+                    :
+                    <ActivityIndicator size='large' color='white' /> 
+                    }
                 </TouchableOpacity>
             </View>
              <View style={{ height: 100 }} />

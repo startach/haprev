@@ -60,7 +60,7 @@ export default StyleSheet.create({
       justifyContent: 'center',
       alignSelf:'center',        
       backgroundColor: 'grey',
-      height:'50%',
+      height:'40%',
       width: '90%',
       borderWidth:2,
       borderRadius:15,

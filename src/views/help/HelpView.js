@@ -20,16 +20,16 @@ class HelpView extends Component {
   }
 
  async SandMessage(){
-    const { first, last, email } = this.props;
+    const { first, last, email, phone } = this.props;
     content = this.state.content.replace(/\n/g,' ');
-    res = await helpReqHandler(first, last, email, content)
+    res = await this.props.onHelpReq(first, last, email || phone, content)
     if(res ==='ok') 
       this.setState({success : true});
     this.setState({modalVisible : true});
   }
 
   render() { 
-    const { first, last, email, navigation } = this.props;
+    const { first, last, email, phone, navigation } = this.props;
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -39,7 +39,7 @@ class HelpView extends Component {
             <Text style={styles.subtitle}>בדיוק בשביל זה אנחנו פה! {'\n'} שלח לנו הודעה ונחזור אליך בהקדם.</Text>
           </View>
           <Text style={[styles.inputField,styles.untouchableField]}>{first + ' ' + last}</Text>
-          <Text style={[styles.inputField,styles.untouchableField]}>{email}</Text>
+          <Text style={[styles.inputField,styles.untouchableField]}>{email || phone}</Text>
           <TextInput
             ref='content'
             label='תוכן' 
@@ -73,7 +73,7 @@ class HelpView extends Component {
           <Text style={[styles.subtitle,{color:'white'}]}>{'\n'} {this.state.success ? SUCCESS_SEND.subtitle : FAIL_SEND.subtitle} {'\n'}  </Text>        
             <TouchableOpacity
               rounded
-              style={styles.button}
+              style={[styles.button,{marginTop:0}]}
               onPress={() => { this.state.success ? navigation.navigate('Home') : this.setState({modalVisible:false,isButtonDisabled: false})}}
             >
             <Text style={styles.buttonText}>אישור</Text>
