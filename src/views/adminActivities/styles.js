@@ -67,6 +67,10 @@ const modalActivityStyle = StyleSheet.create( {
         fontWeight: 'bold',
         textAlign:'center',
       },
+    activityName:{
+        height:100,
+        color:'white'
+    }
 });
  
 
@@ -92,7 +96,7 @@ const adminActivityListStyle = StyleSheet.create({
     plusButton:{
         alignSelf: 'flex-end',
         position: 'absolute',
-        bottom: -10
+        bottom: -10,
     },
     activityItemOdd: {
         height:50,

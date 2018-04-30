@@ -11,6 +11,7 @@ import Activities from "../views/activities/Activities";
 import AdminActivities from "../views/adminActivities/AdminActivitiyList";
 import AdminActivity from "../views/adminActivities/AdminActivity";
 import Help from "../views/help/Help";
+import CreateActivity from "../views/adminActivities/CreateActivityView";
 
 const { width } = Dimensions.get('screen');
 
@@ -73,11 +74,11 @@ export default DrawerNavigator({
             headerMode: 'float',
             headerTransitionPreset: 'fade-in-place',
             navigationOptions: {
-                title: 'בתי חולים', 
+             title: 'בתי חולים',
                 headerStyle: styles.headerStyle,
                 headerTitleStyle: styles.headerTitleStyle,
             }
-            },
+               },
             SelectDate:{
                 screen: SelectDate,                
                 headerMode: 'float',
@@ -90,8 +91,11 @@ export default DrawerNavigator({
             },
         }),
     Activities: RenderStackNavigator([{screenName: Activities, title: 'ההתנדבויות שלי'}]),
-    ActivitiesAdmin: RenderStackNavigator([{screenName: AdminActivities, title: 'ניהול התנדבויות'},
-        {screenName: AdminActivity, title: 'התנדבות'}]),
+    ActivitiesAdmin: RenderStackNavigator([
+        {screenName: AdminActivities, title: 'ניהול התנדבויות'},
+        {screenName: AdminActivity, title: 'התנדבות'},
+        {screenName: CreateActivity , title:'צור התנדבות'}
+        ]),
   //  Contacts: RenderStackNavigator([{Contacts: Contacts, title: 'אנשי קשר'}]),
   //  AboutUs: RenderStackNavigator([{screenName: AboutUs, title: 'אודות'}]), 
     Profile: RenderStackNavigator([{screenName: Profile, title: 'הפרופיל שלי'}]),

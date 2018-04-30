@@ -7,15 +7,15 @@ import { StyleSheet } from 'react-native';
 class AdminActivitiyList extends React.Component  {
     state = {displayCreateEventDialog: false};
 
-    showCreateEventDialog = () =>
-        this.setState({displayCreateEventDialog: true});    
-    
-    hideCreateEventDialog = () =>
-        this.setState({displayCreateEventDialog: false});    
-
     openEventView =  (event ) =>
         this.props.navigation.navigate('AdminActivity',{event});
-    
+
+    createActivityView = ()=>{
+        console.log('kuku')
+        this.props.navigation.navigate('CreateActivity');
+    }
+
+
     render() {
         const {navigation:{navigate}} =this.props;
 
@@ -23,10 +23,8 @@ class AdminActivitiyList extends React.Component  {
             <AdminActiviyListView 
                 events= {events} 
                 openEventView={this.openEventView}
-                //navigate = {navigate} 
-                showDialog = {this.showCreateEventDialog} 
-                hideDialog = {this.hideCreateEventDialog} 
-                displayDialog = {this.state.displayCreateEventDialog} 
+                createActivityView={this.createActivityView}
+                displayDialog = {this.state.displayCreateEventDialog}
             />
         )
     }
