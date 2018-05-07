@@ -12,6 +12,12 @@
 .env.test.local
 .env.production.local
 
-npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+npm-debug.*
+.history
+.idea
+.DS_Store
+package-lock.json
+
