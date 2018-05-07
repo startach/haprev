@@ -1,6 +1,5 @@
 import React from 'react'
 import {StackNavigator } from 'react-navigation'
-import { FontAwesome } from '@expo/vector-icons'
 import {headerDefinitions, homeNavigationOptions, appNavigationOptions} from './RoutsService'
 import Home from '../../views/home/Home'
 import Institutes from '../../views/institutes/InstitutesList'
@@ -78,7 +77,7 @@ const HelpRoute = StackNavigator(
     },{navigationOptions: appNavigationOptions}
 );
 
-export {
+export  default{
     HomeRoute,
     InstitutesRoute,
     ActivitiesRoute,

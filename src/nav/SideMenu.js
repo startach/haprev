@@ -45,7 +45,7 @@ class SideMenu extends Component {
                         { key:"מסך הבית", nav:'Home', index:0},
                         { key:"רישום להתנדבות", nav:'Institutes', index:1},
                         { key:"התנדבויות שלי", nav:'Activities', index:2}, 
-                        { key:"ממשק רכזים", nav:'ActivitiesAdmin', index:3}, 
+                        { key:"ממשק רכזים", nav:'AdminActivities', index:3}, 
                         { key:"אנשי קשר", nav:'Contacts', index:4}, 
                         { key:"אודות", nav:'AboutUs', index:5},
                         { key:"חפשו אותנו בפייסבוק", nav:'Facebook_haprev', index:6},

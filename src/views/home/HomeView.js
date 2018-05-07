@@ -10,7 +10,7 @@ const HomeView = (props) => {
 
     const { first, last, coordinator } = props
     const isAdmin = (coordinator > 0)
-    console.log(first, last, coordinator)
+    //console.log(first, last, coordinator)
     
 
     const arrow = (<Icon name="long-arrow-left" size={30} color="#900" />)
