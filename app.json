@@ -1,7 +1,5 @@
 {
   "expo": {
-    "sdkVersion": "21.0.0",
-    "slug": "haprev",
-    "name": "haprev"
+    "sdkVersion": "25.0.0"
   }
 }

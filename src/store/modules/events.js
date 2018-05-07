@@ -1,79 +1,57 @@
-import {
-  GetHospitalEvents,
-  GetHospitalEventsForUser
-} from "../../services/services";
+import * as firebase from 'firebase';
 
-const REQUEST_EVENTS = "haprev/event/REQUEST_EVENT";
-const RESPONSE_EVENTS = "haprev/event/RESPONSE_EVENT";
-const REQUEST_USER_EVENTS = "haprev/event/REQUEST_USER_EVENT";
-const RESPONSE_USER_EVENTS = "haprev/event/RESPONSE_USER_EVENT";
+const REQUEST_EVENTS = 'haprev/events/REQUEST_EVENTS';
+const RESPONSE_EVENTS = 'haprev/events/RESPONSE_EVENTS';
+
 
 const initalState = {
-  usersEvents: []
+  status: '',
+  events:{},
+  for:null
 };
 
 export default (state = initalState, action = {}) => {
   switch (action.type) {
     case REQUEST_EVENTS:
-      return {
-        ...state,
-        userEvents: [
-          ...state.userEvents,
-          {
-            userId: action.userId,
-            hospitalId: action.hospitalId,
-            status: "request"
-          }
-        ]
-      };
-    case RESPONSE_EVENTS:
-      const record = state.userEvents.find(
-        e => e.hospitalId === action.hospitalId && e.userId === action.userId,
-      );
-      Object.assign(record, {
-        status: "",
-        events: action.data
-      });
-
-      return {
-        ...state,
-        userEvents: [...state.userEvents, record]
-      };
-
+      return { ...state, status: 'reqEvents',for:action.payload  };
+    case  RESPONSE_EVENTS:
+        const newEvents = state.events[state.for]= action.payload;
+        return { ...state, status: '',for:'' , events:newEvents };
     default:
       return state;
   }
 };
 
-const requestEvents = hospitalId => ({
-  type: REQUEST_EVENTS,
-  hospitalId
+const eventsReq = instId => {
+    return ({
+        type: REQUEST_EVENTS,
+        payload: instId
+    })
+}
+
+const eventsRes = data =>({
+    type: RESPONSE_EVENTS,
+    payload:data
 });
 
-const responseEvents = (data, hospitalId) => ({
-  type: RESPONSE_EVENTS,
-  events: data,
-  hospitalId
-});
+export const getEvents =instId => async  (dispatch) =>{
+    dispatch(eventsReq(instId))
+    firebase.database().ref('events/'+instId ).once('value', 
+    snapshot =>{
+        dispatch(eventsRes( snapshot.val()));
+    });
+   
+    /*
+   let ref = firebase.database().ref('kukus/c')
+   //ref.once('value' , a=> console.log('kuku', a.val()))
+   var nk = ref.push()
+    nk.set ({d:'eeeee'})
+   */
+}
 
-const requestUserEvents = (hospitalId, userId) => ({
-  type: REQUEST_USER_EVENTS,
-  hospitalId,
-  userId
-});
 
-const responseUserEvents = (hospitalId, userId, data) => ({
-  type: RESPONSE_USER_EVENTS,
-  userEvents: data,
-  hospitalId,
-  userId
-});
 
-export const getHospitalEvents = () => async dispatch => {
-  dispatch(requestEvents());
-  const hospitalEvents = await GetHospitalEvents();
-  dispatch(responseEvents(hospitalEvents));
-  dispatch(requestUserEvents());
-  const hospitalUserEvents = await GetHospitalEventsForUser();
-  dispatch(responseUserEvents(hospitalUserEvents));
-};
+
+
+
+
