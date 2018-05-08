@@ -7,7 +7,7 @@ import SelectDate from '../../views/institutes/SelectDate'
 import Activities from '../../views/activities/Activities'
 import AdminActivities from '../../views/adminActivities/AdminActivitiyList'
 import AdminActivity from '../../views/adminActivities/AdminActivity'
-import CreateActivity from '../../views/adminActivities/CreateActivity'
+import CreateActivity from '../../views/adminActivities/CreateActivityView'
 import Profile from '../../views/profile/Profile'
 import Help from '../../views/help/Help'
 

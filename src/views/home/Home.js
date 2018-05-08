@@ -4,16 +4,10 @@ import Messages from '../messages/Messages'
 import HomeView from './HomeView'
 import { connect } from 'react-redux'
 
-const styles = StyleSheet.create({
-    container:{
-        marginTop:50
-    }
-})
-
 const Home = (props) =>
 {
     return(
-        <View style={styles.container}>
+        <View>
             <Messages/>
             <HomeView 
                 first={props.first} 
