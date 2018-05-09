@@ -29,18 +29,19 @@ const AdminActivities = (props) =>
 {
     const {events, openEventView, createActivityView, firstName, lastName, myHospital} = props;
     return (
+        
        <View >
            <View style={adminActivityListStyle.header}>
                <View style={adminActivityListStyle.img}></View>
                <Text style={adminActivityListStyle.h1}> {firstName + ' ' + lastName } </Text>
-               <Text style={adminActivityListStyle.h2}> רכז ביה״ח { myHospital } </Text>
+               {/* <Text style={adminActivityListStyle.h2}> רכז ביה״ח { myHospital } </Text> */}
                <TouchableHighlight underlayColor='#fff' style={adminActivityListStyle.plusButton}
-                   //onPress={() => openEventView() {activity: {participants:[]}})}>
                    onPress = { ()=>createActivityView(firstName,lastName,myHospital) }   
                 >
                     <FontAwesome name='plus-circle' size={50} color='#080'/>
                </TouchableHighlight>
            </View>
+
            <FlatList
                data={events}
                renderItem={({item, index}) => <ActivityItem activity={item} index={index} openActivity={()=> openEventView(item)}/>}

@@ -9,27 +9,33 @@ class AdminActivitiyList extends React.Component  {
         this.props.navigation.navigate('AdminActivity',{event});
 
     createActivityView = (first,last,hospital)=>{
-        console.log('kuku')
         this.props.navigation.navigate('CreateActivity',{first,last,hospital});
     }
 
     render() {
         const {navigation:{navigate}} =this.props;
-
         return (
             <AdminActiviyListView 
-                events= {events} 
-                openEventView={this.openEventView}
-                createActivityView={this.createActivityView}
-                displayDialog = {this.state.displayCreateEventDialog}
-                firstName = {this.props.first}
-                lastName = {this.props.last}
-                myHospital = {this.props.coordinator.hospital}
+            events= {events} 
+            openEventView={this.openEventView}
+            createActivityView={this.createActivityView}
+            firstName = {this.props.first}
+            lastName = {this.props.last}
+            myHospital = {{}}
+
+                // events= {events} 
+                // openEventView={this.openEventView}
+                // createActivityView={this.createActivityView}
+                // displayDialog = {this.state.displayCreateEventDialog}
+                // firstName = {this.props.first}
+                // lastName = {this.props.last}
+                // myHospital = {this.props.coordinator.hospital}
             />
         )
     }
 }
 const mapStateToProps = state =>{
+    console.log('mstp' , state)
     return ({
                first: state.user.user.first,
                last: state.user.user.last,
