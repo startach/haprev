@@ -1,8 +1,6 @@
 import React from 'react'
-import { View, Text, FlatList, TouchableHighlight} from "react-native";
 import AdminActiviyListView from './AdminActivitiyListView'
-import { FontAwesome } from '@expo/vector-icons';
-import { StyleSheet } from 'react-native';
+import { connect } from 'react-redux'
 
 class AdminActivitiyList extends React.Component  {
     state = {displayCreateEventDialog: false};
@@ -10,11 +8,10 @@ class AdminActivitiyList extends React.Component  {
     openEventView =  (event ) =>
         this.props.navigation.navigate('AdminActivity',{event});
 
-    createActivityView = ()=>{
+    createActivityView = (first,last,hospital)=>{
         console.log('kuku')
-        this.props.navigation.navigate('CreateActivity');
+        this.props.navigation.navigate('CreateActivity',{first,last,hospital});
     }
-
 
     render() {
         const {navigation:{navigate}} =this.props;
@@ -25,12 +22,22 @@ class AdminActivitiyList extends React.Component  {
                 openEventView={this.openEventView}
                 createActivityView={this.createActivityView}
                 displayDialog = {this.state.displayCreateEventDialog}
+                firstName = {this.props.first}
+                lastName = {this.props.last}
+                myHospital = {this.props.coordinator.hospital}
             />
         )
     }
 }
-
-export default AdminActivitiyList
+const mapStateToProps = state =>{
+    return ({
+               first: state.user.user.first,
+               last: state.user.user.last,
+               coordinator: state.user.user.coordinator,
+            })
+    }
+    
+export default connect(mapStateToProps)(AdminActivitiyList)
 
 const participant = [
     {id: 1, name: 'מיכאל כהן'},

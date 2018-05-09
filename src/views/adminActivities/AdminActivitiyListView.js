@@ -27,16 +27,16 @@ const ActivityItem = ({activity, index, openActivity}) => {
 
 const AdminActivities = (props) =>
 {
-    const {events,openEventView,createActivityView} = props;
+    const {events, openEventView, createActivityView, firstName, lastName, myHospital} = props;
     return (
        <View >
            <View style={adminActivityListStyle.header}>
                <View style={adminActivityListStyle.img}></View>
-               <Text style={adminActivityListStyle.h1}> שבי מור </Text>
-               <Text style={adminActivityListStyle.h2}> רכז ביה״ח אסף </Text>
+               <Text style={adminActivityListStyle.h1}> {firstName + ' ' + lastName } </Text>
+               <Text style={adminActivityListStyle.h2}> רכז ביה״ח { myHospital } </Text>
                <TouchableHighlight underlayColor='#fff' style={adminActivityListStyle.plusButton}
                    //onPress={() => openEventView() {activity: {participants:[]}})}>
-                   onPress = { ()=>createActivityView() }
+                   onPress = { ()=>createActivityView(firstName,lastName,myHospital) }   
                 >
                     <FontAwesome name='plus-circle' size={50} color='#080'/>
                </TouchableHighlight>
