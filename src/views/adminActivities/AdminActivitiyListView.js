@@ -35,7 +35,6 @@ const AdminActivities = (props) =>
                <Text style={adminActivityListStyle.h1}> {firstName + ' ' + lastName } </Text>
                <Text style={adminActivityListStyle.h2}> רכז ביה״ח { myHospital } </Text>
                <TouchableHighlight underlayColor='#fff' style={adminActivityListStyle.plusButton}
-                   //onPress={() => openEventView() {activity: {participants:[]}})}>
                    onPress = { ()=>createActivityView(firstName,lastName,myHospital) }   
                 >
                     <FontAwesome name='plus-circle' size={50} color='#080'/>

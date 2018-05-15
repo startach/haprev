@@ -27,7 +27,7 @@ class CreateActivityView extends Component {
     _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
     _handleDatePicked = (datetime) => {
-        console.log('A date has been picked-: ', datetime);
+        console.log('A date has been picked: ', datetime);
         let day = datetime.getUTCDate();
         let month = datetime.getUTCMonth()+1;
         let year = datetime.getUTCFullYear();
@@ -38,17 +38,15 @@ class CreateActivityView extends Component {
         let fullTime = hours + ':' + minutes;
         this.setState({fullDate:fullDate, fullTime:fullTime})
         this.setState({isButtonDisabled: this.state.activityName.length <= 0});
-        console.log("New Activity:", this.state.activityName, this.state.fullDate, this.state.fullTime);
         this._hideDateTimePicker();
     };
 
-    createNewActivity = () =>{
+     createNewActivity = async() =>{
         if(this.state.fullTime.length > 0) {
-            //do stuff with the data
-            if(true)
+            res = await this.props.onNewActivityHandler(this.state.fullDate,this.state.fullTime,this.state.activityName)
+            if(res === 'ok')
                 this.setState({success : true});
             this.setState({modalVisible : true});
-            console.log("GOOD")
         }
         else{
             this.alertDate = 'נא לבחור תאריך';
@@ -56,16 +54,24 @@ class CreateActivityView extends Component {
         }
     }
 
+    getModalMessage(hospital) { return (
+        <Text style={[styles.subtitle,{color:'white'}]}>
+            {this.state.success ?
+            'פעילות נוספה בהצלחה' +'\n' + this.state.activityName  + '\nבתאריך ' + this.state.fullDate + '\nבשעה ' +this.state.fullTime + '\nבבית חולים ' + hospital : 
+            'שגיאה! נסה שנית מאוחר יותר' }
+        </Text>
+    )}
+
     render () {
-        const { params } = this.props.navigation.state;
+        const { hospital, first, last } = this.props;
         return (
         <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{flex: 1, paddingTop:25}}>
                 <Text style={styles.subtitle}>שם הרכז</Text>
-                <Text style={[styles.inputField,styles.untouchableField]}>{params.first +' '+ params.last}</Text>
+                <Text style={[styles.inputField,styles.untouchableField]}>{first +' '+ last}</Text>
                 <Text style={styles.subtitle}>מקום פעילות</Text>
-                <Text style={[styles.inputField,styles.untouchableField]}>{params.hospital}</Text>
+                <Text style={[styles.inputField,styles.untouchableField]}>{hospital}</Text>
                 <Text style={styles.subtitle}>שם הפעילות</Text>
                 <TextInput
                     style={styles.inputField}
@@ -114,7 +120,7 @@ class CreateActivityView extends Component {
                 onRequestClose={() => this.setState({modalVisible:true})}
                 >
                 <View style={styles.modalContainer}>
-                <Text style={[styles.subtitle,{color:'white'}]}>{this.state.success ? 'פעילות נוספה בהצלחה' : 'שגיאה! נסה שנית מאוחר יותר'} {'\n'}  </Text>        
+                    {this.getModalMessage(hospital)}     
                     <TouchableOpacity
                     rounded
                     style={[styles.button,{marginTop:0}]}

@@ -1,16 +1,29 @@
 import React from 'react'
 import AdminActiviyListView from './AdminActivitiyListView'
 import { connect } from 'react-redux'
+import { getHospitalName } from './AdminActivitiesService'
 
 class AdminActivitiyList extends React.Component  {
-    state = {displayCreateEventDialog: false};
+    constructor(props) {
+        super(props)
+        this.state = { 
+          hospitalName: '',
+          displayCreateEventDialog: false
+        };
+    }
+    async componentWillMount() {
+        let _hospitalName = await getHospitalName(this.props.coordinator)
+        await this.setState({hospitalName:_hospitalName})
+    }
 
-    openEventView =  (event ) =>
-        this.props.navigation.navigate('AdminActivity',{event});
+    openEventView =  (event) =>{
+        this.props.navigation.navigate('AdminActivity',{event})
+    };
 
     createActivityView = (first,last,hospital)=>{
-        console.log('kuku')
-        this.props.navigation.navigate('CreateActivity',{first,last,hospital});
+        appId = this.props.appId;
+        coordinator = this.props.coordinator;
+        this.props.navigation.navigate('CreateActivity',{first,last,hospital,appId,coordinator});
     }
 
     render() {
@@ -24,7 +37,7 @@ class AdminActivitiyList extends React.Component  {
                 displayDialog = {this.state.displayCreateEventDialog}
                 firstName = {this.props.first}
                 lastName = {this.props.last}
-                myHospital = {this.props.coordinator.hospital}
+                myHospital = {this.state.hospitalName}
             />
         )
     }
@@ -34,6 +47,7 @@ const mapStateToProps = state =>{
                first: state.user.user.first,
                last: state.user.user.last,
                coordinator: state.user.user.coordinator,
+               appId: state.user.user.appId,
             })
     }
     
