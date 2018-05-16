@@ -1,16 +1,32 @@
 import React, {Component} from 'react'
-import {View, Text, Button, StyleSheet, FlatList, Modal,TouchableOpacity} from 'react-native'
-import {adminActivityStyle as styles, modalActivityStyle as modalStyles } from './styles' 
+import {View, Text, Button, StyleSheet, FlatList, Modal,TouchableOpacity,TouchableHighlight,Image,Linking} from 'react-native'
+import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from './styles' 
+import { FontAwesome } from '@expo/vector-icons';
+import {getUserAvatar} from './AdminActivitiesService'
 
-const ParticipantItem = ({participant}) => {
-    return <View style={styles.participantItem}>
-        <View style={styles.img}></View>
-        <Text>{participant.name}</Text>
-    </View>
+const ParticipantItem = ({participant,avatarUrl,phone}) => {
+    return (
+        <View style={modalStyles.participantItem}>
+            {avatarUrl ?
+            <TouchableHighlight>
+                <Image style={styles.userImageList} source={{uri: avatarUrl}}/>
+            </TouchableHighlight>
+            :
+            <FontAwesome style={styles.withoutImgList} name='user-circle' size={35}/>
+            }
+            <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between'}}>
+                <Text style={{fontSize:18,flexDirection:'column',alignSelf:'center'}}>{participant.name}</Text>
+                { phone ?
+                <FontAwesome style={styles.phoneIcon} name='phone-square' size={35}
+                    onPress={()=>{Linking.openURL('tel:'+phone)}}/>
+                :
+                <FontAwesome style={[styles.phoneIcon,{color:'grey'}]} name='phone-square' size={35}/>
+                }
+            </View>
+        </View>)
 }
 
-class AdminActivity extends Component
-{
+class AdminActivity extends Component{
     state = {displayCancelEventDialog: false};
     
     showCancelEventDialog = () => 
@@ -27,29 +43,35 @@ class AdminActivity extends Component
     }
     
     render() {
-        const {params} = this.props.navigation.state;
-        const activity = params ? params.event : null;
-
+        const {params} = this.props.navigation.state
+        const activity = params ? params.event : null
+        const participants = params ? params.participants : null
+        const avatarsArray = params ? params.avatarsArray : null
+        const phonesArray = params? params.phonesArray : null
         return (
             <View style={styles.container}>
-                <Text style={styles.h2}> התנדבות {activity.date} </Text>
-                <Text style={styles.h1}> לפעילות זו
-                    רשומים {activity.participants ? activity.participants.length : 0} מתנדבים </Text>
-                <FlatList data={activity.participants}
-                          renderItem={({item}) => <ParticipantItem participant={item}/>}
-                          keyExtractor={(item) => item.id}/>
-                <View style={styles.bottomButtons}>
-                    <Button style={styles.button} title="בטל התנדבות" onPress={this.showCancelEventDialog}/>
-                </View>
-
+                <Text style={styles.h1}> התנדבות {activity.caption} </Text>
+                <Text style={styles.h3}> בתאריך {activity.date} בשעה {activity.time} </Text>
+                <Text style={styles.h2}> לפעילות זו
+                    רשומים {participants ? participants.length : 0} מתנדבים </Text>
+                <FlatList data={participants}
+                          renderItem={({item,index}) => <ParticipantItem participant={item} avatarUrl={avatarsArray[index]} phone={phonesArray[index]}/>}
+                          keyExtractor={(item) => item.appId}/>
+                <TouchableHighlight onPress={this.showCancelEventDialog}>
+                    <View style={styles.cancelButton}>
+                        <Text style={styles.cancelText}>בטל התנדבות</Text>
+                        <FontAwesome style={styles.cancelIcon} name='trash' size={30}/>
+                    </View>
+                </TouchableHighlight>
                 <Modal
                     transparent
                     visible={this.state.displayCancelEventDialog}
                     animationType={'slide'}
+                    onRequestClose={()=>{}}
                 >
                     <View style={modalStyles.modalContainer}>
                         <View>
-                            <Text style={[modalStyles.title,{color:'white'}]}> האם לבטל את ההתנדבות? {"\n"} </Text>
+                            <Text style={[modalStyles.title,{color:'white'}]}> האם לבטל את ההתנדבות? {'\n'} </Text>
                             <TouchableOpacity
                                 rounded
                                 style={modalStyles.modalButton}

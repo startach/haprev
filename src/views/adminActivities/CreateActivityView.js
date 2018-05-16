@@ -13,6 +13,7 @@ class CreateActivityView extends Component {
             activityName: '',
             fullDate:'',
             fullTime:'',
+            fullFormatDate:'',
             isDateTimePickerVisible: false,
             isButtonDisabled: true,
             modalVisible:false,
@@ -36,14 +37,14 @@ class CreateActivityView extends Component {
         let hours = datetime.getHours();
         let minutes = datetime.getMinutes();  
         let fullTime = hours + ':' + minutes;
-        this.setState({fullDate:fullDate, fullTime:fullTime})
+        this.setState({fullDate:fullDate, fullTime:fullTime,fullFormatDate:datetime})
         this.setState({isButtonDisabled: this.state.activityName.length <= 0});
         this._hideDateTimePicker();
     };
 
      createNewActivity = async() =>{
         if(this.state.fullTime.length > 0) {
-            res = await this.props.onNewActivityHandler(this.state.fullDate,this.state.fullTime,this.state.activityName)
+            res = await this.props.onNewActivityHandler(this.state.fullDate,this.state.fullTime,this.state.activityName,this.state.fullFormatDate)
             if(res === 'ok')
                 this.setState({success : true});
             this.setState({modalVisible : true});

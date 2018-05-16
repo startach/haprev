@@ -1,10 +1,5 @@
 import React from 'react'
-import { 
-    View, 
-    Text,
-    FlatList, 
-    TouchableHighlight
-    } from "react-native";
+import {View, Text,FlatList, TouchableHighlight, Image,ActivityIndicator} from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import {adminActivityStyle, modalActivityStyle, adminActivityListStyle } from './styles';
 
@@ -14,36 +9,49 @@ const  renderParticipantsText = (participants)=> {
     return 'נרשמו ' + participants.length + ' מתנדבים';
 }
 
-const ActivityItem = ({activity, index, openActivity}) => {
-    return  <TouchableHighlight underlayColor='#fff' onPress={() => {openActivity(activity)}}>
+const ActivityItem = ({activity, index, openActivity, participants}) => {
+    return  <TouchableHighlight underlayColor='#fff' onPress={() => {openActivity(activity,participants[index])}}>
         <View style={(index%2 === 0) ? adminActivityListStyle.activityItemEven : adminActivityListStyle.activityItemOdd}>
-            <Text style={{width: '25%'}}>{activity.date}</Text>
+            <Text style={[activity.fullFormatDate< new Date().toISOString()?{color:'red'}:{color:'green'} ,{width: '25%'}]}>{activity.date}</Text>
             <Text>|</Text>
-            <Text style={{width: '60%'}}>{renderParticipantsText(activity.participants)}</Text>
+            <Text style={{width: '60%'}}>{renderParticipantsText(participants[index])}</Text>
             <FontAwesome name="chevron-left"/>
         </View>
     </TouchableHighlight>
 }
 
-const AdminActivities = (props) =>
-{
-    const {events, openEventView, createActivityView, firstName, lastName, myHospital} = props;
+getAvatar=(avatarUrl,navigation)=>{
+    if(avatarUrl) 
+        return (<TouchableHighlight onPress={()=>{navigation.navigate('Profile')}}>
+            <Image style={adminActivityListStyle.userImage} source={{uri: avatarUrl}}/>
+        </TouchableHighlight>)
+    else
+        return(<FontAwesome style={adminActivityListStyle.withoutImg} name='user-circle' size={65}
+            onPress={()=>{navigation.navigate('Profile')}}/>)
+}
+
+const AdminActivities = (props) =>{
+    const {events, participants, openEventView, createActivityView, firstName, lastName, avatarUrl, myHospital,navigation} = props;
     return (
        <View >
-           <View style={adminActivityListStyle.header}>
-               <View style={adminActivityListStyle.img}></View>
+            <View style={adminActivityListStyle.header}>
+            {this.getAvatar(avatarUrl,navigation)}
                <Text style={adminActivityListStyle.h1}> {firstName + ' ' + lastName } </Text>
                <Text style={adminActivityListStyle.h2}> רכז ביה״ח { myHospital } </Text>
                <TouchableHighlight underlayColor='#fff' style={adminActivityListStyle.plusButton}
                    onPress = { ()=>createActivityView(firstName,lastName,myHospital) }   
                 >
                     <FontAwesome name='plus-circle' size={50} color='#080'/>
-               </TouchableHighlight>
+                </TouchableHighlight>
            </View>
+           { myHospital ? 
            <FlatList
                data={events}
-               renderItem={({item, index}) => <ActivityItem activity={item} index={index} openActivity={()=> openEventView(item)}/>}
-               keyExtractor={(item) => item.id}/>
+               renderItem={({item, index}) => <ActivityItem activity={item} index={index} participants={participants} openActivity={openEventView}/>}
+               keyExtractor={(item) => item.caption}/>
+            :
+            <ActivityIndicator size='large' color='#C2185B' /> 
+            }
        </View>
     )
 }
