@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {View, Text, Button, StyleSheet, FlatList, Modal,TouchableOpacity,TouchableHighlight,Image,Linking} from 'react-native'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from './styles' 
 import { FontAwesome } from '@expo/vector-icons';
-import {getUserAvatar} from './AdminActivitiesService'
 
 const ParticipantItem = ({participant,avatarUrl,phone}) => {
     return (
@@ -35,7 +34,7 @@ class AdminActivity extends Component{
     hideCancelEventDialog = () => 
         this.setState({displayCancelEventDialog: false});
 
-    deleteActivity = () =>{
+    deleteActivity = (params) =>{
         //todo delete the event
         console.log('todo - come on - really delete the event')
         this.hideCancelEventDialog();
@@ -75,7 +74,7 @@ class AdminActivity extends Component{
                             <TouchableOpacity
                                 rounded
                                 style={modalStyles.modalButton}
-                                onPress={() =>  this.deleteActivity()}
+                                onPress={() => this.deleteActivity(params)}
                                 >
                                 <Text style={modalStyles.modalButtonText}>בטל התנדבות</Text>
                             </TouchableOpacity>

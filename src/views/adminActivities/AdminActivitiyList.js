@@ -36,15 +36,19 @@ class AdminActivitiyList extends React.Component  {
         this.props.navigation.navigate('AdminActivity',{event,participants,avatarsArray,phonesArray})
     };
 
+    async refreshScreen(){
+        await this.componentWillMount()
+    }
+
     createActivityView = (first,last,hospital)=>{
         appId = this.props.appId;
         coordinator = this.props.coordinator;
-        this.props.navigation.navigate('CreateActivity',{first,last,hospital,appId,coordinator});
+        this.props.navigation.navigate('CreateActivity',{first,last,hospital,appId,coordinator,onRefresh: this.refreshScreen.bind(this)});
     }
 
     render() {
         const {navigation:{navigate}} =this.props;
-
+        
         return (
             <AdminActiviyListView 
                 events= {this.state.events} 

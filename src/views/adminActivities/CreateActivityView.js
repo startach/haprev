@@ -63,6 +63,11 @@ class CreateActivityView extends Component {
         </Text>
     )}
 
+    backToList = async ()=>{
+        await this.props.onRefresh()
+        this.props.navigation.goBack()
+    }
+
     render () {
         const { hospital, first, last } = this.props;
         return (
@@ -125,7 +130,7 @@ class CreateActivityView extends Component {
                     <TouchableOpacity
                     rounded
                     style={[styles.button,{marginTop:0}]}
-                    onPress={() => { this.state.success ? this.props.navigation.goBack() : this.setState({modalVisible:false})}}
+                    onPress={() => { this.state.success ? this.backToList() : this.setState({modalVisible:false})}}
                     >
                     <Text style={styles.buttonText}>אישור</Text>
                     </TouchableOpacity>

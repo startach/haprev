@@ -30,6 +30,7 @@ class CreateActivity extends Component {
         hospital = {params.hospital} 
         navigation={this.props.navigation}
         onNewActivityHandler={this.newActivityHandler}
+        onRefresh={params.onRefresh}
         />
         );
     }
