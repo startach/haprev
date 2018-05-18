@@ -27,7 +27,6 @@ class AdminActivity extends Component
     }
     
     render() {
-        
         const {params} = this.props.navigation.state;
         const activity = params ? params.event : null;
 

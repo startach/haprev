@@ -7,9 +7,8 @@ const HomeView = (props) => {
     onRegister = () => { }
     onAllActivity = () => { }
     onCreateActivity = () => { }
-    const { first, last, coordinator } = props
+    const { first, last, coordinator, hospital } = props
     const isAdmin = (coordinator > 0)
-    //console.log(first, last, coordinator)
 
     const arrow = (<Icon name="long-arrow-left" size={30} color="#900" />)
     const arrowDown = (<Icon name="arrow-down" size={30} color="#900" />)
@@ -55,7 +54,7 @@ const HomeView = (props) => {
                     </View>
                 :
                     <View style={[styles.box,styles.helloBox]}>
-                        <Text style={styles.textCenter}> היי {first} {last} המתנדבים של {coordinator} </Text>
+                        <Text style={styles.textCenter}> היי {first} {last} המתנדבים של {hospital} </Text>
                         <Text style={styles.textCenter}> מחכים להתנדבות הבאה שלהם </Text>
                         <Text style={styles.textCenter}> בשביל לעזור להם ולהתחיל התנדבות </Text>
                         <Text style={styles.textCenter}> {arrowDown} חדשה אפשר להתחיל כאן </Text>
@@ -95,14 +94,14 @@ const styles = StyleSheet.create({
         width:'100%',
     },
     textCenter: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
         textAlign: 'center'
     },
     box: {
-        marginBottom: 8,
-        marginRight: 10,
-        marginLeft: 10,
+        marginBottom: 5,
+        marginRight: 9,
+        marginLeft: 9,
         backgroundColor: '#f4f6f5',
         borderRadius: 4,
         borderWidth: 1,
@@ -124,13 +123,13 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     nextVollBox:{
-        height:Dimensions.get('screen').height/10,
+    //    height:Dimensions.get('screen').height/10,
     },
     helloBox:{
-        height:Dimensions.get('screen').height/6,        
+     //   height:Dimensions.get('screen').height/6,        
     },
     myVollBox:{
-        height:Dimensions.get('screen').height/6,
+   //     height:Dimensions.get('screen').height/6,
     },
     swiper:{
         height:Dimensions.get('screen').height/3,
