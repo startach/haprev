@@ -4,17 +4,14 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Swiper from 'react-native-swiper'
 
 const HomeView = (props) => {
-    onRegister = () => { }
-    onAllActivity = () => { }
-    onCreateActivity = () => { }
-    const { first, last, coordinator, hospital } = props
-    const isAdmin = (coordinator > 0)
+    const { first, last, coordinator, hospital, createActivityView, registerActivityView, activityView} = props
 
+    const isAdmin = (coordinator > 0)
     const arrow = (<Icon name="long-arrow-left" size={30} color="#900" />)
     const arrowDown = (<Icon name="arrow-down" size={30} color="#900" />)
     const registerButton = (
         <Button
-            onPress={onRegister}
+            onPress={registerActivityView}
             title="הרשמה"
             color="#841584"
         />
@@ -23,7 +20,7 @@ const HomeView = (props) => {
     const allActivityButton = (
         <View style={styles.allActivityButton}>
             <Button
-                onPress={onAllActivity}
+                onPress={activityView}
                 title="לכל ההתנדבויות"
                 color="#841584"
             />
@@ -33,7 +30,7 @@ const HomeView = (props) => {
     const createActivityButton = (
         <View style={styles.allActivityButton}>
             <Button
-                onPress={onCreateActivity}
+                onPress={createActivityView}
                 title="יצירת התנדבות"
                 color="#841584"
             />
@@ -46,7 +43,7 @@ const HomeView = (props) => {
                 {!isAdmin ?
                     <View style={[styles.box,styles.helloBox]}>
                         <Text style={styles.textCenter}> היי {first} {last} כיף לראות אותך פה ! </Text>
-                        <Text style={styles.textCenter}> כדי להירשם להנדבות הבאה אפשר </Text>
+                        <Text style={styles.textCenter}> כדי להירשם להתנדבות הבאה אפשר </Text>
                         <View style={styles.registerButton}>
                             <Text style={styles.textCenter}> {arrow} להתחיל פה  </Text>
                             {registerButton}
