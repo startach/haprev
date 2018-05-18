@@ -1,7 +1,7 @@
 import React from 'react'
 import AdminActiviyListView from './AdminActivitiyListView'
 import { connect } from 'react-redux'
-import {getHospitalName, getEvents, makeArrayFromObjects, makeArrayParticipants,getUserAvatar} from './AdminActivitiesService'
+import {getHospitalName, getEvents, makeArrayFromObjects, makeArrayParticipants,getUserAvatar,sortArrayByDate} from './AdminActivitiesService'
 
 class AdminActivitiyList extends React.Component  {
     constructor(props) {
@@ -17,6 +17,7 @@ class AdminActivitiyList extends React.Component  {
         let _hospitalName = await getHospitalName(this.props.coordinator)
         let _events = await getEvents(this.props.coordinator)
         eventsArray = makeArrayFromObjects(_events)
+        eventsArray = sortArrayByDate(eventsArray)
         let participantsArray = makeArrayParticipants(_events)
         this.setState({
             events:eventsArray,
@@ -26,14 +27,7 @@ class AdminActivitiyList extends React.Component  {
     }
 
     openEventView = async (event,participants) =>{
-        avatarsArray=[]
-        phonesArray=[]
-        for (var i in participants){
-            userInfo = await getUserAvatar(participants[i].appId)
-            avatarsArray.push(userInfo.avatarUrl)
-            phonesArray.push(userInfo.phone)
-        }
-        this.props.navigation.navigate('AdminActivity',{event,participants,avatarsArray,phonesArray})
+        this.props.navigation.navigate('AdminActivity',{event,participants})
     };
 
     async refreshScreen(){
@@ -48,7 +42,7 @@ class AdminActivitiyList extends React.Component  {
 
     render() {
         const {navigation:{navigate}} =this.props;
-        
+
         return (
             <AdminActiviyListView 
                 events= {this.state.events} 

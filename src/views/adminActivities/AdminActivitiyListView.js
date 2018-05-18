@@ -23,8 +23,8 @@ const ActivityItem = ({activity, index, openActivity, participants}) => {
 getAvatar=(avatarUrl,navigation)=>{
     if(avatarUrl) 
         return (<TouchableHighlight onPress={()=>{navigation.navigate('Profile')}}>
-            <Image style={adminActivityListStyle.userImage} source={{uri: avatarUrl}}/>
-        </TouchableHighlight>)
+                    <Image style={adminActivityListStyle.userImage} source={{uri: avatarUrl}}/>
+                </TouchableHighlight>)
     else
         return(<FontAwesome style={adminActivityListStyle.withoutImg} name='user-circle' size={65}
             onPress={()=>{navigation.navigate('Profile')}}/>)
@@ -40,12 +40,12 @@ const AdminActivities = (props) =>{
                <Text style={adminActivityListStyle.h2}> רכז ביה״ח { myHospital } </Text>
                { myHospital ?
                <TouchableHighlight underlayColor='#fff' style={adminActivityListStyle.plusButton}
-                   onPress = { ()=>createActivityView(firstName,lastName,myHospital) }   
+                    onPress = { ()=>createActivityView(firstName,lastName,myHospital) }   
                 >
                     <FontAwesome name='plus-circle' size={50} color='#080'/>
                 </TouchableHighlight>
                 :
-                <ActivityIndicator size='small' style={adminActivityListStyle.plusButton} color='#C2185B'/> 
+                null 
                }
            </View>
            { myHospital ? 

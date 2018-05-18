@@ -85,11 +85,11 @@ const modalActivityStyle = StyleSheet.create( {
         margin: 20
     },
     modalContainer: {
-        marginTop: "40%",
+        marginTop: "50%",
         justifyContent: 'center',
-        alignSelf:'center',        
+        alignSelf:'center',
         backgroundColor: 'grey',
-        height:'50%',
+        height:'30%',
         width: '90%',
         borderWidth:2,
         borderRadius:15,
@@ -98,20 +98,25 @@ const modalActivityStyle = StyleSheet.create( {
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
+        paddingTop:20,
+      },
+      buttonsContainer:{
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        alignSelf:'center',
       },
       modalButton:{
-        width:200,
-        margin:20,
-        padding:10,
-        backgroundColor:'#D81A4C',
+        margin:5,
+        backgroundColor:'#E50914',
         borderRadius:15,
-        alignSelf:'center'
+        alignItems: 'center',
       },
       modalButtonText: {
         color:'white',
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
-        textAlign:'center',
+        margin:10,
       },
     activityName:{
         height:100,

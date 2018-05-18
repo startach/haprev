@@ -21,7 +21,7 @@ export default StyleSheet.create({
         height: '100%'
       },
       userView:{
-        marginTop: '15%',
+        marginTop: '20%',
         alignItems:'center',
         justifyContent:'center',
       },

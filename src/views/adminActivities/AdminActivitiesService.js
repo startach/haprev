@@ -37,6 +37,12 @@ export const makeArrayFromObjects = (objects) => {
   }
   return objectsArray
 }
+
+export const sortArrayByDate = (objectsArray)=>{
+  return objectsArray.sort((a,b)=>{
+    return new Date(b.fullFormatDate).getTime() - new Date(a.fullFormatDate).getTime()
+  });
+}
 export const makeArrayParticipants = (events) =>{
   let participantsArray= []
   let index = 0
