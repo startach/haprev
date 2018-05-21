@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import Expo from 'expo';
 import getStore from '../store/createStore';
 import Splash from '../views/splash/Splash'
-//import * as firebase from 'firebase';
 import initdb from './initDb';
 
 const store = getStore;

@@ -42,7 +42,6 @@ class AdminActivity extends Component{
             avatarsArray.push(userInfo.avatarUrl)
             phonesArray.push(userInfo.phone)
         }
-        console.log("phonesArray",phonesArray)
         this.setState({
             avatarsArray:avatarsArray,
             phonesArray:phonesArray,
