@@ -7,13 +7,6 @@ export const getHospitalName = async (instituteId) => {
   return hospitalName
 }
 
-export const getEvents = async (instituteId) => {
-  let events = []
-  await firebase.database().ref('events/').child(instituteId).once('value',
-    snapshot => {events = snapshot.val()})
-  return events
-}
-
 export const getUserAvatar = async(appId) => {
   let avatarUrl = null
   let phone = null

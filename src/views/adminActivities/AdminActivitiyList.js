@@ -1,9 +1,10 @@
 import React from 'react'
 import AdminActiviyListView from './AdminActivitiyListView'
 import { connect } from 'react-redux'
-import {getHospitalName, getEvents, makeArrayFromObjects, makeArrayParticipants,getUserAvatar,sortArrayByDate} from './AdminActivitiesService'
+import {getEvents,addNewActivity} from '../../store/modules/events'
+import {getHospitalName, makeArrayFromObjects, makeArrayParticipants,getUserAvatar,sortArrayByDate} from './AdminActivitiesService'
 
-class AdminActivitiyList extends React.Component  {
+class AdminActivitiyList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -15,10 +16,21 @@ class AdminActivitiyList extends React.Component  {
     }
     async componentWillMount() {
         let _hospitalName = await getHospitalName(this.props.coordinator)
-        let _events = await getEvents(this.props.coordinator)
-        eventsArray = makeArrayFromObjects(_events)
+        if(this.props.eventsStatus===null){
+            let res = await this.props.onGetEvents(this.props.coordinator)
+            if(res=='ok')
+                this.eventsDataHandle(_hospitalName)
+            else if(res=='err')
+                alert('בעיה במסד הנתונים, נסה שנית מאוחר יותר')
+        }
+        else if(this.props.eventsStatus==='')
+            this.eventsDataHandle(_hospitalName)            
+    }
+
+    eventsDataHandle(_hospitalName){
+        eventsArray = makeArrayFromObjects(this.props.events)
         eventsArray = sortArrayByDate(eventsArray)
-        let participantsArray = makeArrayParticipants(_events)
+        let participantsArray = makeArrayParticipants(this.props.events)
         this.setState({
             events:eventsArray,
             participants:participantsArray,
@@ -37,7 +49,16 @@ class AdminActivitiyList extends React.Component  {
     createActivityView = (first,last,hospital)=>{
         appId = this.props.appId;
         coordinator = this.props.coordinator;
-        this.props.navigation.navigate('CreateActivity',{first,last,hospital,appId,coordinator,onRefresh: this.refreshScreen.bind(this)});
+        this.props.navigation.navigate('CreateActivity',
+            {
+                first,
+                last,
+                hospital,
+                appId,
+                coordinator,
+                onRefresh: this.refreshScreen.bind(this),
+                addNewActivity: this.props.addNewActivity.bind(this),
+            });
     }
 
     render() {
@@ -65,8 +86,16 @@ const mapStateToProps = state =>{
                last: state.user.user.last,
                coordinator: state.user.user.coordinator,
                appId: state.user.user.appId,
-               avatarUrl: state.user.user.avatarUrl
+               avatarUrl: state.user.user.avatarUrl,
+               events:state.events.events,
+               eventsStatus:state.events.status,
             })
-    }
-    
-export default connect(mapStateToProps)(AdminActivitiyList)
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onGetEvents: (instituteId) => dispatch(getEvents(instituteId)),
+        addNewActivity: (activityName,appId,coordinator,date,time,fullFormatDate) => dispatch(addNewActivity(activityName,appId,coordinator,date,time,fullFormatDate)),
+    };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(AdminActivitiyList)
