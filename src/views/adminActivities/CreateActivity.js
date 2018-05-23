@@ -19,12 +19,12 @@ class CreateActivity extends Component {
         const { params } = this.props.navigation.state;
         return (
             <CreateActivityView 
-            first = {params.first} 
-            last = {params.last} 
-            hospital = {params.hospital} 
-            navigation={this.props.navigation}
-            onNewActivityHandler={this.newActivityHandler}
-            onRefresh={params.onRefresh}
+                first = {params.first} 
+                last = {params.last} 
+                hospital = {params.hospital} 
+                navigation={this.props.navigation}
+                onNewActivityHandler={this.newActivityHandler}
+                onRefresh={params.onRefresh}
             />
         );
     }

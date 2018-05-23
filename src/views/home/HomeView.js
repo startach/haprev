@@ -13,7 +13,7 @@ const HomeView = (props) => {
         <Button
             onPress={registerActivityView}
             title="הרשמה"
-            color="#841584"
+            color="#009B77"
         />
     )
 
@@ -22,7 +22,7 @@ const HomeView = (props) => {
             <Button
                 onPress={activityView}
                 title="לכל ההתנדבויות"
-                color="#841584"
+                color="#009B77"
             />
         </View>
     )
@@ -32,7 +32,7 @@ const HomeView = (props) => {
             <Button
                 onPress={createActivityView}
                 title="יצירת התנדבות"
-                color="#841584"
+                color="#009B77"
             />
         </View>
     )

@@ -7,9 +7,10 @@ export const getHospitalName = async (instituteId) => {
   return hospitalName
 }
 
-export const getUserAvatar = async(appId) => {
+export const getUserData = async(appId) => {
   let avatarUrl = null
   let phone = null
+  let userId = null
   await firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' , 
     snapshot => {
       let dbUser = snapshot.val()
@@ -17,10 +18,11 @@ export const getUserAvatar = async(appId) => {
         key=[Object.keys(dbUser)[0]]
         avatarUrl = dbUser[key].avatarUrl || null
         phone = dbUser[key].phone || null
+        userId = dbUser[key].userId || null
       } 
     }
   )
-  return {avatarUrl:avatarUrl,phone:phone}
+  return {avatarUrl:avatarUrl,phone:phone,userId:userId}
 }
 
 export const makeArrayFromObjects = (objects) => {
@@ -55,3 +57,15 @@ export const makeArrayParticipants = (events) =>{
   }
   return participantsArray
 } 
+
+export const setMessage = async(msg,userId) => {
+  // format msg -> {id: 'ek67', message: 'ההתנדבות ב 9.1 בבית חולים בלינסון בוטלה'}
+  res = await firebase.database().ref('users/'+userId+'/messages')
+    .push().set(msg)
+    .then(() => {return 'ok'})
+    .catch(error => {
+      console.log('Data could not be saved.' + error);
+      return 'err'
+    })
+  return res
+}

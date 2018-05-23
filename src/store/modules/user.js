@@ -82,7 +82,6 @@ export const authorize = appId =>  dispatch  => {
         let dbRes = dbResList[userId]
         // Keep the key for later updates!!
         dbRes.userId = userId
-        console.log('authorize found user by appId:', dbRes)
         dispatch (authRes(dbRes))
       } else {
         dispatch (noUserFound())
@@ -182,7 +181,7 @@ export const readMessage = msgId => async (dispatch,state)  => {
   currentMessages = messagesArray.filter(msg => { return msg.id !== msgId })
   await dispatch(setMessagesRead(currentMessages));
 
-  let res = firebase.database().ref('users/'+state().user.user.appId).update({messages: state().user.user.messages})
+  let res = firebase.database().ref('users/'+state().user.user.userId).update({messages: state().user.user.messages})
     .then(() => {
       return 'ok'
     })
@@ -192,8 +191,3 @@ export const readMessage = msgId => async (dispatch,state)  => {
     });
   return res;  
 };
-
-export const setMessage = (msg,appId) => {
-  // format msg -> {id: 'ek67', message: 'ההתנדבות ב 9.1 בבית חולים בלינסון בוטלה'}
-  firebase.database().ref('users/'+appId+'/messages').push().set(msg);
-}

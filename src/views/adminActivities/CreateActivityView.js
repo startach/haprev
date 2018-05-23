@@ -90,7 +90,7 @@ class CreateActivityView extends Component {
                 <TouchableOpacity
                     rounded
                     onPress={this._showDateTimePicker}
-                    style={[styles.button,{backgroundColor:'green'}]}>
+                    style={[styles.button,{backgroundColor:'#009B77'}]}>
                     <Text style={styles.buttonText}>בחר תאריך וזמן פעילות</Text>
                 </TouchableOpacity>
                 <Text style={[styles.subtitle,styles.dateField]}>

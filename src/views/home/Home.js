@@ -11,7 +11,9 @@ class Home extends React.Component{
         this.state = {hospitalName: ''};
     }
     async componentWillMount() {
-        let _hospitalName = await getHospitalName(this.props.coordinator)
+        let _hospitalName = this.state.hospitalName
+        if(!_hospitalName)
+            _hospitalName = await getHospitalName(this.props.coordinator)
         await this.setState({hospitalName:_hospitalName})
     }
     registerActivityView = () => { this.props.navigation.navigate('Institutes') }

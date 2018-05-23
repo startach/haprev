@@ -37,11 +37,11 @@ const  adminActivityStyle =StyleSheet.create( {
         margin:5,
         marginBottom:3,
         paddingLeft:15,
-        color:'green'
+        color:'#009B77'
     },
     cancelButton:{
         height:60,
-        backgroundColor:'#E50914',
+        backgroundColor:'#E94B3C',
         width:'100%',
         justifyContent: 'center',
         flexDirection: 'row',
@@ -108,7 +108,7 @@ const modalActivityStyle = StyleSheet.create( {
       },
       modalButton:{
         margin:5,
-        backgroundColor:'#E50914',
+        backgroundColor:'#E94B3C',
         borderRadius:15,
         alignItems: 'center',
       },
@@ -152,6 +152,11 @@ const adminActivityListStyle = StyleSheet.create({
     },
     plusButton:{
         alignSelf: 'flex-end',
+        position: 'absolute',
+        bottom: -10,
+    },
+    syncButton:{
+        alignSelf: 'flex-start',
         position: 'absolute',
         bottom: -10,
     },

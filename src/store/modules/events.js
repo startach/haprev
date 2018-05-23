@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import _ from 'lodash';
 
 const REQUEST_EVENTS = 'haprev/events/REQUEST_EVENTS';
 const RESPONSE_EVENTS = 'haprev/events/RESPONSE_EVENTS';
@@ -60,15 +61,16 @@ export const getEvents = instituteId => async (dispatch,state) =>{
 export const addNewActivity = (activityName,appId,coordinator,date,time,fullFormatDate) => async(dispatch) => {
     let res = null
     var objActivity = {}   
+    ref  = await firebase.database().ref('events/'+coordinator).push()
     let newActivity = {
         caption: activityName,
         coordinator: appId,
         institute:coordinator,
         date: date,
         time: time,
-        fullFormatDate: fullFormatDate
+        fullFormatDate: fullFormatDate,
+        id: ref.key
     }
-    ref  = await firebase.database().ref('events/'+coordinator).push()
     objActivity[ref.key] = newActivity;
     await ref.set(newActivity)
         .then(() => {
@@ -77,4 +79,26 @@ export const addNewActivity = (activityName,appId,coordinator,date,time,fullForm
         })
         .catch(error => {console.log('Data could not be saved.',error); res = 'err'});
     return res
+}
+
+export const deleteActivity = (activityId) => async(dispatch,state) => {
+    eventsObj = state().events.events
+    eventsArray = Object.keys(eventsObj).map(key => {return eventsObj[key]})
+    currentEvents = _.filter(eventsArray,(event) => {return event.id !== activityId})
+    currentEventsObjects = _.keyBy(currentEvents, 'id');
+    hospitalId = state().user.user.coordinator
+    newEvents = {} 
+    newEvents[hospitalId] = currentEventsObjects
+
+    let res = await firebase.database().ref('events/')
+    .update(newEvents)
+    .then(() => {
+        dispatch(eventsRes(currentEventsObjects))
+        return 'ok'
+    })
+    .catch(error => {
+        console.log('Data could not be saved.' + error);
+        return 'err'
+    });
+    return res;  
 }
