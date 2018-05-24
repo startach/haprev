@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {View,Text,Image,TextInput,StyleSheet} from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 function obj2string (o) {
   var seen=[];
@@ -34,10 +35,10 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         textAlign: 'right',
     },
-    image: {
-        height: 32, width: 32,
+    icon: {
         padding: 4,
         marginRight:5,
+        color:'#deeaee'
     },
 })
 
@@ -56,13 +57,11 @@ export default class RegisterInputField extends Component {
   focus() {
     this.textInput.focus();
   }
-
+  
   render() {
     return (
     <View style={[styles.container, this.state.focusDiff]}>
-      <Image
-        style={styles.image}
-        source={this.props.imageSource} />
+      <FontAwesome name={this.props.iconName} style={styles.icon} size={32}/>
       <TextInput
         onBlur={() => this.setState({focusDiff: {}})}
         onFocus={() => this.setState({focusDiff: styles.focus})}

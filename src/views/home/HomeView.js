@@ -6,7 +6,7 @@ import Swiper from 'react-native-swiper'
 const HomeView = (props) => {
     const { first, last, coordinator, hospital, createActivityView, registerActivityView, activityView} = props
 
-    const isAdmin = (coordinator > 0)
+    const isCoordinator = (coordinator > 0)
     const arrow = (<Icon name="long-arrow-left" size={30} color="#900" />)
     const arrowDown = (<Icon name="arrow-down" size={30} color="#900" />)
     const registerButton = (
@@ -40,7 +40,7 @@ const HomeView = (props) => {
     return (
         <ScrollView horizontal={false}>
             <View style={styles.container}>
-                {!isAdmin ?
+                {!isCoordinator ?
                     <View style={[styles.box,styles.helloBox]}>
                         <Text style={styles.textCenter}> היי {first} {last} כיף לראות אותך פה ! </Text>
                         <Text style={styles.textCenter}> כדי להירשם להתנדבות הבאה אפשר </Text>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f4f6f5',
         borderRadius: 4,
         borderWidth: 1,
-        borderColor: '#841584',
+        borderColor: '#009B77',
     },
     registerButton: {
         flexDirection: 'row',
