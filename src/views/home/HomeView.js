@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView,ActivityIndicator } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Swiper from 'react-native-swiper'
 
@@ -69,11 +69,24 @@ const HomeView = (props) => {
                 </View>
                 <Text style={[styles.textCenter,{marginBottom:5}]}>באנו לשמח, תראו בעצמכם</Text>
                 <View style={[styles.box,styles.swiper]}>
-                    <Swiper>
-                        <Image style={styles.picture} source={require('../../images/splash.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/splash.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/splash.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/splash.jpg')} />
+                    <Swiper 
+                    loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
+                    activeDotColor={'#C2185B'}
+                    dotColor={'grey'}
+                    autoplay                    
+                    autoplayTimeout={4}
+                    showsButtons
+                    nextButton={<Text style={styles.buttonText}>›</Text>} 
+                    prevButton={<Text style={styles.buttonText}>‹</Text>}
+                    >
+                        <Image style={styles.picture} source={require('../../images/vol1.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol2.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol3.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol4.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol5.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol6.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol7.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol8.jpg')} />
                     </Swiper>
                 </View>
             </View>
@@ -131,6 +144,10 @@ const styles = StyleSheet.create({
     swiper:{
         height:Dimensions.get('screen').height/3,
     },
+    buttonText: {
+        fontSize: 50, 
+        color: '#C2185B',
+    }
 })
 
 export default HomeView
