@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Text, View, ScrollView, Image, ImageBackground, TouchableOpacity, KeyboardAvoidingView,ActivityIndicator } from 'react-native';
+import { Button, Text, View, Image, ImageBackground, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import styles from './RegisterViewStyles';
 import RegisterInput from './RegisterInputField';
 import { connect } from 'react-redux';
@@ -121,20 +121,20 @@ class RegisterView extends React.Component {
                 ref={input => {this.inputs[FIRSTNAME] = input;}}
                 onChangeText={(value) => this.updateField(FIRSTNAME, value)}
                 onSubmitEditing={() => {this.focusNextField(LASTNAME);}}
-                imageSource={require('../../images/personIcon.png')}/>
+                iconName='user-circle'/>
             <RegisterInput placeholder="שם משפחה"
                 value={this.props.user.last}
                 ref={input => {this.inputs[LASTNAME] = input;}}
                 onChangeText={(value) => this.updateField(LASTNAME, value)}
                 onSubmitEditing={() => {this.focusNextField(PHONE);}}
-                imageSource={require('../../images/personIcon.png')}/>
+                iconName='user-circle'/>
             <RegisterInput placeholder='מספר טלפון'
                 value={this.props.user.phone}
                 keyboardType='phone-pad'
                 ref={input => {this.inputs[PHONE] = input;}}
                 onChangeText={(value) => this.updateField(PHONE, '' + value)}
                 onSubmitEditing={() => {this.focusNextField(EMAIL);}}
-                imageSource={require('../../images/phoneIcon.png')}/>
+                iconName='phone-square'/>
             <RegisterInput placeholder='כתובת דוא"ל'
                 value={this.props.user.email}
                 keyboardType='email-address'
@@ -142,7 +142,7 @@ class RegisterView extends React.Component {
                 returnKeyType={"done"}
                 onChangeText={(value) => this.updateField(EMAIL, value)}
                 onSubmitEditing={() => {}}
-                imageSource={require('../../images/emailIcon.png')}/>
+                iconName='envelope-square'/>
             <View style={styles.buttonsContainer}>
                 <TouchableOpacity
                     rounded

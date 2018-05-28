@@ -3,34 +3,29 @@ import CreateActivityView from './CreateActivityView'
 import * as firebase from 'firebase';
 
 class CreateActivity extends Component {
-    
-    newActivityHandler = async (date,time,activityName) => {
+    newActivityHandler = async (date,time,activityName,fullFormatDate) => {
         const { params } = this.props.navigation.state;
-        fixDate = date.replace(/\//g , "-");
-        let res = await firebase.database().ref('events/'+params.coordinator)
-            .child(fixDate+' '+activityName)
-            .set({
-                caption: activityName,
-                coordinator: params.appId,
-                institute:params.coordinator,
-                date: date,
-                time: time
-            })
-            .then(() => {return 'ok'})
-            .catch(error => {console.log('Data could not be saved.',error); return 'err'});
-        return res
+        return res = await params.addNewActivity(
+            activityName,
+            params.appId,
+            params.coordinator,
+            date,
+            time,
+            fullFormatDate.toISOString()
+        )
     }
 
     render () {
         const { params } = this.props.navigation.state;
         return (
-        <CreateActivityView 
-        first = {params.first} 
-        last = {params.last} 
-        hospital = {params.hospital} 
-        navigation={this.props.navigation}
-        onNewActivityHandler={this.newActivityHandler}
-        />
+            <CreateActivityView 
+                first = {params.first} 
+                last = {params.last} 
+                hospital = {params.hospital} 
+                navigation={this.props.navigation}
+                onNewActivityHandler={this.newActivityHandler}
+                onRefresh={params.onRefresh}
+            />
         );
     }
 }

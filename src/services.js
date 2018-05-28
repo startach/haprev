@@ -17,26 +17,6 @@ export const Authorize = async appId => {
         messages:[],  
       });
 };
-  
-
-export const HelpRequest = async (first,last,email,content) => {
-  await timeout(DELAY);
-  return ({request:'ok'});
-};
-
-export const GetMessages = async userId =>{ 
-  await timeout(DELAY);
-  return ([
-    //  {id: 'qw34', message: 'ההתנדבות ב 3.1 בבית חולים ביילינסון בוטלה' },
-    //  {id: 'ee67', message: 'הפעילות ב10.4.18 הועברה ל11.4.18 יום שלישי' },
-  ]);
-  
-};
-
-export const ReadMessage = async msgId => {
-  await timeout(DELAY);
-  return ({status:'ok'});
-};
 
 export const GetVolunteering = async  instId =>{
   await timeout(DELAY)

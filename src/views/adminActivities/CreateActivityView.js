@@ -13,6 +13,7 @@ class CreateActivityView extends Component {
             activityName: '',
             fullDate:'',
             fullTime:'',
+            fullFormatDate:'',
             isDateTimePickerVisible: false,
             isButtonDisabled: true,
             modalVisible:false,
@@ -36,14 +37,14 @@ class CreateActivityView extends Component {
         let hours = datetime.getHours();
         let minutes = datetime.getMinutes();  
         let fullTime = hours + ':' + minutes;
-        this.setState({fullDate:fullDate, fullTime:fullTime})
+        this.setState({fullDate:fullDate, fullTime:fullTime,fullFormatDate:datetime})
         this.setState({isButtonDisabled: this.state.activityName.length <= 0});
         this._hideDateTimePicker();
     };
 
      createNewActivity = async() =>{
         if(this.state.fullTime.length > 0) {
-            res = await this.props.onNewActivityHandler(this.state.fullDate,this.state.fullTime,this.state.activityName)
+            res = await this.props.onNewActivityHandler(this.state.fullDate,this.state.fullTime,this.state.activityName,this.state.fullFormatDate)
             if(res === 'ok')
                 this.setState({success : true});
             this.setState({modalVisible : true});
@@ -61,6 +62,11 @@ class CreateActivityView extends Component {
             'שגיאה! נסה שנית מאוחר יותר' }
         </Text>
     )}
+
+    backToList = async ()=>{
+        await this.props.onRefresh()
+        this.props.navigation.goBack()
+    }
 
     render () {
         const { hospital, first, last } = this.props;
@@ -84,7 +90,7 @@ class CreateActivityView extends Component {
                 <TouchableOpacity
                     rounded
                     onPress={this._showDateTimePicker}
-                    style={[styles.button,{backgroundColor:'green'}]}>
+                    style={[styles.button,{backgroundColor:'#009B77'}]}>
                     <Text style={styles.buttonText}>בחר תאריך וזמן פעילות</Text>
                 </TouchableOpacity>
                 <Text style={[styles.subtitle,styles.dateField]}>
@@ -124,7 +130,7 @@ class CreateActivityView extends Component {
                     <TouchableOpacity
                     rounded
                     style={[styles.button,{marginTop:0}]}
-                    onPress={() => { this.state.success ? this.props.navigation.goBack() : this.setState({modalVisible:false})}}
+                    onPress={() => { this.state.success ? this.backToList() : this.setState({modalVisible:false})}}
                     >
                     <Text style={styles.buttonText}>אישור</Text>
                     </TouchableOpacity>

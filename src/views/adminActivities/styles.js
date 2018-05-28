@@ -7,14 +7,60 @@ const  adminActivityStyle =StyleSheet.create( {
     },
     h1:{
         textAlign:'center',
-        fontSize:18,
+        fontSize:20,
         padding:10,
+        fontWeight: 'bold',
     },
     h2:{
         textAlign:'center',
+        fontSize:18,
+        padding:10,
+        fontWeight: 'bold',
+    },
+    h3:{
+        textAlign:'center',
         fontSize:16,
-        paddingTop:30,
-    }
+    },
+    userImageList:{
+        margin:5,
+        marginBottom:3,
+        width:35,
+        height:35,
+        borderRadius:100,        
+    },
+    withoutImgList:{
+        margin:5,
+        marginBottom:3,
+        color: 'grey'
+    },
+    phoneIcon:{
+        margin:5,
+        marginBottom:3,
+        paddingLeft:15,
+        color:'#009B77'
+    },
+    cancelButton:{
+        height:60,
+        backgroundColor:'#E94B3C',
+        width:'100%',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        alignSelf:'center',
+        marginTop:20,
+    },
+    cancelIcon:{
+        alignSelf:'center',
+        color:'white',
+        marginLeft:15,
+        marginRight:15
+    },
+    cancelText:{
+        color:'white',
+        fontSize:22,
+        fontWeight:'bold',
+        alignSelf:'center',
+        alignItems:'center',
+},
 });
 const modalActivityStyle = StyleSheet.create( {
     participantItem: {
@@ -39,11 +85,11 @@ const modalActivityStyle = StyleSheet.create( {
         margin: 20
     },
     modalContainer: {
-        marginTop: "40%",
+        marginTop: "50%",
         justifyContent: 'center',
-        alignSelf:'center',        
+        alignSelf:'center',
         backgroundColor: 'grey',
-        height:'50%',
+        height:'30%',
         width: '90%',
         borderWidth:2,
         borderRadius:15,
@@ -52,20 +98,25 @@ const modalActivityStyle = StyleSheet.create( {
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
+        paddingTop:20,
+      },
+      buttonsContainer:{
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        alignSelf:'center',
       },
       modalButton:{
-        width:200,
-        margin:20,
-        padding:10,
-        backgroundColor:'#D81A4C',
+        margin:5,
+        backgroundColor:'#E94B3C',
         borderRadius:15,
-        alignSelf:'center'
+        alignItems: 'center',
       },
       modalButtonText: {
         color:'white',
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
-        textAlign:'center',
+        margin:10,
       },
     activityName:{
         height:100,
@@ -81,11 +132,15 @@ const adminActivityListStyle = StyleSheet.create({
         alignItems: 'center',
         height: 100,
     },
-    img:{
-        height: 60,
-        width: 60,
-        backgroundColor:'#080',
+    userImage:{
+        marginBottom:10,
+        borderRadius:100,        
+        width:65,
+        height:65,
+    },
+    withoutImg:{
         marginBottom: 10,
+        color: 'grey'
     },
     h1:{
         fontSize:20,
@@ -97,6 +152,11 @@ const adminActivityListStyle = StyleSheet.create({
     },
     plusButton:{
         alignSelf: 'flex-end',
+        position: 'absolute',
+        bottom: -10,
+    },
+    syncButton:{
+        alignSelf: 'flex-start',
         position: 'absolute',
         bottom: -10,
     },

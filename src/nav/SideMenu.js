@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {FlatList, Text, View, StyleSheet, Linking, ScrollView, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; 
 import { Constants } from 'expo';
 
 class SideMenu extends Component {
