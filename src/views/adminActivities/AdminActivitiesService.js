@@ -11,6 +11,7 @@ export const getUserData = async(appId) => {
   let avatarUrl = null
   let phone = null
   let userId = null
+  let name = null
   await firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' , 
     snapshot => {
       let dbUser = snapshot.val()
@@ -18,11 +19,12 @@ export const getUserData = async(appId) => {
         key=[Object.keys(dbUser)[0]]
         avatarUrl = dbUser[key].avatarUrl || null
         phone = dbUser[key].phone || null
-        userId = dbUser[key].userId || null
+        userId = dbUser[key].userId || null        
+        name = (dbUser[key].first + dbUser[key].last) || null 
       } 
     }
   )
-  return {avatarUrl:avatarUrl,phone:phone,userId:userId}
+  return {avatarUrl:avatarUrl,phone:phone,userId:userId,name:name}
 }
 
 export const makeArrayFromObjects = (objects) => {
@@ -56,7 +58,7 @@ export const makeArrayParticipants = (events) =>{
       index++;
   }
   return participantsArray
-} 
+}
 
 export const setMessage = async(msg,userId) => {
   // format msg -> {id: 'ek67', message: 'ההתנדבות ב 9.1 בבית חולים בלינסון בוטלה'}

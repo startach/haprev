@@ -16,18 +16,19 @@ class AdminActivitiyList extends React.Component {
         };
     }
     async componentWillMount(refreshDatabase) {
+        const {coordinator,eventsStatus,currentInstitute} = this.props
         this.setState({reload:true})
         let _hospitalName = this.state.hospitalName
         if(!_hospitalName)
-            _hospitalName = await getHospitalName(this.props.coordinator)
-        if(this.props.eventsStatus===null || refreshDatabase){
-            let res = await this.props.onGetEvents(this.props.coordinator)
+            _hospitalName = await getHospitalName(coordinator)
+        if(eventsStatus===null || refreshDatabase || coordinator!=currentInstitute){
+            let res = await this.props.onGetEvents(coordinator)
             if(res=='ok')
                 this.eventsDataHandle(_hospitalName)
             else if(res=='err')
                 alert('בעיה במסד הנתונים, נסה שנית מאוחר יותר')
         }
-        else if(this.props.eventsStatus==='')
+        else if(eventsStatus==='')
             this.eventsDataHandle(_hospitalName)            
     }
 
@@ -43,9 +44,10 @@ class AdminActivitiyList extends React.Component {
         })
     }
 
-    openEventView = async (event,participants) =>{
-        this.props.navigation.navigate('AdminActivity',
+    openEventView = (event,participants) =>{
+        this.props.navigation.navigate('EventView',
         {
+            adminActivityScreen:true,
             event,
             participants,
             hospital:this.state.hospitalName,
@@ -102,6 +104,7 @@ const mapStateToProps = state =>{
                avatarUrl: state.user.user.avatarUrl,
                events:state.events.events,
                eventsStatus:state.events.status,
+               currentInstitute:state.events.for
             })
 }
 

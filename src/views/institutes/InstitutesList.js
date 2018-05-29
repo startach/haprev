@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import InstitutesListView from './InstitutesListView';
 import { getInstitutes, selectInstitute } from '../../store/modules/Institutes'
+import {getHospitalName} from '../adminActivities/AdminActivitiesService'
 
 class InstitutesList extends Component {
 
@@ -14,9 +15,10 @@ constructor(){
     this.props.getInstitutes();
   }
 
-  onInstSelected(instId) {
-    this.props.selectInstitute(instId);
-    this.props.navigation.navigate('SelectDate');
+  async onInstSelected(instId) {
+    await this.props.selectInstitute(instId);
+    hospitalName = await getHospitalName(instId)
+    this.props.navigation.navigate('SelectDate',{hospitalName});
   }
 
   render() {

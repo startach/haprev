@@ -1,20 +1,53 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import React, {Component} from 'react'
+import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import _ from 'lodash'
+import EventOptions from './EventOptions'
 
-const SelectDateView = ({vols}) =>
- (
-  <ScrollView style={styles.container}>
-    <Calendar
-      onDayPress={this.onDayPress}
-      style={styles.calendar}
-      hideExtraDays
-      markedDates={vols}
-      hideArrows
-      markingType={'period'}
-    />
-  </ScrollView>
-)
+class SelectDateView extends Component{
+  state = {pressEvents: false}
+
+  onDayPress = (day,events,openEventView,navigation) =>{
+    let dayPressEvents=  events.filter(event => { return event.fullFormatDate.slice(0, 10) == day.dateString })
+    if(dayPressEvents.length>1){
+      return <EventOptions events={dayPressEvents} openEventView={openEventView} />
+    }
+    else if(dayPressEvents.length==1){
+      return <EventOptions events={dayPressEvents} openEventView={openEventView} />
+    }
+    return null
+  }
+
+  render() {
+    const {navigation,events,eventDates,openEventView} = this.props
+    return (
+    <View style={styles.container}>
+      { eventDates ?
+      <ScrollView style={styles.container}>
+        <CalendarList 
+          onDayPress={(day) => {res = this.onDayPress(day,events,openEventView,navigation); this.setState({pressEvents:res})}}
+          style={styles.calendar}
+          hideExtraDays
+          markedDates={eventDates}
+          markingType={'multi-dot'}
+          horizontal={true}
+          showScrollIndicator={true}
+        />
+      { _.isEmpty(eventDates) ?
+        <Text style={styles.messageBox}> אין פעילויות זמינות כרגע בבית חולים זה </Text>
+      :
+      this.state.pressEvents ?
+      this.state.pressEvents
+      :
+      null
+      }
+      </ScrollView>
+      :
+      <ActivityIndicator size='large' color='#C2185B'/> 
+      }
+    </View>
+  )}
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +66,23 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#eee',
     height: 350,
+  },
+  messageBox: {
+    flex: 1,
+    alignItems: "center",
+    borderWidth: 2,
+    margin: 10,
+    borderRadius: 10,
+    justifyContent: "flex-start",
+    marginHorizontal: "10%",
+    width: "80%",
+    textAlign: 'center',
+    fontSize: 20,
+    padding: 10,
+    fontWeight: 'bold',
+    color: '#C2185B',
+    borderColor:'#C2185B',
+    backgroundColor: '#fff',
   },
 });
 

@@ -1,19 +1,26 @@
 import React, {Component} from 'react'
-import {View, Text, FlatList, Modal, TouchableOpacity, Image, Linking, ActivityIndicator,ScrollView} from 'react-native'
+import {View, Text, FlatList, Image, Linking, ActivityIndicator,ScrollView} from 'react-native'
+import AdminActivityView from './AdminActivityView'
+import EventRegistrationView from '../institutes/EventRegistrationView'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from './styles' 
 import { FontAwesome } from '@expo/vector-icons';
 import {getUserData,setMessage} from './AdminActivitiesService'
 
-const ParticipantItem = ({participant,avatarUrl,phone}) => {
+const ParticipantItem = ({participant,avatarUrl,phone,isCoordinator}) => {
     return (
-        <View style={modalStyles.participantItem}>
+        <View style={[modalStyles.participantItem,isCoordinator? styles.coordinatorLine: null]}>
             {avatarUrl ?
             <Image style={styles.userImageList} source={{uri: avatarUrl}}/>
             :
             <FontAwesome style={styles.withoutImgList} name='user-circle' size={35}/>
             }
             <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between'}}>
-                <Text style={{fontSize:18,flexDirection:'column',alignSelf:'center'}}>{participant.name}</Text>
+                <Text style={styles.participantText}>{participant.name.length > 14 ? participant.name.slice(0, 11)+'...' : participant.name}</Text>
+                { isCoordinator ?
+                <Text style={[styles.participantText,{color:'#009B77'}]}>רכז פעילות</Text>
+                :
+                null
+                }
                 { phone ?
                 <FontAwesome style={styles.phoneIcon} name='phone-square' size={35}
                     onPress={()=>{Linking.openURL('tel:'+phone)}}/>
@@ -24,12 +31,13 @@ const ParticipantItem = ({participant,avatarUrl,phone}) => {
         </View>)
 }
 
-class AdminActivity extends Component{
+class EventView extends Component{
     state = {
         displayCancelEventDialog: false,
         avatarsArray:null,
         phonesArray:null,
         userIdArray:null,
+        process:false,
     };
     async componentWillMount() {
         const {params} = this.props.navigation.state
@@ -37,6 +45,7 @@ class AdminActivity extends Component{
         avatarsArray=[]
         phonesArray=[]
         userIdArray=[]
+        coordinatorData = await getUserData(params.event.coordinator)
         for(var i in participants){
             userInfo = await getUserData(participants[i].appId)
             avatarsArray.push(userInfo.avatarUrl)
@@ -47,17 +56,14 @@ class AdminActivity extends Component{
             avatarsArray:avatarsArray,
             phonesArray:phonesArray,
             userIdArray:userIdArray,
-            deleteProcess:false,
+            coordinatorData:coordinatorData,
+            process:false,
         })
     }
-    showCancelEventDialog = () => 
-        this.setState({displayCancelEventDialog: true})
 
-    hideCancelEventDialog = () => 
-        this.setState({displayCancelEventDialog: false});
-
-    deleteActivity = async(params) =>{
-        this.setState({deleteProcess:true})
+    deleteActivity = async() =>{
+        const {params} = this.props.navigation.state
+        this.setState({process:true})
         let res = await params.onDeleteActivity(params.event.id)
         if(res=='ok'){
             if(params.participants.length>0){
@@ -74,13 +80,13 @@ class AdminActivity extends Component{
         }
         else
             alert('בעיה בבקשה - נסה שוב מאוחר יותר')
-        this.hideCancelEventDialog();
     }
     
     render() {
         const {params} = this.props.navigation.state
         const activity = params ? params.event : null
         const participants = params ? params.participants : null
+        const adminActivityScreen = params.adminActivityScreen
         return (
             <View style={styles.container}>
                 <Text style={styles.h1}> התנדבות {activity.caption} </Text>
@@ -89,6 +95,12 @@ class AdminActivity extends Component{
                     רשומים {participants ? participants.length : 0} מתנדבים </Text>
                 {this.state.avatarsArray && this.state.phonesArray ?
                 <ScrollView horizontal={false}>
+                    <ParticipantItem 
+                        participant={this.state.coordinatorData} 
+                        avatarUrl={this.state.coordinatorData.avatarUrl} 
+                        phone={this.state.coordinatorData.phone}
+                        isCoordinator
+                    />
                     <FlatList data={participants}
                         renderItem={({item,index}) => 
                         <ParticipantItem 
@@ -105,49 +117,19 @@ class AdminActivity extends Component{
                     <ActivityIndicator size='large' color='#C2185B'/>
                 </View>
                 }
-                <TouchableOpacity onPress={this.showCancelEventDialog}>
-                    <View style={styles.cancelButton}>
-                        <Text style={styles.cancelText}>בטל התנדבות</Text>
-                        <FontAwesome style={styles.cancelIcon} name='trash' size={30}/>
-                    </View>
-                </TouchableOpacity>
-                <Modal
-                    transparent
-                    visible={this.state.displayCancelEventDialog}
-                    animationType={'slide'}
-                    onRequestClose={() => this.setState({displayCancelEventDialog:true})}
-                    >
-                    { !this.state.deleteProcess ?
-                    <View style={modalStyles.modalContainer}>
-                            <Text style={[modalStyles.title,{color:'white'}]}> האם לבטל את ההתנדבות? {'\n'} </Text>
-                            <View style={modalStyles.buttonsContainer}>
-                                <TouchableOpacity
-                                    rounded
-                                    style={modalStyles.modalButton}
-                                    onPress={() => this.deleteActivity(params)}
-                                    >
-                                    <Text style={modalStyles.modalButtonText}>בטל התנדבות</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    rounded
-                                    style={[modalStyles.modalButton,{backgroundColor:'#009B77'}]}
-                                    onPress={() => { this.hideCancelEventDialog()}}
-                                    >
-                                    <Text style={modalStyles.modalButtonText}>השאר התנדבות</Text>
-                                </TouchableOpacity>
-                            </View>
-                    </View>
-                    :
-                    <View style={modalStyles.modalContainer}>
-                        <Text style={[modalStyles.title,{color:'white'}]}> מבטל התנדבות... {'\n'} </Text>
-                        <ActivityIndicator size='large' color='white'/> 
-                    </View>
-                    }
-                </Modal>
-
+                { adminActivityScreen ?
+                <AdminActivityView 
+                    deleteProcess = {this.state.process}
+                    deleteActivity={this.deleteActivity}
+                />
+                :
+                <EventRegistrationView
+                    registarProcess = {this.state.process}
+                />
+                }
             </View>
         )
     }
 }
 
-export default AdminActivity
+export default EventView
