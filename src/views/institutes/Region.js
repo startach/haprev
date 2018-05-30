@@ -3,20 +3,18 @@ import { PropTypes } from 'prop-types';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-  },
   name: {
-    // fontFamily: 'Arimo',
     color: '#2c2c2c',
-    fontSize: 28,
-    fontWeight: '400',
-    lineHeight: 40,
-    textAlign: 'right',
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    paddingRight:10,
+
   },
   hospitalsSection: {
     flex: 1,
-    height: 270,
+    alignSelf: 'flex-start',
+    marginTop: 5,
   },
 });
 

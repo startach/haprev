@@ -1,19 +1,16 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView,ActivityIndicator } from 'react-native'
 import Swiper from 'react-native-swiper'
 
 const HomeView = (props) => {
     const { first, last, coordinator, hospital, createActivityView, registerActivityView, activityView} = props
 
     const isCoordinator = (coordinator > 0)
-    const arrow = (<Icon name="long-arrow-left" size={30} color="#900" />)
-    const arrowDown = (<Icon name="arrow-down" size={30} color="#900" />)
     const registerButton = (
         <Button
             onPress={registerActivityView}
-            title="הרשמה"
-            color="#009B77"
+            title='הרשמה'
+            color='#C2185B'
         />
     )
 
@@ -21,8 +18,8 @@ const HomeView = (props) => {
         <View style={styles.allActivityButton}>
             <Button
                 onPress={activityView}
-                title="לכל ההתנדבויות"
-                color="#009B77"
+                title='לכל ההתנדבויות'
+                color='#C2185B'
             />
         </View>
     )
@@ -31,8 +28,8 @@ const HomeView = (props) => {
         <View style={styles.allActivityButton}>
             <Button
                 onPress={createActivityView}
-                title="יצירת התנדבות"
-                color="#009B77"
+                title='יצירת התנדבות'
+                color='#C2185B'
             />
         </View>
     )
@@ -41,39 +38,50 @@ const HomeView = (props) => {
         <ScrollView horizontal={false}>
             <View style={styles.container}>
                 {!isCoordinator ?
-                    <View style={[styles.box,styles.helloBox]}>
+                    <View style={styles.eventBox}>
                         <Text style={styles.textCenter}> היי {first} {last} כיף לראות אותך פה ! </Text>
                         <Text style={styles.textCenter}> כדי להירשם להתנדבות הבאה אפשר </Text>
                         <View style={styles.registerButton}>
-                            <Text style={styles.textCenter}> {arrow} להתחיל פה  </Text>
+                            <Text style={styles.textCenter}>  להתחיל פה  </Text>
                             {registerButton}
                         </View>
                     </View>
                 :
-                    <View style={[styles.box,styles.helloBox]}>
+                    <View style={styles.eventBox}>
                         <Text style={styles.textCenter}> היי {first} {last} המתנדבים של {hospital} </Text>
                         <Text style={styles.textCenter}> מחכים להתנדבות הבאה שלהם </Text>
-                        <Text style={styles.textCenter}> בשביל לעזור להם ולהתחיל התנדבות </Text>
-                        <Text style={styles.textCenter}> {arrowDown} חדשה אפשר להתחיל כאן </Text>
                         {createActivityButton}
                     </View>
                 }
-                <View style={[styles.box,styles.nextVollBox]}>
-                    <Text style={styles.textCenter}>התנדבות הבאה תתקיים בתאריך</Text>
-                    <Text style={styles.textCenter}>...</Text>
+                <View style={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#ffffff'}]}>
+                    <Text style={[styles.textCenter,{color:'#ffffff'}]}>התנדבות הבאה תתקיים בתאריך</Text>
+                    <Text style={[styles.textCenter,{color:'#ffffff'}]}>...</Text>
                 </View>
-                <View style={[styles.box,styles.myVollBox]}>
+                <View style={styles.eventBox}>
                     <Text style={styles.textCenter}>התנדבות שלי</Text>
                     <Text style={styles.textCenter}>...</Text>
                     {allActivityButton}
                 </View>
                 <Text style={[styles.textCenter,{marginBottom:5}]}>באנו לשמח, תראו בעצמכם</Text>
                 <View style={[styles.box,styles.swiper]}>
-                    <Swiper>
-                        <Image style={styles.picture} source={require('../../images/splash.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/splash.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/splash.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/splash.jpg')} />
+                    <Swiper 
+                    loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
+                    activeDotColor={'#C2185B'}
+                    dotColor={'grey'}
+                    autoplay                    
+                    autoplayTimeout={4}
+                    showsButtons
+                    nextButton={<Text style={styles.buttonText}>›</Text>} 
+                    prevButton={<Text style={styles.buttonText}>‹</Text>}
+                    >
+                        <Image style={styles.picture} source={require('../../images/vol1.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol2.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol3.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol4.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol5.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol6.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol7.jpg')} />
+                        <Image style={styles.picture} source={require('../../images/vol8.jpg')} />
                     </Swiper>
                 </View>
             </View>
@@ -89,48 +97,58 @@ const styles = StyleSheet.create({
     picture: {
         flex: 1,
         width:'100%',
+        borderRadius: 8,
     },
     textCenter: {
-        fontSize: 18,
+        textAlign: 'center',
+        fontSize: 16,
+        padding: 1,
         fontWeight: 'bold',
-        textAlign: 'center'
+        color:'#C2185B'
     },
     box: {
         marginBottom: 5,
-        marginRight: 9,
-        marginLeft: 9,
-        backgroundColor: '#f4f6f5',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: '#009B77',
+        marginRight: 25,
+        marginLeft: 25,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#C2185B',
+        justifyContent: 'flex-start',
     },
     registerButton: {
         flexDirection: 'row',
         alignSelf: 'center',
-        marginBottom: 10,
-        marginTop: 10,
+        marginBottom: 5,
+        marginTop: 5,
         marginRight: 10,
         marginLeft: 10,
     },
     allActivityButton: {
         alignSelf: 'center',
-        marginBottom: 10,
-        marginTop: 10,
+        marginBottom: 5,
+        marginTop: 5,
         marginRight: 10,
         marginLeft: 10,
-    },
-    nextVollBox:{
-    //    height:Dimensions.get('screen').height/10,
-    },
-    helloBox:{
-     //   height:Dimensions.get('screen').height/6,        
-    },
-    myVollBox:{
-   //     height:Dimensions.get('screen').height/6,
     },
     swiper:{
         height:Dimensions.get('screen').height/3,
     },
+    buttonText: {
+        fontSize: 50, 
+        color: '#C2185B',
+    },
+    eventBox: {
+        flex: 1,
+        alignItems: 'center',
+        borderWidth: 2,
+        margin: 10,
+        borderRadius: 10,
+        justifyContent: 'flex-start',
+        marginHorizontal: '7.5%',
+        width: '85%',
+        backgroundColor: '#ffffff',
+        borderColor: '#C2185B'
+      },
 })
 
 export default HomeView

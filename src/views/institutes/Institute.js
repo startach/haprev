@@ -9,13 +9,15 @@ class Institute extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => instituteSelected(id)}>
-          <Image
-            style={styles.image}
-            source={{ uri: pictureUrl }}
-            resizeMode="stretch"
-          />
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.city}>{city}</Text>
+          <View style={styles.beckText}>
+            <Image
+              style={styles.image}
+              source={{ uri: pictureUrl }}
+              resizeMode="stretch"
+            />
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.city}>{city}</Text>
+          </View>
         </TouchableOpacity>
       </View>
     );

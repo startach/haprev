@@ -2,27 +2,33 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
+    alignSelf: 'flex-start',
     display: 'flex',
     flexDirection: 'column',
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
     backgroundColor: '#ffffff',
-    width: 350,
+    width: 200,
+    margin:1,
   },
   image: {
-    height: 220,
+    height:150,
   },
   name: {
-    color: '#2c2c2c',
+    paddingRight:10,
+    color: '#ffffff',
     fontFamily: 'sans-serif',
-    fontSize: 22,
-    fontWeight: '400',
+    fontSize: 20,
+    fontWeight: '200',
   },
   city: {
-    color: '#7b7b7b',
+    paddingRight:10,
+    color: '#ffe6f3',
     fontFamily: 'sans-serif',
-    fontSize: 18,
-    fontWeight: '400',
+    fontSize: 16,
+    fontWeight: '100',
+  },
+  beckText:{
+    backgroundColor:'#C2185B',
+    borderRadius: 15,
   },
 });
 
