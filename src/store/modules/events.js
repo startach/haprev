@@ -50,7 +50,6 @@ export const getEvents = instituteId => async (dispatch,state) =>{
             })
             .then(() => {return 'ok'})
             .catch(error => {
-                console.log('error data events .' + error);
                 return 'err'
             });
         return res;

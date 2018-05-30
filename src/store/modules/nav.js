@@ -1,5 +1,3 @@
-import { Authorize } from "../../services";
-
 const AUTHORIZE_REQ = "haprev/user/AUTHORIZE_REQ";
 const AUTHORIZE_RES = "haprev/user/AUTHORIZE_RES";
 
@@ -32,11 +30,4 @@ const authRes = data => {
       payload: data
     };
   return tmpRes;
-};
-
-export const authorize = (appId) => async (dispatch)  => {
-  dispatch(authReq(appId));
-  const user = await Authorize(appId);
-  //console.log('Authorizing @ nav' , user)
-  //dispatch (authRes( user));
 };

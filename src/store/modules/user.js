@@ -1,4 +1,3 @@
-import { Authorize } from "../../services";
 import * as firebase from 'firebase';
 
 const AUTHORIZE_REQ = "haprev/user/AUTHORIZE_REQ";
@@ -68,7 +67,6 @@ const noUserFound = () =>({
 })
 
 export const authorize = appId =>  dispatch  => {
-  console.log('user.js: Authorizing')
   dispatch(authReq(appId))
   // firebase.database().ref('users/'+appId).once('value' ,
   // Is there any user associated with this appId? 
@@ -77,7 +75,6 @@ export const authorize = appId =>  dispatch  => {
       let dbResList = snapshot.val()
       if (dbResList) {
         // Get the 1st response
-        console.log('Query by appId:', dbResList)
         let userId = Object.keys(dbResList)[0]
         let dbRes = dbResList[userId]
         // Keep the key for later updates!!
@@ -85,7 +82,6 @@ export const authorize = appId =>  dispatch  => {
         dispatch (authRes(dbRes))
       } else {
         dispatch (noUserFound())
-        console.log('handle user not found')
       }
   })
 }
@@ -110,7 +106,6 @@ const registerRes = data => {
 }
 
 export const register = user =>  dispatch  => {
-  console.log('Registering @ user.js: ', user)
   user.appId = Expo.Constants.deviceId
   let ref = firebase.database().ref('users')
   // Query by phone first...
@@ -121,12 +116,10 @@ export const register = user =>  dispatch  => {
         // Assume that the user changed the device & we need to update
         let userId = Object.keys(dbResList)[0]
         user.userId = userId
-        console.log('updating existing user:', user)
         update(user)(dispatch)
       } else { // New user
         dispatch(registerReq(user))
         user.userId = ref.push(user).key
-        console.log('Register new user:', user)
         dispatch (registerRes(user))
       }
   })
@@ -148,18 +141,15 @@ const updateRes = data => {
 }
 
 export const update = user =>  dispatch  => {
-  console.log('Updating profile @ user.js')
   dispatch(registerReq(user))
   let ref = firebase.database().ref('users/'+user.userId)
   ref.once('value', 
     snapshot => {
-      // console.log('Register response', snapshot)
       let dbRes = snapshot.val()
       if (dbRes) {
-        console.log(dbRes)
         dispatch (registerRes(dbRes))
       } else {
-        console.log('handle user not found')
+        //handle user not found
         dispatch (noUserFound())
       }
   })
