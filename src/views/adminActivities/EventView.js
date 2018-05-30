@@ -82,6 +82,29 @@ class EventView extends Component{
             alert('בעיה בבקשה - נסה שוב מאוחר יותר')
     }
     
+    SendMessageForAll = async(coordinatorMsg) =>{
+        const {params} = this.props.navigation.state
+        this.setState({process:true})
+        console.log('params.participants.length:',params.participants.length)
+        let res = 'ok'
+        if(params.participants.length>0){
+            msgDetails = ' הודעה מהכרז ' + this.state.coordinatorData.name
+                +'לגבי הפעילות '+ params.event.caption 
+                + ' בתאריך ' + params.event.date 
+                + ' בבית חולים ' +params.hospital
+            msg = msgDetails + ' - ' + coordinatorMsg
+            for(var i in this.state.userIdArray){
+                let resMsg = await setMessage({id:params.event.id,message:msg},this.state.userIdArray[i])
+                if(resMsg=='err'){
+                    alert('Error\nבעיה בשליחת הודעה למשתמש - ' + params.participants[i].name)
+                    res = 'err'
+                }
+            }
+        }
+        this.setState({process:false})
+        return res
+    }
+    
     render() {
         const {params} = this.props.navigation.state
         const activity = params ? params.event : null
@@ -119,8 +142,10 @@ class EventView extends Component{
                 }
                 { adminActivityScreen ?
                 <AdminActivityView 
-                    deleteProcess = {this.state.process}
+                    process = {this.state.process}
                     deleteActivity={this.deleteActivity}
+                    SendMessageForAll={this.SendMessageForAll}
+                    emptyList={params.participants.length==0}
                 />
                 :
                 <EventRegistrationView

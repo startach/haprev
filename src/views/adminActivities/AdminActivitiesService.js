@@ -20,7 +20,7 @@ export const getUserData = async(appId) => {
         avatarUrl = dbUser[key].avatarUrl || null
         phone = dbUser[key].phone || null
         userId = dbUser[key].userId || null        
-        name = (dbUser[key].first + dbUser[key].last) || null 
+        name = (dbUser[key].first +' '+ dbUser[key].last) || null 
       } 
     }
   )
