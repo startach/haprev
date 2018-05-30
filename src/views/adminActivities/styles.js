@@ -51,8 +51,8 @@ const adminActivityStyle = StyleSheet.create({
   cancelIcon: {
     alignSelf: "center",
     color: "white",
-    marginLeft: 15,
-    marginRight: 15
+    marginLeft: 10,
+    marginRight: 10
   },
   cancelText: {
     color: "white",
