@@ -152,7 +152,7 @@ const modalActivityStyle = StyleSheet.create({
     fontWeight: "bold",
     margin: 10
   },
-  modalRegistarButtonText: {
+  modalRegisterButtonText: {
     color: "white",
     fontSize: 20,
     fontWeight: "bold",

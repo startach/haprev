@@ -4,21 +4,48 @@ import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from '.
 import { FontAwesome } from '@expo/vector-icons';
 
 class EventRegistrationView extends Component{
-    state = {displayCancelEventDialog: false,};
+    state = {
+        displayCancelEventDialog: false,
+        alreadyRegistered:null,
+    }
+    
+    async componentWillMount(){
+        alreadyRegistered = await this.checkAlreadyRegistered(this.props.appId)
+        this.setState({alreadyRegistered:alreadyRegistered})
+    }
 
     showCancelEventDialog = () => 
         this.setState({displayCancelEventDialog: true})
 
     hideCancelEventDialog = () => 
         this.setState({displayCancelEventDialog: false});
-    
+
+    checkAlreadyRegistered = async(appId) =>{
+        participants = this.props.participants
+        result = Object.keys(participants).filter(key => {return participants[key].appId===appId}) || []
+        return result.length > 0
+    }
+
+    registration= async()=>{
+        res = await this.props.registerUserEventHandler()
+        if(res!=='ok')
+            alert("שגיאה בהרשמה, אנא נסה שנית מאוחר יותר")
+        this.hideCancelEventDialog()
+        await this.componentWillMount()
+    }
+
     render() {
         return (
             <View>
-                <TouchableOpacity onPress={this.showCancelEventDialog}>
+                <TouchableOpacity onPress={
+                    this.state.alreadyRegistered ? 
+                    () => alert('אתה כבר רשום לפעילות זו')
+                    :
+                    this.showCancelEventDialog
+                }>
                     <View style={[styles.cancelButton,{backgroundColor:'#009B77'}]}>
                         <Text style={styles.cancelText}>הרשם להתנדבות</Text>
-                        <FontAwesome style={[styles.cancelIcon,{backgroundColor:'#009B77'}]} name='thumbs-up' size={30}/>
+                        <FontAwesome style={[styles.cancelIcon,{backgroundColor:'transparent'}]} name='thumbs-up' size={30}/>
                     </View>
                 </TouchableOpacity>
                 <Modal
@@ -27,7 +54,7 @@ class EventRegistrationView extends Component{
                     animationType={'slide'}
                     onRequestClose={() => this.setState({displayCancelEventDialog:true})}
                     >
-                    { !this.props.registarProcess ?
+                    { !this.props.process ?
                     <View style={modalStyles.modalContainer}>
                             <Text style={[modalStyles.title,{color:'white'}]}> האם להירשם לההתנדבות? {'\n'} </Text>
                             <View style={modalStyles.buttonsContainer}>
@@ -36,14 +63,14 @@ class EventRegistrationView extends Component{
                                     style={modalStyles.modalButton}
                                     onPress={() => {this.hideCancelEventDialog()}}
                                     >
-                                    <Text style={modalStyles.modalRegistarButtonText}>ביטול</Text>
-                                </TouchableOpacity>
+                                    <Text style={modalStyles.modalRegisterButtonText}>ביטול</Text>
+                                </TouchableOpacity> 
                                 <TouchableOpacity
                                     rounded
                                     style={[modalStyles.modalButton,{backgroundColor:'#009B77'}]}
-                                    onPress={() => { }}
+                                    onPress={async()=>await this.registration()}
                                     >
-                                    <Text style={modalStyles.modalRegistarButtonText}>הירשם</Text>
+                                    <Text style={modalStyles.modalRegisterButtonText}>הירשם</Text>
                                 </TouchableOpacity>
                             </View>
                     </View>

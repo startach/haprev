@@ -9,6 +9,7 @@ const UPDATE_RES = "haprev/user/UPDATE_RES";
 const NO_USER_FOUND = "haprev/user/NO_USER_FOUND";
 const SPLASH = "haprev/user/SPLASH";
 const SET_MESSAGE_READ = "haprev/user/SET_MESSAGE_READ";
+const ADD_NEW_EVENT = "hapre/user/ADD_NEW_EVENT"
 
 const initalState = {
   user: {},
@@ -42,6 +43,16 @@ export default (state = initalState, action = {}) => {
                 messages: action.payload  
               } 
            };
+    case ADD_NEW_EVENT:
+      return {...state,
+              user: {
+                ...state.user,
+                activities:{
+                  ...state.user.activities,
+                  [action.insId]: action.newEvents
+                }
+              }
+            }
     default:
       return state;
   }
@@ -104,6 +115,12 @@ const registerRes = data => {
     }
   return tmpRes;
 }
+
+const addNewEvent = (newEvents,insId) => ({
+  type: ADD_NEW_EVENT,
+  newEvents: newEvents,
+  insId: insId
+})
 
 export const register = user =>  dispatch  => {
   user.appId = Expo.Constants.deviceId
@@ -181,3 +198,24 @@ export const readMessage = msgId => async (dispatch,state)  => {
     });
   return res;  
 };
+
+export const addEventToUser = (userId,event) => async(dispatch,state) => {
+  let res = null
+  newActivity = {
+      caption: event.caption,
+      fullFormatDate: event.fullFormatDate,
+      id:event.id,
+  }
+  ref  = await firebase.database().ref('users/'+userId+'/activities/'+event.institute)
+  .child(event.id)
+  .set(newActivity)
+      .then(() => {
+        newEventsObj = state().user.user['activities'][event.institute] || []
+        newEventsArray = Object.keys(newEventsObj).map(key => {return newEventsObj[key]})
+        newEventsArray.push(newActivity)
+        dispatch(addNewEvent(newEventsArray,event.institute))
+        res = 'ok'
+      })
+      .catch(error => {console.log('Data could not be saved.',error); res = 'err'});
+  return res
+}
