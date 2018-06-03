@@ -21,15 +21,17 @@ export default (state = initalState, action = {}) => {
     case RESPONSE_NEW_ACTIVITY:
         return {...state, events: Object.assign(action.payload,state.events)}
     case ADD_PARTICIPANT:
-        return { ...state, 
+        const eventId = action.eventId
+        const participants=action.participants
+        return {...state ,
             events: {
             ...state.events,
-            [action.eventId]: {
-                    ...state.events[[action.eventId]],
-                    participants: action.participants 
-                }
-          }
+            [eventId]: {
+                ...state.events[eventId] || null,
+                participants: participants 
+            }
         }
+    }
     default:
       return state;
   }
@@ -120,19 +122,20 @@ export const deleteActivity = (activityId) => async(dispatch,state) => {
 }
 
 export const addUserToEvent = (event,appId,fullName) => async(dispatch,state) => {
-    let res = null
+    let res = 'ok'
     let newUser = {
       appId: appId,    
       name: fullName,
-    }   
+    }
     ref  = await firebase.database().ref('events/'+event.institute+'/'+event.id)
     .child('participants')
     .push()
     .set(newUser)
         .then(() => {
             newParticipants = state().events.events[event.id]['participants'] || []
-            newParticipants.push(newUser)
-            dispatch(addParticipantRes(newParticipants,event.id))
+            newParticipantsArray = Object.keys(newParticipants).map(key => {return newParticipants[key]})
+            newParticipantsArray.push(newUser)
+            dispatch(addParticipantRes(newParticipantsArray,event.id,event.institute))
             res = 'ok'
         })
         .catch(error => {console.log('Data could not be saved.',error); res = 'err'});

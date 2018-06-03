@@ -14,7 +14,8 @@ class SelectDate extends Component {
 }
   async componentWillMount(){
     eventsObj = this.props.events
-    let eventDates={}; let eventsArray = {}
+    let eventDates={}
+    let eventsArray={}
     if(eventsObj){
       eventsArray = Object.keys(eventsObj).map(key => {return eventsObj[key]})
       eventDates = eventsArray.map(event => {return event.fullFormatDate.slice(0, 10)})
@@ -34,7 +35,7 @@ class SelectDate extends Component {
     hospitalName = params.hospitalName
     this.props.navigation.navigate('EventView',
     {
-        event,
+        event:this.props.events[event.id],
         hospital:hospitalName,
         adminActivityScreen: false,
         addEventToUser: this.props.addEventToUser,

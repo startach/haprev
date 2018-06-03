@@ -3,7 +3,7 @@ import {View} from 'react-native'
 import Messages from '../messages/Messages'
 import HomeView from './HomeView'
 import { connect } from 'react-redux'
-import { getHospitalName } from '../adminActivities/AdminActivitiesService'
+import {namesOfHospitals} from '../../services'
 
 class Home extends React.Component{
     constructor(props) {
@@ -13,7 +13,7 @@ class Home extends React.Component{
     async componentWillMount() {
         let _hospitalName = this.state.hospitalName
         if(!_hospitalName)
-            _hospitalName = await getHospitalName(this.props.coordinator)
+            _hospitalName = namesOfHospitals[this.props.coordinator].name
         await this.setState({hospitalName:_hospitalName})
     }
     registerActivityView = () => { this.props.navigation.navigate('Institutes') }

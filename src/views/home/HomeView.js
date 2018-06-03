@@ -71,8 +71,8 @@ const HomeView = (props) => {
                     autoplay                    
                     autoplayTimeout={4}
                     showsButtons
-                    nextButton={<Text style={styles.buttonText}>›</Text>} 
-                    prevButton={<Text style={styles.buttonText}>‹</Text>}
+                    nextButton={<Text style={styles.buttonText}>‹</Text>} 
+                    prevButton={<Text style={styles.buttonText}>›</Text>}
                     >
                         <Image style={styles.picture} source={require('../../images/vol1.jpg')} />
                         <Image style={styles.picture} source={require('../../images/vol2.jpg')} />

@@ -69,8 +69,7 @@ class EventView extends Component{
             avatarsArray.push(userInfo.avatarUrl)
             phonesArray.push(userInfo.phone)
             userIdArray.push(userInfo.userId)
-            if(participants.length===0)
-                participants.push({appId:params.appId,name:params.fullName})
+            participants.push({appId:params.appId,name:params.fullName})
         }
         this.setState({
             avatarsArray:avatarsArray,
@@ -132,8 +131,6 @@ class EventView extends Component{
         res = await addUserToEvent(event,appId,fullName)
         if(res==='ok')
             res = await addEventToUser(userId,event)
-        if(res!=='ok')
-            alert("שגיאה בהרשמה, אנא נסה שנית מאוחר יותר")
         await this.refreshParticipantList()
         this.setState({process:false})
         return res
@@ -179,19 +176,22 @@ class EventView extends Component{
                 </View>
                 }
                 { adminActivityScreen ?
-                <AdminActivityView 
+                <AdminActivityView
                     process = {this.state.process}
                     deleteActivity={this.deleteActivity}
                     SendMessageForAll={this.SendMessageForAll}
                     emptyList={participants.length==0}
                 />
                 :
+                activity.fullFormatDate >= new Date().toISOString() ?
                 <EventRegistrationView
-                    participants={this.state.participants}                    
+                    participants={this.state.participants}             
                     appId={params.appId}
                     process={this.state.process}
                     registerUserEventHandler={this.registerUserEventHandler}
                 />
+                :
+                <Text style={[styles.participantText,{margin:5,paddingTop:10,paddingBottom:15,fontWeight: 'bold'}]}>הרישום לפעילות זו הסתיים</Text>
                 }
             </View>
         )

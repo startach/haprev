@@ -48,7 +48,7 @@ export default (state = initalState, action = {}) => {
               user: {
                 ...state.user,
                 activities:{
-                  ...state.user.activities,
+                  ...state.user.activities || null,
                   [action.insId]: action.newEvents
                 }
               }
@@ -200,17 +200,21 @@ export const readMessage = msgId => async (dispatch,state)  => {
 };
 
 export const addEventToUser = (userId,event) => async(dispatch,state) => {
-  let res = null
+  let res = 'ok'
+  const insId = event.institute
   newActivity = {
       caption: event.caption,
       fullFormatDate: event.fullFormatDate,
       id:event.id,
   }
-  ref  = await firebase.database().ref('users/'+userId+'/activities/'+event.institute)
+  ref  = await firebase.database().ref('users/'+userId+'/activities/'+insId)
   .child(event.id)
   .set(newActivity)
       .then(() => {
-        newEventsObj = state().user.user['activities'][event.institute] || []
+        if(state().user.user.activities)
+            newEventsObj = state().user.user.activities[insId] || []
+        else
+          newEventsObj = []
         newEventsArray = Object.keys(newEventsObj).map(key => {return newEventsObj[key]})
         newEventsArray.push(newActivity)
         dispatch(addNewEvent(newEventsArray,event.institute))

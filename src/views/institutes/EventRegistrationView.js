@@ -37,17 +37,21 @@ class EventRegistrationView extends Component{
     render() {
         return (
             <View>
-                <TouchableOpacity onPress={
-                    this.state.alreadyRegistered ? 
-                    () => alert('אתה כבר רשום לפעילות זו')
-                    :
-                    this.showCancelEventDialog
-                }>
+                {this.state.alreadyRegistered ? 
+                <TouchableOpacity onPress={() => alert('אתה כבר רשום לפעילות זו')}>
+                    <View style={[styles.cancelButton,{backgroundColor:'#009B77'}]}>
+                        <Text style={styles.cancelText}>נרשמת לפעילות</Text>
+                        <FontAwesome style={[styles.cancelIcon,{backgroundColor:'transparent'}]} name='check-circle' size={30}/>
+                    </View>
+                </TouchableOpacity>
+                :
+                <TouchableOpacity onPress={this.showCancelEventDialog}>
                     <View style={[styles.cancelButton,{backgroundColor:'#009B77'}]}>
                         <Text style={styles.cancelText}>הרשם להתנדבות</Text>
                         <FontAwesome style={[styles.cancelIcon,{backgroundColor:'transparent'}]} name='thumbs-up' size={30}/>
                     </View>
                 </TouchableOpacity>
+                }
                 <Modal
                     transparent
                     visible={this.state.displayCancelEventDialog}

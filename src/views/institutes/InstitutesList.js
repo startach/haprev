@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import InstitutesListView from './InstitutesListView';
 import { getInstitutes, selectInstitute } from '../../store/modules/Institutes'
-import {getHospitalName} from '../adminActivities/AdminActivitiesService'
+import {namesOfHospitals} from '../../services'
 
 class InstitutesList extends Component {
 
@@ -17,7 +17,7 @@ constructor(){
 
   async onInstSelected(instId) {
     await this.props.selectInstitute(instId);
-    hospitalName = await getHospitalName(instId)
+    hospitalName = namesOfHospitals[instId].name
     this.props.navigation.navigate('SelectDate',{hospitalName});
   }
 
