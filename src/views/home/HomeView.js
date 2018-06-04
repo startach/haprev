@@ -67,12 +67,12 @@ const HomeView = (props) => {
                     <Swiper 
                     loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
                     activeDotColor={'#C2185B'}
-                    dotColor={'grey'}
+                    dotColor={'#ffffff'}
                     autoplay                    
                     autoplayTimeout={4}
                     showsButtons
-                    nextButton={<Text style={styles.buttonText}>›</Text>} 
-                    prevButton={<Text style={styles.buttonText}>‹</Text>}
+                    nextButton={<Text style={styles.buttonText}>‹</Text>} 
+                    prevButton={<Text style={styles.buttonText}>›</Text>}
                     >
                         <Image style={styles.picture} source={require('../../images/vol1.jpg')} />
                         <Image style={styles.picture} source={require('../../images/vol2.jpg')} />
@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
     },
     box: {
         marginBottom: 5,
-        marginRight: 25,
-        marginLeft: 25,
+        marginRight: 20,
+        marginLeft: 20,
         borderRadius: 10,
         borderWidth: 2,
         borderColor: '#C2185B',
@@ -141,11 +141,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         borderWidth: 2,
-        margin: 10,
+        margin: 4,
         borderRadius: 10,
         justifyContent: 'flex-start',
-        marginHorizontal: '7.5%',
-        width: '85%',
+        marginHorizontal: '5%',
+        width: '90%',
         backgroundColor: '#ffffff',
         borderColor: '#C2185B'
       },

@@ -8,13 +8,15 @@ class SelectDateView extends Component{
   state = {pressEvents: false}
 
   onDayPress = (day,events,openEventView,navigation) =>{
-    let dayPressEvents=  events.filter(event => { return event.fullFormatDate.slice(0, 10) == day.dateString })
-    if(dayPressEvents.length>1){
-      return <EventOptions events={dayPressEvents} openEventView={openEventView} />
-    }
-    else if(dayPressEvents.length==1){
-      return <EventOptions events={dayPressEvents} openEventView={openEventView} />
-    }
+    if(!_.isEmpty(events)){
+      let dayPressEvents=  events.filter(event => { return event.fullFormatDate.slice(0, 10) == day.dateString })
+      if(dayPressEvents.length>1){
+        return <EventOptions events={dayPressEvents} openEventView={openEventView} />
+      }
+      else if(dayPressEvents.length==1){
+        return <EventOptions events={dayPressEvents} openEventView={openEventView} />
+      }
+    } 
     return null
   }
 

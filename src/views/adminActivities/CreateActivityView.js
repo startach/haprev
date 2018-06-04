@@ -28,7 +28,6 @@ class CreateActivityView extends Component {
     _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
     _handleDatePicked = (datetime) => {
-        console.log('A date has been picked: ', datetime);
         let day = datetime.getUTCDate();
         let month = datetime.getUTCMonth()+1;
         let year = datetime.getUTCFullYear();

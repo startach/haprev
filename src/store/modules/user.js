@@ -1,4 +1,3 @@
-import { Authorize } from "../../services";
 import * as firebase from 'firebase';
 
 const AUTHORIZE_REQ = "haprev/user/AUTHORIZE_REQ";
@@ -10,6 +9,7 @@ const UPDATE_RES = "haprev/user/UPDATE_RES";
 const NO_USER_FOUND = "haprev/user/NO_USER_FOUND";
 const SPLASH = "haprev/user/SPLASH";
 const SET_MESSAGE_READ = "haprev/user/SET_MESSAGE_READ";
+const ADD_NEW_EVENT = "hapre/user/ADD_NEW_EVENT"
 
 const initalState = {
   user: {},
@@ -43,6 +43,16 @@ export default (state = initalState, action = {}) => {
                 messages: action.payload  
               } 
            };
+    case ADD_NEW_EVENT:
+      return {...state,
+              user: {
+                ...state.user,
+                activities:{
+                  ...state.user.activities || null,
+                  [action.insId]: action.newEvents
+                }
+              }
+            }
     default:
       return state;
   }
@@ -68,7 +78,6 @@ const noUserFound = () =>({
 })
 
 export const authorize = appId =>  dispatch  => {
-  console.log('user.js: Authorizing')
   dispatch(authReq(appId))
   // firebase.database().ref('users/'+appId).once('value' ,
   // Is there any user associated with this appId? 
@@ -77,7 +86,6 @@ export const authorize = appId =>  dispatch  => {
       let dbResList = snapshot.val()
       if (dbResList) {
         // Get the 1st response
-        console.log('Query by appId:', dbResList)
         let userId = Object.keys(dbResList)[0]
         let dbRes = dbResList[userId]
         // Keep the key for later updates!!
@@ -85,7 +93,6 @@ export const authorize = appId =>  dispatch  => {
         dispatch (authRes(dbRes))
       } else {
         dispatch (noUserFound())
-        console.log('handle user not found')
       }
   })
 }
@@ -109,8 +116,13 @@ const registerRes = data => {
   return tmpRes;
 }
 
+const addNewEvent = (newEvents,insId) => ({
+  type: ADD_NEW_EVENT,
+  newEvents: newEvents,
+  insId: insId
+})
+
 export const register = user =>  dispatch  => {
-  console.log('Registering @ user.js: ', user)
   user.appId = Expo.Constants.deviceId
   let ref = firebase.database().ref('users')
   // Query by phone first...
@@ -121,12 +133,10 @@ export const register = user =>  dispatch  => {
         // Assume that the user changed the device & we need to update
         let userId = Object.keys(dbResList)[0]
         user.userId = userId
-        console.log('updating existing user:', user)
         update(user)(dispatch)
       } else { // New user
         dispatch(registerReq(user))
         user.userId = ref.push(user).key
-        console.log('Register new user:', user)
         dispatch (registerRes(user))
       }
   })
@@ -148,18 +158,15 @@ const updateRes = data => {
 }
 
 export const update = user =>  dispatch  => {
-  console.log('Updating profile @ user.js')
   dispatch(registerReq(user))
   let ref = firebase.database().ref('users/'+user.userId)
   ref.once('value', 
     snapshot => {
-      // console.log('Register response', snapshot)
       let dbRes = snapshot.val()
       if (dbRes) {
-        console.log(dbRes)
         dispatch (registerRes(dbRes))
       } else {
-        console.log('handle user not found')
+        //handle user not found
         dispatch (noUserFound())
       }
   })
@@ -191,3 +198,28 @@ export const readMessage = msgId => async (dispatch,state)  => {
     });
   return res;  
 };
+
+export const addEventToUser = (userId,event) => async(dispatch,state) => {
+  let res = 'ok'
+  const insId = event.institute
+  newActivity = {
+      caption: event.caption,
+      fullFormatDate: event.fullFormatDate,
+      id:event.id,
+  }
+  ref  = await firebase.database().ref('users/'+userId+'/activities/'+insId)
+  .child(event.id)
+  .set(newActivity)
+      .then(() => {
+        if(state().user.user.activities)
+            newEventsObj = state().user.user.activities[insId] || []
+        else
+          newEventsObj = []
+        newEventsArray = Object.keys(newEventsObj).map(key => {return newEventsObj[key]})
+        newEventsArray.push(newActivity)
+        dispatch(addNewEvent(newEventsArray,event.institute))
+        res = 'ok'
+      })
+      .catch(error => {console.log('Data could not be saved.',error); res = 'err'});
+  return res
+}

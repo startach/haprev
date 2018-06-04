@@ -5,12 +5,11 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#ffffff',
-    width: 200,
+    width: 190,
     margin:1,
   },
   image: {
-    height:150,
+    height:130,
   },
   name: {
     paddingRight:10,

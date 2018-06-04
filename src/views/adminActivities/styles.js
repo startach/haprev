@@ -46,7 +46,9 @@ const adminActivityStyle = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     alignSelf: "center",
-    marginTop: 20
+    marginTop: 20,
+    borderWidth:1,
+    borderColor:'#ffffff',
   },
   cancelIcon: {
     alignSelf: "center",
@@ -79,6 +81,19 @@ const adminActivityStyle = StyleSheet.create({
     justifyContent: "flex-start",
     marginHorizontal: "10%",
     width: "80%"
+  },
+  inputField: {
+    paddingRight: 5,
+    paddingLeft: 5,
+    marginBottom: 20,
+    marginTop: 5,
+    marginRight: 30,
+    marginLeft: 30,
+    borderColor: "black",
+    height: 38,
+    borderWidth: 1,
+    fontSize: 16,
+    backgroundColor: "#F5F5F5"
   },
 });
 const modalActivityStyle = StyleSheet.create({
@@ -137,7 +152,7 @@ const modalActivityStyle = StyleSheet.create({
     fontWeight: "bold",
     margin: 10
   },
-  modalRegistarButtonText: {
+  modalRegisterButtonText: {
     color: "white",
     fontSize: 20,
     fontWeight: "bold",

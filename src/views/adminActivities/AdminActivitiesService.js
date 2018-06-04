@@ -20,7 +20,7 @@ export const getUserData = async(appId) => {
         avatarUrl = dbUser[key].avatarUrl || null
         phone = dbUser[key].phone || null
         userId = dbUser[key].userId || null        
-        name = (dbUser[key].first + dbUser[key].last) || null 
+        name = (dbUser[key].first +' '+ dbUser[key].last) || null 
       } 
     }
   )
@@ -40,6 +40,7 @@ export const sortArrayByDate = (objectsArray)=>{
     return new Date(b.fullFormatDate).getTime() - new Date(a.fullFormatDate).getTime()
   });
 }
+
 export const makeArrayParticipants = (events) =>{
   let participantsArray= []
   let index = 0
@@ -70,4 +71,18 @@ export const setMessage = async(msg,userId) => {
       return 'err'
     })
   return res
+}
+
+export const renderActicityData = async(eventId,institutsId) =>{
+  let event = {}
+  await firebase.database().ref('events/'+institutsId).orderByChild('id').equalTo(eventId).once('value' , 
+    snapshot => {
+      let eventData = snapshot.val()
+      if (eventData) {
+        key=[Object.keys(eventData)[0]]
+        event = eventData[key]
+      } 
+    }
+  )
+  return event
 }

@@ -1,19 +1,51 @@
 import React from 'react'
-import {View,Text,StyleSheet} from 'react-native'
+import { connect } from 'react-redux'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'; //DELETE
+import ActivitiesView from './ActivitiesView'
+import _ from 'lodash'
+import {sortArrayByDate,renderActicityData} from '../adminActivities/AdminActivitiesService.js'
+import {namesOfHospitals} from '../../services'
 
-const styles = StyleSheet.create({
-    container:{
-        marginTop:50
+class Activities extends React.Component{
+    constructor(props) {
+        super(props)
+        this.state = {process: true, activityElements:null};
     }
-})
 
-const Activities = (props) =>
-{
-    return(
-        <View style={styles.container}>
-            <Text> this will be Activities screen </Text>
-        </View>
-    )
+    async componentWillMount() {
+        activities = this.props.activities
+        activityElements = []
+        
+        if(activities.length>0 || Object.keys(activities).length>0){
+            const res = _.map(activities, (activitiesInHospital, hospitalId) => {
+                activityElem = _.map(activitiesInHospital, (dataActivity, activityId) => {
+                    dataActivity['hospitalId']=hospitalId
+                    dataActivity['hospitalName']= namesOfHospitals[hospitalId].name
+                    activityElements.push(dataActivity)
+                })
+            })
+        }
+        activityElements = sortArrayByDate(activityElements)
+        this.setState({activityElements : activityElements, process:false})
+    }
+
+    render() {
+        return(
+            <View>
+            <ActivitiesView
+            _process={this.state.process}
+            activityElements={this.state.activityElements}
+            renderActicityData={renderActicityData}
+            />
+            </View>
+        )
+    }
 }
 
-export default Activities
+const mapStateToProps = state =>{
+    return ({
+               activities:state.user.user.activities || {}
+            })
+    }
+
+export default connect(mapStateToProps)(Activities)

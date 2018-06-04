@@ -4,6 +4,7 @@ import _ from 'lodash';
 const REQUEST_EVENTS = 'haprev/events/REQUEST_EVENTS';
 const RESPONSE_EVENTS = 'haprev/events/RESPONSE_EVENTS';
 const RESPONSE_NEW_ACTIVITY = 'haprev/events/RESPONSE_NEW_ACTIVITY';
+const ADD_PARTICIPANT = 'haprev/events/ADD_PARTICIPANT';
 
 const initalState = {
   status: null,
@@ -19,6 +20,18 @@ export default (state = initalState, action = {}) => {
         return { ...state, status: '', events: action.payload};
     case RESPONSE_NEW_ACTIVITY:
         return {...state, events: Object.assign(action.payload,state.events)}
+    case ADD_PARTICIPANT:
+        const eventId = action.eventId
+        const participants=action.participants
+        return {...state ,
+            events: {
+            ...state.events,
+            [eventId]: {
+                ...state.events[eventId] || null,
+                participants: participants 
+            }
+        }
+    }
     default:
       return state;
   }
@@ -41,6 +54,12 @@ const newActivityRes = activity =>({
     payload: activity,
 });
 
+const addParticipantRes = (participants,eventId) =>({
+    type: ADD_PARTICIPANT,
+    participants: participants,
+    eventId: eventId,
+});
+
 export const getEvents = instituteId => async (dispatch,state) =>{
     if(state().events.status != 'reqEvents'){
         dispatch(eventsReq(instituteId))
@@ -50,7 +69,6 @@ export const getEvents = instituteId => async (dispatch,state) =>{
             })
             .then(() => {return 'ok'})
             .catch(error => {
-                console.log('error data events .' + error);
                 return 'err'
             });
         return res;
@@ -102,3 +120,24 @@ export const deleteActivity = (activityId) => async(dispatch,state) => {
     });
     return res;  
 }
+
+export const addUserToEvent = (event,appId,fullName) => async(dispatch,state) => {
+    let res = 'ok'
+    let newUser = {
+      appId: appId,    
+      name: fullName,
+    }
+    ref  = await firebase.database().ref('events/'+event.institute+'/'+event.id)
+    .child('participants')
+    .push()
+    .set(newUser)
+        .then(() => {
+            newParticipants = state().events.events[event.id]['participants'] || []
+            newParticipantsArray = Object.keys(newParticipants).map(key => {return newParticipants[key]})
+            newParticipantsArray.push(newUser)
+            dispatch(addParticipantRes(newParticipantsArray,event.id,event.institute))
+            res = 'ok'
+        })
+        .catch(error => {console.log('Data could not be saved.',error); res = 'err'});
+    return res
+  }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SelectDateView from './SelectDateView';
-import {makeArrayFromObjects} from '../adminActivities/AdminActivitiesService'
+import {addUserToEvent} from '../../store/modules/events'
+import {addEventToUser} from '../../store/modules/user'
+
 class SelectDate extends Component {
   constructor(props) {
     super(props)
@@ -12,7 +14,8 @@ class SelectDate extends Component {
 }
   async componentWillMount(){
     eventsObj = this.props.events
-    let eventDates={}; let eventsArray = {}
+    let eventDates={}
+    let eventsArray={}
     if(eventsObj){
       eventsArray = Object.keys(eventsObj).map(key => {return eventsObj[key]})
       eventDates = eventsArray.map(event => {return event.fullFormatDate.slice(0, 10)})
@@ -30,15 +33,19 @@ class SelectDate extends Component {
   openEventView = async(event) =>{
     const {params} = this.props.navigation.state
     hospitalName = params.hospitalName
-    let participantsArray = await makeArrayFromObjects(event.participants)
     this.props.navigation.navigate('EventView',
     {
-        event,
-        participants:participantsArray,
+        event:this.props.events[event.id],
         hospital:hospitalName,
-        adminActivityScreen: false
+        adminActivityScreen: false,
+        addEventToUser: this.props.addEventToUser,
+        addUserToEvent: this.props.addUserToEvent,
+        userId:this.props.userId,
+        appId:this.props.appId,
+        fullName:this.props.fullName
     })
-}
+  }
+
   render() {
     return (
       <SelectDateView
@@ -54,9 +61,11 @@ class SelectDate extends Component {
 
 mapStateToProps = state =>{
   return {
-    vols:state.institues.vols,
-    events:state.events.events
+    events:state.events.events,
+    userId:state.user.user.userId,
+    appId:state.user.user.appId,
+    fullName:state.user.user.first + ' ' + state.user.user.last,
   }
 }
 
-export default connect (mapStateToProps)(SelectDate);
+export default connect (mapStateToProps, {addEventToUser, addUserToEvent})(SelectDate);

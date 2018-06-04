@@ -72,7 +72,6 @@ class RegisterView extends React.Component {
         });
         
         if (!pickerResult.cancelled) {
-            console.log("avatarUrl:", pickerResult.uri)
             this.setState({ avatarUrl: pickerResult.uri, disabled: false});
             let base64Img = `data:image/jpg;base64,${pickerResult.base64}`
             this.base64Img = base64Img;
@@ -86,7 +85,6 @@ class RegisterView extends React.Component {
             newAvatarUrl = await this.props.onUploadImage(userFolder,this.base64Img);
             this.setState({ avatarUrl: newAvatarUrl });
         } catch (e) {
-            console.log(e); 
             alert('Upload failed',e);
         }
         finally{

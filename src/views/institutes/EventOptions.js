@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, FlatList,TouchableOpacity, ActivityIndicator,ScrollView} from 'react-native'
+import {View, Text, FlatList, TouchableOpacity, ActivityIndicator,ScrollView} from 'react-native'
 import {adminActivityStyle as styles} from '../adminActivities/styles'
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -30,20 +30,20 @@ class EventView extends Component{
                 :
                 null
             }
-                {events ?
-                <ScrollView horizontal={false}>
-                    <FlatList data={events}
-                        renderItem={({item,index}) => 
-                        <Event event={item} i={index} openEventView={openEventView} />}
-                        keyExtractor={(item) => item.id}
-                        refreshing={true}
-                    />
-                </ScrollView>
-                :
-                <View style={{flex:1}}>
-                    <ActivityIndicator size='large' color='#C2185B'/>
-                </View>
-                }
+            {events ?
+            <ScrollView horizontal={false}>
+                <FlatList data={events}
+                    renderItem={({item,index}) => 
+                    <Event event={item} i={index} openEventView={openEventView} />}
+                    keyExtractor={(item) => item.id}
+                    refreshing={true}
+                />
+            </ScrollView>
+            :
+            <View style={{flex:1}}>
+                <ActivityIndicator size='large' color='#C2185B'/>
+            </View>
+            }
             </View>
         )
     }
