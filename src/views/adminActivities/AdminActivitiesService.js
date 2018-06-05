@@ -75,13 +75,11 @@ export const setMessage = async(msg,userId) => {
 
 export const renderActicityData = async(eventId,institutsId) =>{
   let event = {}
-  await firebase.database().ref('events/'+institutsId).orderByChild('id').equalTo(eventId).once('value' , 
-    snapshot => {
+  await firebase.database().ref('events/'+institutsId).orderByKey().equalTo(eventId)
+  .once("value" ,snapshot => {
       let eventData = snapshot.val()
-      if (eventData) {
-        key=[Object.keys(eventData)[0]]
-        event = eventData[key]
-      } 
+      if(eventData)
+        event = eventData[eventId]
     }
   )
   return event

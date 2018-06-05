@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, View, ScrollView } from 'react-native'; //DELETE
+import { View } from 'react-native'
 import ActivitiesView from './ActivitiesView'
 import _ from 'lodash'
-import {sortArrayByDate,renderActicityData} from '../adminActivities/AdminActivitiesService.js'
+import {sortArrayByDate,renderActicityData,getUserData} from '../adminActivities/AdminActivitiesService.js'
 import {namesOfHospitals} from '../../services'
 
 class Activities extends React.Component{
@@ -36,6 +36,7 @@ class Activities extends React.Component{
             _process={this.state.process}
             activityElements={this.state.activityElements}
             renderActicityData={renderActicityData}
+            getUserData={getUserData}
             />
             </View>
         )
