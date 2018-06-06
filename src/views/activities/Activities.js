@@ -4,7 +4,6 @@ import { View } from 'react-native'
 import ActivitiesView from './ActivitiesView'
 import _ from 'lodash'
 import {sortArrayByDate,renderActicityData,getUserData} from '../adminActivities/AdminActivitiesService.js'
-import {namesOfHospitals} from '../../services'
 
 class Activities extends React.Component{
     constructor(props) {
@@ -20,7 +19,7 @@ class Activities extends React.Component{
             const res = _.map(activities, (activitiesInHospital, hospitalId) => {
                 activityElem = _.map(activitiesInHospital, (dataActivity, activityId) => {
                     dataActivity['hospitalId']=hospitalId
-                    dataActivity['hospitalName']= namesOfHospitals[hospitalId].name
+                    dataActivity['hospitalName']= this.props.institutes[hospitalId-1].name
                     activityElements.push(dataActivity)
                 })
             })
@@ -45,7 +44,8 @@ class Activities extends React.Component{
 
 const mapStateToProps = state =>{
     return ({
-               activities:state.user.user.activities || {}
+               activities:state.user.user.activities || {},
+               institutes:state.institutes.institutes
             })
     }
 

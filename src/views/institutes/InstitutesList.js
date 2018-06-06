@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import InstitutesListView from './InstitutesListView';
 import { getInstitutes, selectInstitute } from '../../store/modules/Institutes'
-import {namesOfHospitals} from '../../services'
 
 class InstitutesList extends Component {
 
@@ -17,7 +16,7 @@ constructor(){
 
   async onInstSelected(instId) {
     await this.props.selectInstitute(instId);
-    hospitalName = namesOfHospitals[instId].name
+    hospitalName = this.props.institutes[instId-1].name
     this.props.navigation.navigate('SelectDate',{hospitalName});
   }
 
@@ -34,7 +33,7 @@ constructor(){
 
 const mapStateToProps = state =>{
   return ({
-    institutes: state.institues.institutes,
+    institutes: state.institutes.institutes,
   })
 }
 
