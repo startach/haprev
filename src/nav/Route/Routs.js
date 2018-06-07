@@ -9,6 +9,8 @@ import Activities from '../../views/activities/Activities'
 import AdminActivities from '../../views/adminActivities/AdminActivitiyList'
 import EventView from '../../views/adminActivities/EventView'
 import CreateActivity from '../../views/adminActivities/CreateActivity'
+import ContactsView from '../../views/contacts/ContactsView'
+import AboutUsView from '../../views/aboutUs/AboutUsView'
 import Profile from '../../views/profile/Profile'
 import Help from '../../views/help/Help'
 
@@ -25,7 +27,7 @@ const InstitutesRoute = StackNavigator(
         {
             Institutes:{
                 screen: InstitutesList,
-                navigationOptions: headerDefinitions('בתי חולים')
+                navigationOptions: headerDefinitions('רישום להתנדבות')
             },
             SelectDate:{
                 screen: SelectDate,
@@ -55,7 +57,7 @@ const ActivitiesAdminRoute = StackNavigator(
     {
         AdminActivities:{
             screen: AdminActivities,
-            navigationOptions: headerDefinitions('ניהול התנדבויות')
+            navigationOptions: headerDefinitions('ממשק רכזים')
         },
         EventView:{
             screen: EventView,                
@@ -64,6 +66,24 @@ const ActivitiesAdminRoute = StackNavigator(
         CreateActivity:{
             screen: CreateActivity,                
             navigationOptions: headerDefinitions('צור התנדבות')
+        },
+    },{navigationOptions: appNavigationOptions}
+);
+
+const ContactsRoute = StackNavigator(
+    {
+        Contacts:{
+            screen: ContactsView,
+            navigationOptions: headerDefinitions('אנשי קשר')
+        },
+    },{navigationOptions: appNavigationOptions}
+);
+
+const AboutUsRoute = StackNavigator(
+    {
+        AboutUs:{
+            screen: AboutUsView,
+            navigationOptions: headerDefinitions('אודות')
         },
     },{navigationOptions: appNavigationOptions}
 );
@@ -86,11 +106,13 @@ const HelpRoute = StackNavigator(
     },{navigationOptions: appNavigationOptions}
 );
 
-export  default{
+export default{
     HomeRoute,
     InstitutesRoute,
     ActivitiesRoute,
     ActivitiesAdminRoute,
+    ContactsRoute,
+    AboutUsRoute,    
     ProfileRoute,
     HelpRoute,
 };
