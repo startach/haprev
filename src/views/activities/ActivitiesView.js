@@ -51,14 +51,9 @@ class ActivityItem extends React.Component{
             alert('מספר הטלפון של הרכז לא זמין במערכת')
         }
     }
-
-    deleteActivity = () => {
-        console.log('DELETE:', this.state.activityData)
-        
-    }
     
     render() {
-    const {activity, index, getUserData} = this.props
+    const {activity, index, getUserData, deleteMyActivity} = this.props
     return (
     <View>
         <TouchableOpacity underlayColor='#fff' onPress={async() => { await this.renderActivityData(activity.id,activity.hospitalId)}}>
@@ -87,7 +82,7 @@ class ActivityItem extends React.Component{
             {this.state.deleteVisible ?
                 <View style={[styles.rowLine,styles.deleteLine]}>
                     <Text style={[styles.textBox,styles.textDetails]}>לבטל השתתפותך בפעילות? </Text>
-                    <TouchableOpacity onPress={() => this.deleteActivity()}>
+                    <TouchableOpacity onPress={async () => {await deleteMyActivity(activity)}}>
                         <FontAwesome name="check" size={30} color={'#E94B3C'} style={{margin:10}}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.setState({deleteVisible:false})}>
@@ -117,7 +112,7 @@ class ActivityItem extends React.Component{
 
 class ActivitiesView extends React.Component{
     render() {
-        const {_process,activityElements,renderActicityData, getUserData} = this.props
+        const {_process,activityElements,renderActicityData, getUserData, deleteMyActivity} = this.props
         return(
             <View >
                 { !_process ?
@@ -125,7 +120,7 @@ class ActivitiesView extends React.Component{
                     <ScrollView horizontal={false}>
                         <FlatList
                                 data={activityElements}
-                                renderItem={({item, index}) => <ActivityItem  activity={item} index={index} renderActicityData={renderActicityData} getUserData={getUserData}/>}
+                                renderItem={({item, index}) => <ActivityItem  activity={item} index={index} renderActicityData={renderActicityData} getUserData={getUserData} deleteMyActivity={deleteMyActivity}/>}
                                 keyExtractor={(item) => item.id}/>
                     </ScrollView>
                     :

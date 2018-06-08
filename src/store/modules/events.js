@@ -5,6 +5,7 @@ const REQUEST_EVENTS = 'haprev/events/REQUEST_EVENTS';
 const RESPONSE_EVENTS = 'haprev/events/RESPONSE_EVENTS';
 const RESPONSE_NEW_ACTIVITY = 'haprev/events/RESPONSE_NEW_ACTIVITY';
 const ADD_PARTICIPANT = 'haprev/events/ADD_PARTICIPANT';
+const DELETE_PARTICIPANT= 'haprev/events/DELETE_PARTICIPANT';
 
 const initalState = {
   status: null,
@@ -23,15 +24,27 @@ export default (state = initalState, action = {}) => {
     case ADD_PARTICIPANT:
         const eventId = action.eventId
         const participants=action.participants
-        return {...state ,
+        return {...state,
             events: {
             ...state.events,
             [eventId]: {
                 ...state.events[eventId] || null,
                 participants: participants 
+                }
             }
         }
-    }
+    case DELETE_PARTICIPANT:
+        const newParticipants=action.newParticipants
+        return {...state,
+            for:action.insId,
+            events: {
+            ...state.events,
+            [action.eventId]: {
+                ...state.events[action.eventId] || null,
+                participants: newParticipants 
+                }
+            }
+        }
     default:
       return state;
   }
@@ -58,6 +71,13 @@ const addParticipantRes = (participants,eventId) =>({
     type: ADD_PARTICIPANT,
     participants: participants,
     eventId: eventId,
+});
+
+const deleteParticipantRes = (eventId,insId,newParticipants) =>({
+    type: DELETE_PARTICIPANT,
+    eventId: eventId,
+    insId:insId,
+    newParticipants: newParticipants,
 });
 
 export const getEvents = instituteId => async (dispatch,state) =>{
@@ -141,3 +161,25 @@ export const addUserToEvent = (event,appId,fullName) => async(dispatch,state) =>
         .catch(error => {console.log('Data could not be saved.',error); res = 'err'});
     return res
   }
+
+  export const deleteParticipant = (activityId,insId,appId) => async(dispatch,state) => {
+    let participantsObj=null
+    let eventsState=false
+    if(state().events && state().events.for == insId){
+            participantsObj = state().events.events[activityId]['participants']
+            eventsState = true
+    }
+    else{
+        await firebase.database().ref('events/'+insId).child(activityId).child('participants').once('value', 
+            async snapshot =>{ participantsObj = await snapshot.val() })
+            .catch(error => {console.log('error',error)});
+    }
+    participantsArray = Object.keys(participantsObj).map(key => {return participantsObj[key]})
+    currParticipants = _.filter(participantsArray,(participant) => {return participant.appId !== appId})
+    await firebase.database().ref('events/'+insId).child(activityId)
+        .update({participants:currParticipants})
+        .then(() => {
+            if(eventsState)
+                dispatch(deleteParticipantRes(activityId,insId,currParticipants))
+        })
+}

@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import _ from 'lodash';
 
 const AUTHORIZE_REQ = "haprev/user/AUTHORIZE_REQ";
 const AUTHORIZE_RES = "haprev/user/AUTHORIZE_RES";
@@ -9,7 +10,7 @@ const UPDATE_RES = "haprev/user/UPDATE_RES";
 const NO_USER_FOUND = "haprev/user/NO_USER_FOUND";
 const SPLASH = "haprev/user/SPLASH";
 const SET_MESSAGE_READ = "haprev/user/SET_MESSAGE_READ";
-const ADD_NEW_EVENT = "hapre/user/ADD_NEW_EVENT"
+const UPDATE_NEW_EVENTS = "hapre/user/UPDATE_NEW_EVENTS"
 
 const initalState = {
   user: {},
@@ -43,7 +44,7 @@ export default (state = initalState, action = {}) => {
                 messages: action.payload  
               } 
            };
-    case ADD_NEW_EVENT:
+    case UPDATE_NEW_EVENTS:
       return {...state,
               user: {
                 ...state.user,
@@ -52,7 +53,7 @@ export default (state = initalState, action = {}) => {
                   [action.insId]: action.newEvents
                 }
               }
-            }
+            }   
     default:
       return state;
   }
@@ -77,26 +78,6 @@ const noUserFound = () =>({
   type: NO_USER_FOUND
 })
 
-export const authorize = appId =>  dispatch  => {
-  dispatch(authReq(appId))
-  // firebase.database().ref('users/'+appId).once('value' ,
-  // Is there any user associated with this appId? 
-  firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' , 
-    snapshot => {
-      let dbResList = snapshot.val()
-      if (dbResList) {
-        // Get the 1st response
-        let userId = Object.keys(dbResList)[0]
-        let dbRes = dbResList[userId]
-        // Keep the key for later updates!!
-        dbRes.userId = userId
-        dispatch (authRes(dbRes))
-      } else {
-        dispatch (noUserFound())
-      }
-  })
-}
-
 const canProceed = state =>{
   return  (!state.user.splashStatus && state.user.authStatus!='auth_request')
 }
@@ -116,11 +97,57 @@ const registerRes = data => {
   return tmpRes;
 }
 
-const addNewEvent = (newEvents,insId) => ({
-  type: ADD_NEW_EVENT,
+const updateNewEvents = (newEvents,insId) => ({
+  type: UPDATE_NEW_EVENTS,
   newEvents: newEvents,
   insId: insId
 })
+
+const updateReq = user => ({
+  type: UPDATE_REQ,
+  payload: user
+})
+
+const updateRes = data => {
+  let tmpRes = {};
+  if (data)
+    tmpRes = {
+      type: UPDATE_RES,
+      payload: data
+    }
+  return tmpRes;
+}
+export const splash = (display) => ({
+  type:SPLASH , 
+  payload:display
+})  
+
+const setMessagesRead = msgId => {
+  return {
+    type: SET_MESSAGE_READ,
+    payload: msgId
+  }
+}
+
+export const authorize = appId =>  dispatch  => {
+  dispatch(authReq(appId))
+  // firebase.database().ref('users/'+appId).once('value' ,
+  // Is there any user associated with this appId? 
+  firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' , 
+    snapshot => {
+      let dbResList = snapshot.val()
+      if (dbResList) {
+        // Get the 1st response
+        let userId = Object.keys(dbResList)[0]
+        let dbRes = dbResList[userId]
+        // Keep the key for later updates!!
+        dbRes.userId = userId
+        dispatch (authRes(dbRes))
+      } else {
+        dispatch (noUserFound())
+      }
+  })
+}
 
 export const register = user =>  dispatch  => {
   user.appId = Expo.Constants.deviceId
@@ -142,21 +169,6 @@ export const register = user =>  dispatch  => {
   })
 }
 
-const updateReq = user => ({
-  type: UPDATE_REQ,
-  payload: user
-})
-
-const updateRes = data => {
-  let tmpRes = {};
-  if (data)
-    tmpRes = {
-      type: UPDATE_RES,
-      payload: data
-    }
-  return tmpRes;
-}
-
 export const update = user =>  dispatch  => {
   dispatch(registerReq(user))
   let ref = firebase.database().ref('users/'+user.userId)
@@ -172,15 +184,6 @@ export const update = user =>  dispatch  => {
   })
   ref.update(user) 
 }
-
-export const splash = (display) => ({type:SPLASH , payload:display})  
-
-const setMessagesRead = msgId => {
-  return {
-    type: SET_MESSAGE_READ,
-    payload: msgId
-  }
-};
 
 export const readMessage = msgId => async (dispatch,state)  => {
   messagesObj = state().user.user.messages;
@@ -217,9 +220,24 @@ export const addEventToUser = (userId,event) => async(dispatch,state) => {
           newEventsObj = []
         newEventsArray = Object.keys(newEventsObj).map(key => {return newEventsObj[key]})
         newEventsArray.push(newActivity)
-        dispatch(addNewEvent(newEventsArray,event.institute))
+        dispatch(updateNewEvents(newEventsArray,event.institute))
         res = 'ok'
       })
       .catch(error => {console.log('Data could not be saved.',error); res = 'err'});
   return res
+}
+
+export const deleteActivity = (activityId,insId) => async(dispatch,state) => {
+  let participantsObj=null
+  let eventsState=false
+  let currentUser=state().user.user
+  activitiesObj = currentUser.activities[insId]
+  activitiesArray = Object.keys(activitiesObj).map(key => {return activitiesObj[key]})
+  currActivities = _.filter(activitiesArray,(activity) => {return activity.id !== activityId})
+  await firebase.database().ref('users/'+currentUser.userId).child('activities')
+      .update({[insId]:currActivities})
+      .then(() => {
+              dispatch(updateNewEvents(currActivities,insId))
+      })
+
 }
