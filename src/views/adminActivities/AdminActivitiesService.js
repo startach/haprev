@@ -84,3 +84,13 @@ export const renderActicityData = async(eventId,institutsId) =>{
   )
   return event
 }
+
+export const deleteActivityByUserId = async(userId,activityId,insId) => {
+  ref  = await firebase.database().ref('users/'+userId+'/activities/'+insId).child(activityId).set({})
+    .then(() => {return 'ok'})
+    .catch(error => {
+      console.log('Data could not be saved.' + error);
+      return 'err'
+    })
+  return ref
+}

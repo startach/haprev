@@ -228,6 +228,7 @@ export const addEventToUser = (userId,event) => async(dispatch,state) => {
 }
 
 export const deleteActivity = (activityId,insId) => async(dispatch,state) => {
+  //function - delete my (current user) activity
   let participantsObj=null
   let eventsState=false
   let currentUser=state().user.user
@@ -239,5 +240,4 @@ export const deleteActivity = (activityId,insId) => async(dispatch,state) => {
       .then(() => {
               dispatch(updateNewEvents(currActivities,insId))
       })
-
 }
