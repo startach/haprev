@@ -6,7 +6,6 @@ const aboutUsText2 = "הפעילות מתקיימת בבתי חולים בירו
 
 class AboutUsView extends React.Component{
     render() {
-        console.log('About Us View')
       return(
             <View style={styles.container}>
                 <ScrollView horizontal={false}>
