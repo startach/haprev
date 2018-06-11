@@ -5,7 +5,7 @@ import EventRegistrationView from '../institutes/EventRegistrationView'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from './styles' 
 import { FontAwesome } from '@expo/vector-icons';
 import {getUserData,setMessage} from './AdminActivitiesService'
-import {makeArrayFromObjects} from '../adminActivities/AdminActivitiesService'
+import {makeArrayFromObjects, deleteActivityByUser,deleteActivityByUserId} from '../adminActivities/AdminActivitiesService'
 
 const ParticipantItem = ({participant,avatarUrl,phone,isCoordinator}) => {
     return (
@@ -84,12 +84,14 @@ class EventView extends Component{
     deleteActivity = async() =>{
         const {params} = this.props.navigation.state
         this.setState({process:true})
+        //delete activity from events & from each participant & send messages to participants
         let res = await params.onDeleteActivity(params.event.id)
         if(res=='ok'){
             if(this.state.participants.length>0){
-                //todo - delete all user activity from users in database
                 msg = 'הפעילות '+ params.event.caption + ' בתאריך ' + params.event.date + ' בבית חולים ' +params.hospital + ' התבטלה! '
                 for(var i in this.state.userIdArray){
+                    //delete activity to each participant
+                    await deleteActivityByUserId(this.state.userIdArray[i] ,params.event.id, params.instituteId)
                     let resMsg = await setMessage({id:params.event.id,message:msg},this.state.userIdArray[i])
                     if(resMsg=='err')
                         alert('Error\nבעיה בשליחת הודעה למשתמש - ' + this.state.participants[i].name)

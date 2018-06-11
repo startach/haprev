@@ -3,7 +3,6 @@ import {View} from 'react-native'
 import Messages from '../messages/Messages'
 import HomeView from './HomeView'
 import { connect } from 'react-redux'
-import {namesOfHospitals} from '../../services'
 
 class Home extends React.Component{
     constructor(props) {
@@ -13,7 +12,7 @@ class Home extends React.Component{
     async componentWillMount() {
         let _hospitalName = this.state.hospitalName
         if(!_hospitalName)
-            _hospitalName = namesOfHospitals[this.props.coordinator].name
+            _hospitalName = this.props.institutes[this.props.coordinator-1].name
         await this.setState({hospitalName:_hospitalName})
     }
     registerActivityView = () => { this.props.navigation.navigate('Institutes') }
@@ -46,11 +45,12 @@ class Home extends React.Component{
 
 const mapStateToProps = state =>{
     return ({
-               first:state.user.user.first,
-               last:state.user.user.last,
-               coordinator:state.user.user.coordinator,
-               appId:state.user.user.appId
-            })
+            first:state.user.user.first,
+            last:state.user.user.last,
+            coordinator:state.user.user.coordinator,
+            appId:state.user.user.appId,
+            institutes:state.institutes.institutes,            
+        })
     }
 
 export default connect(mapStateToProps)(Home)

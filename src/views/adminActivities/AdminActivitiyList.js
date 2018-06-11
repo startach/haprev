@@ -53,6 +53,7 @@ class AdminActivitiyList extends React.Component {
             hospital:this.state.hospitalName,
             onDeleteActivity: this.props.deleteActivity.bind(this),
             onRefresh: this.refreshScreen.bind(this),
+            instituteId: this.props.coordinator,
         })
     }
 

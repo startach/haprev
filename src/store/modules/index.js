@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 import user from './user'
-import institues from './Institutes'
+import institutes from './Institutes'
 import events from './events'
-
+import contacts from './contacts'
 const reducers = combineReducers({
   user,
-  institues,
-  events
+  institutes,
+  events,
+  contacts,
 });
 
 export default reducers;

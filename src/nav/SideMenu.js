@@ -38,19 +38,19 @@ class SideMenu extends Component {
         return (
             <ScrollView>
             <View style={styles.statusBar} />
-                <View >
+                <View>
                     <FlatList
                     data={[
-                        { key:'מסך הבית', nav:'Home'},
-                        { key:'רישום להתנדבות', nav:'Institutes'},
-                        { key:'התנדבויות שלי', nav:'Activities'},
-                        { key:'ממשק רכזים', nav:'AdminActivities'},
-                        { key:'אנשי קשר', nav:'Contacts'}, 
-                        { key:'אודות', nav:'AboutUs'},
+                        { key:'מסך הבית', nav:'HomeRoute'},
+                        { key:'רישום להתנדבות', nav:'InstitutesRoute'},
+                        { key:'התנדבויות שלי', nav:'ActivitiesRoute'},
+                        { key:'ממשק רכזים', nav:'ActivitiesAdminRoute'},
+                        { key:'אנשי קשר', nav:'ContactsRoute'}, 
+                        { key:'אודות', nav:'AboutUsRoute'},
                         { key:'חפשו אותנו בפייסבוק', nav:'Facebook_haprev'},
                         { key:'סטארטאח', nav:'Startach_Web'},
-                        { key:'פרופיל', nav:'Profile'},
-                        { key:'עזרה', nav:'Help'}
+                        { key:'פרופיל', nav:'ProfileRoute'},
+                        { key:'עזרה', nav:'HelpRoute'}
                     ]}
                     renderItem={({item,index}) =>
                         <TouchableOpacity
