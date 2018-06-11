@@ -6,38 +6,25 @@ import { FontAwesome } from '@expo/vector-icons';
 class EventRegistrationView extends Component{
     state = {
         displayCancelEventDialog: false,
-        alreadyRegistered:null,
     }
     
-    async componentWillMount(){
-        alreadyRegistered = await this.checkAlreadyRegistered(this.props.appId)
-        this.setState({alreadyRegistered:alreadyRegistered})
-    }
-
     showCancelEventDialog = () => 
         this.setState({displayCancelEventDialog: true})
 
     hideCancelEventDialog = () => 
         this.setState({displayCancelEventDialog: false});
 
-    checkAlreadyRegistered = async(appId) =>{
-        participants = this.props.participants
-        result = Object.keys(participants).filter(key => {return participants[key].appId===appId}) || []
-        return result.length > 0
-    }
-
     registration= async()=>{
         res = await this.props.registerUserEventHandler()
         if(res!=='ok')
             alert("שגיאה בהרשמה, אנא נסה שנית מאוחר יותר")
         this.hideCancelEventDialog()
-        await this.componentWillMount()
     }
 
     render() {
         return (
             <View>
-                {this.state.alreadyRegistered ? 
+                { this.props.registeredNow ? 
                 <TouchableOpacity onPress={() => alert('אתה כבר רשום לפעילות זו')}>
                     <View style={[styles.cancelButton,{backgroundColor:'#009B77'}]}>
                         <Text style={styles.cancelText}>נרשמת לפעילות</Text>

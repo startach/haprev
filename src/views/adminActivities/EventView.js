@@ -42,13 +42,19 @@ class EventView extends Component{
             userIdArray:null,
             participants:this.props.navigation.state.params.event.participants || [],
             process:false,
+            registeredNow:false,
         };
     }
 
     async componentWillMount() {
         const {params} = this.props.navigation.state
-        const participants = await makeArrayFromObjects(params.event.participants)
+        if(params.adminActivityScreen)
+            currParticipants = params.event.participants
+        else
+            currParticipants=params.updateParticipants(params.event.id)
+        const participants = await makeArrayFromObjects(currParticipants)
         if(!this.state.userIdArray){
+            registeredNow = await this.checkAlreadyRegistered(participants,params.appId)
             avatarsArray=[]
             phonesArray=[]
             userIdArray=[]
@@ -69,7 +75,7 @@ class EventView extends Component{
             avatarsArray.push(userInfo.avatarUrl)
             phonesArray.push(userInfo.phone)
             userIdArray.push(userInfo.userId)
-            participants.push({appId:params.appId,name:params.fullName})
+            registeredNow=true
         }
         this.setState({
             avatarsArray:avatarsArray,
@@ -78,7 +84,13 @@ class EventView extends Component{
             coordinatorData:coordinatorData,
             participants:participants,
             process:false,
+            registeredNow:registeredNow
         })
+    }
+
+    checkAlreadyRegistered = async(participants,appId) =>{
+        result = Object.keys(participants).filter(key => {return participants[key].appId===appId}) || []
+        return result.length > 0
     }
 
     deleteActivity = async() =>{
@@ -185,16 +197,20 @@ class EventView extends Component{
                     emptyList={participants.length==0}
                 />
                 :
+                this.state.phonesArray ?
                 activity.fullFormatDate >= new Date().toISOString() ?
                 <EventRegistrationView
                     participants={this.state.participants}             
                     appId={params.appId}
                     process={this.state.process}
                     registerUserEventHandler={this.registerUserEventHandler}
+                    registeredNow={this.state.registeredNow}
                 />
                 :
                 <Text style={[styles.participantText,{margin:5,paddingTop:10,paddingBottom:15,fontWeight: 'bold'}]}>הרישום לפעילות זו הסתיים</Text>
-                }
+                :
+                null
+            }
             </View>
         )
     }
