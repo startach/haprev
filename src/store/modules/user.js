@@ -215,7 +215,7 @@ export const addEventToUser = (userId,event) => async(dispatch,state) => {
   .set(newActivity)
       .then(() => {
         if(state().user.user.activities)
-            newEventsObj = state().user.user.activities[insId] || []
+          newEventsObj = state().user.user.activities[insId] || []
         else
           newEventsObj = []
         newEventsArray = Object.keys(newEventsObj).map(key => {return newEventsObj[key]})
@@ -240,4 +240,15 @@ export const deleteActivity = (activityId,insId) => async(dispatch,state) => {
       .then(() => {
               dispatch(updateNewEvents(currActivities,insId))
       })
+  //Check for more activities    
+  var numActivities=0  
+  if(currActivities.length==0){
+    stateActivities=state().user.user.activities
+    var ins=[]
+    stateActivitiesArray = Object.keys(stateActivities).map(key => {ins.push(key); return stateActivities[key]})
+    for (var index in ins)
+      allActivities = Object.keys(stateActivitiesArray[index]).map(key => {numActivities++})
+  }
+  if(currActivities.length==0 && numActivities == 0)
+    return 'empty'
 }

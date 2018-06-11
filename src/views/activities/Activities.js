@@ -25,15 +25,20 @@ class Activities extends React.Component{
                     activityElements.push(dataActivity)
                 })
             })
+                activityElements = sortArrayByDate(activityElements)
         }
-        activityElements = sortArrayByDate(activityElements)
+        else
+            activityElements = null
         this.setState({activityElements : activityElements, process:false})
     }
 
     deleteMyActivity = async(activity)=>{
         await this.props.deleteParticipant(activity.id,activity.hospitalId,this.props.appId)
-        await this.props.deleteActivity(activity.id,activity.hospitalId)
-        await this.componentWillMount()
+        res = await this.props.deleteActivity(activity.id,activity.hospitalId)
+        if(res == 'empty')
+            this.setState({activityElements : null})
+        else
+            await this.componentWillMount()
     }
 
     render() {

@@ -83,10 +83,10 @@ class ActivityItem extends React.Component{
                 <View style={[styles.rowLine,styles.deleteLine]}>
                     <Text style={[styles.textBox,styles.textDetails]}>לבטל השתתפותך בפעילות? </Text>
                     <TouchableOpacity onPress={async () => {await deleteMyActivity(activity)}}>
-                        <FontAwesome name="check" size={30} color={'#E94B3C'} style={{margin:10}}/>
+                        <FontAwesome name="check" size={30} color={'#009B77'} style={{margin:10}}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.setState({deleteVisible:false})}>
-                        <FontAwesome name="times" size={30} color={'#009B77'} style={{margin:10}}/>
+                        <FontAwesome name="times" size={30} color={'#E94B3C'} style={{margin:10}}/>
                     </TouchableOpacity>
                 </View>
             :
