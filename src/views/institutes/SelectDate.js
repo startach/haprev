@@ -42,8 +42,13 @@ class SelectDate extends Component {
         addUserToEvent: this.props.addUserToEvent,
         userId:this.props.userId,
         appId:this.props.appId,
-        fullName:this.props.fullName
+        fullName:this.props.fullName,
+        updateParticipants: this.updateParticipants,
     })
+  }
+
+  updateParticipants = (eventId)=>{
+    return this.props.events[eventId].participants
   }
 
   render() {
