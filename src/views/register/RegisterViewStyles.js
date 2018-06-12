@@ -21,7 +21,7 @@ export default StyleSheet.create({
         height: '100%'
       },
       userView:{
-        marginTop: '20%',
+        marginTop: 5,
         alignItems:'center',
         justifyContent:'center',
       },
@@ -39,25 +39,34 @@ export default StyleSheet.create({
       },
       title:{
         color:'white',
-        fontSize: 36,
-        fontWeight:'400'
+        fontSize: 32,
+        fontWeight:'400',
+        marginTop: 5,
+      },
+      signIn:{
+        color:'#D81A4C',
+        fontSize: 15,
+        fontWeight:'400',
+        borderBottomWidth:0.5,
+        borderColor:'#D81A4C',
       },
       buttonsContainer: {
-        marginTop: 20, 
+        marginTop: 15,
+        marginBottom: 10,
         marginHorizontal: 36,
         justifyContent: 'center'
       },
       registerButton:{
-        width:150,
-        padding:10, 
+        width:130,
+        padding:7, 
         backgroundColor:'#D81A4C',
         borderWidth:1,
-        borderRadius:15,
+        borderRadius:10,
         alignSelf:'center'
       },
       registerButtonText: {
         color:'white',
-        fontSize: 28,
+        fontSize: 24,
         fontWeight: 'bold',
         textAlign:'center',
       },

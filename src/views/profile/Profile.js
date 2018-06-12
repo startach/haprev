@@ -12,7 +12,7 @@ class Profile extends Component{
             user={this.props.user} 
             title="פרטי משתמש" 
             actionTitle="עדכן"       
-            onAction = {(user) => {this.props.update(user)}} 
+            onAction = {async(user) => {return await this.props.update(user)}}
             onUploadImage = {uploadImageHandler}            
         />
         )};

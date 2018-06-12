@@ -131,42 +131,72 @@ const setMessagesRead = msgId => {
 
 export const authorize = appId =>  dispatch  => {
   dispatch(authReq(appId))
-  // firebase.database().ref('users/'+appId).once('value' ,
   // Is there any user associated with this appId? 
   firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' , 
     snapshot => {
       let dbResList = snapshot.val()
-      if (dbResList) {
+      if(dbResList){
         // Get the 1st response
         let userId = Object.keys(dbResList)[0]
         let dbRes = dbResList[userId]
-        // Keep the key for later updates!!
+        // Keep the key!
         dbRes.userId = userId
         dispatch (authRes(dbRes))
-      } else {
-        dispatch (noUserFound())
       }
+      else 
+        dispatch (noUserFound())
   })
 }
 
 export const register = user =>  dispatch  => {
   user.appId = Expo.Constants.deviceId
   let ref = firebase.database().ref('users')
+  let register = true
   // Query by phone first...
   ref.orderByChild('phone').equalTo(user.phone).once('value' , 
     snapshot => {
       let dbResList = snapshot.val()
       if (dbResList) {
-        // Assume that the user changed the device & we need to update
-        let userId = Object.keys(dbResList)[0]
-        user.userId = userId
-        update(user)(dispatch)
-      } else { // New user
+        register = false
+      } 
+      else { // New user
         dispatch(registerReq(user))
-        user.userId = ref.push(user).key
+        user.userId = ref.push().key
+        ref.child(user.userId).set(user)
         dispatch (registerRes(user))
       }
   })
+  return register
+}
+
+export const signInWithAnotherDevice = (user) =>async(dispatch) =>{
+  let appId = Expo.Constants.deviceId
+  let login = true
+  let dbResUser = null
+  // Query by phone first...
+  await firebase.database().ref('users').orderByChild('phone').equalTo(user.phone).once('value' , 
+    snapshot => {
+      let dbResList = snapshot.val()
+      if (dbResList) {
+        let userId = Object.keys(dbResList)[0]
+        dbResUser = dbResList[userId]
+        if(dbResUser.password != user.password)
+          login = false
+        else
+          dbResUser['appId']=appId
+      }
+      else // Phone not exist
+        login = false
+  })
+
+  if(login){
+    let userId = dbResUser.userId
+    await firebase.database().ref('users/'+userId).update({appId:appId})
+    .then(() => {
+      dispatch (authRes(dbResUser))
+    })
+  }
+  return login
 }
 
 export const update = user =>  dispatch  => {
@@ -182,7 +212,8 @@ export const update = user =>  dispatch  => {
         dispatch (noUserFound())
       }
   })
-  ref.update(user) 
+  ref.update(user)
+  return true
 }
 
 export const readMessage = msgId => async (dispatch,state)  => {
@@ -229,8 +260,6 @@ export const addEventToUser = (userId,event) => async(dispatch,state) => {
 
 export const deleteActivity = (activityId,insId) => async(dispatch,state) => {
   //function - delete my (current user) activity
-  let participantsObj=null
-  let eventsState=false
   let currentUser=state().user.user
   activitiesObj = currentUser.activities[insId]
   activitiesArray = Object.keys(activitiesObj).map(key => {return activitiesObj[key]})

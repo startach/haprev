@@ -10,19 +10,21 @@ class Home extends React.Component{
         this.state = {hospitalName: ''};
     }
     async componentWillMount() {
-        let _hospitalName = this.state.hospitalName
-        if(!_hospitalName)
-            _hospitalName = this.props.institutes[this.props.coordinator-1].name
-        await this.setState({hospitalName:_hospitalName})
+        if(this.props.coordinator > 0){
+            let _hospitalName = this.state.hospitalName
+            if(!_hospitalName)
+                _hospitalName = this.props.institutes[this.props.coordinator-1].name
+            await this.setState({hospitalName:_hospitalName})
+        }
     }
-    registerActivityView = () => { this.props.navigation.navigate('Institutes') }
+    registerActivityView = () => { this.props.navigation.navigate('InstitutesRoute') }
 
-    activityView = () => { this.props.navigation.navigate('Activities') }
+    activityView = () => { this.props.navigation.navigate('ActivitiesRoute') }
     
     createActivityView = () =>{
         const {first,last,coordinator,appId} = this.props
         const hospital = this.state.hospitalName
-        this.props.navigation.navigate('CreateActivity',{first,last,hospital,appId,coordinator,onRefresh: () =>this.props.navigation.navigate('AdminActivities')});
+        this.props.navigation.navigate('CreateActivityRoute',{first,last,hospital,appId,coordinator,onRefresh: () =>this.props.navigation.navigate('AdminActivities')});
     }
 
     render() {

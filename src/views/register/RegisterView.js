@@ -1,57 +1,82 @@
-import React, { Component } from 'react';
-import { Button, Text, View, Image, ImageBackground, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
+import React from 'react';
+import {Text, View, Image, ImageBackground,ScrollView, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import styles from './RegisterViewStyles';
 import RegisterInput from './RegisterInputField';
-import { connect } from 'react-redux';
 import { ImagePicker } from 'expo';
-{/* https://medium.freecodecamp.org/how-to-make-your-react-native-app-respond-gracefully-when-the-keyboard-pops-up-7442c1535580 */}
-{/* https://medium.com/reactnative/tabbing-through-input-fields-ef283f923ab1 */}
 
 const FIRSTNAME = 'first';
 const LASTNAME = 'last';
 const PHONE = 'phone';
 const EMAIL = 'email';
+const PASSWORD = 'password';
 const AVATAR_URL = 'avatarUrl';
-
-function notEmpty(s) {return s && s.length > 0}
 
 class RegisterView extends React.Component {
     constructor(props) {
       super(props);
   
       this.focusNextField = this.focusNextField.bind(this);
-      this.updateField = this.updateField.bind(this);
-      this.validInput = this.validInput.bind(this);
 
       this.inputs = {};
       this.base64Img = null;
       this.state = {
           disabled: true,
-          first: this.props.user.first,
-          last: this.props.user.last,
-          phone: this.props.user.phone,
-          email: this.props.user.email,
-          avatarUrl: this.props.user.avatarUrl,
-          spinner: false
+          first: this.props.user.first || null,
+          last: this.props.user.last || null,
+          phone: this.props.user.phone || null,
+          password: this.props.user.password || null,
+          email: this.props.user.email || null,
+          avatarUrl: this.props.user.avatarUrl || null,
+          spinner: false,
+          firstValidate:this.props.user.first ? true : false,
+          lastValidate: this.props.user.last ? true : false,
+          phoneValidate: this.props.user.phone ? true : false,
+          passwordValidate: this.props.user.password ? true : false,
         };
     }
   
     focusNextField(id) {
       this.inputs[id].focus();
     }
-  
-    validInput() {
-        return notEmpty(this.state.first) &&
-            notEmpty(this.state.last) &&
-            notEmpty(this.state.phone);
+
+    validField=(text,len) => { return text && text.length > len }
+
+    validateFirst=(value) => {
+        if(this.validField(value,0)){
+            disabled = !this.state.lastValidate || !this.state.phoneValidate || !this.state.passwordValidate
+            this.setState({first:value,firstValidate:true,disabled:disabled})
+        }
+        else
+            this.setState({first:value,firstValidate:false,disabled:true})
     }
-    
-    updateField(key, value) {
-        let obj = {};
-        obj[key] = value;
-        this.setState(obj);
-        this.setState({disabled: !this.validInput()});
+
+    validateLast=(value) => {
+        if(this.validField(value,0)){
+            disabled = !this.state.firstValidate || !this.state.phoneValidate || !this.state.passwordValidate
+            this.setState({last:value,lastValidate:true,disabled:disabled})
+        }
+        else
+            this.setState({last:value,lastValidate:false,disabled:true})
     }
+
+    validatePhone=(value) => {
+        if(this.validField(value,9)){
+            disabled = !this.state.firstValidate || !this.state.lastValidate || !this.state.passwordValidate
+            this.setState({phone:value,phoneValidate:true,disabled:disabled})
+        }
+        else
+            this.setState({phone:value,phoneValidate:false,disabled:true})
+    }
+
+    validatePassword=(value) => {
+        if(this.validField(value,3)){
+            disabled = !this.state.firstValidate || !this.state.lastValidate || !this.state.phoneValidate 
+            this.setState({password:value,passwordValidate:true,disabled:disabled})
+        }
+        else
+            this.setState({password:value,passwordValidate:false,disabled:true})
+    }
+
     getAvatarImage(){
         const avatarImage = this.state.avatarUrl ? 
             (<Image style={styles.userImage} source={{ uri: this.state.avatarUrl }} />) 
@@ -62,6 +87,7 @@ class RegisterView extends React.Component {
             />);
         return (<TouchableOpacity onPress={this.pickImage}>{avatarImage}</TouchableOpacity>)
     }
+
     pickImage = async () => {
         let pickerResult = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
@@ -101,44 +127,61 @@ class RegisterView extends React.Component {
             user[PHONE] = this.state.phone;
             user[EMAIL] = this.state.email || null;
             user[AVATAR_URL] = this.state.avatarUrl || null;
-            this.props.onAction(user);
+            user[PASSWORD] = this.state.password
+            let register = await this.props.onAction(user);
+            if(!register)
+                alert('מספר הפלאפון קיים במערכת')
     }
 
     render() {
       return(
         <ImageBackground style={styles.background} source={require('../../images/backGround.jpg')}>
+        <ScrollView horizontal={false} style={{flex:1}}>
+        {this.props.registerScreen ?<View style={{height:25}}/>:null}        
         <KeyboardAvoidingView
             style={styles.topContainer}
             behavior="padding">
             <View style={styles.userView}>
                 { this.getAvatarImage() }
                 <Text style={styles.title}>{this.props.title}</Text>
+                {this.props.registerScreen ? 
+                <TouchableOpacity onPress={ () => this.props.signIn()}>
+                    <Text style={styles.signIn}>משתמש רשום?</Text>
+                </TouchableOpacity>
+                :null}
             </View>
             <RegisterInput placeholder="שם פרטי"
                 value={this.props.user.first}
                 ref={input => {this.inputs[FIRSTNAME] = input;}}
-                onChangeText={(value) => this.updateField(FIRSTNAME, value)}
+                onChangeText={(value) => this.validateFirst(value)}
                 onSubmitEditing={() => {this.focusNextField(LASTNAME);}}
                 iconName='user-circle'/>
             <RegisterInput placeholder="שם משפחה"
                 value={this.props.user.last}
                 ref={input => {this.inputs[LASTNAME] = input;}}
-                onChangeText={(value) => this.updateField(LASTNAME, value)}
+                onChangeText={(value) => this.validateLast(value)}
                 onSubmitEditing={() => {this.focusNextField(PHONE);}}
                 iconName='user-circle'/>
             <RegisterInput placeholder='מספר טלפון'
                 value={this.props.user.phone}
                 keyboardType='phone-pad'
                 ref={input => {this.inputs[PHONE] = input;}}
-                onChangeText={(value) => this.updateField(PHONE, '' + value)}
-                onSubmitEditing={() => {this.focusNextField(EMAIL);}}
+                onChangeText={(value) => this.validatePhone(value)}
+                onSubmitEditing={() => {this.focusNextField(PASSWORD);}}
                 iconName='phone-square'/>
+            <RegisterInput placeholder='סיסמה (לפחות 4 תווים)'
+                value={this.props.user.password}
+                keyboardType='phone-pad'
+                ref={input => {this.inputs[PASSWORD] = input;}}
+                onChangeText={(value) => this.validatePassword(value)}
+                onSubmitEditing={() => {this.focusNextField(EMAIL);}}
+                iconName='shield'/>
             <RegisterInput placeholder='כתובת דוא"ל'
                 value={this.props.user.email}
                 keyboardType='email-address'
                 ref={input => {this.inputs[EMAIL] = input;}}
                 returnKeyType={"done"}
-                onChangeText={(value) => this.updateField(EMAIL, value)}
+                onChangeText={(value) => this.setState({email:value})}
                 onSubmitEditing={() => {}}
                 iconName='envelope-square'/>
             <View style={styles.buttonsContainer}>
@@ -157,8 +200,8 @@ class RegisterView extends React.Component {
                     }
                 </TouchableOpacity>
             </View>
-             <View style={{ height: 100 }} />
         </KeyboardAvoidingView>
+        </ScrollView>
         </ImageBackground>
     );}
 };

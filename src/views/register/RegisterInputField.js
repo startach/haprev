@@ -18,7 +18,7 @@ function obj2string (o) {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 18, marginHorizontal: 36,
+        marginTop: 14, marginHorizontal: 36,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
