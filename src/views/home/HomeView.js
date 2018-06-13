@@ -64,7 +64,7 @@ const HomeView = (props) => {
                 }
                 <View style={styles.eventBox}>
                     <Text style={styles.textCenter}>התנדבות הבאה שלי</Text>
-                    <Text style={styles.textCenter}>{myNextEvent ? (myNextEvent.caption + ' ב-' +myNextEvent.date) : 'לא קיימת התדבות'}</Text>
+                    <Text style={styles.textCenter}>{myNextEvent ? (myNextEvent.caption + ' ב-' +myNextEvent.date) : 'לא קיימות התנדבויות'}</Text>
                     {allActivityButton}
                 </View>
                 <Text style={[styles.textCenter,{marginBottom:5}]}>באנו לשמח, תראו בעצמכם</Text>
