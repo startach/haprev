@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView,ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView, ActivityIndicator } from 'react-native'
 import Swiper from 'react-native-swiper'
 
 const HomeView = (props) => {
@@ -11,7 +11,8 @@ const HomeView = (props) => {
         createActivityView, 
         registerActivityView, 
         activityView,
-        myNextEvent
+        myNextEvent,
+        images
     } = props
 
     const isCoordinator = (coordinator > 0)
@@ -73,20 +74,20 @@ const HomeView = (props) => {
                     loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
                     activeDotColor={'#C2185B'}
                     dotColor={'#ffffff'}
-                    autoplay                    
+                    autoplay
                     autoplayTimeout={4}
                     showsButtons
                     nextButton={<Text style={styles.buttonText}>‹</Text>} 
                     prevButton={<Text style={styles.buttonText}>›</Text>}
                     >
-                        <Image style={styles.picture} source={require('../../images/vol1.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol2.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol3.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol4.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol5.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol6.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol7.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol8.jpg')} />
+                    <Image style={styles.picture} source={{ uri: images[1] }}/>
+                    <Image style={styles.picture} source={{ uri: images[2] }}/>
+                    <Image style={styles.picture} source={{ uri: images[3] }}/>
+                    <Image style={styles.picture} source={{ uri: images[4] }}/>
+                    <Image style={styles.picture} source={{ uri: images[5] }}/>
+                    <Image style={styles.picture} source={{ uri: images[6] }}/>
+                    <Image style={styles.picture} source={{ uri: images[7] }}/>
+                    <Image style={styles.picture} source={{ uri: images[8] }}/>
                     </Swiper>
                 </View>
             </View>

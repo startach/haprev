@@ -3,11 +3,12 @@ import {View} from 'react-native'
 import Messages from '../messages/Messages'
 import HomeView from './HomeView'
 import { connect } from 'react-redux'
+import {getImages} from './HomeService'
 
 class Home extends React.Component{
     constructor(props) {
         super(props)
-        this.state = {hospitalName: '...', myNextEvent: null};
+        this.state = {hospitalName: '...', myNextEvent: null,images:[]};
     }
     async componentWillMount() {
         let _hospitalName = ''
@@ -17,8 +18,8 @@ class Home extends React.Component{
             if(!_hospitalName)
                 _hospitalName = this.props.institutes[this.props.coordinator-1].name
         }
-        await this.setState({hospitalName:_hospitalName,myNextEvent:myNextEvent})
-
+        images = await getImages()
+        await this.setState({hospitalName:_hospitalName,myNextEvent:myNextEvent,images:images})
     }
 
     findMyNextEvent = async(myActivities) => {
@@ -67,6 +68,7 @@ class Home extends React.Component{
                     createActivityView={this.createActivityView}
                     activityView={this.activityView}
                     myNextEvent = {this.state.myNextEvent}
+                    images={this.state.images}
                 />
             </View>
         )
