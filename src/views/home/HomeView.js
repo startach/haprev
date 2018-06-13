@@ -3,7 +3,16 @@ import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView,ActivityI
 import Swiper from 'react-native-swiper'
 
 const HomeView = (props) => {
-    const { first, last, coordinator, hospital, createActivityView, registerActivityView, activityView} = props
+    const { 
+        first, 
+        last, 
+        coordinator, 
+        hospital, 
+        createActivityView, 
+        registerActivityView, 
+        activityView,
+        myNextEvent
+    } = props
 
     const isCoordinator = (coordinator > 0)
     const registerButton = (
@@ -39,7 +48,7 @@ const HomeView = (props) => {
             <View style={styles.container}>
                 {!isCoordinator ?
                     <View style={styles.eventBox}>
-                        <Text style={styles.textCenter}> היי {first} {last} כיף לראות אותך פה ! </Text>
+                        <Text style={styles.textCenter}> היי {first} {last} כיף לראות אותך פה! </Text>
                         <Text style={styles.textCenter}> כדי להירשם להתנדבות הבאה אפשר </Text>
                         <View style={styles.registerButton}>
                             <Text style={styles.textCenter}>  להתחיל פה  </Text>
@@ -53,13 +62,9 @@ const HomeView = (props) => {
                         {createActivityButton}
                     </View>
                 }
-                <View style={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#ffffff'}]}>
-                    <Text style={[styles.textCenter,{color:'#ffffff'}]}>התנדבות הבאה תתקיים בתאריך</Text>
-                    <Text style={[styles.textCenter,{color:'#ffffff'}]}>...</Text>
-                </View>
                 <View style={styles.eventBox}>
-                    <Text style={styles.textCenter}>התנדבות שלי</Text>
-                    <Text style={styles.textCenter}>...</Text>
+                    <Text style={styles.textCenter}>התנדבות הבאה שלי</Text>
+                    <Text style={styles.textCenter}>{myNextEvent ? (myNextEvent.caption + ' ב-' +myNextEvent.date) : 'לא קיימת התדבות'}</Text>
                     {allActivityButton}
                 </View>
                 <Text style={[styles.textCenter,{marginBottom:5}]}>באנו לשמח, תראו בעצמכם</Text>
@@ -91,7 +96,7 @@ const HomeView = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 8,
+        marginTop: 10,
         flex: 1,
     },
     picture: {
@@ -101,7 +106,7 @@ const styles = StyleSheet.create({
     },
     textCenter: {
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 17,
         padding: 1,
         fontWeight: 'bold',
         color:'#C2185B'
@@ -141,7 +146,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         borderWidth: 2,
-        margin: 4,
+        margin: 5,
         borderRadius: 10,
         justifyContent: 'flex-start',
         marginHorizontal: '5%',

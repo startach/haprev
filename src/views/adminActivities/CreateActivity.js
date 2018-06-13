@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CreateActivityView from './CreateActivityView'
-import * as firebase from 'firebase';
 
 class CreateActivity extends Component {
     newActivityHandler = async (date,time,activityName,fullFormatDate) => {

@@ -5,7 +5,7 @@ import EventRegistrationView from '../institutes/EventRegistrationView'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from './styles' 
 import { FontAwesome } from '@expo/vector-icons';
 import {getUserData,setMessage} from './AdminActivitiesService'
-import {makeArrayFromObjects, deleteActivityByUser,deleteActivityByUserId} from '../adminActivities/AdminActivitiesService'
+import {makeArrayFromObjects,deleteActivityByUserId} from '../adminActivities/AdminActivitiesService'
 
 const ParticipantItem = ({participant,avatarUrl,phone,isCoordinator}) => {
     return (

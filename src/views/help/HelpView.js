@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity,TextInput,Keyboard,ScrollView,Modal,TouchableWithoutFeedback,KeyboardAvoidingView } from 'react-native';
+import {View, Text, TouchableOpacity,TextInput,Keyboard,Modal,TouchableWithoutFeedback,KeyboardAvoidingView } from 'react-native';
 import styles from './HelpViewStyle';
 
 const SUCCESS_SEND = {title: 'ההודעה נשלחה בהצלחה!', subtitle: 'צוות מהפכה של שמחה יענה בהקדם'};

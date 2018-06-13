@@ -1,20 +1,6 @@
 import React, { Component } from 'react'
-import {View,Text,Image,TextInput,StyleSheet} from 'react-native';
+import {View,TextInput,StyleSheet} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-
-function obj2string (o) {
-  var seen=[];
-  var jso=JSON.stringify(o, function(key,val){
-    if (val != null && typeof val == "object") {
-      if (seen.indexOf(val) >= 0) {
-          return "_cyclic_";
-      }
-      seen.push(val);
-    }
-    return val;
-  });
-  return jso;
-}
 
 const styles = StyleSheet.create({
     container: {

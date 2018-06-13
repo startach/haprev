@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {View,Text,StyleSheet} from 'react-native'
 import RegisterView from '../register/RegisterView'
 import { connect } from 'react-redux'
 import { update } from '../../store/modules/user';

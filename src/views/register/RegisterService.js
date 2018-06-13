@@ -1,6 +1,6 @@
 
 export const uploadImageHandler = async(userFolder,base64Img) =>{
-    //Cloudinary api
+    //Cloudinary API
     let apiUrlUpload = 'https://api.cloudinary.com/v1_1/startach/image/upload';
     let dataUp = {
         "file": base64Img,

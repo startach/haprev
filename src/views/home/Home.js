@@ -7,16 +7,43 @@ import { connect } from 'react-redux'
 class Home extends React.Component{
     constructor(props) {
         super(props)
-        this.state = {hospitalName: ''};
+        this.state = {hospitalName: '...', myNextEvent: null};
     }
     async componentWillMount() {
+        let _hospitalName = ''
+        let myNextEvent = await this.findMyNextEvent(this.props.myActivities)
         if(this.props.coordinator > 0){
             let _hospitalName = this.state.hospitalName
             if(!_hospitalName)
                 _hospitalName = this.props.institutes[this.props.coordinator-1].name
-            await this.setState({hospitalName:_hospitalName})
         }
+        await this.setState({hospitalName:_hospitalName,myNextEvent:myNextEvent})
+
     }
+
+    findMyNextEvent = async(myActivities) => {
+        let myNextEvent = null
+        currDate = new Date()
+        minDate = (new Date(currDate.getUTCFullYear()+2, currDate.getUTCMonth(), currDate.getUTCDate())).toISOString()
+        currDate = currDate.toISOString()
+            for(var i in myActivities){
+                for(var j in myActivities[i]){
+                    event = myActivities[i][j]
+                    if(event.fullFormatDate > currDate){
+                        if(event.fullFormatDate < minDate)
+                            myNextEvent = event
+                    }
+                }
+            }
+        if(myNextEvent){
+            fulldate = new Date(myNextEvent.fullFormatDate)
+            shortDate =  fulldate.getDate() + "/" + (fulldate.getMonth() + 1) + "/" + fulldate.getFullYear()
+            myNextEvent['date'] = shortDate
+        }
+        return myNextEvent
+        
+    }
+
     registerActivityView = () => { this.props.navigation.navigate('InstitutesRoute') }
 
     activityView = () => { this.props.navigation.navigate('ActivitiesRoute') }
@@ -39,6 +66,7 @@ class Home extends React.Component{
                     registerActivityView={this.registerActivityView}
                     createActivityView={this.createActivityView}
                     activityView={this.activityView}
+                    myNextEvent = {this.state.myNextEvent}
                 />
             </View>
         )
@@ -51,7 +79,8 @@ const mapStateToProps = state =>{
             last:state.user.user.last,
             coordinator:state.user.user.coordinator,
             appId:state.user.user.appId,
-            institutes:state.institutes.institutes,            
+            institutes:state.institutes.institutes,
+            myActivities: state.user.user.activities || null,
         })
     }
 

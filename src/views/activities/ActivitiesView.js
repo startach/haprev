@@ -1,6 +1,5 @@
 import React from 'react'
 import {View, Text, FlatList, ScrollView, TouchableOpacity, ActivityIndicator, Linking} from 'react-native'
-import { connect } from 'react-redux'
 import styles from './ActivitiesStyle'
 import { FontAwesome } from '@expo/vector-icons';
 

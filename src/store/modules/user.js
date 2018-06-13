@@ -5,8 +5,6 @@ const AUTHORIZE_REQ = "haprev/user/AUTHORIZE_REQ";
 const AUTHORIZE_RES = "haprev/user/AUTHORIZE_RES";
 const REGISTER_REQ = "haprev/user/REGISTER_REQ";
 const REGISTER_RES = "haprev/user/REGISTER_RES";
-const UPDATE_REQ = "haprev/user/UPDATE_REQ";
-const UPDATE_RES = "haprev/user/UPDATE_RES";
 const NO_USER_FOUND = "haprev/user/NO_USER_FOUND";
 const SPLASH = "haprev/user/SPLASH";
 const SET_MESSAGE_READ = "haprev/user/SET_MESSAGE_READ";
@@ -28,10 +26,6 @@ export default (state = initalState, action = {}) => {
     case REGISTER_REQ:
       return { ...state, authStatus: 'reg_request', user: {} };
     case REGISTER_RES:
-      return { ...state, authStatus: 'user', user: action.payload ,status:canProceed(state) }
-    case UPDATE_REQ:
-      return { ...state, authStatus: 'update_request'};
-    case UPDATE_RES:
       return { ...state, authStatus: 'user', user: action.payload ,status:canProceed(state) }
     case NO_USER_FOUND:
       return {...state,authStatus:'no_user',status:canProceed(state) }
@@ -103,20 +97,6 @@ const updateNewEvents = (newEvents,insId) => ({
   insId: insId
 })
 
-const updateReq = user => ({
-  type: UPDATE_REQ,
-  payload: user
-})
-
-const updateRes = data => {
-  let tmpRes = {};
-  if (data)
-    tmpRes = {
-      type: UPDATE_RES,
-      payload: data
-    }
-  return tmpRes;
-}
 export const splash = (display) => ({
   type:SPLASH , 
   payload:display
@@ -269,8 +249,8 @@ export const deleteActivity = (activityId,insId) => async(dispatch,state) => {
       .then(() => {
               dispatch(updateNewEvents(currActivities,insId))
       })
-  //Check for more activities    
-  var numActivities=0  
+  //Check for more activities
+  var numActivities=0
   if(currActivities.length==0){
     stateActivities=state().user.user.activities
     var ins=[]

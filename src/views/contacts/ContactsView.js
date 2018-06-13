@@ -45,7 +45,7 @@ class ContactItem extends React.Component{
 
 class RegionItem extends React.Component{
     render() {
-    const {region,index,contactsOfRegion} = this.props
+    const {region,contactsOfRegion} = this.props
         return (
             <View>
                 <Text style={styles.region}>{region}</Text>
@@ -85,7 +85,7 @@ class ContactsView extends React.Component{
                 <ScrollView horizontal={false}>
                     <FlatList
                     data={this.state.regions}
-                    renderItem={({item, index}) => <RegionItem region={item} index={index} contactsOfRegion={this.state.contactsByRegion[item]}/>}
+                    renderItem={({item, index}) => <RegionItem region={item} contactsOfRegion={this.state.contactsByRegion[item]}/>}
                     keyExtractor={(item) => item}
                     />
                 </ScrollView>  

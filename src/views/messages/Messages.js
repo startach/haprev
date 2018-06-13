@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {View, Text, TouchableOpacity, Modal } from 'react-native';
 import MessagesView from './MessagesView'
 import { connect } from 'react-redux'
 import {readMessage} from '../../store/modules/user'

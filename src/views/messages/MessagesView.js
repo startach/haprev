@@ -15,7 +15,7 @@ async messageAction(){
   }
 
   render() { 
-    const { message, navigation } = this.props;
+    const { message } = this.props;
     return ( 
         <Modal
             visible={this.state.modalVisible}
