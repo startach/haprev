@@ -128,12 +128,13 @@ export const authorize = appId =>  dispatch  => {
   })
 }
 
-export const register = user =>  dispatch  => {
+export const register = user =>  async(dispatch)  => {
   user.appId = Expo.Constants.deviceId
   let ref = firebase.database().ref('users')
   let register = true
   // Query by phone first...
-  ref.orderByChild('phone').equalTo(user.phone).once('value' , 
+  await ref.orderByChild('phone').equalTo(user.phone)
+  .once('value' , 
     snapshot => {
       let dbResList = snapshot.val()
       if (dbResList) {
