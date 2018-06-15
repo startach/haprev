@@ -10,7 +10,8 @@ class Profile extends Component{
             <RegisterView 
             user={this.props.user} 
             title="פרטי משתמש" 
-            actionTitle="עדכן"       
+            actionTitle="עדכן"
+            registerScreen={false}
             onAction = {async(user) => {return await this.props.update(user)}}
             onUploadImage = {uploadImageHandler}            
         />

@@ -52,7 +52,7 @@ class Home extends React.Component{
     createActivityView = () =>{
         const {first,last,coordinator,appId} = this.props
         const hospital = this.state.hospitalName
-        this.props.navigation.navigate('CreateActivityRoute',{first,last,hospital,appId,coordinator,onRefresh: () =>this.props.navigation.navigate('AdminActivities')});
+        this.props.navigation.navigate('CreateActivity',{first,last,hospital,appId,coordinator,onRefresh: () =>this.props.navigation.navigate('AdminActivities')});
     }
 
     render() {

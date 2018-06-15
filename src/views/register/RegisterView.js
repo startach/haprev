@@ -77,6 +77,11 @@ class RegisterView extends React.Component {
             this.setState({password:value,passwordValidate:false,disabled:true})
     }
 
+    validateEmail=(value) => {
+            disabled = !this.state.firstValidate || !this.state.lastValidate || !this.state.phoneValidate || !this.state.passwordValidate
+            this.setState({email:value,disabled:disabled})
+    }
+
     getAvatarImage(){
         const avatarImage = this.state.avatarUrl ? 
             (<Image style={styles.userImage} source={{ uri: this.state.avatarUrl }} />) 
@@ -98,7 +103,8 @@ class RegisterView extends React.Component {
         });
         
         if (!pickerResult.cancelled) {
-            this.setState({ avatarUrl: pickerResult.uri, disabled: false});
+            disabled = !this.state.firstValidate || !this.state.lastValidate || !this.state.phoneValidate || !this.state.passwordValidate
+            this.setState({ avatarUrl: pickerResult.uri, disabled: disabled});
             let base64Img = `data:image/jpg;base64,${pickerResult.base64}`
             this.base64Img = base64Img;
         }
@@ -153,12 +159,14 @@ class RegisterView extends React.Component {
             <RegisterInput placeholder="שם פרטי"
                 value={this.props.user.first}
                 ref={input => {this.inputs[FIRSTNAME] = input;}}
+                editable
                 onChangeText={(value) => this.validateFirst(value)}
                 onSubmitEditing={() => {this.focusNextField(LASTNAME);}}
                 iconName='user-circle'/>
             <RegisterInput placeholder="שם משפחה"
                 value={this.props.user.last}
                 ref={input => {this.inputs[LASTNAME] = input;}}
+                editable
                 onChangeText={(value) => this.validateLast(value)}
                 onSubmitEditing={() => {this.focusNextField(PHONE);}}
                 iconName='user-circle'/>
@@ -166,6 +174,7 @@ class RegisterView extends React.Component {
                 value={this.props.user.phone}
                 keyboardType='phone-pad'
                 ref={input => {this.inputs[PHONE] = input;}}
+                editable={this.props.registerScreen}
                 onChangeText={(value) => this.validatePhone(value)}
                 onSubmitEditing={() => {this.focusNextField(PASSWORD);}}
                 iconName='phone-square'/>
@@ -173,6 +182,7 @@ class RegisterView extends React.Component {
                 value={this.props.user.password}
                 keyboardType='phone-pad'
                 ref={input => {this.inputs[PASSWORD] = input;}}
+                editable
                 onChangeText={(value) => this.validatePassword(value)}
                 onSubmitEditing={() => {this.focusNextField(EMAIL);}}
                 iconName='shield'/>
@@ -180,8 +190,9 @@ class RegisterView extends React.Component {
                 value={this.props.user.email}
                 keyboardType='email-address'
                 ref={input => {this.inputs[EMAIL] = input;}}
+                editable
                 returnKeyType={"done"}
-                onChangeText={(value) => this.setState({email:value})}
+                onChangeText={(value) => this.validateEmail(value)}
                 onSubmitEditing={() => {}}
                 iconName='envelope-square'/>
             <View style={styles.buttonsContainer}>
