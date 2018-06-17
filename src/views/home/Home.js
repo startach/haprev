@@ -8,15 +8,15 @@ import {getImages} from './HomeService'
 class Home extends React.Component{
     constructor(props) {
         super(props)
-        this.state = {hospitalName: '...', myNextEvent: null,images:[]};
+        this.state = {hospitalName: '', myNextEvent: null,images:[]};
     }
     async componentWillMount() {
         let _hospitalName = ''
         let myNextEvent = await this.findMyNextEvent(this.props.myActivities)
         if(this.props.coordinator > 0){
-            let _hospitalName = this.state.hospitalName
+            _hospitalName = this.state.hospitalName
             if(!_hospitalName)
-                _hospitalName = this.props.institutes[this.props.coordinator-1].name
+                _hospitalName = await this.props.institutes[this.props.coordinator-1].name
         }
         images = await getImages()
         await this.setState({hospitalName:_hospitalName,myNextEvent:myNextEvent,images:images})
@@ -76,6 +76,7 @@ class Home extends React.Component{
 }
 
 const mapStateToProps = state =>{
+    console.log(state.institutes.institutes[0].name)
     return ({
             first:state.user.user.first,
             last:state.user.user.last,
