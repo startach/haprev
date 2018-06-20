@@ -16,7 +16,7 @@ class Home extends React.Component{
         if(this.props.coordinator > 0){
             _hospitalName = this.state.hospitalName
             if(!_hospitalName)
-                _hospitalName = await this.props.institutes[this.props.coordinator-1].name
+                _hospitalName = await this.props.institutes[this.props.coordinator-1].name || null
         }
         images = await getImages()
         await this.setState({hospitalName:_hospitalName,myNextEvent:myNextEvent,images:images})
@@ -31,8 +31,10 @@ class Home extends React.Component{
                 for(var j in myActivities[i]){
                     event = myActivities[i][j]
                     if(event.fullFormatDate > currDate){
-                        if(event.fullFormatDate < minDate)
+                        if(event.fullFormatDate < minDate){
+                            minDate = event.fullFormatDate
                             myNextEvent = event
+                        }
                     }
                 }
             }
@@ -76,7 +78,6 @@ class Home extends React.Component{
 }
 
 const mapStateToProps = state =>{
-    console.log(state.institutes.institutes[0].name)
     return ({
             first:state.user.user.first,
             last:state.user.user.last,
