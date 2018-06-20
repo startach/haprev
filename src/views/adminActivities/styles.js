@@ -46,7 +46,6 @@ const adminActivityStyle = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     alignSelf: "center",
-    marginTop: 20,
     borderWidth:1,
     borderColor:'#ffffff',
   },

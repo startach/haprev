@@ -28,6 +28,12 @@ class AdminActivityView extends Component{
     render() {
         return (
             <View>
+                <TouchableOpacity onPress={async() =>{ await this.props.createEventOnDeviceCalendar()}}>
+                    <View style={[styles.cancelButton,{backgroundColor:'#4283F2',alignSelf: 'center',marginTop: 20}]}>
+                        <Text style={[styles.cancelText,{fontSize:18,marginBottom:3}]}>עדכן בלוח שנה</Text>
+                        <FontAwesome style={[styles.cancelIcon,{backgroundColor:'transparent'}]} name='calendar-o' size={25}/>
+                    </View>
+                </TouchableOpacity>
                 <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity onPress={this.showCancelEventDialog}>
                     <View style={[styles.cancelButton,{width:width*0.5}]}>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {View, Text, FlatList, Image, Linking, ActivityIndicator,ScrollView} from 'react-native'
+import {Permissions, Calendar} from 'expo'
 import AdminActivityView from './AdminActivityView'
 import EventRegistrationView from '../institutes/EventRegistrationView'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from './styles' 
@@ -150,6 +151,44 @@ class EventView extends Component{
         return res
     }
 
+    createEventOnDeviceCalendar = async() =>{
+        const {event,hospital} = this.props.navigation.state.params
+        const { status } = await Permissions.askAsync('calendar')
+        if (status !== 'granted') {
+            alert('אתה חייב לאשר גישה ללוח השנה של המכשיר בכדי לעדכן אותו');
+        }
+        else{
+            try{
+                //Looking for Calanders on the device
+                calendars = await Calendar.getCalendarsAsync()
+                googleCalendar = null
+                for(var c in calendars){
+                    if(calendars[c].allowsModifications && calendars[c].source.isLocalAccount){
+                        googleCalendar = calendars[c]
+                        break
+                    }
+                }
+                if(googleCalendar){
+                    calendarId = googleCalendar.id 
+                    eventDate = new Date(event.fullFormatDate)
+                    details = {
+                        "startDate":  eventDate,
+                        "endDate": new Date(eventDate.getTime() + 1000 * 60 * 120),
+                        "title": event.caption,
+                        "notes": 'מהפכה של שמחה',
+                        "location": 'בית חולים ' + hospital,
+                        "timeZone" : googleCalendar.timeZone ? googleCalendar.timeZone.toString() : new Date(eventDate).getTimezoneOffset().toString()
+                    }
+                    ID = await Calendar.createEventAsync(calendarId, details)
+                    alert('האירוע נוסף ללוח השנה במכשיר בהצלחה!')
+                }
+            }
+            catch(err){
+                alert('שגיאה!\nישנה בעיה בעדכון האירוע בלוח השנה של המכשיר ', err)
+            }
+        }
+    }
+
     refreshParticipantList = async()=>{
         await this.componentWillMount()
     }
@@ -195,6 +234,7 @@ class EventView extends Component{
                     deleteActivity={this.deleteActivity}
                     SendMessageForAll={this.SendMessageForAll}
                     emptyList={participants.length==0}
+                    createEventOnDeviceCalendar={this.createEventOnDeviceCalendar}
                 />
                 :
                 this.state.phonesArray ?
@@ -205,6 +245,8 @@ class EventView extends Component{
                     process={this.state.process}
                     registerUserEventHandler={this.registerUserEventHandler}
                     registeredNow={this.state.registeredNow}
+                    createEventOnDeviceCalendar={this.createEventOnDeviceCalendar}
+                    navigation = {this.props.navigation}
                 />
                 :
                 <Text style={[styles.participantText,{margin:5,paddingTop:10,paddingBottom:15,fontWeight: 'bold'}]}>הרישום לפעילות זו הסתיים</Text>

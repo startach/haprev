@@ -74,7 +74,7 @@ class HelpView extends Component {
             <TouchableOpacity
               rounded
               style={[styles.button,{marginTop:0}]}
-              onPress={() => { this.state.success ? navigation.navigate('Home') : this.setState({modalVisible:false,isButtonDisabled: false})}}
+              onPress={() => { this.state.success ? navigation.navigate('HomeRoute') : this.setState({modalVisible:false,isButtonDisabled: false})}}
             >
             <Text style={styles.buttonText}>אישור</Text>
             </TouchableOpacity>

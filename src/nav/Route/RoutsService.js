@@ -16,7 +16,7 @@ export const headerDefinitions = (title) =>(
 
 export const appNavigationOptions = ({ navigation }) => ({
     headerRight: <FontAwesome style={styles.icon} name='chevron-left' size={24}
-                    onPress={ () => { navigation.goBack() ? navigation.goBack() : navigation.navigate('Home') }}/>,
+                    onPress={ () => { navigation.goBack() ? navigation.goBack() : navigation.navigate('HomeRoute') }}/>,
     headerLeft: <FontAwesome style={styles.icon} name='navicon' size={24}
                     onPress={ () => { navigation.navigate('DrawerOpen')}} />
 });

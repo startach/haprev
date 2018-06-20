@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import {View, Text, Modal, TouchableOpacity, ActivityIndicator} from 'react-native'
+import {View, Text, Modal, TouchableOpacity, ActivityIndicator,Dimensions} from 'react-native'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from '../adminActivities/styles' 
 import { FontAwesome } from '@expo/vector-icons';
+const { width } = Dimensions.get('screen');
 
 class EventRegistrationView extends Component{
     state = {
@@ -25,12 +26,26 @@ class EventRegistrationView extends Component{
         return (
             <View>
                 { this.props.registeredNow ? 
-                <TouchableOpacity onPress={() => alert('אתה כבר רשום לפעילות זו')}>
-                    <View style={[styles.cancelButton,{backgroundColor:'#009B77'}]}>
-                        <Text style={styles.cancelText}>נרשמת לפעילות</Text>
-                        <FontAwesome style={[styles.cancelIcon,{backgroundColor:'transparent'}]} name='check-circle' size={30}/>
-                    </View>
-                </TouchableOpacity>
+                <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity onPress={async() =>{ await this.props.createEventOnDeviceCalendar()}}>
+                        <View style={[styles.cancelButton,{width:width*0.333,backgroundColor:'#4283F2',flexDirection:'column',alignSelf: 'center'}]}>
+                            <Text style={[styles.cancelText,{fontSize:14,marginBottom:3}]}>עדכן בלוח שנה</Text>
+                            <FontAwesome style={[styles.cancelIcon,{backgroundColor:'transparent'}]} name='calendar-o' size={20}/>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => alert('אתה כבר רשום לפעילות זו')}>
+                        <View style={[styles.cancelButton,{width: width*0.333,backgroundColor:'#009B77',flexDirection:'column',alignSelf: 'center'}]}>
+                            <Text style={[styles.cancelText,{fontSize:14,marginBottom:3}]}>נרשמת לפעילות</Text>
+                            <FontAwesome style={[styles.cancelIcon,{backgroundColor:'transparent'}]} name='check-circle' size={20}/>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {this.props.navigation.navigate('Institutes');this.props.navigation.navigate('HomeRoute')}}>
+                        <View style={[styles.cancelButton,{width: width*0.333,backgroundColor:'#C2185B',flexDirection:'column',alignSelf: 'center'}]}>
+                            <Text style={[styles.cancelText,{fontSize:14,marginBottom:3}]}>חזור למסך הבית</Text>
+                            <FontAwesome style={[styles.cancelIcon,{backgroundColor:'transparent'}]} name='home' size={20}/>
+                        </View>
+                    </TouchableOpacity>
+                </View>
                 :
                 <TouchableOpacity onPress={this.showCancelEventDialog}>
                     <View style={[styles.cancelButton,{backgroundColor:'#009B77'}]}>
