@@ -26,27 +26,27 @@ export default class InternetConnectionPopUp extends Component {
 
     render() {
         const { connectionInfo } = this.state
-            return (
-                connectionInfo !== 'none' ?
-                <View>
-                    <Text style={styles.container}>.</Text>
-                    <Modal
-                    visible={true}
-                    animationType={'slide'}
-                    transparent
-                    onRequestClose={() => {}}
-                    >
-                        <View style={styles.modalContainer}>
-                            <Text style={[styles.buttonText,{fontSize: 22}]}>שגיאה</Text>
-                            <FontAwesome style={{color:'#ffffff',textAlign: 'center'}} name='chain-broken' size={50}/>
-                            <Text style={styles.buttonText}>האינטרנט במכשיר לא זמין</Text>
-                        </View>
-                    </Modal>
-                    <Text style={styles.container}>.</Text>
-                </View>
-                :
-                null
-            )
+        if(connectionInfo == 'none'){
+            return (<View>
+                <Text style={styles.container}>.</Text>
+                <Modal
+                visible={true}
+                animationType={'slide'}
+                transparent
+                onRequestClose={() => {}}
+                >
+                    <View style={styles.modalContainer}>
+                        <Text style={[styles.buttonText,{fontSize: 22}]}>שגיאה</Text>
+                        <FontAwesome style={{color:'#ffffff',textAlign: 'center'}} name='chain-broken' size={50}/>
+                        <Text style={styles.buttonText}>האינטרנט במכשיר לא זמין</Text>
+                    </View>
+                </Modal>
+                <Text style={styles.container}>.</Text>
+            </View>)
+        }
+        else
+            return null
+            
         }
     }
     

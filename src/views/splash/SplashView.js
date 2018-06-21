@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 const splashImg = require('../../images/splash.jpg');
+import InternetConnectionPopUp from './InternetConnectionPopUp'
 
 export default class SplashScreen extends React.Component {
 
@@ -24,6 +25,7 @@ export default class SplashScreen extends React.Component {
           }}
           source={splashImg}
         />
+        <InternetConnectionPopUp/>
       </View>
     );
   }
