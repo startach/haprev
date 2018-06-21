@@ -31,7 +31,7 @@ const adminActivityStyle = StyleSheet.create({
   withoutImgList: {
     margin: 5,
     marginBottom: 3,
-    color: "grey"
+    color: "#B4B7BA"
   },
   phoneIcon: {
     margin: 5,
@@ -121,7 +121,7 @@ const modalActivityStyle = StyleSheet.create({
     marginTop: "50%",
     justifyContent: "center",
     alignSelf: "center",
-    backgroundColor: "grey",
+    backgroundColor: "#B4B7BA",
     height: "30%",
     width: "90%",
     borderWidth: 2,
@@ -178,7 +178,7 @@ const adminActivityListStyle = StyleSheet.create({
   },
   withoutImg: {
     marginBottom: 10,
-    color: "grey"
+    color: "#B4B7BA"
   },
   h1: {
     fontSize: 20
@@ -247,7 +247,7 @@ const CreateActivityStyle = StyleSheet.create({
     marginTop: 8,
     marginRight: 30,
     marginLeft: 30,
-    borderColor: "gray",
+    borderColor: "#B4B7BA",
     height: 38,
     borderWidth: 1,
     fontSize: 20,
@@ -271,7 +271,7 @@ const CreateActivityStyle = StyleSheet.create({
     marginTop: "40%",
     justifyContent: "center",
     alignSelf: "center",
-    backgroundColor: "gray",
+    backgroundColor: "#B4B7BA",
     height: "35%",
     width: "90%",
     borderWidth: 2,

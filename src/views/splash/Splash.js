@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import SplashView from './SplashView'
 import {authorize,splash} from '../../store/modules/user'
 import { getInstitutes } from '../../store/modules/Institutes'
 import AppNav from '../../nav/AppNav'
 import RegisterNav from '../../nav/RegisterNav'
+import InternetConnectionPopUp from './InternetConnectionPopUp'
 
 class Splash extends Component{
 
@@ -28,7 +30,10 @@ class Splash extends Component{
                 )
         }
         return (
-            <SplashView  />
+            <View>
+                <SplashView/>
+                <InternetConnectionPopUp/>
+            </View>
         )
     }
 }

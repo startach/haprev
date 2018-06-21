@@ -54,7 +54,7 @@ class SelectDateView extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'grey',
+    backgroundColor: '#B4B7BA',
   },
   text: {
     textAlign: 'center',

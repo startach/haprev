@@ -5,10 +5,9 @@ import AdminActivityView from './AdminActivityView'
 import EventRegistrationView from '../institutes/EventRegistrationView'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from './styles' 
 import { FontAwesome } from '@expo/vector-icons';
-import {getUserData,setMessage} from './AdminActivitiesService'
-import {makeArrayFromObjects,deleteActivityByUserId} from '../adminActivities/AdminActivitiesService'
+import {getUserData, setMessage, makeArrayFromObjects, deleteActivityByUserId} from './AdminActivitiesService'
 
-const ParticipantItem = ({participant,avatarUrl,phone,isCoordinator}) => {
+export const ParticipantItem = ({participant,avatarUrl,phone,isCoordinator}) => {
     return (
         <View style={[modalStyles.participantItem,isCoordinator? styles.coordinatorLine: null]}>
             {avatarUrl ?
@@ -27,7 +26,7 @@ const ParticipantItem = ({participant,avatarUrl,phone,isCoordinator}) => {
                 <FontAwesome style={styles.phoneIcon} name='phone-square' size={35}
                     onPress={()=>{Linking.openURL('tel:'+phone)}}/>
                 :
-                <FontAwesome style={[styles.phoneIcon,{color:'grey'}]} name='phone-square' size={35}/>
+                <FontAwesome style={[styles.phoneIcon,{color:'#B4B7BA'}]} name='phone-square' size={35}/>
                 }
             </View>
         </View>)

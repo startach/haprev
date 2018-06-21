@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         borderBottomColor: 'white', borderBottomWidth: 1,
     },
     focus: {
-      backgroundColor: 'gray'
+      backgroundColor: '#B4B7BA'
     },
     input: {
         height: 40,

@@ -1,7 +1,28 @@
 import React from 'react'
-import {View, Text, FlatList, ScrollView, TouchableOpacity, ActivityIndicator, Linking} from 'react-native'
+import {View, Text, Image, FlatList, ScrollView, TouchableOpacity, ActivityIndicator, Linking, Modal} from 'react-native'
 import styles from './ActivitiesStyle'
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons'
+import {makeArrayFromObjects,getUserData} from '../adminActivities/AdminActivitiesService'
+
+const ParticipantItem = ({participant,avatarUrl,phone}) => {
+    return (
+        <View style={styles.participantItem}>
+            {avatarUrl ?
+            <Image style={styles.userImageList} source={{uri: avatarUrl}}/>
+            :
+            <FontAwesome style={styles.withoutImgList} name='user-circle' size={30}/>
+            }
+            <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between'}}>
+                <Text style={styles.participantText}>{participant.name.length > 14 ? participant.name.slice(0, 11)+'...' : participant.name}</Text>
+                { phone ?
+                <FontAwesome style={styles.phoneIcon} name='phone-square' size={30}
+                    onPress={()=>{Linking.openURL('tel:'+phone)}}/>
+                :
+                <FontAwesome style={[styles.phoneIcon,{color:'#ffffff'}]} name='phone-square' size={30}/>
+                }
+            </View>
+        </View>)
+}
 
 class ActivityItem extends React.Component{
     constructor(props) {
@@ -10,7 +31,11 @@ class ActivityItem extends React.Component{
             showFullActivity:false,
             activityData:'',
             coordinatorData:'',
-            deleteVisible: false
+            deleteVisible: false,
+            modalParticipantsVisible:false,
+            participants:[],
+            avatarsArray:null,
+            phonesArray:null,
         }
     }
 
@@ -51,8 +76,28 @@ class ActivityItem extends React.Component{
         }
     }
     
+    showParticipantsHandle = async() => {
+        const participants = await makeArrayFromObjects(this.state.activityData.participants)
+        if(participants.length>0){
+            this.setState({modalParticipantsVisible:true})
+            avatarsArray=[]
+            phonesArray=[]
+            userIdArray=[]
+            for(var i in participants){
+                userInfo = await getUserData(participants[i].appId)
+                avatarsArray.push(userInfo.avatarUrl)
+                phonesArray.push(userInfo.phone)
+            }
+            await this.setState({
+                participants:participants,
+                avatarsArray:avatarsArray,
+                phonesArray:phonesArray,
+            })
+        }
+    }
+
     render() {
-    const {activity, index, getUserData, deleteMyActivity} = this.props
+    const {activity, index, deleteMyActivity} = this.props
     return (
     <View>
         <TouchableOpacity underlayColor='#fff' onPress={async() => { await this.renderActivityData(activity.id,activity.hospitalId)}}>
@@ -65,7 +110,7 @@ class ActivityItem extends React.Component{
                 {!this.state.showFullActivity ?
                 <FontAwesome name="arrow-circle-down" size={22} color={'black'}/>
                 :
-                <FontAwesome name="arrow-circle-up" size={22} color={'grey'}/>
+                <FontAwesome name="arrow-circle-up" size={22} color={'#B4B7BA'}/>
                 }
             </View>
         </TouchableOpacity>
@@ -92,18 +137,53 @@ class ActivityItem extends React.Component{
             null
             }
             <View style={styles.rowLine}>
+                <Text style={[styles.textBox,styles.textDetails]}>מספר משתתפים:  {this.renderText(Object.keys(this.state.activityData.participants).length)} </Text>
+                <TouchableOpacity onPress={async() => {await this.showParticipantsHandle()}}>
+                    <FontAwesome name="group" size={30} color={'white'} style={{margin:10}}/>
+                </TouchableOpacity>
+            </View>
+            <View style={{flexDirection:'row'}}>
                 <Text style={[styles.textBox,styles.textDetails]}>רכז:  {this.renderText(this.state.coordinatorData.name)} </Text>
                 <TouchableOpacity onPress={() => this.callToCoordinator()}>                
                     <FontAwesome name="phone" size={30} color={'white'} style={{paddingBottom:5,paddingTop:10}}/>
                 </TouchableOpacity>
             </View>
-            <View style={{flexDirection:'row'}}>
-                <Text style={[styles.textBox,styles.textDetails]}>מספר משתתפים:  {this.renderText(Object.keys(this.state.activityData.participants).length)} </Text>
-            </View>
         </View>
         :
         null
         }
+
+        <Modal
+            visible={this.state.modalParticipantsVisible}
+            animationType={'slide'}
+            transparent
+            onRequestClose={() => this.setState({modalParticipantsVisible:true})}
+            >
+            <View style={styles.modalContainer}>
+                { this.state.avatarsArray && this.state.participants ?
+                <ScrollView horizontal={false}>
+                        <FlatList data={this.state.participants}
+                        renderItem={({item,index}) => <ParticipantItem 
+                        participant={item} 
+                        avatarUrl={this.state.avatarsArray[index]} 
+                        phone={this.state.phonesArray[index]}
+                        />}
+                        keyExtractor={(item) => item.appId}
+                        refreshing={true}
+                        />
+                </ScrollView>
+                :
+                <ActivityIndicator size='large' color='#C2185B'/>
+                }
+                <TouchableOpacity
+                rounded
+                style={[styles.button,{marginTop:15,marginBottom:15,width:"40%"}]}
+                onPress={() => {  this.setState({modalParticipantsVisible:false})}}
+                >
+                    <Text style={styles.buttonText}>סגור</Text>
+                </TouchableOpacity>
+            </View>
+        </Modal>
     </View>
     )
 }
