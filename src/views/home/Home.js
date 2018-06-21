@@ -1,5 +1,5 @@
 import React from 'react'
-import {View} from 'react-native'
+import {View, BackHandler, Platform, ToastAndroid} from 'react-native'
 import Messages from '../messages/Messages'
 import HomeView from './HomeView'
 import { connect } from 'react-redux'
@@ -8,9 +8,19 @@ import {getImages} from './HomeService'
 class Home extends React.Component{
     constructor(props) {
         super(props)
-        this.state = {hospitalName: '', myNextEvent: null,images:[]};
+        this.state = {hospitalName: '', myNextEvent: null,images:[],exit:0};
+        this.onBackClicked = this._onBackClicked.bind(this);
     }
+          
+    componentWillUnmount() {
+        if (Platform.OS === 'android')
+            BackHandler.removeEventListener("hardwareBackPress", this.onBackClicked);
+    }
+
     async componentWillMount() {
+        if (Platform.OS === 'android') 
+            BackHandler.addEventListener('hardwareBackPress', this.onBackClicked);
+
         let _hospitalName = ''
         let myNextEvent = await this.findMyNextEvent(this.props.myActivities)
         if(this.props.coordinator > 0){
@@ -21,6 +31,19 @@ class Home extends React.Component{
         images = await getImages()
         await this.setState({hospitalName:_hospitalName,myNextEvent:myNextEvent,images:images})
     }
+      
+    _onBackClicked = () => {
+        if(this.state.exit>0)
+            BackHandler.exitApp()
+        else{
+            ToastAndroid.show('בטוח? לחץ שוב בכדי לצאת', ToastAndroid.SHORT);
+            this.setState({exit:1})
+            setTimeout( () => this.setState({exit:0}), 1500)
+        }
+        return true;
+    } 
+
+      
 
     findMyNextEvent = async(myActivities) => {
         let myNextEvent = null

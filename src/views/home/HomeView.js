@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
         padding: 1,
         fontWeight: 'bold',
+        alignSelf: 'center',
         color:'#C2185B'
     },
     box: {

@@ -163,7 +163,7 @@ class EventView extends Component{
                 calendars = await Calendar.getCalendarsAsync()
                 googleCalendar = null
                 for(var c in calendars){
-                    if(calendars[c].allowsModifications && calendars[c].source.isLocalAccount){
+                    if(calendars[c].allowsModifications){
                         googleCalendar = calendars[c]
                         break
                     }
