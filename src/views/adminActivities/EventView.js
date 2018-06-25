@@ -7,7 +7,7 @@ import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from '.
 import { FontAwesome } from '@expo/vector-icons';
 import {getUserData, setMessage, makeArrayFromObjects, deleteActivityByUserId} from './AdminActivitiesService'
 
-export const ParticipantItem = ({participant,avatarUrl,phone,isCoordinator}) => {
+export const ParticipantItem = ({avatarUrl,phone,_name,isCoordinator}) => {
     return (
         <View style={[modalStyles.participantItem,isCoordinator? styles.coordinatorLine: null]}>
             {avatarUrl ?
@@ -16,7 +16,7 @@ export const ParticipantItem = ({participant,avatarUrl,phone,isCoordinator}) => 
             <FontAwesome style={styles.withoutImgList} name='user-circle' size={35}/>
             }
             <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between'}}>
-                <Text style={styles.participantText}>{participant.name.length > 14 ? participant.name.slice(0, 11)+'...' : participant.name}</Text>
+                <Text style={styles.participantText}>{_name.length > 14 ? _name.slice(0, 11)+'...' : _name}</Text>
                 { isCoordinator ?
                 <Text style={[styles.participantText,{color:'#009B77'}]}>רכז פעילות</Text>
                 :
@@ -58,12 +58,14 @@ class EventView extends Component{
             avatarsArray=[]
             phonesArray=[]
             userIdArray=[]
+            namesArray=[]
             coordinatorData = await getUserData(params.event.coordinator)
             for(var i in participants){
                 userInfo = await getUserData(participants[i].appId)
                 avatarsArray.push(userInfo.avatarUrl)
                 phonesArray.push(userInfo.phone)
                 userIdArray.push(userInfo.userId)
+                namesArray.push(userInfo.name)
             }
         }
         else{
@@ -75,12 +77,14 @@ class EventView extends Component{
             avatarsArray.push(userInfo.avatarUrl)
             phonesArray.push(userInfo.phone)
             userIdArray.push(userInfo.userId)
+            namesArray.push(userInfo.name)
             registeredNow=true
         }
         this.setState({
             avatarsArray:avatarsArray,
             phonesArray:phonesArray,
             userIdArray:userIdArray,
+            namesArray:namesArray,
             coordinatorData:coordinatorData,
             participants:participants,
             process:false,
@@ -106,7 +110,7 @@ class EventView extends Component{
                     await deleteActivityByUserId(this.state.userIdArray[i] ,params.event.id, params.instituteId)
                     let resMsg = await setMessage({id:params.event.id,message:msg},this.state.userIdArray[i])
                     if(resMsg=='err')
-                        alert('Error\nבעיה בשליחת הודעה למשתמש - ' + this.state.participants[i].name)
+                        alert('Error\nבעיה בשליחת הודעה למשתמש - ' + this.state.namesArray[i].name)
                 }
             }
             await params.onRefresh()
@@ -129,7 +133,7 @@ class EventView extends Component{
             for(var i in this.state.userIdArray){
                 let resMsg = await setMessage({id:params.event.id,message:msg},this.state.userIdArray[i])
                 if(resMsg=='err'){
-                    alert('Error\nבעיה בשליחת הודעה למשתמש - ' + this.state.participants[i].name)
+                    alert('Error\nבעיה בשליחת הודעה למשתמש - ' + this.state.namesArray[i].name)
                     res = 'err'
                 }
             }
@@ -209,6 +213,7 @@ class EventView extends Component{
                         participant={this.state.coordinatorData} 
                         avatarUrl={this.state.coordinatorData.avatarUrl} 
                         phone={this.state.coordinatorData.phone}
+                        _name={this.state.coordinatorData.name}
                         isCoordinator
                     />
                     <FlatList data={participants}
@@ -217,6 +222,7 @@ class EventView extends Component{
                             participant={item} 
                             avatarUrl={this.state.avatarsArray[index]} 
                             phone={this.state.phonesArray[index]}
+                            _name={this.state.namesArray[index]}
                         />}
                         keyExtractor={(item) => item.appId}
                         refreshing={true}

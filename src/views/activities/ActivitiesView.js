@@ -4,7 +4,7 @@ import styles from './ActivitiesStyle'
 import { FontAwesome } from '@expo/vector-icons'
 import {makeArrayFromObjects,getUserData} from '../adminActivities/AdminActivitiesService'
 
-const ParticipantItem = ({participant,avatarUrl,phone}) => {
+const ParticipantItem = ({avatarUrl,phone,_name}) => {
     return (
         <View style={styles.participantItem}>
             {avatarUrl ?
@@ -13,7 +13,7 @@ const ParticipantItem = ({participant,avatarUrl,phone}) => {
             <FontAwesome style={styles.withoutImgList} name='user-circle' size={30}/>
             }
             <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between'}}>
-                <Text style={styles.participantText}>{participant.name.length > 14 ? participant.name.slice(0, 11)+'...' : participant.name}</Text>
+                <Text style={styles.participantText}>{_name.length > 14 ? _name.slice(0, 11)+'...' : _name}</Text>
                 { phone ?
                 <FontAwesome style={styles.phoneIcon} name='phone-square' size={30}
                     onPress={()=>{Linking.openURL('tel:'+phone)}}/>
@@ -82,16 +82,18 @@ class ActivityItem extends React.Component{
             this.setState({modalParticipantsVisible:true})
             avatarsArray=[]
             phonesArray=[]
-            userIdArray=[]
+            namesArray=[]
             for(var i in participants){
                 userInfo = await getUserData(participants[i].appId)
                 avatarsArray.push(userInfo.avatarUrl)
                 phonesArray.push(userInfo.phone)
+                namesArray.push(userInfo.name)
             }
             await this.setState({
                 participants:participants,
                 avatarsArray:avatarsArray,
                 phonesArray:phonesArray,
+                namesArray:namesArray,
             })
         }
     }
@@ -167,6 +169,7 @@ class ActivityItem extends React.Component{
                         participant={item} 
                         avatarUrl={this.state.avatarsArray[index]} 
                         phone={this.state.phonesArray[index]}
+                        _name={this.state.namesArray[index]}
                         />}
                         keyExtractor={(item) => item.appId}
                         refreshing={true}
