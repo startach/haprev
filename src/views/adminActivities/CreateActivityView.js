@@ -31,7 +31,6 @@ class CreateActivityView extends Component {
         let day = datetime.getUTCDate();
         let month = datetime.getUTCMonth()+1;
         let year = datetime.getUTCFullYear();
-        let dayOfWeek = datetime.getUTCDay()+1;
         let fullDate = day+'/'+month+'/'+year;
         let hours = datetime.getHours();
         let minutes = datetime.getMinutes();  

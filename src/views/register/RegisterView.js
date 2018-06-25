@@ -142,77 +142,75 @@ class RegisterView extends React.Component {
     render() {
       return(
         <ImageBackground style={styles.background} source={require('../../images/backGround.jpg')}>
-        <ScrollView horizontal={false} style={{flex:1}}>
-        {this.props.registerScreen ?<View style={{height:25}}/>:null}        
-        <KeyboardAvoidingView
-            style={styles.topContainer}
-            behavior="padding">
-            <View style={styles.userView}>
-                { this.getAvatarImage() }
-                <Text style={styles.title}>{this.props.title}</Text>
-                {this.props.registerScreen ? 
-                <TouchableOpacity onPress={ () => this.props.signIn()}>
-                    <Text style={styles.signIn}>משתמש רשום?</Text>
-                </TouchableOpacity>
-                :null}
-            </View>
-            <RegisterInput placeholder="שם פרטי"
-                value={this.props.user.first}
-                ref={input => {this.inputs[FIRSTNAME] = input;}}
-                editable
-                onChangeText={(value) => this.validateFirst(value)}
-                onSubmitEditing={() => {this.focusNextField(LASTNAME);}}
-                iconName='user-circle'/>
-            <RegisterInput placeholder="שם משפחה"
-                value={this.props.user.last}
-                ref={input => {this.inputs[LASTNAME] = input;}}
-                editable
-                onChangeText={(value) => this.validateLast(value)}
-                onSubmitEditing={() => {this.focusNextField(PHONE);}}
-                iconName='user-circle'/>
-            <RegisterInput placeholder='מספר טלפון'
-                value={this.props.user.phone}
-                keyboardType='phone-pad'
-                ref={input => {this.inputs[PHONE] = input;}}
-                editable={this.props.registerScreen}
-                onChangeText={(value) => this.validatePhone(value)}
-                onSubmitEditing={() => {this.focusNextField(PASSWORD);}}
-                iconName='phone-square'/>
-            <RegisterInput placeholder='סיסמה (לפחות 4 תווים)'
-                value={this.props.user.password}
-                keyboardType='phone-pad'
-                ref={input => {this.inputs[PASSWORD] = input;}}
-                editable
-                onChangeText={(value) => this.validatePassword(value)}
-                onSubmitEditing={() => {this.focusNextField(EMAIL);}}
-                iconName='shield'/>
-            <RegisterInput placeholder='כתובת דוא"ל'
-                value={this.props.user.email}
-                keyboardType='email-address'
-                ref={input => {this.inputs[EMAIL] = input;}}
-                editable
-                returnKeyType={"done"}
-                onChangeText={(value) => this.validateEmail(value)}
-                onSubmitEditing={() => {}}
-                iconName='envelope-square'/>
-            <View style={styles.buttonsContainer}>
-                <TouchableOpacity
-                    rounded
-                    title={this.props.actionTitle} 
-                    disabled={this.state.disabled} 
-                    style={[styles.registerButton, this.state.disabled ? { backgroundColor:'#c6c6c6'} : { }] }
-                    onPress={ this.handlePress}
-                    >
-                    {
-                    !this.state.spinner ?
-                    <Text style={styles.registerButtonText}>{this.props.actionTitle}</Text>
-                    :
-                    <ActivityIndicator size='large' color='white' /> 
-                    }
-                </TouchableOpacity>
-            </View>
+        <KeyboardAvoidingView style={styles.topContainer} behavior="padding">
+            <ScrollView horizontal={false} style={{flex:1}}>
+            {this.props.registerScreen ?<View style={{height:25}}/>:null}        
+                <View style={styles.userView}>
+                    { this.getAvatarImage() }
+                    <Text style={styles.title}>{this.props.title}</Text>
+                    {this.props.registerScreen ? 
+                    <TouchableOpacity onPress={ () => this.props.signIn()}>
+                        <Text style={styles.signIn}>משתמש רשום?</Text>
+                    </TouchableOpacity>
+                    :null}
+                </View>
+                <RegisterInput placeholder="שם פרטי"
+                    value={this.props.user.first}
+                    ref={input => {this.inputs[FIRSTNAME] = input;}}
+                    editable
+                    onChangeText={(value) => this.validateFirst(value)}
+                    onSubmitEditing={() => {this.focusNextField(LASTNAME);}}
+                    iconName='user-circle'/>
+                <RegisterInput placeholder="שם משפחה"
+                    value={this.props.user.last}
+                    ref={input => {this.inputs[LASTNAME] = input;}}
+                    editable
+                    onChangeText={(value) => this.validateLast(value)}
+                    onSubmitEditing={() => {this.focusNextField(PHONE);}}
+                    iconName='user-circle'/>
+                <RegisterInput placeholder='מספר טלפון'
+                    value={this.props.user.phone}
+                    keyboardType='phone-pad'
+                    ref={input => {this.inputs[PHONE] = input;}}
+                    editable={this.props.registerScreen}
+                    onChangeText={(value) => this.validatePhone(value)}
+                    onSubmitEditing={() => {this.focusNextField(PASSWORD);}}
+                    iconName='phone-square'/>
+                <RegisterInput placeholder='סיסמה (לפחות 4 תווים)'
+                    value={this.props.user.password}
+                    keyboardType='phone-pad'
+                    ref={input => {this.inputs[PASSWORD] = input;}}
+                    editable
+                    onChangeText={(value) => this.validatePassword(value)}
+                    onSubmitEditing={() => {this.focusNextField(EMAIL);}}
+                    iconName='shield'/>
+                <RegisterInput placeholder='כתובת דוא"ל'
+                    value={this.props.user.email}
+                    keyboardType='email-address'
+                    ref={input => {this.inputs[EMAIL] = input;}}
+                    editable
+                    returnKeyType={"done"}
+                    onChangeText={(value) => this.validateEmail(value)}
+                    onSubmitEditing={() => {}}
+                    iconName='envelope-square'/>
+                <View style={styles.buttonsContainer}>
+                    <TouchableOpacity
+                        rounded
+                        title={this.props.actionTitle} 
+                        disabled={this.state.disabled} 
+                        style={[styles.registerButton, this.state.disabled ? { backgroundColor:'#c6c6c6'} : { }] }
+                        onPress={ this.handlePress}
+                        >
+                        {
+                        !this.state.spinner ?
+                        <Text style={styles.registerButtonText}>{this.props.actionTitle}</Text>
+                        :
+                        <ActivityIndicator size='large' color='white' /> 
+                        }
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         </KeyboardAvoidingView>
-        </ScrollView>
         </ImageBackground>
     );}
 };
