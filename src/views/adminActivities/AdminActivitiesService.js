@@ -11,7 +11,7 @@ export const getUserData = async(appId) => {
   let avatarUrl = null
   let phone = null
   let userId = null
-  let name = null
+  let name = ' '
   await firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' , 
     snapshot => {
       let dbUser = snapshot.val()
@@ -21,7 +21,7 @@ export const getUserData = async(appId) => {
         phone = dbUser[key].phone || null
         userId = dbUser[key].userId || null        
         name = (dbUser[key].first +' '+ dbUser[key].last) || null 
-      } 
+      }
     }
   )
   return {avatarUrl:avatarUrl,phone:phone,userId:userId,name:name}

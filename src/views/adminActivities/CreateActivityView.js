@@ -34,6 +34,8 @@ class CreateActivityView extends Component {
         let fullDate = day+'/'+month+'/'+year;
         let hours = datetime.getHours();
         let minutes = datetime.getMinutes();  
+        if (minutes == 0)
+	        minutes = '00'
         let fullTime = hours + ':' + minutes;
         this.setState({fullDate:fullDate, fullTime:fullTime,fullFormatDate:datetime})
         this.setState({isButtonDisabled: this.state.activityName.length <= 0});
