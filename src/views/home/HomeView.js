@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView, ActivityIndicator } from 'react-native'
 import Swiper from 'react-native-swiper'
+import EventsListView from '../eventsList/EventsListView'
 
 const HomeView = (props) => {
     const { 
@@ -12,7 +13,10 @@ const HomeView = (props) => {
         registerActivityView, 
         activityView,
         myNextEvent,
-        images
+        images,
+        processEventsList,
+        activityElements
+
     } = props
 
     const isCoordinator = (coordinator > 0)
@@ -67,6 +71,14 @@ const HomeView = (props) => {
                     <Text style={styles.textCenter}>התנדבות הבאה שלי</Text>
                     <Text style={styles.textCenter}>{myNextEvent ? (myNextEvent.caption + ' ב-' +myNextEvent.date) : 'לא קיימות התנדבויות'}</Text>
                     {allActivityButton}
+                </View>
+                <View style={styles.eventBox}>
+                    <Text style={styles.textCenter}>ההתנדבויות הבאות</Text>
+                    <EventsListView
+                    processEventsList={processEventsList}
+                    activityElements={activityElements}
+                    isNextEvents={true}
+                    />
                 </View>
                 <Text style={[styles.textCenter,{marginBottom:5}]}>באנו לשמח, תראו בעצמכם</Text>
                 <View style={[styles.box,styles.swiper]}>

@@ -42,7 +42,7 @@ export const getInstitutes = () => async (dispatch) => {
     })
 };
 
-export const selectInstitute  = (instId,userId) => async (dispatch) => {
+export const selectInstitute = (instId) => async (dispatch) => {
   await dispatch(getEvents(instId));
 };
 

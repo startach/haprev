@@ -43,6 +43,7 @@ class SideMenu extends Component {
                     data={[
                         { key:'מסך הבית', nav:'HomeRoute'},
                         { key:'רישום להתנדבות', nav:'InstitutesRoute'},
+                        { key:'הסטוריית התנדבויות', nav:'EventsListRoute'},
                         { key:'התנדבויות שלי', nav:'ActivitiesRoute'},
                         { key:'ממשק רכזים', nav:'ActivitiesAdminRoute'},
                         { key:'אנשי קשר', nav:'ContactsRoute'}, 
@@ -57,9 +58,9 @@ class SideMenu extends Component {
                             onPress={ () => {this.setNavigation({item,index})}}
                             style={ this.props.coordinator ? 
                                 index%2 ? styles.grayLine : styles.whiteLine
-                                : index<3 ? 
+                                : index<4 ? 
                                 index%2 ? styles.grayLine : styles.whiteLine
-                                : index>3 ? 
+                                : index>4 ? 
                                 index%2 ? styles.whiteLine : styles.grayLine 
                                 : {height:0}
                                 }>

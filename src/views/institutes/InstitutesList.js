@@ -10,10 +10,6 @@ constructor(){
   this.onInstSelected = this.onInstSelected.bind(this)
 }
 
-  componentDidMount() {
-    this.props.getInstitutes();
-  }
-
   async onInstSelected(instId) {
     await this.props.selectInstitute(instId);
     hospitalName = this.props.institutes[instId-1].name

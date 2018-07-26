@@ -25,7 +25,7 @@ class EventView extends Component{
             <View style={styles.container}>
             {events.length>1 ?
                 <View>
-                    <Text style={[styles.h1,{paddingBottom:0,color:'#fff'}]}> ישנם כמה התנדבויות ב{events[0].date} </Text>
+                    <Text style={[styles.h1,{paddingBottom:0,color:'#fff'}]}> ישנן כמה התנדבויות ב{events[0].date} </Text>
                 </View>
                 :
                 null

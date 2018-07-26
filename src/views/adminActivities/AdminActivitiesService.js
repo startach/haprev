@@ -37,6 +37,12 @@ export const makeArrayFromObjects = (objects) => {
 
 export const sortArrayByDate = (objectsArray)=>{
   return objectsArray.sort((a,b)=>{
+    return new Date(a.fullFormatDate).getTime() - new Date(b.fullFormatDate).getTime()
+  });
+}
+
+export const sortArrayByDate_Descending = (objectsArray)=>{
+  return objectsArray.sort((a,b)=>{
     return new Date(b.fullFormatDate).getTime() - new Date(a.fullFormatDate).getTime()
   });
 }

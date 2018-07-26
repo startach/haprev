@@ -1,10 +1,10 @@
-import React from 'react'
 import {StackNavigator } from 'react-navigation'
 import {headerDefinitions, homeNavigationOptions, appNavigationOptions} from './RoutsService'
 import Home from '../../views/home/Home'
 import InstitutesList from '../../views/institutes/InstitutesList'
 import SelectDate from '../../views/institutes/SelectDate'
 import EventOptions from '../../views/institutes/EventOptions'
+import EventsList from '../../views/eventsList/EventsList'
 import Activities from '../../views/activities/Activities'
 import AdminActivities from '../../views/adminActivities/AdminActivitiyList'
 import EventView from '../../views/adminActivities/EventView'
@@ -42,6 +42,15 @@ const InstitutesRoute = StackNavigator(
                 navigationOptions: headerDefinitions('בחירת התנדבות')
             }
         },{navigationOptions: appNavigationOptions}
+);
+
+const EventsListRoute = StackNavigator(
+    {
+        Institutes:{
+            screen: EventsList,
+            navigationOptions: headerDefinitions('התנדבויות קרובות')
+        },
+    },{navigationOptions: appNavigationOptions}
 );
 
 const ActivitiesRoute = StackNavigator(
@@ -109,6 +118,7 @@ const HelpRoute = StackNavigator(
 export default{
     HomeRoute,
     InstitutesRoute,
+    EventsListRoute,
     ActivitiesRoute,
     ActivitiesAdminRoute,
     ContactsRoute,
