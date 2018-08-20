@@ -1,8 +1,9 @@
 import React from 'react';
-import {Text, View, Image, ImageBackground,ScrollView, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
+import {Text, View, Image, ImageBackground,ScrollView, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator,ToastAndroid } from 'react-native';
 import styles from './RegisterViewStyles';
 import RegisterInput from './RegisterInputField';
 import { ImagePicker } from 'expo';
+import {registerForPushNotificationsAsync} from '../notification/NotificationService'
 
 const FIRSTNAME = 'first';
 const LASTNAME = 'last';
@@ -136,7 +137,11 @@ class RegisterView extends React.Component {
             user[PASSWORD] = this.state.password
             let register = await this.props.onAction(user);
             if(!register)
-                alert('מספר הפלאפון קיים במערכת')
+                ToastAndroid.show('מספר הפלאפון קיים במערכת', ToastAndroid.SHORT)
+            else if(this.props.registerScreen){
+                let notificationSettingsUser = await registerForPushNotificationsAsync()
+                await this.props.updateNotificationSettingUser(notificationSettingsUser)
+            }
     }
 
     render() {

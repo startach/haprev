@@ -13,6 +13,7 @@ import ContactsView from '../../views/contacts/ContactsView'
 import AboutUsView from '../../views/aboutUs/AboutUsView'
 import Profile from '../../views/profile/Profile'
 import Help from '../../views/help/Help'
+import Settings from '../../views/notification/Settings'
 
 const HomeRoute = StackNavigator(
     {
@@ -20,6 +21,10 @@ const HomeRoute = StackNavigator(
         screen: Home,
         navigationOptions: headerDefinitions('מסך הבית')
         },
+        Settings:{
+            screen: Settings,
+            navigationOptions: headerDefinitions('הגדרות')
+        }
     },{navigationOptions: homeNavigationOptions}
 );
 
@@ -48,7 +53,7 @@ const EventsListRoute = StackNavigator(
     {
         Institutes:{
             screen: EventsList,
-            navigationOptions: headerDefinitions('התנדבויות קרובות')
+            navigationOptions: headerDefinitions('היסטוריה')
         },
     },{navigationOptions: appNavigationOptions}
 );

@@ -83,8 +83,8 @@ class Home extends React.Component{
         return true;
     } 
 
-      
 
+    
     findMyNextEvent = async(myActivities) => {
         let myNextEvent = null
         currDate = new Date()

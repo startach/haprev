@@ -43,7 +43,7 @@ class SideMenu extends Component {
                     data={[
                         { key:'מסך הבית', nav:'HomeRoute'},
                         { key:'רישום להתנדבות', nav:'InstitutesRoute'},
-                        { key:'הסטוריית התנדבויות', nav:'EventsListRoute'},
+                        { key:'היסטוריית התנדבויות', nav:'EventsListRoute'},
                         { key:'התנדבויות שלי', nav:'ActivitiesRoute'},
                         { key:'ממשק רכזים', nav:'ActivitiesAdminRoute'},
                         { key:'אנשי קשר', nav:'ContactsRoute'}, 

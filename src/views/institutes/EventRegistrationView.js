@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, Modal, TouchableOpacity, ActivityIndicator,Dimensions} from 'react-native'
+import {View, Text, Modal, TouchableOpacity, ActivityIndicator,Dimensions,ToastAndroid} from 'react-native'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from '../adminActivities/styles' 
 import { FontAwesome } from '@expo/vector-icons';
 const { width } = Dimensions.get('screen');
@@ -33,7 +33,7 @@ class EventRegistrationView extends Component{
                             <FontAwesome style={[styles.cancelIcon,{backgroundColor:'transparent'}]} name='calendar-o' size={20}/>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => alert('אתה כבר רשום לפעילות זו')}>
+                    <TouchableOpacity onPress={() => ToastAndroid.show('אתה כבר רשום לפעילות זו', ToastAndroid.SHORT)}>
                         <View style={[styles.cancelButton,{width: width*0.333,backgroundColor:'#009B77',flexDirection:'column',alignSelf: 'center'}]}>
                             <Text style={[styles.cancelText,{fontSize:14,marginBottom:3}]}>נרשמת לפעילות</Text>
                             <FontAwesome style={[styles.cancelIcon,{backgroundColor:'transparent'}]} name='check-circle' size={20}/>

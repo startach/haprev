@@ -128,7 +128,7 @@ class ActivityItem extends React.Component{
             {this.state.deleteVisible ?
                 <View style={[styles.rowLine,styles.deleteLine]}>
                     <Text style={[styles.textBox,styles.textDetails]}>לבטל השתתפותך בפעילות? </Text>
-                    <TouchableOpacity onPress={async () => {await deleteMyActivity(activity)}}>
+                    <TouchableOpacity onPress={async () => {await deleteMyActivity(activity,this.state.coordinatorData.userId)}}>
                         <FontAwesome name="check" size={30} color={'#009B77'} style={{margin:10}}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.setState({deleteVisible:false})}>

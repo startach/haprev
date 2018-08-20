@@ -58,7 +58,7 @@ class EventsList extends React.Component{
             return (
                 <Picker
                 selectedValue={this.state.currentHospital}
-                style={styles.pickerText}
+                style={[styles.pickerText,{backgroundColor:'#d71a4e',width:'40%'}]}
                 mode="dropdown"
                 itemStyle={{textAlign: 'right'}} //IOS
                 onValueChange={async(itemValue, itemIndex) => {await this.setState({currentHospital: itemValue}); await this.componentWillMount(true)}}>
@@ -86,7 +86,7 @@ class EventsList extends React.Component{
                         thumbTintColor={'#f9ccac'}
                         minimumTrackTintColor={'#FFFFFF'}
                         />
-                        <Text style={styles.sliderText}>
+                        <Text style={styles.filterText}>
                         {this.state.numberOfEvents}
                         </Text>
                     </View>

@@ -10,7 +10,7 @@ class Splash extends Component{
 
     async componentDidMount(){
         this.props.splash(true)
-        await this.props.getInstitutes()        
+        await this.props.getInstitutes()
         this.props.authorize(Expo.Constants.deviceId)
         setTimeout( () => this.props.splash(false), 2000)
     }

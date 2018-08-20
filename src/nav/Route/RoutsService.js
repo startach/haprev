@@ -22,6 +22,8 @@ export const appNavigationOptions = ({ navigation }) => ({
 });
 
 export const homeNavigationOptions = ({ navigation }) => ({
+    headerRight: <FontAwesome style={[styles.icon,{color:'#F5F5F1'}]} name={navigation.state.routeName==='Home'? 'cogs' : 'home'} size={30}
+                    onPress={ () => {navigation.state.routeName==='Home' ? navigation.navigate('Settings') : navigation.navigate('Home') }}/>,
     headerLeft: <FontAwesome style={styles.icon} name='navicon' size={24}
-                    onPress={ () => { navigation.navigate('DrawerOpen')}} />,         
+                    onPress={ () => { navigation.navigate('DrawerOpen')}} />,
 });

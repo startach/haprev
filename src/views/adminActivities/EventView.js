@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import {View, Text, FlatList, Image, Linking, ActivityIndicator,ScrollView} from 'react-native'
+import {View, Text, FlatList, Image, Linking, ActivityIndicator,ScrollView,ToastAndroid} from 'react-native'
 import {Permissions, Calendar} from 'expo'
 import AdminActivityView from './AdminActivityView'
 import EventRegistrationView from '../institutes/EventRegistrationView'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from './styles' 
 import { FontAwesome } from '@expo/vector-icons';
 import {getUserData, setMessage, makeArrayFromObjects, deleteActivityByUserId} from './AdminActivitiesService'
+import {getUserTokenNotification,sendPushNotification} from '../notification/NotificationService';
 
 export const ParticipantItem = ({avatarUrl,phone,_name,isCoordinator}) => {
     return (
@@ -108,7 +109,7 @@ class EventView extends Component{
                 for(var i in this.state.userIdArray){
                     //delete activity to each participant
                     await deleteActivityByUserId(this.state.userIdArray[i] ,params.event.id, params.instituteId)
-                    let resMsg = await setMessage({id:params.event.id,message:msg},this.state.userIdArray[i])
+                    let resMsg = await setMessage({id:params.event.id,message:msg},this.state.userIdArray[i],'ביטול פעילות')
                     if(resMsg=='err')
                         alert('Error\nבעיה בשליחת הודעה למשתמש - ' + this.state.namesArray[i].name)
                 }
@@ -131,7 +132,7 @@ class EventView extends Component{
                 + ' בבית חולים ' +params.hospital
             msg = msgDetails + ' - ' + coordinatorMsg
             for(var i in this.state.userIdArray){
-                let resMsg = await setMessage({id:params.event.id,message:msg},this.state.userIdArray[i])
+                let resMsg = await setMessage({id:params.event.id,message:msg},this.state.userIdArray[i],'הודעה מרכז')
                 if(resMsg=='err'){
                     alert('Error\nבעיה בשליחת הודעה למשתמש - ' + this.state.namesArray[i].name)
                     res = 'err'
@@ -149,6 +150,15 @@ class EventView extends Component{
         res = await addUserToEvent(event,appId,fullName)
         if(res==='ok')
             res = await addEventToUser(userId,event)
+        //push notification to the coordinator
+        if(res==='ok'){
+            let coordinatorToken = await getUserTokenNotification(coordinatorData.userId)
+            if(coordinatorToken){
+                let title = 'רישום חדש להתנדבות'
+                let msg = fullName + ' נרשם לפעילות: ' + event.caption
+                sendPushNotification(coordinatorToken,title,msg)
+            }
+        }
         await this.refreshParticipantList()
         this.setState({process:false})
         return res
@@ -183,7 +193,7 @@ class EventView extends Component{
                         "timeZone" : googleCalendar.timeZone ? googleCalendar.timeZone.toString() : new Date(eventDate).getTimezoneOffset().toString()
                     }
                     ID = await Calendar.createEventAsync(calendarId, details)
-                    alert('האירוע נוסף ללוח השנה במכשיר בהצלחה!')
+                    ToastAndroid.show('האירוע נוסף ללוח השנה במכשיר בהצלחה!', ToastAndroid.SHORT)
                 }
             }
             catch(err){
@@ -254,7 +264,9 @@ class EventView extends Component{
                     navigation = {this.props.navigation}
                 />
                 :
-                <Text style={[styles.participantText,{margin:5,paddingTop:10,paddingBottom:15,fontWeight: 'bold'}]}>הרישום לפעילות זו הסתיים</Text>
+                <Text style={[styles.participantText,{margin:5,paddingTop:10,paddingBottom:15,fontWeight: 'bold'}]}>
+                הרישום לפעילות זו הסתיים
+                </Text>
                 :
                 null
             }

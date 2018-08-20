@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import {getUserTokenNotification,sendPushNotification} from '../notification/NotificationService';
 
 export const getHospitalName = async (instituteId) => {
   let hospitalName = ''
@@ -67,11 +68,15 @@ export const makeArrayParticipants = (events) =>{
   return participantsArray
 }
 
-export const setMessage = async(msg,userId) => {
+export const setMessage = async(msg,userId,title) => {
   // format msg -> {id: 'ek67', message: 'ההתנדבות ב 9.1 בבית חולים בלינסון בוטלה'}
   res = await firebase.database().ref('users/'+userId+'/messages')
     .push().set(msg)
-    .then(() => {return 'ok'})
+    .then(async() => {
+      let userToken = await getUserTokenNotification(userId)
+      userToken && sendPushNotification(userToken,title,msg.message)
+      return 'ok'
+    })
     .catch(error => {
       console.log('Data could not be saved.' + error);
       return 'err'

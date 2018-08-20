@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import InstitutesListView from './InstitutesListView';
-import { getInstitutes, selectInstitute } from '../../store/modules/Institutes'
+import { selectInstitute } from '../../store/modules/Institutes'
 
 class InstitutesList extends Component {
 
@@ -33,4 +33,4 @@ const mapStateToProps = state =>{
   })
 }
 
-export default connect(mapStateToProps, { getInstitutes, selectInstitute })(InstitutesList);
+export default connect(mapStateToProps, { selectInstitute })(InstitutesList);

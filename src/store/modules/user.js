@@ -8,7 +8,8 @@ const REGISTER_RES = "haprev/user/REGISTER_RES";
 const NO_USER_FOUND = "haprev/user/NO_USER_FOUND";
 const SPLASH = "haprev/user/SPLASH";
 const SET_MESSAGE_READ = "haprev/user/SET_MESSAGE_READ";
-const UPDATE_NEW_EVENTS = "hapre/user/UPDATE_NEW_EVENTS"
+const UPDATE_NEW_EVENTS = "haprev/user/UPDATE_NEW_EVENTS"
+const NOTIFICATION_SETTINGS = "haprev/user/NOTIFICATION_SETTINGS"
 
 const initalState = {
   user: {},
@@ -47,7 +48,14 @@ export default (state = initalState, action = {}) => {
                   [action.insId]: action.newEvents
                 }
               }
-            }   
+            }
+    case NOTIFICATION_SETTINGS:
+    return {...state,
+            user: {
+              ...state.user,
+              settings: action.payload
+            } 
+          };
     default:
       return state;
   }
@@ -108,6 +116,11 @@ const setMessagesRead = msgId => {
     payload: msgId
   }
 }
+
+const updateNotificationSettings = settings => ({
+  type:NOTIFICATION_SETTINGS, 
+  payload:settings
+})
 
 export const authorize = appId =>  dispatch  => {
   dispatch(authReq(appId))
@@ -261,4 +274,17 @@ export const deleteActivity = (activityId,insId) => async(dispatch,state) => {
   }
   if(currActivities.length==0 && numActivities == 0)
     return 'empty'
+}
+
+export const updateNotificationSettingUser = (settings) => async(dispatch,state) => {
+  let res = firebase.database().ref('users/'+state().user.user.userId).update({settings})
+    .then(() => {
+      dispatch(updateNotificationSettings(settings));
+      return 'ok'
+    })
+    .catch(error => {
+      console.log('Data could not be saved.' + error);
+      return 'err'
+    });
+  return res;
 }

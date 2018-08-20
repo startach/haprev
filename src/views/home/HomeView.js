@@ -32,7 +32,7 @@ const HomeView = (props) => {
         <View style={styles.allActivityButton}>
             <Button
                 onPress={activityView}
-                title='לכל ההתנדבויות'
+                title='לכל ההתנדבויות שלי'
                 color='#C2185B'
             />
         </View>

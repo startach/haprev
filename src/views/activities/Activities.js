@@ -6,6 +6,7 @@ import _ from 'lodash'
 import {sortArrayByDate,renderActicityData,getUserData} from '../adminActivities/AdminActivitiesService.js'
 import {deleteParticipant} from '../../store/modules/events'
 import {deleteActivity} from '../../store/modules/user'
+import {getUserTokenNotification,sendPushNotification} from '../notification/NotificationService';
 
 class Activities extends React.Component{
     constructor(props) {
@@ -32,9 +33,16 @@ class Activities extends React.Component{
         this.setState({activityElements : activityElements, process:false})
     }
 
-    deleteMyActivity = async(activity)=>{
-        await this.props.deleteParticipant(activity.id,activity.hospitalId,this.props.appId)
-        res = await this.props.deleteActivity(activity.id,activity.hospitalId)
+    deleteMyActivity = async(activity,coordinatorUserId)=>{
+        const {first,last,deleteParticipant,deleteActivity,appId} = this.props
+        await deleteParticipant(activity.id,activity.hospitalId,appId)
+        res = await deleteActivity(activity.id,activity.hospitalId)
+        let coordinatorToken = await getUserTokenNotification(coordinatorUserId)
+        if(coordinatorToken){
+            let title = 'ביטול משתתף'
+            let msg = first +' '+last + ' ביטל את ההשתתפות בפעילות: ' + event.caption
+            sendPushNotification(coordinatorToken,title,msg)
+        }
         if(res == 'empty')
             this.setState({activityElements : null})
         else
@@ -61,6 +69,8 @@ const mapStateToProps = state =>{
                activities:state.user.user.activities || {},
                institutes:state.institutes.institutes,
                appId: state.user.user.appId,
+               first:state.user.user.first,
+               last:state.user.user.last,
             })
     }
 
