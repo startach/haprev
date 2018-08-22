@@ -32,7 +32,12 @@ export const sendPushNotification = (token, title, body) => {
         title: title,
         body: body,
         data: { message: `${title} - ${body}` },
-        sound: 'default',
+        sound: "default",
+        icon: "../../images/haprevLogo.png",
+        android:{
+          icon: "../../images/haprevLogo.png",
+          sound:"default"
+        }
       }),
       headers: {
         'Content-Type': 'application/json',

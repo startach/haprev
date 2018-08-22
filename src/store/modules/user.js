@@ -36,7 +36,7 @@ export default (state = initalState, action = {}) => {
       return {...state,
               user: {
                 ...state.user,
-                messages: action.payload  
+                ["messages"]: action.payload  
               } 
            };
     case UPDATE_NEW_EVENTS:
@@ -216,7 +216,8 @@ export const readMessage = msgId => async (dispatch,state)  => {
   currentMessages = messagesArray.filter(msg => { return msg.id !== msgId })
   await dispatch(setMessagesRead(currentMessages));
 
-  let res = firebase.database().ref('users/'+state().user.user.userId).update({messages: state().user.user.messages})
+  let res = firebase.database().ref('users/'+state().user.user.userId)
+    .update({['messages']: currentMessages})
     .then(() => {
       return 'ok'
     })
@@ -287,4 +288,19 @@ export const updateNotificationSettingUser = (settings) => async(dispatch,state)
       return 'err'
     });
   return res;
+}
+
+export const updateUserSatet = () => async(dispatch,state) => {
+  let ref = firebase.database().ref('users/'+state().user.user.userId)
+  ref.once('value', 
+    snapshot => {
+      let dbRes = snapshot.val()
+      if (dbRes) {
+        dispatch (registerRes(dbRes))
+      } else {
+        //handle user not found
+        dispatch (noUserFound())
+      }
+  })
+  return true
 }

@@ -50,7 +50,6 @@ export const sortArrayByDate_Descending = (objectsArray)=>{
 
 export const makeArrayParticipants = (events) =>{
   let participantsArray= []
-  let index = 0
   for (var key in events) {
       if(events[key].participants){
           temp = []
@@ -63,15 +62,15 @@ export const makeArrayParticipants = (events) =>{
           temp = []
           participantsArray.push(temp)
       }
-      index++;
   }
   return participantsArray
 }
 
 export const setMessage = async(msg,userId,title) => {
-  // format msg -> {id: 'ek67', message: 'ההתנדבות ב 9.1 בבית חולים בלינסון בוטלה'}
-  res = await firebase.database().ref('users/'+userId+'/messages')
-    .push().set(msg)
+  ref = await firebase.database().ref('users/'+userId+'/messages').push()
+    let key = ref.key
+    Object.assign(msg, {id:key})
+    res = await ref.set(msg)
     .then(async() => {
       let userToken = await getUserTokenNotification(userId)
       userToken && sendPushNotification(userToken,title,msg.message)

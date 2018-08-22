@@ -1,16 +1,10 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView, ActivityIndicator, TouchableOpacity  } from 'react-native'
 import Swiper from 'react-native-swiper'
 import EventsListView from '../eventsList/EventsListView'
 
 const HomeView = (props) => {
     const { 
-        first, 
-        last, 
-        coordinator, 
-        hospital, 
-        createActivityView, 
-        registerActivityView, 
         activityView,
         myNextEvent,
         images,
@@ -19,59 +13,20 @@ const HomeView = (props) => {
 
     } = props
 
-    const isCoordinator = (coordinator > 0)
-    const registerButton = (
-        <Button
-            onPress={registerActivityView}
-            title='הרשמה'
-            color='#C2185B'
-        />
-    )
-
     const allActivityButton = (
         <View style={styles.allActivityButton}>
-            <Button
-                onPress={activityView}
-                title='לכל ההתנדבויות שלי'
-                color='#C2185B'
-            />
+            <TouchableOpacity onPress={activityView}>
+                <View style={styles.opacityBtn} >
+                    <Text style={{fontSize:14,fontWeight: 'bold',margin:6,color:'#C2185B'}}>ההתנדבויות שלי</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     )
 
-    const createActivityButton = (
-        <View style={styles.allActivityButton}>
-            <Button
-                onPress={createActivityView}
-                title='יצירת התנדבות'
-                color='#C2185B'
-            />
-        </View>
-    )
 
     return (
         <ScrollView horizontal={false}>
             <View style={styles.container}>
-                {!isCoordinator ?
-                    <View style={styles.eventBox}>
-                        <Text style={styles.textCenter}> היי {first} {last} כיף לראות אותך פה! </Text>
-                        <Text style={styles.textCenter}> כדי להירשם להתנדבות הבאה אפשר </Text>
-                        <View style={styles.registerButton}>
-                            <Text style={styles.textCenter}>  להתחיל פה  </Text>
-                            {registerButton}
-                        </View>
-                    </View>
-                :
-                    <View style={styles.eventBox}>
-                        <Text style={styles.textCenter}> היי {first} {last} המתנדבים של {hospital} </Text>
-                        <Text style={styles.textCenter}> מחכים להתנדבות הבאה שלהם </Text>
-                        {createActivityButton}
-                    </View>
-                }
-                <View style={styles.eventBox}>
-                    <Text style={styles.textCenter}>התנדבות הבאה שלי</Text>
-                    <Text style={styles.textCenter}>{myNextEvent ? (myNextEvent.caption + ' ב-' +myNextEvent.date) : 'לא קיימות התנדבויות'}</Text>
-                    {allActivityButton}
-                </View>
                 <View style={styles.eventBox}>
                     <Text style={styles.textCenter}>ההתנדבויות הבאות</Text>
                     <EventsListView
@@ -80,6 +35,13 @@ const HomeView = (props) => {
                     isNextEvents={true}
                     />
                 </View>
+                <View style={{paddingTop:10}}/>
+                <View style={[styles.eventBox,{backgroundColor:'#C2185B'}]}>
+                    <Text style={[styles.textCenter,{color:'#FFFFFF'}]}>התנדבות הבאה שלי</Text>
+                    <Text style={[styles.textCenter,{color:'#FFFFFF'}]}>{myNextEvent ? (myNextEvent.caption + ' ב-' +myNextEvent.date) : 'לא קיימות התנדבויות'}</Text>
+                    {allActivityButton}
+                </View>
+                <View style={{paddingTop:10}}/>
                 <Text style={[styles.textCenter,{marginBottom:5}]}>באנו לשמח, תראו בעצמכם</Text>
                 <View style={[styles.box,styles.swiper]}>
                     <Swiper 
@@ -110,7 +72,8 @@ const HomeView = (props) => {
 const styles = StyleSheet.create({
     container: {
         marginTop: 10,
-        flex: 1,
+        flex: 1, 
+        paddingTop:15,
     },
     picture: {
         flex: 1,
@@ -134,20 +97,20 @@ const styles = StyleSheet.create({
         borderColor: '#C2185B',
         justifyContent: 'flex-start',
     },
-    registerButton: {
-        flexDirection: 'row',
-        alignSelf: 'center',
-        marginBottom: 5,
-        marginTop: 5,
-        marginRight: 10,
-        marginLeft: 10,
-    },
     allActivityButton: {
         alignSelf: 'center',
         marginBottom: 5,
         marginTop: 5,
         marginRight: 10,
         marginLeft: 10,
+    },
+    opacityBtn:{
+        backgroundColor:'#FFFFFF',
+        flexDirection:'column',
+        alignSelf: 'center',
+        borderBottomWidth:3,
+        borderLeftWidth:2,
+        borderColor:'#9f144b',
     },
     swiper:{
         height:Dimensions.get('screen').height/3,
@@ -165,8 +128,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         marginHorizontal: '5%',
         width: '90%',
-        backgroundColor: '#ffffff',
-        borderColor: '#C2185B'
+        backgroundColor: '#f2f2f2',
+        borderColor: '#C2185B',
       },
 })
 

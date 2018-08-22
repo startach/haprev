@@ -17,6 +17,9 @@
         "backgroundColor": "#D81A4C"
       }
     },
+    "notification": {
+      "icon":"./src/images/haprevLogo.png"
+    },
     "primaryColor":"#D81A4C"
   }
 }

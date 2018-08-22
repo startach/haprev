@@ -14,6 +14,7 @@ import AboutUsView from '../../views/aboutUs/AboutUsView'
 import Profile from '../../views/profile/Profile'
 import Help from '../../views/help/Help'
 import Settings from '../../views/notification/Settings'
+import Messages from '../../views/messages/Messages'
 
 const HomeRoute = StackNavigator(
     {
@@ -24,6 +25,10 @@ const HomeRoute = StackNavigator(
         Settings:{
             screen: Settings,
             navigationOptions: headerDefinitions('הגדרות')
+        },
+        Messages:{
+            screen: Messages,
+            navigationOptions: headerDefinitions('הודעות')
         }
     },{navigationOptions: homeNavigationOptions}
 );

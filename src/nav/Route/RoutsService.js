@@ -1,4 +1,5 @@
 import React from 'react'
+import {View} from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import styles from './RoutsStyle'
 
@@ -22,8 +23,15 @@ export const appNavigationOptions = ({ navigation }) => ({
 });
 
 export const homeNavigationOptions = ({ navigation }) => ({
-    headerRight: <FontAwesome style={[styles.icon,{color:'#F5F5F1'}]} name={navigation.state.routeName==='Home'? 'cogs' : 'home'} size={30}
-                    onPress={ () => {navigation.state.routeName==='Home' ? navigation.navigate('Settings') : navigation.navigate('Home') }}/>,
+    headerRight: 
+        <View style={{flexDirection:'row'}}>
+            {navigation.state.routeName==='Home' && 
+            <FontAwesome style={[styles.icon,{color:'#F0E68C'}]} name={'envelope'} size={28}
+                onPress={ () => {navigation.navigate('Messages')}}/>
+            }
+            <FontAwesome style={[styles.icon,{color:'#F5F5F1'}]} name={navigation.state.routeName==='Home'? 'cogs' : 'home'} size={30}
+                onPress={ () => {navigation.state.routeName==='Home' ? navigation.navigate('Settings') : navigation.navigate('Home') }}/>
+        </View>,
     headerLeft: <FontAwesome style={styles.icon} name='navicon' size={24}
                     onPress={ () => { navigation.navigate('DrawerOpen')}} />,
 });

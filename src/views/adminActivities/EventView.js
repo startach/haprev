@@ -126,13 +126,13 @@ class EventView extends Component{
         this.setState({process:true})
         let res = 'ok'
         if(this.state.participants.length>0){
-            msgDetails = ' הודעה מ ' + this.state.coordinatorData.name
+            msgDetails = 'הודעה מ' + this.state.coordinatorData.name
                 +' לגבי הפעילות '+ params.event.caption 
                 + ' בתאריך ' + params.event.date 
                 + ' בבית חולים ' +params.hospital
             msg = msgDetails + ' - ' + coordinatorMsg
             for(var i in this.state.userIdArray){
-                let resMsg = await setMessage({id:params.event.id,message:msg},this.state.userIdArray[i],'הודעה מרכז')
+                let resMsg = await setMessage({eventId:params.event.id,message:msg},this.state.userIdArray[i],'הודעה מרכז')
                 if(resMsg=='err'){
                     alert('Error\nבעיה בשליחת הודעה למשתמש - ' + this.state.namesArray[i].name)
                     res = 'err'
