@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView, ActivityIndicator, TouchableOpacity  } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView, ActivityIndicator, TouchableOpacity  } from 'react-native'
 import Swiper from 'react-native-swiper'
 import EventsListView from '../eventsList/EventsListView'
+import {AnimatableView,AnimatableText} from '../AnimatableService'
 
 const HomeView = (props) => {
     const { 
@@ -9,8 +10,8 @@ const HomeView = (props) => {
         myNextEvent,
         images,
         processEventsList,
-        activityElements
-
+        activityElements,
+        notFirstTime
     } = props
 
     const allActivityButton = (
@@ -22,48 +23,73 @@ const HomeView = (props) => {
             </TouchableOpacity>
         </View>
     )
-
-
     return (
         <ScrollView horizontal={false}>
             <View style={styles.container}>
-                <View style={styles.eventBox}>
-                    <Text style={styles.textCenter}>ההתנדבויות הבאות</Text>
-                    <EventsListView
-                    processEventsList={processEventsList}
-                    activityElements={activityElements}
-                    isNextEvents={true}
-                    />
-                </View>
+                <AnimatableView 
+                viewStyle={styles.eventBox}
+                duration={notFirstTime?1:1200}
+                viewContent= { 
+                    <View>
+                        <AnimatableText 
+                        textStyle={styles.textCenter}
+                        textContent='ההתנדבויות הבאות'
+                        />
+                        <EventsListView
+                        processEventsList={processEventsList}
+                        activityElements={activityElements}
+                        isNextEvents={true}
+                        />
+                    </View>
+                }
+                />
                 <View style={{paddingTop:10}}/>
-                <View style={[styles.eventBox,{backgroundColor:'#C2185B'}]}>
-                    <Text style={[styles.textCenter,{color:'#FFFFFF'}]}>התנדבות הבאה שלי</Text>
+                <AnimatableView 
+                viewStyle={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#f2f2f2'}]}
+                duration={notFirstTime?1:1200}
+                viewContent= { 
+                    <View>
+                    <AnimatableText 
+                    textStyle={[styles.textCenter,{color:'#FFFFFF'}]}
+                    textContent='התנדבות הבאה שלי'
+                    />
                     <Text style={[styles.textCenter,{color:'#FFFFFF'}]}>{myNextEvent ? (myNextEvent.caption + ' ב-' +myNextEvent.date) : 'לא קיימות התנדבויות'}</Text>
                     {allActivityButton}
-                </View>
+                    </View>
+                }
+                />
                 <View style={{paddingTop:10}}/>
-                <Text style={[styles.textCenter,{marginBottom:5}]}>באנו לשמח, תראו בעצמכם</Text>
-                <View style={[styles.box,styles.swiper]}>
-                    <Swiper 
-                    loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
-                    activeDotColor={'#C2185B'}
-                    dotColor={'#ffffff'}
-                    autoplay
-                    autoplayTimeout={4}
-                    showsButtons
-                    nextButton={<Text style={styles.buttonText}>‹</Text>} 
-                    prevButton={<Text style={styles.buttonText}>›</Text>}
-                    >
-                    <Image style={styles.picture} source={{ uri: images[1] }}/>
-                    <Image style={styles.picture} source={{ uri: images[2] }}/>
-                    <Image style={styles.picture} source={{ uri: images[3] }}/>
-                    <Image style={styles.picture} source={{ uri: images[4] }}/>
-                    <Image style={styles.picture} source={{ uri: images[5] }}/>
-                    <Image style={styles.picture} source={{ uri: images[6] }}/>
-                    <Image style={styles.picture} source={{ uri: images[7] }}/>
-                    <Image style={styles.picture} source={{ uri: images[8] }}/>
-                    </Swiper>
+                <AnimatableView 
+                viewStyle={{}}
+                duration={notFirstTime?1:1200}
+                viewContent= { 
+                <View>
+                    <Text style={[styles.textCenter,{marginBottom:5}]}>באנו לשמח, תראו בעצמכם</Text>
+                    <View style={[styles.box,styles.swiper]}>
+                        <Swiper 
+                        loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
+                        activeDotColor={'#C2185B'}
+                        dotColor={'#ffffff'}
+                        autoplay
+                        autoplayTimeout={4}
+                        showsButtons
+                        nextButton={<Text style={styles.buttonText}>‹</Text>} 
+                        prevButton={<Text style={styles.buttonText}>›</Text>}
+                        >
+                        <Image style={styles.picture} source={{ uri: images[1] }}/>
+                        <Image style={styles.picture} source={{ uri: images[2] }}/>
+                        <Image style={styles.picture} source={{ uri: images[3] }}/>
+                        <Image style={styles.picture} source={{ uri: images[4] }}/>
+                        <Image style={styles.picture} source={{ uri: images[5] }}/>
+                        <Image style={styles.picture} source={{ uri: images[6] }}/>
+                        <Image style={styles.picture} source={{ uri: images[7] }}/>
+                        <Image style={styles.picture} source={{ uri: images[8] }}/>
+                        </Swiper>
+                    </View>
                 </View>
+                }
+                />
+
             </View>
         </ScrollView>
     )

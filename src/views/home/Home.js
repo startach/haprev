@@ -7,6 +7,7 @@ import {getImages} from './HomeService'
 import {getEventsList} from '../eventsList/EventsListService'
 import {sortArrayByDate} from '../adminActivities/AdminActivitiesService.js'
 import {updateUserSatet} from '../../store/modules/user'
+import {updateNavScreen} from '../../store/modules/nav'
 
 NUM_OF_NEXT_EVENTS = 5
 
@@ -15,10 +16,11 @@ class Home extends React.Component{
         super(props)
         this.state = {
             myNextEvent: null,
-            images:[],
+            images:this.props.images ? this.props.images : [] ,
             exit:0,
             processNextEvents:true,
             EventsListElements:null,
+            notFirstTime:this.props.navScreen
         };
         this.onBackClicked = this._onBackClicked.bind(this);
     }
@@ -29,7 +31,7 @@ class Home extends React.Component{
     }
 
     async componentWillMount() {
-        this.props && await this.props.updateUserSatet()
+        this.props && await this.props.updateUserSatet() 
         if (Platform.OS === 'android') 
             BackHandler.addEventListener('hardwareBackPress', this.onBackClicked);
         //load part find My Next Event 
@@ -58,7 +60,15 @@ class Home extends React.Component{
         images = await getImages()
         await this.setState({myNextEvent:myNextEvent,images:images})
     }
+
+    componentDidMount() {
+        if(this.props.navScreen==''){
+            this.props.updateNavScreen('Home')
+            this.setState({notFirstTime:true})
+        }
+    }
     
+
     eventsHandler = async(numOfEvents) => {
         EventsListElements = sortArrayByDate(activityElements)
         EventsListElements = EventsListElements.slice(0,numOfEvents)
@@ -110,6 +120,7 @@ class Home extends React.Component{
                     images={this.state.images}
                     processEventsList={this.state.processNextEvents}
                     activityElements={this.state.EventsListElements}
+                    notFirstTime={this.state.notFirstTime}
                 />
             </View>
         )
@@ -121,7 +132,8 @@ const mapStateToProps = state =>{
             appId:state.user.user.appId,
             institutes:state.institutes.institutes,
             myActivities: state.user.user.activities || null,
+            navScreen: state.nav.screen
         })
     }
 
-export default connect(mapStateToProps,{updateUserSatet})(Home)
+export default connect(mapStateToProps,{updateUserSatet,updateNavScreen})(Home)

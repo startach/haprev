@@ -24,9 +24,9 @@ export const appNavigationOptions = ({ navigation }) => ({
 
 export const homeNavigationOptions = ({ navigation }) => ({
     headerRight: 
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row',margin:-10}}>
             {navigation.state.routeName==='Home' && 
-            <FontAwesome style={[styles.icon,{color:'#F0E68C'}]} name={'envelope'} size={28}
+            <FontAwesome style={[styles.icon,{color:'#ffffcc'}]} name={'envelope'} size={28}
                 onPress={ () => {navigation.navigate('Messages')}}/>
             }
             <FontAwesome style={[styles.icon,{color:'#F5F5F1'}]} name={navigation.state.routeName==='Home'? 'cogs' : 'home'} size={30}

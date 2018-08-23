@@ -1,46 +1,25 @@
-const AUTHORIZE_REQ = "haprev/user/AUTHORIZE_REQ";
-const AUTHORIZE_RES = "haprev/user/AUTHORIZE_RES";
-const SETTINGS_REQ = "haprev/user/SETTINGS_REQ";
+const UPDATE_NAV = "haprev/user/UPDATE_NAV";
 
 const initalState = {
   header: {},
-  status: "",
-  settings: false,
+  status: '',
+  screen: '',
 };
 
 export default (state = initalState, action = {}) => {
   switch (action.type) {
-    case AUTHORIZE_REQ:
-      return { ...state, header: "request", user: {} };
-    case AUTHORIZE_RES:
-      return { ...state, header: "", user: action.payload };
-    case SETTINGS_REQ:
-      return {...state, settings: !state.settings }
+    case UPDATE_NAV:
+      return { ...state, screen: action.payload };
     default:
       return state;
   }
 };
 
-const authReq = appId => ({
-  type: AUTHORIZE_REQ,
-  payload: appId
-});
+const updateNav = (screen) => ({
+  type:UPDATE_NAV , 
+  payload:screen
+})  
 
-const settingsReq = () => ({
-  type: SETTINGS_REQ,
-  payload: appId
-});
-
-const authRes = data => {
-  let tmpRes = {};
-  if (data)
-    tmpRes = {
-      type: AUTHORIZE_RES,
-      payload: data
-    };
-  return tmpRes;
-};
-
-const openSettings = () => dispatch =>{
-  dispatch(settingsReq())
-};
+export const updateNavScreen = (screen) => dispatch =>{
+  dispatch(updateNav(screen))
+}

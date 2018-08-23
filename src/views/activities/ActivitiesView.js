@@ -3,6 +3,8 @@ import {View, Text, Image, FlatList, ScrollView, TouchableOpacity, ActivityIndic
 import styles from './ActivitiesStyle'
 import { FontAwesome } from '@expo/vector-icons'
 import {makeArrayFromObjects,getUserData} from '../adminActivities/AdminActivitiesService'
+import {AnimatableView} from '../AnimatableService'
+import * as Animatable from 'react-native-animatable'
 
 const ParticipantItem = ({avatarUrl,phone,_name}) => {
     return (
@@ -102,8 +104,11 @@ class ActivityItem extends React.Component{
     const {activity, index, deleteMyActivity} = this.props
     return (
     <View>
-        <TouchableOpacity underlayColor='#fff' onPress={async() => { await this.renderActivityData(activity.id,activity.hospitalId)}}>
-            <View style={[styles.activityBox,(index%2 === 0) ? {backgroundColor:'#F5F5F1'} : {backgroundColor:'#F0EDE0'}]}>
+        <TouchableOpacity underlayColor='#fff' onPress={async() => {this.activityNode.tada(1000); await this.renderActivityData(activity.id,activity.hospitalId)}}>
+            <Animatable.View 
+            style={[styles.activityBox,(index%2 === 0) ? {backgroundColor:'#F5F5F1'} : {backgroundColor:'#F0EDE0'}]}
+            ref={(ref)=>{this.activityNode = ref}}
+            >
                 <Text style={[styles.textBox,activity.fullFormatDate < new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,{width: '30%'}]}>{ this.renderDate(activity.fullFormatDate)}</Text>
                 <Text style={styles.textBox}>|</Text>
                 <Text style={[styles.textBox,{width: '35%'}]}>{this.renderText(activity.caption)}</Text>
@@ -114,7 +119,7 @@ class ActivityItem extends React.Component{
                 :
                 <FontAwesome name="arrow-circle-up" size={22} color={'#B4B7BA'}/>
                 }
-            </View>
+            </Animatable.View>
         </TouchableOpacity>
         {this.state.showFullActivity ?
         <View style={[styles.activityBox,styles.boxDetails]}>
@@ -140,9 +145,17 @@ class ActivityItem extends React.Component{
             }
             <View style={styles.rowLine}>
                 <Text style={[styles.textBox,styles.textDetails]}>מספר משתתפים:  {this.renderText(Object.keys(this.state.activityData.participants).length)} </Text>
-                <TouchableOpacity onPress={async() => {await this.showParticipantsHandle()}}>
-                    <FontAwesome name="group" size={30} color={'white'} style={{margin:10}}/>
-                </TouchableOpacity>
+                <AnimatableView 
+                viewStyle={{}}
+                duration={2500}
+                animation='wobble'
+                easing='ease'
+                viewContent= { 
+                    <TouchableOpacity onPress={async() => {await this.showParticipantsHandle()}}>
+                        <FontAwesome name="group" size={30} color={'white'} style={{margin:10}}/>
+                    </TouchableOpacity>
+                }
+                />
             </View>
             <View style={{flexDirection:'row'}}>
                 <Text style={[styles.textBox,styles.textDetails]}>רכז:  {this.renderText(this.state.coordinatorData.name)} </Text>
