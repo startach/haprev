@@ -69,8 +69,10 @@ const styles = StyleSheet.create({
         fontWeight:'500'
     },
     button:{
-        borderWidth:2,
-        borderColor:'#e0729f',
+        borderBottomWidth:4,
+        borderLeftWidth:3,
+        borderBottomColor:'#881141',
+        borderLeftColor:'#9f144b',
         marginRight:5,
         marginLeft:5,
     },

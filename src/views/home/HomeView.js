@@ -28,7 +28,7 @@ const HomeView = (props) => {
             <View style={styles.container}>
                 <AnimatableView 
                 viewStyle={styles.eventBox}
-                duration={notFirstTime?1:1200}
+                duration={notFirstTime?1:1500}
                 viewContent= { 
                     <View>
                         <AnimatableText 
@@ -46,7 +46,7 @@ const HomeView = (props) => {
                 <View style={{paddingTop:10}}/>
                 <AnimatableView 
                 viewStyle={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#f2f2f2'}]}
-                duration={notFirstTime?1:1200}
+                duration={notFirstTime?1:1250}
                 viewContent= { 
                     <View>
                     <AnimatableText 
@@ -61,10 +61,13 @@ const HomeView = (props) => {
                 <View style={{paddingTop:10}}/>
                 <AnimatableView 
                 viewStyle={{}}
-                duration={notFirstTime?1:1200}
+                duration={notFirstTime?1:1000}
                 viewContent= { 
                 <View>
-                    <Text style={[styles.textCenter,{marginBottom:5}]}>באנו לשמח, תראו בעצמכם</Text>
+                    <AnimatableText 
+                    textStyle={[styles.textCenter,{marginBottom:5}]}
+                    textContent='אנו לשמח, תראו בעצמכם'
+                    />
                     <View style={[styles.box,styles.swiper]}>
                         <Swiper 
                         loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
