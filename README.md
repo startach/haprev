@@ -3,6 +3,6 @@
 
 *פותח ב**סטארטאח** למען עמותת מהפכה של שמחה*
 
-![HapRev](https://media.giphy.com/media/5kFbyhl4uuKuMfOeSz/giphy.gif)
+![HapRev](/src/images/giphy1.gif)
 ![HapRev](https://media.giphy.com/media/2vjWtHKyYC6ilPM7zy/giphy.gif)
 ![HapRev](https://media.giphy.com/media/1eEB7lNMmX8JN1VMzL/giphy.gif)
