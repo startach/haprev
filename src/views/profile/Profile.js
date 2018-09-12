@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {View,Text,StyleSheet} from 'react-native'
 import RegisterView from '../register/RegisterView'
 import { connect } from 'react-redux'
 import { update } from '../../store/modules/user';
@@ -11,8 +10,9 @@ class Profile extends Component{
             <RegisterView 
             user={this.props.user} 
             title="פרטי משתמש" 
-            actionTitle="עדכן"       
-            onAction = {(user) => {this.props.update(user)}} 
+            actionTitle="עדכן"
+            registerScreen={false}
+            onAction = {async(user) => {return await this.props.update(user)}}
             onUploadImage = {uploadImageHandler}            
         />
         )};

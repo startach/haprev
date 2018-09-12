@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import _ from 'lodash';
 import Region from './Region';
 import Institute from './Institute'
+import * as Animatable from 'react-native-animatable'
 
 const styles = StyleSheet.create({
   container: {
@@ -32,12 +33,14 @@ class InstitutesListView extends Component {
         />
       ));
       return (
-        <Region
-          name={region}
-          key={region}
-        >
-          {hospitalsElemnts}
-        </Region>
+        <Animatable.View key={region} animation="flipInY" duration={1000} iterationCount={1}>
+          <Region
+            name={region}
+            key={region}
+          >
+            {hospitalsElemnts}
+          </Region>
+        </Animatable.View>
       );
     });
 

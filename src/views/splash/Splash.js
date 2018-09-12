@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SplashView from './SplashView'
 import {authorize,splash} from '../../store/modules/user'
-import Institutes, { getInstitutes } from '../../store/modules/Institutes'
+import { getInstitutes } from '../../store/modules/Institutes'
 import AppNav from '../../nav/AppNav'
-import Register from '../../views/register/Register'
+import RegisterNav from '../../nav/RegisterNav'
 
 class Splash extends Component{
 
     async componentDidMount(){
         this.props.splash(true)
-        await this.props.getInstitutes()        
+        await this.props.getInstitutes()
         this.props.authorize(Expo.Constants.deviceId)
         setTimeout( () => this.props.splash(false), 2000)
     }
@@ -24,13 +24,12 @@ class Splash extends Component{
                 )
             if (userStatus=='no_user')
                 return (
-                    <Register />
+                    <RegisterNav/>
                 )
         }
         return (
-            <SplashView  />
+            <SplashView/>         
         )
-
     }
 }
 

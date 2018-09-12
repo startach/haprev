@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, Text, FlatList, TouchableOpacity, Image, ScrollView, ActivityIndicator} from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
-import {adminActivityStyle, modalActivityStyle, adminActivityListStyle } from './styles';
+import {adminActivityListStyle} from './styles';
 
 const renderParticipantsText = (participants)=> {
     if (!participants || participants.length === 0 )

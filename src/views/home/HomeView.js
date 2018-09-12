@@ -1,89 +1,98 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView,ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView, ActivityIndicator, TouchableOpacity  } from 'react-native'
 import Swiper from 'react-native-swiper'
+import EventsListView from '../eventsList/EventsListView'
+import {AnimatableView,AnimatableText} from '../AnimatableService'
 
 const HomeView = (props) => {
-    const { first, last, coordinator, hospital, createActivityView, registerActivityView, activityView} = props
-
-    const isCoordinator = (coordinator > 0)
-    const registerButton = (
-        <Button
-            onPress={registerActivityView}
-            title='הרשמה'
-            color='#C2185B'
-        />
-    )
+    const { 
+        activityView,
+        myNextEvent,
+        images,
+        processEventsList,
+        activityElements,
+        notFirstTime
+    } = props
 
     const allActivityButton = (
         <View style={styles.allActivityButton}>
-            <Button
-                onPress={activityView}
-                title='לכל ההתנדבויות'
-                color='#C2185B'
-            />
+            <TouchableOpacity onPress={activityView}>
+                <View style={styles.opacityBtn} >
+                    <Text style={{fontSize:14,fontWeight: 'bold',margin:6,color:'#C2185B'}}>ההתנדבויות שלי</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     )
-
-    const createActivityButton = (
-        <View style={styles.allActivityButton}>
-            <Button
-                onPress={createActivityView}
-                title='יצירת התנדבות'
-                color='#C2185B'
-            />
-        </View>
-    )
-
     return (
         <ScrollView horizontal={false}>
             <View style={styles.container}>
-                {!isCoordinator ?
-                    <View style={styles.eventBox}>
-                        <Text style={styles.textCenter}> היי {first} {last} כיף לראות אותך פה ! </Text>
-                        <Text style={styles.textCenter}> כדי להירשם להתנדבות הבאה אפשר </Text>
-                        <View style={styles.registerButton}>
-                            <Text style={styles.textCenter}>  להתחיל פה  </Text>
-                            {registerButton}
-                        </View>
-                    </View>
-                :
-                    <View style={styles.eventBox}>
-                        <Text style={styles.textCenter}> היי {first} {last} המתנדבים של {hospital} </Text>
-                        <Text style={styles.textCenter}> מחכים להתנדבות הבאה שלהם </Text>
-                        {createActivityButton}
+                <AnimatableView 
+                viewStyle={styles.eventBox}
+                duration={notFirstTime?1:1500}
+                viewContent= { 
+                    <View>
+                        <AnimatableText 
+                        textStyle={styles.textCenter}
+                        textContent='ההתנדבויות הבאות'
+                        />
+                        <EventsListView
+                        processEventsList={processEventsList}
+                        activityElements={activityElements}
+                        isNextEvents={true}
+                        />
                     </View>
                 }
-                <View style={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#ffffff'}]}>
-                    <Text style={[styles.textCenter,{color:'#ffffff'}]}>התנדבות הבאה תתקיים בתאריך</Text>
-                    <Text style={[styles.textCenter,{color:'#ffffff'}]}>...</Text>
-                </View>
-                <View style={styles.eventBox}>
-                    <Text style={styles.textCenter}>התנדבות שלי</Text>
-                    <Text style={styles.textCenter}>...</Text>
+                />
+                <View style={{paddingTop:10}}/>
+                <AnimatableView 
+                viewStyle={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#f2f2f2'}]}
+                duration={notFirstTime?1:1250}
+                viewContent= { 
+                    <View>
+                    <AnimatableText 
+                    textStyle={[styles.textCenter,{color:'#FFFFFF'}]}
+                    textContent='התנדבות הבאה שלי'
+                    />
+                    <Text style={[styles.textCenter,{color:'#FFFFFF'}]}>{myNextEvent ? (myNextEvent.caption + ' ב-' +myNextEvent.date) : 'לא קיימות התנדבויות'}</Text>
                     {allActivityButton}
+                    </View>
+                }
+                />
+                <View style={{paddingTop:10}}/>
+                <AnimatableView 
+                viewStyle={{}}
+                duration={notFirstTime?1:1000}
+                viewContent= { 
+                <View>
+                    <AnimatableText 
+                    textStyle={[styles.textCenter,{marginBottom:5}]}
+                    textContent='אנו לשמח, תראו בעצמכם'
+                    />
+                    <View style={[styles.box,styles.swiper]}>
+                        <Swiper 
+                        loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
+                        activeDotColor={'#C2185B'}
+                        dotColor={'#ffffff'}
+                        autoplay
+                        autoplayTimeout={4}
+                        showsButtons
+                        nextButton={<Text style={styles.buttonText}>‹</Text>} 
+                        prevButton={<Text style={styles.buttonText}>›</Text>}
+                        >
+                        <Image style={styles.picture} source={{ uri: images[1] }}/>
+                        <Image style={styles.picture} source={{ uri: images[2] }}/>
+                        <Image style={styles.picture} source={{ uri: images[3] }}/>
+                        <Image style={styles.picture} source={{ uri: images[4] }}/>
+                        <Image style={styles.picture} source={{ uri: images[5] }}/>
+                        <Image style={styles.picture} source={{ uri: images[6] }}/>
+                        <Image style={styles.picture} source={{ uri: images[7] }}/>
+                        <Image style={styles.picture} source={{ uri: images[8] }}/>
+                        </Swiper>
+                    </View>
                 </View>
-                <Text style={[styles.textCenter,{marginBottom:5}]}>באנו לשמח, תראו בעצמכם</Text>
-                <View style={[styles.box,styles.swiper]}>
-                    <Swiper 
-                    loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
-                    activeDotColor={'#C2185B'}
-                    dotColor={'#ffffff'}
-                    autoplay                    
-                    autoplayTimeout={4}
-                    showsButtons
-                    nextButton={<Text style={styles.buttonText}>‹</Text>} 
-                    prevButton={<Text style={styles.buttonText}>›</Text>}
-                    >
-                        <Image style={styles.picture} source={require('../../images/vol1.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol2.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol3.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol4.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol5.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol6.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol7.jpg')} />
-                        <Image style={styles.picture} source={require('../../images/vol8.jpg')} />
-                    </Swiper>
-                </View>
+                }
+                />
+
             </View>
         </ScrollView>
     )
@@ -91,8 +100,9 @@ const HomeView = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 8,
-        flex: 1,
+        marginTop: 10,
+        flex: 1, 
+        paddingTop:15,
     },
     picture: {
         flex: 1,
@@ -101,9 +111,10 @@ const styles = StyleSheet.create({
     },
     textCenter: {
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 17,
         padding: 1,
         fontWeight: 'bold',
+        alignSelf: 'center',
         color:'#C2185B'
     },
     box: {
@@ -115,20 +126,20 @@ const styles = StyleSheet.create({
         borderColor: '#C2185B',
         justifyContent: 'flex-start',
     },
-    registerButton: {
-        flexDirection: 'row',
-        alignSelf: 'center',
-        marginBottom: 5,
-        marginTop: 5,
-        marginRight: 10,
-        marginLeft: 10,
-    },
     allActivityButton: {
         alignSelf: 'center',
         marginBottom: 5,
         marginTop: 5,
         marginRight: 10,
         marginLeft: 10,
+    },
+    opacityBtn:{
+        backgroundColor:'#FFFFFF',
+        flexDirection:'column',
+        alignSelf: 'center',
+        borderBottomWidth:3,
+        borderLeftWidth:2,
+        borderColor:'#9f144b',
     },
     swiper:{
         height:Dimensions.get('screen').height/3,
@@ -141,13 +152,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         borderWidth: 2,
-        margin: 4,
+        margin: 5,
         borderRadius: 10,
         justifyContent: 'flex-start',
         marginHorizontal: '5%',
         width: '90%',
-        backgroundColor: '#ffffff',
-        borderColor: '#C2185B'
+        backgroundColor: '#f2f2f2',
+        borderColor: '#C2185B',
       },
 })
 

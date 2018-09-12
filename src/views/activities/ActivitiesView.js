@@ -1,8 +1,30 @@
 import React from 'react'
-import {View, Text, FlatList, ScrollView, TouchableOpacity, ActivityIndicator, Linking} from 'react-native'
-import { connect } from 'react-redux'
+import {View, Text, Image, FlatList, ScrollView, TouchableOpacity, ActivityIndicator, Linking, Modal} from 'react-native'
 import styles from './ActivitiesStyle'
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons'
+import {makeArrayFromObjects,getUserData} from '../adminActivities/AdminActivitiesService'
+import {AnimatableView} from '../AnimatableService'
+import * as Animatable from 'react-native-animatable'
+
+const ParticipantItem = ({avatarUrl,phone,_name}) => {
+    return (
+        <View style={styles.participantItem}>
+            {avatarUrl ?
+            <Image style={styles.userImageList} source={{uri: avatarUrl}}/>
+            :
+            <FontAwesome style={styles.withoutImgList} name='user-circle' size={30}/>
+            }
+            <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between'}}>
+                <Text style={styles.participantText}>{_name.length > 14 ? _name.slice(0, 11)+'...' : _name}</Text>
+                { phone ?
+                <FontAwesome style={styles.phoneIcon} name='phone-square' size={30}
+                    onPress={()=>{Linking.openURL('tel:'+phone)}}/>
+                :
+                <FontAwesome style={[styles.phoneIcon,{color:'#ffffff'}]} name='phone-square' size={30}/>
+                }
+            </View>
+        </View>)
+}
 
 class ActivityItem extends React.Component{
     constructor(props) {
@@ -11,7 +33,11 @@ class ActivityItem extends React.Component{
             showFullActivity:false,
             activityData:'',
             coordinatorData:'',
-            deleteVisible: false
+            deleteVisible: false,
+            modalParticipantsVisible:false,
+            participants:[],
+            avatarsArray:null,
+            phonesArray:null,
         }
     }
 
@@ -52,12 +78,37 @@ class ActivityItem extends React.Component{
         }
     }
     
+    showParticipantsHandle = async() => {
+        const participants = await makeArrayFromObjects(this.state.activityData.participants)
+        if(participants.length>0){
+            this.setState({modalParticipantsVisible:true})
+            avatarsArray=[]
+            phonesArray=[]
+            namesArray=[]
+            for(var i in participants){
+                userInfo = await getUserData(participants[i].appId)
+                avatarsArray.push(userInfo.avatarUrl)
+                phonesArray.push(userInfo.phone)
+                namesArray.push(userInfo.name)
+            }
+            await this.setState({
+                participants:participants,
+                avatarsArray:avatarsArray,
+                phonesArray:phonesArray,
+                namesArray:namesArray,
+            })
+        }
+    }
+
     render() {
-    const {activity, index, getUserData, deleteMyActivity} = this.props
+    const {activity, index, deleteMyActivity} = this.props
     return (
     <View>
-        <TouchableOpacity underlayColor='#fff' onPress={async() => { await this.renderActivityData(activity.id,activity.hospitalId)}}>
-            <View style={[styles.activityBox,(index%2 === 0) ? {backgroundColor:'#F5F5F1'} : {backgroundColor:'#F0EDE0'}]}>
+        <TouchableOpacity underlayColor='#fff' onPress={async() => {this.activityNode.tada(1000); await this.renderActivityData(activity.id,activity.hospitalId)}}>
+            <Animatable.View 
+            style={[styles.activityBox,(index%2 === 0) ? {backgroundColor:'#F5F5F1'} : {backgroundColor:'#F0EDE0'}]}
+            ref={(ref)=>{this.activityNode = ref}}
+            >
                 <Text style={[styles.textBox,activity.fullFormatDate < new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,{width: '30%'}]}>{ this.renderDate(activity.fullFormatDate)}</Text>
                 <Text style={styles.textBox}>|</Text>
                 <Text style={[styles.textBox,{width: '35%'}]}>{this.renderText(activity.caption)}</Text>
@@ -66,9 +117,9 @@ class ActivityItem extends React.Component{
                 {!this.state.showFullActivity ?
                 <FontAwesome name="arrow-circle-down" size={22} color={'black'}/>
                 :
-                <FontAwesome name="arrow-circle-up" size={22} color={'grey'}/>
+                <FontAwesome name="arrow-circle-up" size={22} color={'#B4B7BA'}/>
                 }
-            </View>
+            </Animatable.View>
         </TouchableOpacity>
         {this.state.showFullActivity ?
         <View style={[styles.activityBox,styles.boxDetails]}>
@@ -82,7 +133,7 @@ class ActivityItem extends React.Component{
             {this.state.deleteVisible ?
                 <View style={[styles.rowLine,styles.deleteLine]}>
                     <Text style={[styles.textBox,styles.textDetails]}>לבטל השתתפותך בפעילות? </Text>
-                    <TouchableOpacity onPress={async () => {await deleteMyActivity(activity)}}>
+                    <TouchableOpacity onPress={async () => {await deleteMyActivity(activity,this.state.coordinatorData.userId)}}>
                         <FontAwesome name="check" size={30} color={'#009B77'} style={{margin:10}}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.setState({deleteVisible:false})}>
@@ -93,18 +144,62 @@ class ActivityItem extends React.Component{
             null
             }
             <View style={styles.rowLine}>
+                <Text style={[styles.textBox,styles.textDetails]}>מספר משתתפים:  {this.renderText(Object.keys(this.state.activityData.participants).length)} </Text>
+                <AnimatableView 
+                viewStyle={{}}
+                duration={2500}
+                animation='wobble'
+                easing='ease'
+                viewContent= { 
+                    <TouchableOpacity onPress={async() => {await this.showParticipantsHandle()}}>
+                        <FontAwesome name="group" size={30} color={'white'} style={{margin:10}}/>
+                    </TouchableOpacity>
+                }
+                />
+            </View>
+            <View style={{flexDirection:'row'}}>
                 <Text style={[styles.textBox,styles.textDetails]}>רכז:  {this.renderText(this.state.coordinatorData.name)} </Text>
                 <TouchableOpacity onPress={() => this.callToCoordinator()}>                
                     <FontAwesome name="phone" size={30} color={'white'} style={{paddingBottom:5,paddingTop:10}}/>
                 </TouchableOpacity>
             </View>
-            <View style={{flexDirection:'row'}}>
-                <Text style={[styles.textBox,styles.textDetails]}>מספר משתתפים:  {this.renderText(Object.keys(this.state.activityData.participants).length)} </Text>
-            </View>
         </View>
         :
         null
         }
+
+        <Modal
+            visible={this.state.modalParticipantsVisible}
+            animationType={'slide'}
+            transparent
+            onRequestClose={() => this.setState({modalParticipantsVisible:true})}
+            >
+            <View style={styles.modalContainer}>
+                { this.state.avatarsArray && this.state.participants ?
+                <ScrollView horizontal={false}>
+                        <FlatList data={this.state.participants}
+                        renderItem={({item,index}) => <ParticipantItem 
+                        participant={item} 
+                        avatarUrl={this.state.avatarsArray[index]} 
+                        phone={this.state.phonesArray[index]}
+                        _name={this.state.namesArray[index]}
+                        />}
+                        keyExtractor={(item) => item.appId}
+                        refreshing={true}
+                        />
+                </ScrollView>
+                :
+                <ActivityIndicator size='large' color='#C2185B'/>
+                }
+                <TouchableOpacity
+                rounded
+                style={[styles.button,{marginTop:15,marginBottom:15,width:"40%"}]}
+                onPress={() => {  this.setState({modalParticipantsVisible:false})}}
+                >
+                    <Text style={styles.buttonText}>סגור</Text>
+                </TouchableOpacity>
+            </View>
+        </Modal>
     </View>
     )
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import HelpView from './HelpView'
 import { connect } from 'react-redux'
 import { helpReqHandler } from './HelpService'
+
 class Help extends Component{
     render(){
         return(

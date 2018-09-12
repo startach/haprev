@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { CalendarList } from 'react-native-calendars';
 import _ from 'lodash'
 import EventOptions from './EventOptions'
 
@@ -54,7 +54,7 @@ class SelectDateView extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'grey',
+    backgroundColor: '#B4B7BA',
   },
   text: {
     textAlign: 'center',

@@ -1,10 +1,10 @@
-import React from 'react'
 import {StackNavigator } from 'react-navigation'
 import {headerDefinitions, homeNavigationOptions, appNavigationOptions} from './RoutsService'
 import Home from '../../views/home/Home'
 import InstitutesList from '../../views/institutes/InstitutesList'
 import SelectDate from '../../views/institutes/SelectDate'
 import EventOptions from '../../views/institutes/EventOptions'
+import EventsList from '../../views/eventsList/EventsList'
 import Activities from '../../views/activities/Activities'
 import AdminActivities from '../../views/adminActivities/AdminActivitiyList'
 import EventView from '../../views/adminActivities/EventView'
@@ -13,6 +13,8 @@ import ContactsView from '../../views/contacts/ContactsView'
 import AboutUsView from '../../views/aboutUs/AboutUsView'
 import Profile from '../../views/profile/Profile'
 import Help from '../../views/help/Help'
+import Settings from '../../views/notification/Settings'
+import Messages from '../../views/messages/Messages'
 
 const HomeRoute = StackNavigator(
     {
@@ -20,6 +22,14 @@ const HomeRoute = StackNavigator(
         screen: Home,
         navigationOptions: headerDefinitions('מסך הבית')
         },
+        Settings:{
+            screen: Settings,
+            navigationOptions: headerDefinitions('הגדרות')
+        },
+        Messages:{
+            screen: Messages,
+            navigationOptions: headerDefinitions('הודעות')
+        }
     },{navigationOptions: homeNavigationOptions}
 );
 
@@ -42,6 +52,15 @@ const InstitutesRoute = StackNavigator(
                 navigationOptions: headerDefinitions('בחירת התנדבות')
             }
         },{navigationOptions: appNavigationOptions}
+);
+
+const EventsListRoute = StackNavigator(
+    {
+        Institutes:{
+            screen: EventsList,
+            navigationOptions: headerDefinitions('היסטוריה')
+        },
+    },{navigationOptions: appNavigationOptions}
 );
 
 const ActivitiesRoute = StackNavigator(
@@ -109,6 +128,7 @@ const HelpRoute = StackNavigator(
 export default{
     HomeRoute,
     InstitutesRoute,
+    EventsListRoute,
     ActivitiesRoute,
     ActivitiesAdminRoute,
     ContactsRoute,

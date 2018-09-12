@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import {getUserTokenNotification,sendPushNotification} from '../notification/NotificationService';
 
 export const getHospitalName = async (instituteId) => {
   let hospitalName = ''
@@ -11,7 +12,7 @@ export const getUserData = async(appId) => {
   let avatarUrl = null
   let phone = null
   let userId = null
-  let name = null
+  let name = ' '
   await firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' , 
     snapshot => {
       let dbUser = snapshot.val()
@@ -21,7 +22,7 @@ export const getUserData = async(appId) => {
         phone = dbUser[key].phone || null
         userId = dbUser[key].userId || null        
         name = (dbUser[key].first +' '+ dbUser[key].last) || null 
-      } 
+      }
     }
   )
   return {avatarUrl:avatarUrl,phone:phone,userId:userId,name:name}
@@ -37,13 +38,18 @@ export const makeArrayFromObjects = (objects) => {
 
 export const sortArrayByDate = (objectsArray)=>{
   return objectsArray.sort((a,b)=>{
+    return new Date(a.fullFormatDate).getTime() - new Date(b.fullFormatDate).getTime()
+  });
+}
+
+export const sortArrayByDate_Descending = (objectsArray)=>{
+  return objectsArray.sort((a,b)=>{
     return new Date(b.fullFormatDate).getTime() - new Date(a.fullFormatDate).getTime()
   });
 }
 
 export const makeArrayParticipants = (events) =>{
   let participantsArray= []
-  let index = 0
   for (var key in events) {
       if(events[key].participants){
           temp = []
@@ -56,16 +62,20 @@ export const makeArrayParticipants = (events) =>{
           temp = []
           participantsArray.push(temp)
       }
-      index++;
   }
   return participantsArray
 }
 
-export const setMessage = async(msg,userId) => {
-  // format msg -> {id: 'ek67', message: 'ההתנדבות ב 9.1 בבית חולים בלינסון בוטלה'}
-  res = await firebase.database().ref('users/'+userId+'/messages')
-    .push().set(msg)
-    .then(() => {return 'ok'})
+export const setMessage = async(msg,userId,title) => {
+  ref = await firebase.database().ref('users/'+userId+'/messages').push()
+    let key = ref.key
+    Object.assign(msg, {id:key})
+    res = await ref.set(msg)
+    .then(async() => {
+      let userToken = await getUserTokenNotification(userId)
+      userToken && sendPushNotification(userToken,title,msg.message)
+      return 'ok'
+    })
     .catch(error => {
       console.log('Data could not be saved.' + error);
       return 'err'

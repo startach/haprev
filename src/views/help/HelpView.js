@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity,TextInput,Keyboard,ScrollView,Modal,TouchableWithoutFeedback,KeyboardAvoidingView } from 'react-native';
+import {View, Text, TouchableOpacity,TextInput,Keyboard,Modal,TouchableWithoutFeedback,KeyboardAvoidingView } from 'react-native';
 import styles from './HelpViewStyle';
 
 const SUCCESS_SEND = {title: 'ההודעה נשלחה בהצלחה!', subtitle: 'צוות מהפכה של שמחה יענה בהקדם'};
@@ -74,7 +74,7 @@ class HelpView extends Component {
             <TouchableOpacity
               rounded
               style={[styles.button,{marginTop:0}]}
-              onPress={() => { this.state.success ? navigation.navigate('Home') : this.setState({modalVisible:false,isButtonDisabled: false})}}
+              onPress={() => { this.state.success ? navigation.navigate('HomeRoute') : this.setState({modalVisible:false,isButtonDisabled: false})}}
             >
             <Text style={styles.buttonText}>אישור</Text>
             </TouchableOpacity>

@@ -1,31 +1,17 @@
 import React, { Component } from 'react'
-import {View,Text,Image,TextInput,StyleSheet} from 'react-native';
+import {View,TextInput,StyleSheet} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-
-function obj2string (o) {
-  var seen=[];
-  var jso=JSON.stringify(o, function(key,val){
-    if (val != null && typeof val == "object") {
-      if (seen.indexOf(val) >= 0) {
-          return "_cyclic_";
-      }
-      seen.push(val);
-    }
-    return val;
-  });
-  return jso;
-}
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 18, marginHorizontal: 36,
+        marginTop: 14, marginHorizontal: 36,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
         borderBottomColor: 'white', borderBottomWidth: 1,
     },
     focus: {
-      backgroundColor: 'gray'
+      backgroundColor: '#B4B7BA'
     },
     input: {
         height: 40,
@@ -60,7 +46,7 @@ export default class RegisterInputField extends Component {
   
   render() {
     return (
-    <View style={[styles.container, this.state.focusDiff]}>
+    <View style={[styles.container, this.state.focusDiff,this.props.editable ? null :{opacity:0.5}]}>
       <FontAwesome name={this.props.iconName} style={styles.icon} size={32}/>
       <TextInput
         onBlur={() => this.setState({focusDiff: {}})}
@@ -69,6 +55,7 @@ export default class RegisterInputField extends Component {
         returnKeyType={this.props.returnKeyType || "next"}
         enablesReturnKeyAutomatically={true}
         value={this.state.text}
+        editable={this.props.editable}
         underlineColorAndroid='transparent'
         placeholder={this.props.placeholder}
         placeholderTextColor="white"
@@ -76,7 +63,7 @@ export default class RegisterInputField extends Component {
         keyboardType={this.props.keyboardType || 'default'}
         ref={input => {this.textInput = input;}}
         onChangeText={(text) => {this.setState({text});
-          this.props.onChangeText(text);
+        this.props.onChangeText(text);
         }}
         onSubmitEditing={(event) => {this.props.onSubmitEditing(event)}}
       />
