@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {View, Text, TextInput, KeyboardAvoidingView, Keyboard, TouchableOpacity, Modal, TouchableWithoutFeedback} from "react-native";
+import {View, Text, TextInput, KeyboardAvoidingView, Keyboard, TouchableOpacity, Modal, TouchableWithoutFeedback, Switch, ActivityIndicator} from "react-native";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import {CreateActivityStyle as styles } from './styles';
+import {sendNotificationToAllUsers} from '../notification/NotificationService';
 
 class CreateActivityView extends Component {
     constructor(props) {
@@ -18,6 +19,8 @@ class CreateActivityView extends Component {
             isButtonDisabled: true,
             modalVisible:false,
             success:false,
+            notificationToAll:true,
+            loading:false,
         };
     }
     _showDateTimePicker = () => { 
@@ -47,6 +50,19 @@ class CreateActivityView extends Component {
             res = await this.props.onNewActivityHandler(this.state.fullDate,this.state.fullTime,this.state.activityName,this.state.fullFormatDate)
             if(res === 'ok')
                 this.setState({success : true});
+            //send notification to all users
+            if(this.state.notificationToAll){
+                const { hospital, first, last } = this.props;
+                let activity = {
+                    hospital: hospital,
+                    coordinatorName: first +' '+ last,
+                    nameActivity: this.state.activityName,
+                    time: this.state.fullDate,
+                }
+                this.setState({loading:true})
+                await sendNotificationToAllUsers(activity)
+                this.setState({loading:false})
+            }
             this.setState({modalVisible : true});
         }
         else{
@@ -100,12 +116,28 @@ class CreateActivityView extends Component {
                     : this.alertDate
                 }
                 </Text>
+                <View style={{flexDirection:'row',justifyContent: "center"}}>
+                    <Text style={{fontSize: 14,color:'#B93A32'}}>לשלוח התראות על האירוע לכל המשתמשים?</Text>
+                    <Switch 
+                    onTintColor={'#00A591'}
+                    thumbTintColor={ this.state.notificationToAll ? '#79C753' : '#898E8C'}
+                    tintColor={'#B93A32'}
+                    style= {styles.switch}
+                    onValueChange={() => this.setState({notificationToAll:!this.state.notificationToAll})}
+                    value={this.state.notificationToAll}
+                    />
+                </View>
                 <TouchableOpacity 
                     rounded
-                    disabled = {this.state.isButtonDisabled}
+                    disabled = {this.state.isButtonDisabled || this.state.loading}
                     onPress={this.createNewActivity}
                     style={[styles.button, this.state.isButtonDisabled ? { backgroundColor:'#c6c6c6'} : { }]}>
+                    {
+                    !this.state.loading ? 
                     <Text style={styles.buttonText}>אישור</Text>
+                    :
+                    <ActivityIndicator size='large' color='#FFFFFF' /> 
+                    }
                 </TouchableOpacity>
             </View>
             </TouchableWithoutFeedback>
