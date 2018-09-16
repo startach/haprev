@@ -3,7 +3,7 @@
     "name": "מהפכה של שמחה",
     "description": "אפליקציה לעידוד התנדבויות בבתי חולים",
     "slug": "StartachHapRev",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icon": "./src/images/haprevLogo.png",
     "sdkVersion": "25.0.0",
     "privacy": "public",

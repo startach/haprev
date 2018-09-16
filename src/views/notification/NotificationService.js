@@ -58,3 +58,17 @@ export const getUserTokenNotification = async(userId) =>{
     .catch(error => {console.log('Error ' + error);})
   return userToken
 }
+
+export const sendNotificationToAllUsers = async(activity) =>{
+  let titleMsg = 'פעילות חדשה ב' +hospital + ' ב' +time; 
+  let contentMsg = 'הפעילות ' + nameActivity + ' עם הרכז ' + coordinatorName + ' מוזמנים להרשם!'; 
+  firebase.database().ref('users').once('value' , 
+  snapshot => {
+    var users = snapshot.val()
+    var usersList = Object.keys(users).map((u,k) => {return users[u].settings && users[u].settings.token!=='' && users[u].settings.token})
+    .filter(x=> x&&x)
+    usersList.forEach(userToken=>{
+      sendPushNotification(userToken,titleMsg,contentMsg)
+    })
+  })
+}
