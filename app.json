@@ -11,6 +11,7 @@
       "bundleIdentifier": "com.startach.HapRev"
     },
     "android": {
+      "versionCode": 2,
       "package": "com.startach.HapRev",
       "adaptiveIcon": {
         "foregroundImage": "./src/images/haprevLogo.png",
