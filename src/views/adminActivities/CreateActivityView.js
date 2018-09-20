@@ -136,7 +136,10 @@ class CreateActivityView extends Component {
                     !this.state.loading ? 
                     <Text style={styles.buttonText}>אישור</Text>
                     :
-                    <ActivityIndicator size='large' color='#FFFFFF' /> 
+                    <View style={{flexDirection:'row',justifyContent: "center"}}>
+                        <Text style={{fontSize: 18,color:'#FFFFFF'}}>שולח התראות</Text>
+                        <ActivityIndicator size='large' color='#FFFFFF' /> 
+                    </View>
                     }
                 </TouchableOpacity>
             </View>
