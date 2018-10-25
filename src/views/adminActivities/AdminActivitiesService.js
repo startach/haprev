@@ -12,7 +12,7 @@ export const getUserData = async(appId) => {
   let avatarUrl = null
   let phone = null
   let userId = null
-  let name = ' '
+  let name = 'משתמש לא זמין'
   await firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' , 
     snapshot => {
       let dbUser = snapshot.val()

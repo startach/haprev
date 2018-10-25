@@ -3,6 +3,8 @@
 # expo
 .expo/
 
+/src/app/initDB.js
+
 # dependencies
 /node_modules
 /.idea

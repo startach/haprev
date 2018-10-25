@@ -5,7 +5,7 @@ export const AnimatableView = (props) => {
     return ( 
         <Animatable.View 
         animation= {props.animation ? props.animation : "fadeInDownBig"}
-        easing={props.easing ? props.easing :"ease-in"}
+        easing={props.easing ? props.easing :"ease-out"}
         iterationCount={props.iterationCount ? props.iterationCount :1} 
         duration={props.duration ? props.duration :1200} 
         style={props.viewStyle}>
@@ -18,7 +18,7 @@ export const AnimatableText = (props) => {
     return ( 
         <Animatable.Text
         animation= {props.animation ? props.animation : "pulse"}
-        easing={props.easing ? props.easing :"ease-in"}
+        easing={props.easing ? props.easing :"ease-out"}
         iterationCount={props.iterationCount ? props.iterationCount :"infinite"} 
         duration={props.duration ? props.duration :1500} 
         style={props.textStyle}>

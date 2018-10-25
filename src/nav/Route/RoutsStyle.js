@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 export default styles = StyleSheet.create({
     headerStyle: { 
         backgroundColor: '#D81A4C',
-        borderWidth: 2 ,
-        borderColor:'#c92656' 
+        borderBottomWidth: 2 ,
+        borderColor: '#b71540',
     },
     headerTitleStyle: {
         color: 'white',

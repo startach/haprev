@@ -66,7 +66,7 @@ const HomeView = (props) => {
                 <View>
                     <AnimatableText 
                     textStyle={[styles.textCenter,{marginBottom:5}]}
-                    textContent='אנו לשמח, תראו בעצמכם'
+                    textContent='באנו לשמח, תראו בעצמכם'
                     />
                     <View style={[styles.box,styles.swiper]}>
                         <Swiper 
@@ -79,14 +79,14 @@ const HomeView = (props) => {
                         nextButton={<Text style={styles.buttonText}>‹</Text>} 
                         prevButton={<Text style={styles.buttonText}>›</Text>}
                         >
-                        <Image style={styles.picture} source={{ uri: images[1] }}/>
-                        <Image style={styles.picture} source={{ uri: images[2] }}/>
-                        <Image style={styles.picture} source={{ uri: images[3] }}/>
-                        <Image style={styles.picture} source={{ uri: images[4] }}/>
-                        <Image style={styles.picture} source={{ uri: images[5] }}/>
-                        <Image style={styles.picture} source={{ uri: images[6] }}/>
-                        <Image style={styles.picture} source={{ uri: images[7] }}/>
-                        <Image style={styles.picture} source={{ uri: images[8] }}/>
+                            <Image style={styles.picture} source={{ uri: images[0] }}/>
+                            <Image style={styles.picture} source={{ uri: images[1] }}/>
+                            <Image style={styles.picture} source={{ uri: images[2] }}/>
+                            <Image style={styles.picture} source={{ uri: images[3] }}/>
+                            <Image style={styles.picture} source={{ uri: images[4] }}/>
+                            <Image style={styles.picture} source={{ uri: images[5] }}/>
+                            <Image style={styles.picture} source={{ uri: images[6] }}/>
+                            <Image style={styles.picture} source={{ uri: images[7] }}/>
                         </Swiper>
                     </View>
                 </View>
