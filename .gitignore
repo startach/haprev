@@ -3,7 +3,7 @@
 # expo
 .expo/
 
-/src/app/initDB.js
+src/app/initDB.js
 
 # dependencies
 /node_modules
