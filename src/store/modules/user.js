@@ -1,5 +1,5 @@
 import * as firebase from 'firebase';
-import _ from 'lodash';
+import filter from 'lodash/filter';
 
 const AUTHORIZE_REQ = "haprev/user/AUTHORIZE_REQ";
 const AUTHORIZE_RES = "haprev/user/AUTHORIZE_RES";
@@ -258,7 +258,7 @@ export const deleteActivity = (activityId,insId) => async(dispatch,state) => {
   let currentUser=state().user.user
   activitiesObj = currentUser.activities[insId]
   activitiesArray = Object.keys(activitiesObj).map(key => {return activitiesObj[key]})
-  currActivities = _.filter(activitiesArray,(activity) => {return activity.id !== activityId})
+  currActivities = filter(activitiesArray,(activity) => {return activity.id !== activityId})
   await firebase.database().ref('users/'+currentUser.userId).child('activities')
       .update({[insId]:currActivities})
       .then(() => {

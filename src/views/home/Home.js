@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, BackHandler, Platform, ToastAndroid} from 'react-native'
-import _ from 'lodash'
+import map from 'lodash/map'
 import HomeView from './HomeView'
 import { connect } from 'react-redux'
 import {getImages} from './HomeService'
@@ -42,8 +42,8 @@ class Home extends React.Component{
         activityElements = []
         if(eventsByInsId.length>0 || Object.keys(eventsByInsId).length>0){
             today = new Date()
-            const res = _.map(eventsByInsId, (activitiesInHospital, hospitalId) => {
-                activityElem = _.map(activitiesInHospital, (dataActivity, activityId) => {
+            const res = map(eventsByInsId, (activitiesInHospital, hospitalId) => {
+                activityElem = map(activitiesInHospital, (dataActivity, activityId) => {
                     if(new Date(dataActivity.fullFormatDate)>= today){
                         dataActivity['hospitalId']=hospitalId
                         dataActivity['hospitalName']= this.props.institutes ? this.props.institutes[hospitalId-1].name : ''

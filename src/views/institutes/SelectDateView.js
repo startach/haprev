@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import { CalendarList } from 'react-native-calendars';
-import _ from 'lodash'
+import isEmpty from 'lodash/isEmpty'
 import EventOptions from './EventOptions'
 
 class SelectDateView extends Component{
   state = {pressEvents: false}
 
   onDayPress = (day,events,openEventView,navigation) =>{
-    if(!_.isEmpty(events)){
+    if(!isEmpty(events)){
       let dayPressEvents=  events.filter(event => { return event.fullFormatDate.slice(0, 10) == day.dateString })
       if(dayPressEvents.length>1){
         return <EventOptions events={dayPressEvents} openEventView={openEventView} />
@@ -35,7 +35,7 @@ class SelectDateView extends Component{
           horizontal={true}
           showScrollIndicator={true}
         />
-      { _.isEmpty(eventDates) ?
+      { isEmpty(eventDates) ?
         <Text style={styles.messageBox}> אין פעילויות זמינות כרגע בבית חולים זה </Text>
       :
       this.state.pressEvents ?

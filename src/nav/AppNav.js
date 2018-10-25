@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dimensions, I18nManager} from 'react-native'
+import {Dimensions, I18nManager, Platform} from 'react-native'
 import {DrawerNavigator} from 'react-navigation'
 import SideMenu from './SideMenu'
 import routes from './Route/Routs';
@@ -10,7 +10,7 @@ const { width } = Dimensions.get('screen');
 const Drawer = DrawerNavigator(
     routes,{
         contentComponent: (props)=> <SideMenu coordinator={this._coordinator} {...props} />,
-        drawerPosition: I18nManager.isRTL && !I18nManager.localeIdentifier.includes('IL') ? 'right': 'left',
+        drawerPosition: Platform.OS === 'android' && I18nManager.isRTL && !I18nManager.localeIdentifier.includes('IL') ? 'right': 'left',
         drawerWidth: width*0.70,
     }) 
 
