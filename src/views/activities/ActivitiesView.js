@@ -6,7 +6,13 @@ import {makeArrayFromObjects,getUserData} from '../adminActivities/AdminActiviti
 import {AnimatableView} from '../AnimatableService'
 import * as Animatable from 'react-native-animatable'
 
-const ParticipantItem = ({avatarUrl,phone,_name}) => {
+const renderText = (text)=> {
+    if (text.length > 17 )
+        return text.slice(0,14)+'...'
+    return text
+}
+
+const ParticipantItem = ({avatarUrl, phone, _name}) => {
     return (
         <View style={styles.participantItem}>
             {avatarUrl ?
@@ -15,13 +21,13 @@ const ParticipantItem = ({avatarUrl,phone,_name}) => {
             <FontAwesome style={styles.withoutImgList} name='user-circle' size={30}/>
             }
             <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between'}}>
-                <Text style={styles.participantText}>{_name.length > 14 ? _name.slice(0, 11)+'...' : _name}</Text>
-                { phone ?
-                <FontAwesome style={styles.phoneIcon} name='phone-square' size={30}
-                    onPress={()=>{Linking.openURL('tel:'+phone)}}/>
-                :
-                <FontAwesome style={[styles.phoneIcon,{color:'#ffffff'}]} name='phone-square' size={30}/>
-                }
+                <Text style={styles.participantText}>{ renderText(_name) }</Text>
+                <FontAwesome 
+                style={[styles.phoneIcon, !phone && { color:'#ffffff'}]} 
+                name='phone-square' 
+                size={30}
+                onPress={()=>{phone ? Linking.openURL('tel:'+phone) : {}}} 
+                />
             </View>
         </View>)
 }
@@ -53,12 +59,6 @@ class ActivityItem extends React.Component{
         }
         else
             this.setState({showFullActivity:false})
-    }
-
-    renderText = (text)=> {
-        if (text.length > 16 )
-            return text.slice(0, 13)+'...'
-        return text
     }
 
     renderDate = (fullDate) =>{
@@ -111,7 +111,7 @@ class ActivityItem extends React.Component{
             >
                 <Text style={[styles.textBox,activity.fullFormatDate < new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,{width: '30%'}]}>{ this.renderDate(activity.fullFormatDate)}</Text>
                 <Text style={styles.textBox}>|</Text>
-                <Text style={[styles.textBox,{width: '35%'}]}>{this.renderText(activity.caption)}</Text>
+                <Text style={[styles.textBox,{width: '35%'}]}>{renderText(activity.caption)}</Text>
                 <Text style={styles.textBox}>|</Text>
                 <Text style={[styles.textBox,{width: '20%'}]}>{activity.hospitalName}</Text>
                 {!this.state.showFullActivity ?
@@ -144,7 +144,7 @@ class ActivityItem extends React.Component{
             null
             }
             <View style={styles.rowLine}>
-                <Text style={[styles.textBox,styles.textDetails]}>מספר משתתפים:  {this.renderText(Object.keys(this.state.activityData.participants).length)} </Text>
+                <Text style={[styles.textBox,styles.textDetails]}>מספר משתתפים:  {Object.keys(this.state.activityData.participants).length} </Text>
                 <AnimatableView 
                 viewStyle={{}}
                 duration={2500}
@@ -158,7 +158,7 @@ class ActivityItem extends React.Component{
                 />
             </View>
             <View style={{flexDirection:'row'}}>
-                <Text style={[styles.textBox,styles.textDetails]}>רכז:  {this.renderText(this.state.coordinatorData.name)} </Text>
+                <Text style={[styles.textBox,styles.textDetails]}>רכז:  {renderText(this.state.coordinatorData.name)} </Text>
                 <TouchableOpacity onPress={() => this.callToCoordinator()}>                
                     <FontAwesome name="phone" size={30} color={'white'} style={{paddingBottom:5,paddingTop:10}}/>
                 </TouchableOpacity>

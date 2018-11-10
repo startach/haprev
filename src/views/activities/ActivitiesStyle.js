@@ -127,7 +127,7 @@ export default StyleSheet.create({
     margin: 5,
     marginBottom: 3,
     paddingLeft: 20,
-    color:'#ffffff'
+    color:'#009B77'
   },
   participantText: {
     fontSize: 16,

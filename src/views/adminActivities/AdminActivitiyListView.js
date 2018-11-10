@@ -67,7 +67,7 @@ const AdminActivities = (props) =>{
                 <FlatList
                     data={events}
                     renderItem={({item, index}) => <ActivityItem activity={item} index={index} participants={participants} openActivity={openEventView}/>}
-                    keyExtractor={(item) => item.caption}/>
+                    keyExtractor={(item,index) => item.caption + index}/>
             </ScrollView>
             :
             <ActivityIndicator size='large' color='#C2185B' /> 
