@@ -3,9 +3,6 @@
 # expo
 .expo/
 
-#keys
-/src/app/keys.js
-
 # dependencies
 /node_modules
 /.idea
