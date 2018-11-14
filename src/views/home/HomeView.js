@@ -1,136 +1,180 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, Image } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
 import Swiper from 'react-native-swiper'
+import EventsListView from '../eventsList/EventsListView'
+import {AnimatableView,AnimatableText} from '../AnimatableService'
+import { WebBrowser } from 'expo';
 
 const HomeView = (props) => {
-    onRegister = () => { }
-    onAllActivity = () => { }
-    onCreateActivity = () => { }
-
-    const { first, last, coordinator } = props
-    const isAdmin = (coordinator > 0)
-    console.log(first, last, coordinator)
-    
-
-    const arrow = (<Icon name="long-arrow-left" size={30} color="#900" />)
-    const arrowDown = (<Icon name="arrow-down" size={30} color="#900" />)
-    const registerButton = (
-        <Button
-            onPress={onRegister}
-            title="הרשמה"
-            color="#841584"
-        />
-    )
+    const { 
+        activityView,
+        myNextEvent,
+        images,
+        processEventsList,
+        activityElements,
+        notFirstTime
+    } = props
 
     const allActivityButton = (
         <View style={styles.allActivityButton}>
-            <Button
-                onPress={onAllActivity}
-                title="לכל ההתנדבויות"
-                color="#841584"
-            />
+            <TouchableOpacity onPress={activityView}>
+                <View style={styles.opacityBtn} >
+                    <Text style={styles.titleText}>ההתנדבויות שלי</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     )
 
-    const createActivityButton = (
-        <View style={styles.allActivityButton}>
-            <Button
-                onPress={onCreateActivity}
-                title="יצירת התנדבות"
-                color="#841584"
-            />
-        </View>
+    const swiperImages = (images) => (
+        images.map((img,i)=>
+        <TouchableOpacity 
+        key={i} 
+        style={styles.container}
+        onPress={async() => {await WebBrowser.openBrowserAsync(img.imgUrl)}}
+        >
+            <Image style={styles.picture} source={{uri:img.imgUrl}}/>
+            <Text style={styles.imageTitle}>{img.title}</Text>
+        </TouchableOpacity>
+        )
     )
-
 
     return (
-        <View style={styles.container}>
-            {!isAdmin ?
-                <View style={styles.helloBox}>
-                    <Text style={styles.text}> הי {first} {last} כיף לראות אותך פה ! </Text>
-                    <Text style={styles.text}> כדי להירשם להנדבות הבאה אפשר </Text>
-                    <View style={styles.registerButton}>
-                        <Text style={styles.text}> {arrow} להתחיל פה  </Text>
-                        {registerButton}
+        <ScrollView horizontal={false}>
+            <View style={styles.container}>
+                <AnimatableView 
+                viewStyle={[styles.eventBox,{marginTop:13}]}
+                duration={notFirstTime?1:1500}
+                viewContent= { 
+                    <View>
+                        <AnimatableText 
+                        textStyle={styles.textCenter}
+                        textContent='ההתנדבויות הבאות'
+                        />
+                        <EventsListView
+                        processEventsList={processEventsList}
+                        activityElements={activityElements}
+                        isNextEvents={true}
+                        />
                     </View>
-                </View>
-            :
-                <View style={styles.helloBox}>
-                    <Text style={styles.text}> הי {first} {last} המתנדבים של {coordinator} </Text>
-                    <Text style={styles.text}> מחכים להתנדבות הבאה שלהם </Text>
-                    <Text style={styles.text}> בשביל לעזור להם ולהתחיל התנדבות </Text>
-                    <Text style={styles.text}> {arrowDown} חדשה אפשר להתחיל כאן </Text>
-                    {createActivityButton}
-                </View>
-            }
-
-            <View style={styles.helloBox}>
-                <Text style={styles.textCenter}>התנדבות הבאה תתקיים בתאריך</Text>
-                <Text style={styles.textCenter}>...</Text>
+                }
+                />
+                <AnimatableView 
+                viewStyle={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#f2f2f2',paddingBottom:1}]}
+                duration={notFirstTime?1:1250}
+                viewContent= { 
+                    <View>
+                    <AnimatableText 
+                    textStyle={[styles.textCenter,{color:'#FFFFFF'}]}
+                    textContent='התנדבות הבאה שלי'
+                    />
+                    <Text style={[styles.textCenter,{color:'#FFFFFF'}]}>{myNextEvent ? (myNextEvent.caption + ' ב-' +myNextEvent.date) : 'לא קיימות התנדבויות'}</Text>
+                    {allActivityButton}
+                    </View>
+                }
+                />
+                <AnimatableView 
+                duration={notFirstTime?1:1000}
+                viewContent= { 
+                    <View>
+                        <AnimatableText 
+                        textStyle={[styles.textCenter,{paddingTop:5, paddingBottom:3}]}
+                        textContent='באנו לשמח, תראו בעצמכם'
+                        />
+                        <View style={[styles.box, styles.swiper]}>
+                        <Swiper 
+                        loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
+                        activeDotColor={'#C2185B'}
+                        dotColor={'#ffffff'}
+                        autoplay
+                        autoplayTimeout={4}
+                        showsButtons
+                        nextButton={<Text style={styles.buttonText}>‹</Text>} 
+                        prevButton={<Text style={styles.buttonText}>›</Text>}
+                            >
+                                {swiperImages(images)}
+                            </Swiper>
+                        </View>
+                    </View>
+                    }
+                />
+                   
             </View>
-            <View style={styles.helloBox}>
-                <Text style={styles.textCenter}>התנדבות שלי</Text>
-                <Text style={styles.textCenter}>...</Text>
-                {allActivityButton}
-            </View>
-            <Text style={styles.textCenter}>באנו לשמח, תראו בעצמכם</Text>
-            <Swiper style={styles.helloBox}>
-                <Image style={styles.picture} source={require('../../images/vol1.jpg')} />
-                <Image style={styles.picture} source={require('../../images/vol2.jpg')} />
-                <Image style={styles.picture} source={require('../../images/vol3.jpg')} />
-                <Image style={styles.picture} source={require('../../images/vol4.jpg')} />
-                <Image style={styles.picture} source={require('../../images/vol5.jpg')} />
-                <Image style={styles.picture} source={require('../../images/vol6.jpg')} />
-                <Image style={styles.picture} source={require('../../images/vol7.jpg')} />
-                <Image style={styles.picture} source={require('../../images/vol8.jpg')} />
-            </Swiper>
-        </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
-        flex: 1
+        flex: 1, 
     },
     picture: {
-        flex: 1
-    },
-    text: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'right'
+        flex: 1,
+        width:'100%',
+        borderRadius: 1,
     },
     textCenter: {
-        fontSize: 20,
+        textAlign: 'center',
+        fontSize: 17,
+        padding: 1,
         fontWeight: 'bold',
-        textAlign: 'center'
+        color:'#C2185B'
     },
-    helloBox: {
-        marginBottom: 10,
-        marginRight: 10,
-        marginLeft: 10,
-        backgroundColor: '#f4f6f5',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: 'blue',
+    titleText: {
+        fontSize:14,
+        fontWeight: 'bold',
+        margin:6,
+        color:'#C2185B',
     },
-    registerButton: {
-        flexDirection: 'row-reverse',
-        alignSelf: 'center',
-        marginBottom: 10,
-        marginTop: 10,
-        marginRight: 10,
-        marginLeft: 10,
+    box: {
+        marginHorizontal:20,
+        borderRadius: 3,
+        borderWidth: 2,
+        borderColor: '#C2185B',
+        justifyContent: 'flex-start',
     },
     allActivityButton: {
-        alignSelf: 'flex-start',
-        marginBottom: 10,
-        marginTop: 10,
+        alignSelf: 'center',
         marginRight: 10,
         marginLeft: 10,
-    }
+    },
+    opacityBtn:{
+        backgroundColor:'#FFFFFF',
+        flexDirection:'column',
+        alignSelf: 'center',
+        borderBottomWidth:3,
+        borderLeftWidth:2,
+        borderColor:'#9f144b',
+    },
+    swiper:{
+        height:Dimensions.get('screen').height/3,
+    },
+    buttonText: {
+        fontSize: 50, 
+        color: '#C2185B',
+    },
+    eventBox: {
+        flex: 1,
+        alignItems: 'center',
+        borderWidth: 2,
+        marginTop: 15,
+        marginHorizontal: '5%',
+        borderRadius: 10,
+        justifyContent: 'flex-start',
+        width: '90%',
+        backgroundColor: '#f2f2f2',
+        borderColor: '#C2185B',
+      },
+    imageTitle:{
+        color: '#C2185B',
+        fontSize: 15,
+        fontWeight: 'bold',
+        position: "absolute",
+        textAlign:'center',
+        backgroundColor: '#f2f2f2',
+        width: '100%',
+        opacity:0.6,
+        top:"90%",
+    },
 })
 
 export default HomeView

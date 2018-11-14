@@ -1,6 +1,5 @@
-import React, {Component} from "react";
-import {FlatList, Text, View, StyleSheet, Linking, ScrollView, TouchableOpacity} from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome"; 
+import React, {Component} from 'react';
+import {FlatList, Text, View, StyleSheet, Linking, ScrollView, TouchableOpacity} from 'react-native';
 import { Constants } from 'expo';
 
 class SideMenu extends Component {
@@ -9,9 +8,9 @@ class SideMenu extends Component {
         this.activityScreen = 0;
       } 
 
-    setNavigation({item}){   
+    setNavigation({item,index}){   
         const { navigation } = this.props;
-        if(item.nav=="Facebook_haprev"){
+        if(item.nav=='Facebook_haprev'){
             Linking.canOpenURL('fb://page/947461178709459')
             .then((supported) => {
             if (!supported)
@@ -22,7 +21,7 @@ class SideMenu extends Component {
             .catch(err => Alert.alert(err)),
                 navigation.navigate('DrawerClose');
         }
-        else if(item.nav=="Startach_Web"){
+        else if(item.nav=='Startach_Web'){
             Linking.canOpenURL('https://www.startach.org.il/')
             .then(() => {Linking.openURL('https://www.startach.org.il/')})    
             .catch(err => Alert.alert(err)),
@@ -30,7 +29,7 @@ class SideMenu extends Component {
         } 
         else{
             navigation.navigate('DrawerClose');
-            this.activityScreen=item.index;
+            this.activityScreen=index;
             navigation.navigate(item.nav)           
         }      
     } 
@@ -39,28 +38,36 @@ class SideMenu extends Component {
         return (
             <ScrollView>
             <View style={styles.statusBar} />
-                <View >
+                <View>
                     <FlatList
                     data={[
-                        { key:"מסך הבית", nav:'Home', index:0},
-                        { key:"רישום להתנדבות", nav:'Institutes', index:1},
-                        { key:"התנדבויות שלי", nav:'Activities', index:2}, 
-                        { key:"ממשק רכזים", nav:'ActivitiesAdmin', index:3}, 
-                        { key:"אנשי קשר", nav:'Contacts', index:4}, 
-                        { key:"אודות", nav:'AboutUs', index:5},
-                        { key:"חפשו אותנו בפייסבוק", nav:'Facebook_haprev', index:6},
-                        { key:"סטארטאח", nav:'Startach_Web', index:7},
-                        { key:"פרופיל", nav:'Profile', index:8},
-                        { key:"עזרה", nav:'Help', index:9}
+                        { key:'מסך הבית', nav:'HomeRoute'},
+                        { key:'רישום להתנדבות', nav:'InstitutesRoute'},
+                        { key:'היסטוריית התנדבויות', nav:'EventsListRoute'},
+                        { key:'התנדבויות שלי', nav:'ActivitiesRoute'},
+                        { key:'ממשק רכזים', nav:'ActivitiesAdminRoute'},
+                        { key:'אנשי קשר', nav:'ContactsRoute'}, 
+                        { key:'אודות', nav:'AboutUsRoute'},
+                        { key:'חפשו אותנו בפייסבוק', nav:'Facebook_haprev'},
+                        { key:'סטארטאח', nav:'Startach_Web'},
+                        { key:'פרופיל', nav:'ProfileRoute'},
+                        { key:'עזרה', nav:'HelpRoute'}
                     ]}
-                    renderItem={({item}) => 
-                        <TouchableOpacity 
-                            onPress={ () => {this.setNavigation({item})}}
-                            style={item.index%2 ? styles.grayLine : styles.whiteLine}> 
-                            <Text style={[styles.textStyle,this.props.activeItemKey===item.nav ? {color: "#D81A4C"}:null]}>{item.key}</Text>
+                    renderItem={({item,index}) =>
+                        <TouchableOpacity
+                            onPress={ () => {this.setNavigation({item,index})}}
+                            style={ this.props.coordinator ? 
+                                index%2 ? styles.grayLine : styles.whiteLine
+                                : index<4 ? 
+                                index%2 ? styles.grayLine : styles.whiteLine
+                                : index>4 ? 
+                                index%2 ? styles.whiteLine : styles.grayLine 
+                                : {height:0}
+                                }>
+                            <Text style={[styles.textStyle,this.activityScreen===index ? {color: '#D81A4C'}:null]}>{item.key}</Text>
                         </TouchableOpacity>
-                    } 
-                    />   
+                    }
+                    />
                 </View>
             </ScrollView>
         );
@@ -69,7 +76,7 @@ class SideMenu extends Component {
 
 const styles = StyleSheet.create({
     statusBar: {
-      backgroundColor: "#C2185B", 
+      backgroundColor: '#C2185B', 
       height: Constants.statusBarHeight, 
     },
     whiteLine: {

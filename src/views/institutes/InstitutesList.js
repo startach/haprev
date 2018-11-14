@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import InstitutesListView from './InstitutesListView';
-import { getInstitutes, selectInstitute } from '../../store/modules/Institutes'
+import { selectInstitute } from '../../store/modules/Institutes'
 
 class InstitutesList extends Component {
 
@@ -10,13 +10,10 @@ constructor(){
   this.onInstSelected = this.onInstSelected.bind(this)
 }
 
-  componentDidMount() {
-    this.props.getInstitutes();
-  }
-
-  onInstSelected(instId) {
-    this.props.selectInstitute(instId);
-    this.props.navigation.navigate('SelectDate');
+  async onInstSelected(instId) {
+    await this.props.selectInstitute(instId);
+    hospitalName = this.props.institutes[instId-1].name
+    this.props.navigation.navigate('SelectDate',{hospitalName});
   }
 
   render() {
@@ -32,8 +29,8 @@ constructor(){
 
 const mapStateToProps = state =>{
   return ({
-    institutes: state.institues.institutes,
+    institutes: state.institutes.institutes,
   })
 }
 
-export default connect(mapStateToProps, { getInstitutes, selectInstitute })(InstitutesList);
+export default connect(mapStateToProps, { selectInstitute })(InstitutesList);

@@ -1,27 +1,24 @@
 import React, { Component } from 'react'
-import {View,Text,StyleSheet} from 'react-native'
 import RegisterView from '../register/RegisterView'
 import { connect } from 'react-redux'
 import { update } from '../../store/modules/user';
-
-const styles = StyleSheet.create({
-    container:{
-        marginTop:50
-    }
-})
+import { uploadImageHandler } from '../register/RegisterService';
 
 class Profile extends Component{
     render(){
         return(
-            <RegisterView user={this.props.user} title="פרטי משתמש" actionTitle="עדכן"       
-          onAction = {(user) => {
-            //   console.log('Profile.js updating user:', user);
-              this.props.update(user)}} />
-        )}
+            <RegisterView 
+            user={this.props.user} 
+            title="פרטי משתמש" 
+            actionTitle="עדכן"
+            registerScreen={false}
+            onAction = {async(user) => {return await this.props.update(user)}}
+            onUploadImage = {uploadImageHandler}            
+        />
+        )};
 }
 
 const mapStateToProps = state =>{ 
-    // console.log('Profile.js: Current redux storage', state.user)
     return ({
         user:state.user.user
     })
