@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { View } from 'react-native'
 import ActivitiesView from './ActivitiesView'
-import _ from 'lodash'
+import map from 'lodash/map'
 import {sortArrayByDate,renderActicityData,getUserData} from '../adminActivities/AdminActivitiesService.js'
 import {deleteParticipant} from '../../store/modules/events'
 import {deleteActivity} from '../../store/modules/user'
@@ -19,8 +19,8 @@ class Activities extends React.Component{
         activities = this.props.activities
         activityElements = []
         if(activities.length>0 || Object.keys(activities).length>0){
-            const res = _.map(activities, (activitiesInHospital, hospitalId) => {
-                activityElem = _.map(activitiesInHospital, (dataActivity, activityId) => {
+            const res = map(activities, (activitiesInHospital, hospitalId) => {
+                activityElem = map(activitiesInHospital, (dataActivity, activityId) => {
                     dataActivity['hospitalId']=hospitalId
                     dataActivity['hospitalName']= this.props.institutes[hospitalId-1].name
                     activityElements.push(dataActivity)

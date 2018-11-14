@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { View, Text, Slider, Picker, Dimensions } from 'react-native'
 import EventsListView from './EventsListView'
-import _ from 'lodash'
+import map from 'lodash/map'
 import {getEventsList} from './EventsListService'
 import {sortArrayByDate_Descending} from '../adminActivities/AdminActivitiesService.js'
 import styles from './EventsListStyle'
@@ -26,8 +26,8 @@ class EventsList extends React.Component{
         activityElements = []
         if(eventsByInsId.length>0 || Object.keys(eventsByInsId).length>0){
             today = new Date()
-            const res = _.map(eventsByInsId, (activitiesInHospital, hospitalId) => {
-                activityElem = _.map(activitiesInHospital, (dataActivity, activityId) => {
+            const res = map(eventsByInsId, (activitiesInHospital, hospitalId) => {
+                activityElem = map(activitiesInHospital, (dataActivity, activityId) => {
                     //Events History
                     if(new Date(dataActivity.fullFormatDate)<= today){
                         if(this.state.currentHospital==institutes[hospitalId-1].name || this.state.currentHospital=='הכל'){

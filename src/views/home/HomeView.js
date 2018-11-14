@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, Dimensions, ScrollView, ActivityIndicator, TouchableOpacity  } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
 import Swiper from 'react-native-swiper'
 import EventsListView from '../eventsList/EventsListView'
 import {AnimatableView,AnimatableText} from '../AnimatableService'
+import { WebBrowser } from 'expo';
 
 const HomeView = (props) => {
     const { 
@@ -18,16 +19,30 @@ const HomeView = (props) => {
         <View style={styles.allActivityButton}>
             <TouchableOpacity onPress={activityView}>
                 <View style={styles.opacityBtn} >
-                    <Text style={{fontSize:14,fontWeight: 'bold',margin:6,color:'#C2185B'}}>ההתנדבויות שלי</Text>
+                    <Text style={styles.titleText}>ההתנדבויות שלי</Text>
                 </View>
             </TouchableOpacity>
         </View>
     )
+
+    const swiperImages = (images) => (
+        images.map((img,i)=>
+        <TouchableOpacity 
+        key={i} 
+        style={styles.container}
+        onPress={async() => {await WebBrowser.openBrowserAsync(img.imgUrl)}}
+        >
+            <Image style={styles.picture} source={{uri:img.imgUrl}}/>
+            <Text style={styles.imageTitle}>{img.title}</Text>
+        </TouchableOpacity>
+        )
+    )
+
     return (
         <ScrollView horizontal={false}>
             <View style={styles.container}>
                 <AnimatableView 
-                viewStyle={styles.eventBox}
+                viewStyle={[styles.eventBox,{marginTop:13}]}
                 duration={notFirstTime?1:1500}
                 viewContent= { 
                     <View>
@@ -43,9 +58,8 @@ const HomeView = (props) => {
                     </View>
                 }
                 />
-                <View style={{paddingTop:10}}/>
                 <AnimatableView 
-                viewStyle={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#f2f2f2'}]}
+                viewStyle={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#f2f2f2',paddingBottom:1}]}
                 duration={notFirstTime?1:1250}
                 viewContent= { 
                     <View>
@@ -58,17 +72,15 @@ const HomeView = (props) => {
                     </View>
                 }
                 />
-                <View style={{paddingTop:10}}/>
                 <AnimatableView 
-                viewStyle={{}}
                 duration={notFirstTime?1:1000}
                 viewContent= { 
-                <View>
-                    <AnimatableText 
-                    textStyle={[styles.textCenter,{marginBottom:5}]}
-                    textContent='אנו לשמח, תראו בעצמכם'
-                    />
-                    <View style={[styles.box,styles.swiper]}>
+                    <View>
+                        <AnimatableText 
+                        textStyle={[styles.textCenter,{paddingTop:5, paddingBottom:3}]}
+                        textContent='באנו לשמח, תראו בעצמכם'
+                        />
+                        <View style={[styles.box, styles.swiper]}>
                         <Swiper 
                         loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
                         activeDotColor={'#C2185B'}
@@ -78,21 +90,14 @@ const HomeView = (props) => {
                         showsButtons
                         nextButton={<Text style={styles.buttonText}>‹</Text>} 
                         prevButton={<Text style={styles.buttonText}>›</Text>}
-                        >
-                        <Image style={styles.picture} source={{ uri: images[1] }}/>
-                        <Image style={styles.picture} source={{ uri: images[2] }}/>
-                        <Image style={styles.picture} source={{ uri: images[3] }}/>
-                        <Image style={styles.picture} source={{ uri: images[4] }}/>
-                        <Image style={styles.picture} source={{ uri: images[5] }}/>
-                        <Image style={styles.picture} source={{ uri: images[6] }}/>
-                        <Image style={styles.picture} source={{ uri: images[7] }}/>
-                        <Image style={styles.picture} source={{ uri: images[8] }}/>
-                        </Swiper>
+                            >
+                                {swiperImages(images)}
+                            </Swiper>
+                        </View>
                     </View>
-                </View>
-                }
+                    }
                 />
-
+                   
             </View>
         </ScrollView>
     )
@@ -100,36 +105,35 @@ const HomeView = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
         flex: 1, 
-        paddingTop:15,
     },
     picture: {
         flex: 1,
         width:'100%',
-        borderRadius: 8,
+        borderRadius: 1,
     },
     textCenter: {
         textAlign: 'center',
         fontSize: 17,
         padding: 1,
         fontWeight: 'bold',
-        alignSelf: 'center',
         color:'#C2185B'
     },
+    titleText: {
+        fontSize:14,
+        fontWeight: 'bold',
+        margin:6,
+        color:'#C2185B',
+    },
     box: {
-        marginBottom: 5,
-        marginRight: 20,
-        marginLeft: 20,
-        borderRadius: 10,
+        marginHorizontal:20,
+        borderRadius: 3,
         borderWidth: 2,
         borderColor: '#C2185B',
         justifyContent: 'flex-start',
     },
     allActivityButton: {
         alignSelf: 'center',
-        marginBottom: 5,
-        marginTop: 5,
         marginRight: 10,
         marginLeft: 10,
     },
@@ -152,14 +156,25 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         borderWidth: 2,
-        margin: 5,
+        marginTop: 15,
+        marginHorizontal: '5%',
         borderRadius: 10,
         justifyContent: 'flex-start',
-        marginHorizontal: '5%',
         width: '90%',
         backgroundColor: '#f2f2f2',
         borderColor: '#C2185B',
       },
+    imageTitle:{
+        color: '#C2185B',
+        fontSize: 15,
+        fontWeight: 'bold',
+        position: "absolute",
+        textAlign:'center',
+        backgroundColor: '#f2f2f2',
+        width: '100%',
+        opacity:0.6,
+        top:"90%",
+    },
 })
 
 export default HomeView

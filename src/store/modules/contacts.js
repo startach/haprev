@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
-import _ from 'lodash';
+import map from 'lodash/map';
+import groupBy from 'lodash/groupBy';
 
 const RESPONSE_CONTACTS = 'haprev/events/RESPONSE_CONTACTS';
 const initalState = {
@@ -37,8 +38,8 @@ export const getContacts = () => async (dispatch) =>{
             contactsArray = Object.keys(contacts).map(key => {return contacts[key]})
             contactsByRegion = []
             regions = []
-            contactsByRegion = _.groupBy(contactsArray, 'region')
-            const res = _.map(contactsByRegion, (contactInRegion, region) => {
+            contactsByRegion = groupBy(contactsArray, 'region')
+            const res = map(contactsByRegion, (contactInRegion, region) => {
                  regions.push(region)
             })
             dispatch(contactsRes(contactsArray,regions,contactsByRegion))

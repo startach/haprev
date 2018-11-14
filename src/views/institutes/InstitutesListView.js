@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import _ from 'lodash';
+import groupBy from 'lodash/groupBy';
+import map from 'lodash/map';
 import Region from './Region';
 import Institute from './Institute'
 import * as Animatable from 'react-native-animatable'
@@ -20,9 +21,9 @@ class InstitutesListView extends Component {
   render() {
     const { institutes, onInstSelected } = this.props;
 
-    const regions = _.groupBy(institutes, 'region');
-    const res = _.map(regions, (hospitalsInRegion, region) => {
-    const hospitalsElemnts = _.map(hospitalsInRegion, hospital => (
+    const regions = groupBy(institutes, 'region');
+    const res = map(regions, (hospitalsInRegion, region) => {
+    const hospitalsElemnts = map(hospitalsInRegion, hospital => (
         <Institute
           key={hospital.id}
           id={hospital.id}

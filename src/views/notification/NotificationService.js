@@ -33,9 +33,9 @@ export const sendPushNotification = (token, title, body) => {
         body: body,
         data: { message: `${title} - ${body}` },
         sound: "default",
-        icon: "../../images/haprevLogo.png",
+        icon: "../../images/logoWithBackgound.png",
         android:{
-          icon: "../../images/haprevLogo.png",
+          icon: "../../images/logoWithBackgound.png",
           sound:"default"
         }
       }),
@@ -60,8 +60,8 @@ export const getUserTokenNotification = async(userId) =>{
 }
 
 export const sendNotificationToAllUsers = async(activity) =>{
-  let titleMsg = 'פעילות חדשה ב' +hospital + ' ב' +time; 
-  let contentMsg = 'הפעילות ' + nameActivity + ' עם הרכז ' + coordinatorName + ' מוזמנים להרשם!'; 
+  let titleMsg = 'פעילות חדשה ב' +activity.hospital + ' ב' +activity.time; 
+  let contentMsg = 'הפעילות ' + activity.nameActivity + ' עם הרכז ' + activity.coordinatorName + ' מוזמנים להרשם!'; 
   firebase.database().ref('users').once('value' , 
   snapshot => {
     var users = snapshot.val()

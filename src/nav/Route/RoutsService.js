@@ -1,7 +1,18 @@
 import React from 'react'
-import {View} from 'react-native'
+import {View,Text, StyleSheet} from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import styles from './RoutsStyle'
+import { LinearGradient } from 'expo';
+
+
+const GradientHeader = () => (
+    <LinearGradient
+            colors={['#c92656','#D81A4C', '#b71540', '#891030']}
+            style={{ flex: 1 }}
+            start={[0, 0.1]}
+            end={[1, 0.5]}
+        />
+    )
 
 export const headerDefinitions = (title) =>(
     {
@@ -9,6 +20,7 @@ export const headerDefinitions = (title) =>(
     headerTransitionPreset: 'fade-in-place'
     },
     {
+    headerBackground: GradientHeader(),
     title: title,                
     headerStyle: styles.headerStyle,
     headerTitleStyle: styles.headerTitleStyle,
@@ -23,7 +35,7 @@ export const appNavigationOptions = ({ navigation }) => ({
 });
 
 export const homeNavigationOptions = ({ navigation }) => ({
-    headerRight: 
+    headerRight:
         <View style={{flexDirection:'row',margin:-10}}>
             {navigation.state.routeName==='Home' && 
             <FontAwesome style={[styles.icon,{color:'#ffffcc'}]} name={'envelope'} size={28}

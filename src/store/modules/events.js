@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
-import _ from 'lodash';
+import filter from 'lodash/filter';
+import keyBy from 'lodash/keyBy';
 
 const REQUEST_EVENTS = 'haprev/events/REQUEST_EVENTS';
 const RESPONSE_EVENTS = 'haprev/events/RESPONSE_EVENTS';
@@ -122,8 +123,8 @@ export const addNewActivity = (activityName,appId,coordinator,date,time,fullForm
 export const deleteActivity = (activityId) => async(dispatch,state) => {
     eventsObj = state().events.events
     eventsArray = Object.keys(eventsObj).map(key => {return eventsObj[key]})
-    currentEvents = _.filter(eventsArray,(event) => {return event.id !== activityId})
-    currentEventsObjects = _.keyBy(currentEvents, 'id');
+    currentEvents = filter(eventsArray,(event) => {return event.id !== activityId})
+    currentEventsObjects = keyBy(currentEvents, 'id');
     hospitalId = state().user.user.coordinator
     newEvents = {} 
     newEvents[hospitalId] = currentEventsObjects
@@ -175,7 +176,7 @@ export const addUserToEvent = (event,appId,fullName) => async(dispatch,state) =>
             .catch(error => {console.log('error',error)});
     }
     participantsArray = Object.keys(participantsObj).map(key => {return participantsObj[key]})
-    currParticipants = _.filter(participantsArray,(participant) => {return participant.appId !== appId})
+    currParticipants = filter(participantsArray,(participant) => {return participant.appId !== appId})
     await firebase.database().ref('events/'+insId).child(activityId)
         .update({participants:currParticipants})
         .then(() => {

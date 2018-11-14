@@ -17,7 +17,7 @@ export const ParticipantItem = ({avatarUrl,phone,_name,isCoordinator}) => {
             <FontAwesome style={styles.withoutImgList} name='user-circle' size={35}/>
             }
             <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between'}}>
-                <Text style={styles.participantText}>{_name.length > 14 ? _name.slice(0, 11)+'...' : _name}</Text>
+                <Text style={styles.participantText}>{_name.length > 17 ? _name.slice(0, 14)+'...' : _name}</Text>
                 { isCoordinator ?
                 <Text style={[styles.participantText,{color:'#009B77'}]}>רכז פעילות</Text>
                 :
