@@ -42,27 +42,24 @@ class SideMenu extends Component {
                     <FlatList
                     data={[
                         { key:'מסך הבית', nav:'HomeRoute'},
+                        { key:'פרופיל', nav:'ProfileRoute'},
                         { key:'רישום להתנדבות', nav:'InstitutesRoute'},
                         { key:'היסטוריית התנדבויות', nav:'EventsListRoute'},
                         { key:'התנדבויות שלי', nav:'ActivitiesRoute'},
-                        { key:'ממשק רכזים', nav:'ActivitiesAdminRoute'},
                         { key:'אנשי קשר', nav:'ContactsRoute'}, 
-                        { key:'אודות', nav:'AboutUsRoute'},
                         { key:'חפשו אותנו בפייסבוק', nav:'Facebook_haprev'},
                         { key:'סטארטאח', nav:'Startach_Web'},
-                        { key:'פרופיל', nav:'ProfileRoute'},
-                        { key:'עזרה', nav:'HelpRoute'}
+                        { key:'אודות', nav:'AboutUsRoute'},
+                        { key:'עזרה', nav:'HelpRoute'},
+                        { key:'ממשק רכזים', nav:'ActivitiesAdminRoute'},
                     ]}
                     renderItem={({item,index}) =>
                         <TouchableOpacity
                             onPress={ () => {this.setNavigation({item,index})}}
-                            style={ this.props.coordinator ? 
+                            style={ 
+                                item.key == 'ממשק רכזים' && !this.props.coordinator ? {display:"none"} :
                                 index%2 ? styles.grayLine : styles.whiteLine
-                                : index<4 ? 
-                                index%2 ? styles.grayLine : styles.whiteLine
-                                : index>4 ? 
-                                index%2 ? styles.whiteLine : styles.grayLine 
-                                : {height:0}
+                                
                                 }>
                             <Text style={[styles.textStyle,this.activityScreen===index ? {color: '#D81A4C'}:null]}>{item.key}</Text>
                         </TouchableOpacity>
@@ -92,7 +89,6 @@ const styles = StyleSheet.create({
     textStyle:{
         margin: 13,
         fontSize: 18,
-        fontFamily: 'sans-serif', 
     },
   });
 

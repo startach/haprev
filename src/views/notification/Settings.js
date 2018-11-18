@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
         marginBottom:7,
         marginTop:5,
         fontSize: 12,
-        fontFamily: 'sans-serif',
         color:'#ffffff',
         textAlign: 'left',
     },
