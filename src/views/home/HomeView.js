@@ -81,12 +81,12 @@ const HomeView = (props) => {
                         textContent='באנו לשמח, תראו בעצמכם'
                         />
                         <View style={[styles.box, styles.swiper]}>
-                        <Swiper 
+                        <Swiper
+                        autoplay
+                        autoplayTimeout={3.5}
                         loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
                         activeDotColor={'#C2185B'}
                         dotColor={'#ffffff'}
-                        autoplay
-                        autoplayTimeout={4}
                         showsButtons
                         nextButton={<Text style={styles.buttonText}>‹</Text>} 
                         prevButton={<Text style={styles.buttonText}>›</Text>}
