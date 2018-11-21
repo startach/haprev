@@ -14,14 +14,12 @@ const styles = StyleSheet.create({
   name: {
     paddingRight:10,
     color: '#ffffff',
-    fontFamily: 'sans-serif',
     fontSize: 20,
     fontWeight: '200',
   },
   city: {
     paddingRight:10,
     color: '#ffe6f3',
-    fontFamily: 'sans-serif',
     fontSize: 16,
     fontWeight: '100',
   },
