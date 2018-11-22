@@ -11,7 +11,7 @@ const Drawer = DrawerNavigator(
     routes,{
         contentComponent: (props)=> <SideMenu coordinator={this._coordinator} {...props} />,
         drawerPosition: Platform.OS === 'android' && I18nManager.isRTL && !I18nManager.localeIdentifier.includes('IL') ? 'right': 'left',
-        drawerWidth: width*0.70,
+        drawerWidth: width*0.666,
     }) 
 
 const mapStateToProps = state =>{

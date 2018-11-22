@@ -210,7 +210,7 @@ class RegisterView extends React.Component {
                         !this.state.spinner ?
                         <Text style={styles.registerButtonText}>{this.props.actionTitle}</Text>
                         :
-                        <ActivityIndicator size='large' color='white' /> 
+                        <ActivityIndicator size='large' color='#fff' /> 
                         }
                     </TouchableOpacity>
                 </View>

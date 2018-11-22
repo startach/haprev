@@ -123,11 +123,11 @@ class ActivityItem extends React.Component{
         </TouchableOpacity>
         {this.state.showFullActivity ?
         <View style={[styles.activityBox,styles.boxDetails]}>
-            <Text style={[styles.textBox,styles.textDetails,{fontSize:20,borderBottomColor: 'white',borderBottomWidth:2}]}> {this.state.activityData.caption}</Text>
+            <Text style={[styles.textBox,styles.textDetails,{fontSize:20,borderBottomColor: '#fff',borderBottomWidth:2}]}> {this.state.activityData.caption}</Text>
             <View style={styles.rowLine}>
                 <Text style={[styles.textBox,styles.textDetails]}>בתאריך  {this.state.activityData.date} בשעה {this.state.activityData.time}</Text>
                 <TouchableOpacity onPress={() => this.setState({deleteVisible:!this.state.deleteVisible})}>
-                    <FontAwesome name="trash" size={35} color={'white'} style={{paddingBottom:10,paddingTop:5}}/>
+                    <FontAwesome name="trash" size={35} color={'#fff'} style={{paddingBottom:10,paddingTop:5}}/>
                 </TouchableOpacity>
             </View>
             {this.state.deleteVisible ?
@@ -152,7 +152,7 @@ class ActivityItem extends React.Component{
                 easing='ease'
                 viewContent= { 
                     <TouchableOpacity onPress={async() => {await this.showParticipantsHandle()}}>
-                        <FontAwesome name="group" size={30} color={'white'} style={{margin:10}}/>
+                        <FontAwesome name="group" size={30} color={'#fff'} style={{margin:10}}/>
                     </TouchableOpacity>
                 }
                 />
@@ -160,7 +160,7 @@ class ActivityItem extends React.Component{
             <View style={{flexDirection:'row'}}>
                 <Text style={[styles.textBox,styles.textDetails]}>רכז:  {renderText(this.state.coordinatorData.name)} </Text>
                 <TouchableOpacity onPress={() => this.callToCoordinator()}>                
-                    <FontAwesome name="phone" size={30} color={'white'} style={{paddingBottom:5,paddingTop:10}}/>
+                    <FontAwesome name="phone" size={30} color={'#fff'} style={{paddingBottom:5,paddingTop:10}}/>
                 </TouchableOpacity>
             </View>
         </View>

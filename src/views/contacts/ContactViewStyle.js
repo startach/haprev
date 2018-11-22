@@ -18,7 +18,7 @@ export default StyleSheet.create({
   },
   region:{
     fontWeight: 'bold',
-    color: 'white',
+    color: '#fff',
     backgroundColor:'#CE3175',
     fontSize: 24,
     padding:1,

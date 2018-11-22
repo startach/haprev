@@ -17,7 +17,7 @@ constructor(){
   }
 
   render() {
-    const {  institutes } = this.props;
+    const { institutes } = this.props;
     return (
       <InstitutesListView
       institutes={institutes}

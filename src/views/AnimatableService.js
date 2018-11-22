@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable'
 export const AnimatableView = (props) => {
     return ( 
         <Animatable.View 
-        animation= {props.animation ? props.animation : "fadeInDownBig"}
+        animation= {props.animation ? props.animation : "slideInRight"}
         easing={props.easing ? props.easing :"ease-out"}
         iterationCount={props.iterationCount ? props.iterationCount :1} 
         duration={props.duration ? props.duration :1200} 

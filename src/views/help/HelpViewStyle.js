@@ -50,7 +50,7 @@ export default StyleSheet.create({
       alignSelf:'center'
     },
     buttonText: {
-      color:'white',
+      color:'#fff',
       fontSize: 28,
       fontWeight: 'bold',
       textAlign:'center',

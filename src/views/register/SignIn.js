@@ -96,7 +96,7 @@ class SignInView extends React.Component {
                     !this.state.spinner ?
                     <Text style={[styles.registerButtonText,{padding:3,fontSize:26}]}>התחבר</Text>
                     :
-                    <ActivityIndicator size='large' color='white'/> 
+                    <ActivityIndicator size='large' color='#fff'/> 
                     }
                 </TouchableOpacity>
             </View>

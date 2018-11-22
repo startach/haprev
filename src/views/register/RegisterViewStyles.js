@@ -26,29 +26,29 @@ export default StyleSheet.create({
         justifyContent:'center',
       },
       emptyUserImage:{
-        width:150,
-        height:150,   
+        width: 150,
+        height: 150,   
       },
       userImage:{
-        marginTop:15,
-        width:135,
-        height:135,
-        borderRadius:100,
-        borderWidth:1,
-        borderColor: 'white'
+        marginTop: 15,
+        width: 135,
+        height: 135,
+        borderRadius: 100,
+        borderWidth: 1,
+        borderColor: '#fff'
       },
       title:{
-        color:'white',
+        color: '#fff',
         fontSize: 32,
-        fontWeight:'400',
+        fontWeight: '400',
         marginTop: 5,
       },
       signIn:{
-        color:'#D81A4C',
+        color: '#D81A4C',
         fontSize: 15,
-        fontWeight:'400',
-        borderBottomWidth:0.5,
-        borderColor:'#D81A4C',
+        fontWeight: '400',
+        borderBottomWidth: 0.5,
+        borderColor: '#D81A4C',
       },
       buttonsContainer: {
         marginTop: 15,
@@ -57,15 +57,15 @@ export default StyleSheet.create({
         justifyContent: 'center'
       },
       registerButton:{
-        width:130,
-        padding:7, 
-        backgroundColor:'#D81A4C',
-        borderWidth:1,
-        borderRadius:10,
-        alignSelf:'center'
+        width: 130,
+        padding: 7, 
+        backgroundColor: '#D81A4C',
+        borderWidth: 1,
+        borderRadius: 10,
+        alignSelf: 'center'
       },
       registerButtonText: {
-        color:'white',
+        color: '#fff',
         fontSize: 24,
         fontWeight: 'bold',
         textAlign:'center',

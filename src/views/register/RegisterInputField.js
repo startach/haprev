@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        borderBottomColor: 'white', borderBottomWidth: 1,
+        borderBottomColor: '#fff', borderBottomWidth: 1,
     },
     focus: {
       backgroundColor: '#B4B7BA'
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     input: {
         height: 40,
         width: '80%',
-        color:'white',
+        color:'#fff',
         fontSize: 22,
         fontWeight: '400',
         textAlign: 'right',
@@ -58,7 +58,7 @@ export default class RegisterInputField extends Component {
         editable={this.props.editable}
         underlineColorAndroid='transparent'
         placeholder={this.props.placeholder}
-        placeholderTextColor="white"
+        placeholderTextColor='#fff'
         secureTextEntry={this.props.secured}
         keyboardType={this.props.keyboardType || 'default'}
         ref={input => {this.textInput = input;}}
