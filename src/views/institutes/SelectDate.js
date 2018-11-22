@@ -21,16 +21,16 @@ class SelectDate extends Component {
       eventDates = eventsArray.map(event => {return event.fullFormatDate.slice(0, 10)})
       eventDates = await eventDates.reduce((datesObj,date,i) => {
         if(datesObj[date])
-          datesObj[date]['dots'].push({key:'event'+i, color: 'white'})
+          datesObj[date]['dots'].push({key:'event'+i, color: '#fff'})
         else
-          datesObj[date] = {dots: [{key:'event'+i, color: 'white'}], selected: true}
+          datesObj[date] = {dots: [{key:'event'+i, color: '#fff'}], selected: true}
         return datesObj
       }, {});
     }
     this.setState({events:eventsArray,eventDates:eventDates})
   }
 
-  openEventView = async(event) =>{
+  openEventView = (event) =>{
     const {params} = this.props.navigation.state
     hospitalName = params.hospitalName
     this.props.navigation.navigate('EventView',

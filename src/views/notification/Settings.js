@@ -44,29 +44,28 @@ class Settings extends React.Component{
             <ScrollView>
                 <View style = {{backgroundColor: '#EAE6DA'}}>
                     <View style={styles.modalContainer}>
-                        <View style={{flexDirection: "row", justifyContent: 'space-between'}} >
+                        <View style={styles.notificationBox} >
                             <Text style={styles.title}>קבלת התראות</Text>
-                        <Switch 
-                        onTintColor={'#00A591'}
-                        thumbTintColor={ this.state.NewNotificationStatus ? '#79C753' : '#898E8C'}
-                        tintColor={'#B93A32'}
-                        style= {styles.switch}
-                        onValueChange={() => this.setState({NewNotificationStatus:!this.state.NewNotificationStatus})}
-                        value={this.state.NewNotificationStatus}
-                        />
-                        
+                            <Switch 
+                            onTintColor={'#00A591'}
+                            thumbTintColor={ this.state.NewNotificationStatus ? '#79C753' : '#898E8C'}
+                            tintColor={'#B93A32'}
+                            style= {styles.switch}
+                            onValueChange={() => this.setState({NewNotificationStatus:!this.state.NewNotificationStatus})}
+                            value={this.state.NewNotificationStatus}
+                            />
                             <View style={styles.buttonsContainer}>
                                 <TouchableOpacity
-                                    rounded
-                                    title={'אישור'} 
-                                    style={[styles.button,{marginTop:5,marginBottom:5}]}
-                                    onPress={this.acceptSettings}
-                                    >
+                                rounded
+                                title={'אישור'} 
+                                style={[styles.button,{marginTop:5,marginBottom:5}]}
+                                onPress={this.acceptSettings}
+                                >
                                     {
                                     !this.state.spinner ?
                                     <Text style={styles.buttonText}>שמור</Text>
                                     :
-                                    <ActivityIndicator size='large' color='white' /> 
+                                    <ActivityIndicator size='large' color='#fff' /> 
                                     }
                                 </TouchableOpacity>
                             </View>
@@ -90,14 +89,6 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         paddingRight:2
     },
-    textStyle:{
-        margin: 15,
-        marginBottom:7,
-        marginTop:5,
-        fontSize: 12,
-        color:'#ffffff',
-        textAlign: 'left',
-    },
     title:{
         fontSize:18,
         textAlign:'left',
@@ -115,7 +106,7 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     buttonText: {
-        color: "white",
+        color: '#fff',
         fontSize: 16,
         fontWeight: "bold",
         textAlign: "center"
@@ -128,6 +119,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#F0EDE5',
         width: '85%',
         borderWidth:1,
+    },
+    notificationBox:{
+        flexDirection: "row", 
+        justifyContent: 'space-between'
     },
 });
 

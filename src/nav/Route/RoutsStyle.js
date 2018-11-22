@@ -7,13 +7,13 @@ export default styles = StyleSheet.create({
         borderColor: '#b71540',
     },
     headerTitleStyle: {
-        color: 'white',
+        color: '#fff',
         fontSize: 24 ,
         textAlign: 'center',
         alignSelf:'center',
     },
     icon:{
         paddingHorizontal:20,
-        color: 'white'
+        color: '#fff'
     },
 });

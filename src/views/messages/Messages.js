@@ -14,12 +14,12 @@ class Messages extends Component{
         if(msgs)
             messagesArr=Object.keys(msgs).map(e => {return msgs[e]});
         return(
-               <MessagesView
-               loading={false}
-               messages={messagesArr} 
-               navigation={this.props.navigation} 
-               onReadMessageHandler={this.readMessageHandler}
-               />
+            <MessagesView
+            loading={false}
+            messages={messagesArr} 
+            navigation={this.props.navigation} 
+            onReadMessageHandler={this.readMessageHandler}
+            />
            )
     }
 }

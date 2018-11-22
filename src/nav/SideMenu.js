@@ -135,13 +135,13 @@ const styles = StyleSheet.create({
     },
     whiteLine: {
         backgroundColor:'#ffffff',
-        opacity: 0.8,
-        height: 52,
+        opacity: 0.85,
+        height: 50,
     },
     grayLine: {
         backgroundColor:'#dbdbdb',
-        opacity: 0.8,
-        height: 52,
+        opacity: 0.85,
+        height: 50,
     },
     displayNone:{
         display:"none"

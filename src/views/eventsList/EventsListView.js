@@ -37,13 +37,13 @@ class ActivityItem extends React.Component{
             ? {height:30} 
             : (index%2 === 0) ? {backgroundColor:'#f9ccac'} : {backgroundColor:'#fff2df'}]
         }>
-            <Text style={[styles.textBox,activity.fullFormatDate < new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,{width:isNextEvents?'13%':'22%'}]}>{ this.renderDate(activity.fullFormatDate,isNextEvents)}</Text>
+            <Text style={[styles.textBox,activity.fullFormatDate < new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,{width:isNextEvents?'14%':'22%'}]}>{ this.renderDate(activity.fullFormatDate,isNextEvents)}</Text>
             <Text style={styles.textBox}>]</Text>
-            <Text style={[styles.textBox,{width: isNextEvents?'14%':'10%'}]}>{activity.time}</Text>
+            <Text style={[styles.textBox,{width: isNextEvents?'12%':'10%'}]}>{activity.time}</Text>
             <Text style={styles.textBox}>[</Text>
-            <Text style={[styles.textBox,{width: isNextEvents?'44%':'40%'}]}>{this.renderText(activity.caption,isNextEvents ? 17 : 19)}</Text>
+            <Text style={[styles.textBox,{width: isNextEvents?'45%':'40%'}]}>{this.renderText(activity.caption,isNextEvents ? 17 : 19)}</Text>
             <Text style={styles.textBox}>|</Text>
-            <Text style={[styles.textBox,{width: '20%'}]}>{activity.hospitalName}</Text>
+            <Text style={[styles.textBox,{width: '21%'}]}>{activity.hospitalName}</Text>
         </View>
     )
 }
@@ -53,7 +53,7 @@ class EventsListView extends React.Component{
     render() {
         const {processEventsList, activityElements, isNextEvents} = this.props
         return(
-            <View style={{flex:1}}>
+            <View>
                 { !processEventsList ?
                     activityElements.length>0 ?
                     <ScrollView horizontal={false}>
@@ -70,7 +70,7 @@ class EventsListView extends React.Component{
                 </View>
                 }
             </View>
-        )
+            )
     }
 }
 

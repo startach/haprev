@@ -72,7 +72,7 @@ class CreateActivityView extends Component {
     }
 
     getModalMessage(hospital) { return (
-        <Text style={[styles.subtitle,{color:'white'}]}>
+        <Text style={[styles.subtitle,{color:'#fff'}]}>
             {this.state.success ?
             'פעילות נוספה בהצלחה' +'\n' + this.state.activityName  + '\nבתאריך ' + this.state.fullDate + '\nבשעה ' +this.state.fullTime + '\nבבית חולים ' + hospital : 
             'שגיאה! נסה שנית מאוחר יותר' }

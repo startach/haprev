@@ -20,7 +20,7 @@ export default StyleSheet.create({
     alignSelf: "center"
   },
   buttonText: {
-    color: "white",
+    color: '#fff',
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center"
@@ -83,13 +83,13 @@ export default StyleSheet.create({
   },
   rowLine:{
     flexDirection:'row',
-    borderBottomColor: 'white',
+    borderBottomColor: '#fff',
     borderBottomWidth: 0.5,
   },
   deleteLine:{
     borderWidth:1,
     borderBottomWidth:1,
-    borderColor: 'white',
+    borderColor: '#fff',
     backgroundColor:'#9f144b',
   },
   modalContainer: {

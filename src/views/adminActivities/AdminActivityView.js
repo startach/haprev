@@ -79,7 +79,7 @@ class AdminActivityView extends Component{
                     >
                     { !this.props.process ?
                     <View style={modalStyles.modalContainer}>
-                            <Text style={[modalStyles.title,{color:'white'}]}> האם לבטל את ההתנדבות? {'\n'} </Text>
+                            <Text style={[modalStyles.title,{color:'#fff'}]}> האם לבטל את ההתנדבות? {'\n'} </Text>
                             <View style={modalStyles.buttonsContainer}>
                                 <TouchableOpacity
                                     rounded
@@ -99,8 +99,8 @@ class AdminActivityView extends Component{
                     </View>
                     :
                     <View style={modalStyles.modalContainer}>
-                        <Text style={[modalStyles.title,{color:'white'}]}> מבטל התנדבות... {'\n'} </Text>
-                        <ActivityIndicator size='large' color='white'/> 
+                        <Text style={[modalStyles.title,{color:'#fff'}]}> מבטל התנדבות... {'\n'} </Text>
+                        <ActivityIndicator size='large' color='#fff'/> 
                     </View>
                     }
                 </Modal>
@@ -112,7 +112,7 @@ class AdminActivityView extends Component{
                     >
                     { !this.props.process ?
                     <View style={[modalStyles.modalContainer,{height: "35%"}]}>
-                            <Text style={[modalStyles.title,{color:'white'}]}> שלח הודעה למתנדבים {'\n'} </Text>
+                            <Text style={[modalStyles.title,{color:'#fff'}]}> שלח הודעה למתנדבים {'\n'} </Text>
                             <TextInput
                                 style={styles.inputField}
                                 placeholder= 'הודעה'
@@ -148,8 +148,8 @@ class AdminActivityView extends Component{
                     </View>
                     :
                     <View style={modalStyles.modalContainer}>
-                        <Text style={[modalStyles.title,{color:'white'}]}> שולח הודעות... {'\n'} </Text>
-                        <ActivityIndicator size='large' color='white'/> 
+                        <Text style={[modalStyles.title,{color:'#fff'}]}> שולח הודעות... {'\n'} </Text>
+                        <ActivityIndicator size='large' color='#fff'/> 
                     </View>
                     }
                 </Modal>

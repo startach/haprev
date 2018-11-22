@@ -89,9 +89,7 @@ export const getEvents = instituteId => async (dispatch,state) =>{
                 dispatch(eventsRes(snapshot.val()));
             })
             .then(() => {return 'ok'})
-            .catch(error => {
-                return 'err'
-            });
+            .catch(error => {return 'err'});
         return res;
     }
     return 'reqEvents'

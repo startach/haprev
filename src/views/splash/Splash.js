@@ -12,7 +12,7 @@ class Splash extends Component{
         this.props.splash(true)
         await this.props.getInstitutes()
         this.props.authorize(Expo.Constants.deviceId)
-        setTimeout( () => this.props.splash(false), 2000)
+        setTimeout( () => this.props.splash(false), 1800)
     }
 
     render(){
@@ -20,7 +20,7 @@ class Splash extends Component{
         if (status){
             if (userStatus=='user')
                 return (
-                    <AppNav />
+                    <AppNav/>
                 )
             if (userStatus=='no_user')
                 return (

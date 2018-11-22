@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {View, Text, FlatList, ScrollView, TouchableOpacity, ActivityIndicator, Linking} from 'react-native'
+import React from 'react';
+import {View, Text, FlatList, ScrollView, TouchableOpacity} from 'react-native'
 import styles from './MessagesViewStyle';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -10,7 +10,7 @@ const ActivityItem = (props) => {
             <Text style={[styles.textBox,{width: '85%',margin:2}]}>{activity.message}</Text>
             <Text style={styles.textBox}>|</Text>
             <TouchableOpacity onPress={() => onReadMessageHandler(activity.id)}>                
-                <FontAwesome name='check' size={27} color={'#009B77'} style={{paddingBottom:5,paddingTop:10,marginLeft:10}}/>
+                <FontAwesome name='check' size={27} color={'#009B77'} style={styles.checkIcon}/>
             </TouchableOpacity>
         </View>
     )
