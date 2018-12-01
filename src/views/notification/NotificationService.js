@@ -33,9 +33,9 @@ export const sendPushNotification = (token, title, body) => {
         body: body,
         data: { message: `${title} - ${body}` },
         sound: "default",
-        icon: "../../images/logoWithBackgound.png",
+        icon: "../../images/logo.png",
         android:{
-          icon: "../../images/logoWithBackgound.png",
+          icon: "../../images/logo.png",
           sound:"default"
         }
       }),
