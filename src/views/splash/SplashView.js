@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Animated, StyleSheet } from 'react-native';
-const splashImg = require('../../images/splash.jpg');
-const splashImgWhite = require('../../images/Splash_v1.jpg');
+const splashImg = require('../../images/splash-min.jpg');
+const splashImgWhite = require('../../images/splashWhite-min.jpg');
 import InternetConnectionPopUp from './InternetConnectionPopUp'
 
 export default class SplashScreen extends React.Component {
