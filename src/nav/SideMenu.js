@@ -85,8 +85,8 @@ class SideMenu extends Component {
                                 <FlatList
                                     style={styles.socialMedia}
                                     data={[
+                                        { action: this.facebookNavigation, imgPath: require('../images/FacebookLogo.png'), height: 30},
                                         { action: this.websiteNavigation, imgPath: require('../images/STARTACH.png'), height: 33},
-                                        { action: this.facebookNavigation, imgPath: require('../images/haprevOriginalLogo.png'), height: 48},
                                         { action: this.instagramNavigation, imgPath: require('../images/InstagramLogo.png'), height: 30},
                                     ]}
                                     renderItem={({item,index}) => this.getSocialMediaIcon(item,index)}
@@ -163,8 +163,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        paddingTop: 3,
-        paddingBottom:3,
+        paddingTop: 7,
+        paddingBottom:5,
     },
     textStyle:{
         margin: 13,
