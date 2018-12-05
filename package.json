@@ -1,6 +1,6 @@
 {
   "name": "haprev",
-  "version": "0.1.5",
+  "version": "1.0.9",
   "private": true,
   "devDependencies": {
     "react-native-scripts": "1.9.0",

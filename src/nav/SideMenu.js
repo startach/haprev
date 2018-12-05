@@ -97,7 +97,7 @@ class SideMenu extends Component {
             default:
                 return <TouchableOpacity
                         onPress={ () => this.setNavigation({item,index})}
-                        style={this.getMenuLineStyle(item.key,index)}>
+                        style={this.getMenuLineStyle(item,index)}>
                             <Text style={[styles.textStyle,this.activityScreen===index ? {color:'#D81A4C'} : null]}>{item.key}</Text>
                         </TouchableOpacity>
         }
