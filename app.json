@@ -3,23 +3,23 @@
     "name": "מהפכה של שמחה",
     "description": "אפליקציה לעידוד התנדבויות בבתי חולים",
     "slug": "StartachHapRev",
-    "version": "1.0.5",
-    "icon": "./src/images/logo.png",
+    "version": "1.0.9",
+    "icon": "./src/images/logo512x512.png",
     "sdkVersion": "25.0.0",
     "privacy": "public",
     "ios": {
       "bundleIdentifier": "com.startach.HapRev"
     },
     "android": {
-      "versionCode": 6,
+      "versionCode": 9,
       "package": "com.startach.HapRev",
       "adaptiveIcon": {
-        "foregroundImage": "./src/images/logo.png",
+        "foregroundImage": "./src/images/logo512x512.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "notification": {
-      "icon":"./src/images/logo.png"
+      "icon":"./src/images/logo512x512.png"
     },
     "primaryColor":"#FFFFFF"
   }
