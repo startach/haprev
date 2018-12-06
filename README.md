@@ -5,9 +5,8 @@
 
 Download from Google Play (Android): https://play.google.com/store/apps/details?id=com.startach.HapRev
 
-<img src="https://user-images.githubusercontent.com/21155847/49574223-92c2c680-f948-11e8-9bee-b53541a515e1.gif" width="276" height="480">
-![HapRev](https://media.giphy.com/media/2vjWtHKyYC6ilPM7zy/giphy.gif)
-![HapRev](https://media.giphy.com/media/1eEB7lNMmX8JN1VMzL/giphy.gif)
+<img src="https://user-images.githubusercontent.com/21155847/49574223-92c2c680-f948-11e8-9bee-b53541a515e1.gif" width="276" height="480"><img src="https://media.giphy.com/media/2vjWtHKyYC6ilPM7zy/giphy.gif" width="276" height="480"><img src="https://media.giphy.com/media/1eEB7lNMmX8JN1VMzL/giphy.gif" width="276" height="480">
+
 
 
 # Tutorial for new contributors
