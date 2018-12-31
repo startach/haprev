@@ -62,7 +62,7 @@ class EventRegistrationView extends Component{
                     >
                     { !this.props.process ?
                     <View style={modalStyles.modalContainer}>
-                            <Text style={[modalStyles.title,{color:'white'}]}> האם להירשם לההתנדבות? {'\n'} </Text>
+                            <Text style={[modalStyles.title,{color:'#fff'}]}> האם להירשם לההתנדבות? {'\n'} </Text>
                             <View style={modalStyles.buttonsContainer}>
                                 <TouchableOpacity
                                     rounded
@@ -82,8 +82,8 @@ class EventRegistrationView extends Component{
                     </View>
                     :
                     <View style={modalStyles.modalContainer}>
-                        <Text style={[modalStyles.title,{color:'white'}]}> רושם להתנדבות... {'\n'} </Text>
-                        <ActivityIndicator size='large' color='white'/> 
+                        <Text style={[modalStyles.title,{color:'#fff'}]}> רושם להתנדבות... {'\n'} </Text>
+                        <ActivityIndicator size='large' color='#fff'/> 
                     </View>
                     }
                 </Modal>

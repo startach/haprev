@@ -51,12 +51,12 @@ const adminActivityStyle = StyleSheet.create({
   },
   cancelIcon: {
     alignSelf: "center",
-    color: "white",
+    color: '#fff',
     marginLeft: 10,
     marginRight: 10
   },
   cancelText: {
-    color: "white",
+    color: '#fff',
     fontSize: 22,
     fontWeight: "bold",
     alignSelf: "center",
@@ -146,20 +146,20 @@ const modalActivityStyle = StyleSheet.create({
     alignItems: "center"
   },
   modalButtonText: {
-    color: "white",
+    color: '#fff',
     fontSize: 16,
     fontWeight: "bold",
     margin: 10
   },
   modalRegisterButtonText: {
-    color: "white",
+    color: '#fff',
     fontSize: 20,
     fontWeight: "bold",
     margin: 15
   },
   activityName: {
     height: 100,
-    color: "white"
+    color: '#fff'
   }
 });
 
@@ -235,7 +235,7 @@ const CreateActivityStyle = StyleSheet.create({
     alignSelf: "center"
   },
   buttonText: {
-    color: "white",
+    color: '#fff',
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center"

@@ -69,8 +69,8 @@ class HelpView extends Component {
         onRequestClose={() => this.setState({modalVisible:true})}
         >
         <View style={styles.modalContainer}>
-          <Text style={[styles.title,{color:'white'}]}>{this.state.success ? SUCCESS_SEND.title : FAIL_SEND.title} </Text>
-          <Text style={[styles.subtitle,{color:'white'}]}>{'\n'} {this.state.success ? SUCCESS_SEND.subtitle : FAIL_SEND.subtitle} {'\n'}  </Text>        
+          <Text style={[styles.title,{color:'#fff'}]}>{this.state.success ? SUCCESS_SEND.title : FAIL_SEND.title} </Text>
+          <Text style={[styles.subtitle,{color:'#fff'}]}>{'\n'} {this.state.success ? SUCCESS_SEND.subtitle : FAIL_SEND.subtitle} {'\n'}  </Text>        
             <TouchableOpacity
               rounded
               style={[styles.button,{marginTop:0}]}

@@ -19,7 +19,7 @@ class AboutUsView extends React.Component{
                         style={styles.button}
                         onPress={() => { this.setState({haprev: true})} }
                         >
-                            <Image contain style={styles.picture} resizeMode='contain' source={require('../../images/haprevLogo.png')} />
+                            <Image contain style={styles.picture} resizeMode='contain' source={require('../../images/logo.png')} />
                         </TouchableOpacity>
                         <TouchableOpacity
                         rounded
@@ -50,14 +50,13 @@ const styles = StyleSheet.create({
        width:100,
        height:100,
        alignSelf:'center',
-       backgroundColor: '#e24183',
+       backgroundColor: '#FFF',
     },
     textStyle:{
         margin: 15,
         marginBottom:7,
         marginTop:5,
         fontSize: 18,
-        fontFamily: 'sans-serif',
         color:'#ffffff',
         textAlign: 'left',
     },
@@ -71,8 +70,8 @@ const styles = StyleSheet.create({
     button:{
         borderBottomWidth:4,
         borderLeftWidth:3,
-        borderBottomColor:'#881141',
-        borderLeftColor:'#9f144b',
+        borderBottomColor:'#b3b3b3',
+        borderLeftColor:'#e6e6e6',
         marginRight:5,
         marginLeft:5,
     },

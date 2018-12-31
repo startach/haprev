@@ -12,15 +12,15 @@ class Splash extends Component{
         this.props.splash(true)
         await this.props.getInstitutes()
         this.props.authorize(Expo.Constants.deviceId)
-        setTimeout( () => this.props.splash(false), 2000)
+        setTimeout( () => this.props.splash(false), 2200)
     }
 
     render(){
-        const {status,userStatus} = this.props
-        if (status){
+        const { splashStatus, userStatus } = this.props
+        if (!splashStatus){
             if (userStatus=='user')
                 return (
-                    <AppNav />
+                    <AppNav/>
                 )
             if (userStatus=='no_user')
                 return (
@@ -34,7 +34,7 @@ class Splash extends Component{
 }
 
 const mapStateToProps = state => ({
-    status: state.user.status,
+    splashStatus: state.user.splashStatus,
     userStatus: state.user.authStatus
 })
 

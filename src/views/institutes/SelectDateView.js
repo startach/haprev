@@ -7,7 +7,7 @@ import EventOptions from './EventOptions'
 class SelectDateView extends Component{
   state = {pressEvents: false}
 
-  onDayPress = (day,events,openEventView,navigation) =>{
+  onDayPress = (day,events,openEventView) =>{
     if(!isEmpty(events)){
       let dayPressEvents=  events.filter(event => { return event.fullFormatDate.slice(0, 10) == day.dateString })
       if(dayPressEvents.length>1){
@@ -21,13 +21,13 @@ class SelectDateView extends Component{
   }
 
   render() {
-    const {navigation,events,eventDates,openEventView} = this.props
+    const {events,eventDates,openEventView} = this.props
     return (
     <View style={styles.container}>
       { eventDates ?
       <ScrollView style={styles.container}>
         <CalendarList 
-          onDayPress={(day) => {res = this.onDayPress(day,events,openEventView,navigation); this.setState({pressEvents:res})}}
+          onDayPress={(day) => {res = this.onDayPress(day,events,openEventView); this.setState({pressEvents:res})}}
           style={styles.calendar}
           hideExtraDays
           markedDates={eventDates}
@@ -37,11 +37,8 @@ class SelectDateView extends Component{
         />
       { isEmpty(eventDates) ?
         <Text style={styles.messageBox}> אין פעילויות זמינות כרגע בבית חולים זה </Text>
-      :
-      this.state.pressEvents ?
-      this.state.pressEvents
-      :
-      null
+        :
+        this.state.pressEvents
       }
       </ScrollView>
       :

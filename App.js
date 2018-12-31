@@ -10,9 +10,8 @@ export default class App extends React.Component {
       //I18nManager.swapLeftAndRightInRTL(true)
       if(Platform.OS === 'android')
         await I18nManager.forceRTL(true)
-  } catch(e){
-      console.warn('RTL Error',e);
-    }
+    } 
+    catch(e){console.warn('RTL Error', e)}
     console.ignoredYellowBox = ['Setting a timer'];
     const _console = clone(console);
     console.warn = message => {
@@ -21,9 +20,8 @@ export default class App extends React.Component {
       }
     };
   }
+
   render() {
-    return (
-      <Nav/>
-    )
+    return <Nav/>
   }
 }
