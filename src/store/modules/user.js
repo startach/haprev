@@ -149,7 +149,6 @@ export const authorize = appId => dispatch => {
         }
       })
   } catch (e) {
-    debugger
     console.error(e)
   }
 }
