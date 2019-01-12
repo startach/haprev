@@ -94,6 +94,17 @@ const adminActivityStyle = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#F5F5F5"
   },
+  inputFieldExtraParticipants: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: "center",
+    borderColor: "black",
+    height: 38,
+    width: '50%',
+    borderWidth: 1,
+    fontSize: 16,
+    backgroundColor: "#F5F5F5"
+  }
 });
 const modalActivityStyle = StyleSheet.create({
   participantItem: {
@@ -122,7 +133,7 @@ const modalActivityStyle = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     backgroundColor: "#B4B7BA",
-    height: "30%",
+    height: "55%",
     width: "90%",
     borderWidth: 2,
     borderRadius: 15
@@ -131,13 +142,24 @@ const modalActivityStyle = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     textAlign: "center",
-    paddingTop: 20
+    paddingTop: 10
+  },
+  extraParticipants: {
+    fontSize: 20,
+    textAlign: "center"
   },
   buttonsContainer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "center"
+  },
+  extraParticipantsContainer: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    alignSelf: "center",
+    width: "100%"
   },
   modalButton: {
     margin: 5,
