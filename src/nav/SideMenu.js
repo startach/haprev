@@ -90,7 +90,7 @@ class SideMenu extends Component {
                                         { action: this.instagramNavigation, imgPath: require('../images/InstagramLogo.png'), height: 30},
                                     ]}
                                     renderItem={({item,index}) => this.getSocialMediaIcon(item,index)}
-                                    keyExtractor={(item,index) => index}
+                                    keyExtractor={(item,index) => index.toString()}
                                 />
                             </LinearGradient>
                         </View>
