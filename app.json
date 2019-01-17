@@ -1,3 +1,4 @@
+ 
 {
   "expo": {
     "name": "מהפכה של שמחה",
@@ -5,7 +6,7 @@
     "slug": "StartachHapRev",
     "version": "1.0.9",
     "icon": "./src/images/logo512x512.png",
-    "sdkVersion": "25.0.0",
+    "sdkVersion": "26.0.0",
     "privacy": "public",
     "ios": {
       "bundleIdentifier": "com.startach.HapRev"
