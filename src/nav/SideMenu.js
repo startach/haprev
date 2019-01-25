@@ -137,11 +137,13 @@ const styles = StyleSheet.create({
         backgroundColor:'#ffffff',
         opacity: 0.85,
         height: 50,
+        alignItems: 'flex-start',
     },
     grayLine: {
         backgroundColor:'#dbdbdb',
         opacity: 0.85,
         height: 50,
+        alignItems: 'flex-start',
     },
     displayNone:{
         display:"none"

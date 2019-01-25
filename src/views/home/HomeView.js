@@ -98,7 +98,6 @@ const HomeView = (props) => {
                     </View>
                     }
                 />
-                   
             </View>
         </ScrollView>
     )

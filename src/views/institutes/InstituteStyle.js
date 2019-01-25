@@ -8,6 +8,12 @@ const styles = StyleSheet.create({
     width: 190,
     margin:1,
   },
+  InstituteCard: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    backgroundColor:'#C2185B',
+    borderRadius: 15,
+  },
   image: {
     height:130,
   },
@@ -22,10 +28,6 @@ const styles = StyleSheet.create({
     color: '#ffe6f3',
     fontSize: 16,
     fontWeight: '100',
-  },
-  beckText:{
-    backgroundColor:'#C2185B',
-    borderRadius: 15,
   },
 });
 

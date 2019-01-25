@@ -38,12 +38,10 @@ class ActivityItem extends React.Component{
             : (index%2 === 0) ? {backgroundColor:'#f9ccac'} : {backgroundColor:'#fff2df'}]
         }>
             <Text style={[styles.textBox,activity.fullFormatDate < new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,{width:isNextEvents?'14%':'22%'}]}>{ this.renderDate(activity.fullFormatDate,isNextEvents)}</Text>
-            <Text style={styles.textBox}>]</Text>
-            <Text style={[styles.textBox,{width: isNextEvents?'12%':'10%'}]}>{activity.time}</Text>
-            <Text style={styles.textBox}>[</Text>
-            <Text style={[styles.textBox,{width: isNextEvents?'45%':'40%'}]}>{this.renderText(activity.caption,isNextEvents ? 17 : 19)}</Text>
+            <Text style={styles.textBox}>[ {activity.time} ]</Text>
+            <Text style={styles.textBox}>{this.renderText(activity.caption,isNextEvents ? 17 : 19)}</Text>
             <Text style={styles.textBox}>|</Text>
-            <Text style={[styles.textBox,{width: '21%'}]}>{activity.hospitalName}</Text>
+            <Text style={styles.textBox}>{activity.hospitalName}</Text>
         </View>
     )
 }

@@ -10,7 +10,7 @@ class Institute extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() =>{this.insView.tada(800); instituteSelected(id)}}>
-          <Animatable.View style={styles.beckText}
+          <Animatable.View style={styles.InstituteCard}
           ref={(ref)=>{this.insView = ref}}
           >
             <Image
