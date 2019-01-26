@@ -94,6 +94,17 @@ const adminActivityStyle = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#F5F5F5"
   },
+  inputFieldExtraParticipants: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: "center",
+    borderColor: "black",
+    height: 38,
+    width: '50%',
+    borderWidth: 1,
+    fontSize: 16,
+    backgroundColor: "#F5F5F5"
+  }
 });
 const modalActivityStyle = StyleSheet.create({
   participantItem: {
@@ -111,11 +122,35 @@ const modalActivityStyle = StyleSheet.create({
     backgroundColor: "#080",
     margin: 5
   },
-  bottomButtons: {
-    bottom: 0
+  bottom: {
+    flex: 0,
+    justifyContent: 'space-between',
+    marginBottom: 10,
+    //borderWidth: 2,
+    //borderColor: 'red',
+    //bottom: 0
+  },
+  bottomButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    //borderWidth: 2,
+    //borderColor: 'blue'
   },
   button: {
     margin: 20
+  },
+  registrationModalContainer: {
+    //flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: "center",
+    // marginTop: "10%",
+    backgroundColor: "#B4B7BA",
+    height: 300,
+    width: "90%",
+    borderRadius: 15,
+    //borderWidth: 2,
+    //borderColor: 'red'
   },
   modalContainer: {
     marginTop: "50%",
@@ -137,7 +172,15 @@ const modalActivityStyle = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    alignSelf: "center"
+    alignSelf: "center",
+    justifyContent: 'flex-end'
+  },
+  extraParticipantsContainer: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    alignSelf: "center",
+    width: "100%"
   },
   modalButton: {
     margin: 5,
