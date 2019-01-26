@@ -92,16 +92,6 @@ export default StyleSheet.create({
     borderColor: '#fff',
     backgroundColor:'#9f144b',
   },
-  /*modalContainer: {
-    marginTop: "30%",
-    marginBottom: "30%",
-    justifyContent: 'center',
-    alignSelf:'center',
-    backgroundColor: '#B4B7BA',
-    width: '70%',
-    borderWidth:2,
-    borderRadius:15,
-  },*/
   modalContainer: {
     justifyContent: 'center',
     alignItems: 'center',

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, FlatList, Image, Linking, ActivityIndicator, ScrollView, ToastAndroid, Button} from 'react-native'
+import {View, Text, FlatList, Image, Linking, ActivityIndicator, ScrollView} from 'react-native'
 import {Permissions, Calendar} from 'expo'
 import AdminActivityView from './AdminActivityView'
 import EventRegistrationView from '../institutes/EventRegistrationView'
@@ -7,6 +7,8 @@ import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from '.
 import {FontAwesome} from '@expo/vector-icons';
 import {getUserData, setMessage, makeArrayFromObjects, deleteActivityByUserId} from './AdminActivitiesService'
 import {getUserTokenNotification, sendPushNotification} from '../notification/NotificationService';
+import Toast from 'react-native-easy-toast'
+import {showToast} from '../../utils/taost';
 
 export const ParticipantItem = ({avatarUrl, phone, _name, isCoordinator, participant}) => {
   return (
@@ -201,10 +203,11 @@ class EventView extends Component {
             "timeZone": googleCalendar.timeZone ? googleCalendar.timeZone.toString() : new Date(eventDate).getTimezoneOffset().toString()
           }
           ID = await Calendar.createEventAsync(calendarId, details)
-          ToastAndroid.show('האירוע נוסף ללוח השנה במכשיר בהצלחה!', ToastAndroid.SHORT)
+          showToast(this.refs, 'האירוע נוסף ללוח השנה במכשיר בהצלחה!');
         }
       }
       catch (err) {
+        showToast(this.refs, 'שגיאה!\nישנה בעיה בעדכון האירוע בלוח השנה של המכשיר');
         alert('שגיאה!\nישנה בעיה בעדכון האירוע בלוח השנה של המכשיר ', err)
       }
     }
@@ -285,6 +288,7 @@ class EventView extends Component {
             :
             null
         }
+        <Toast ref="toast" style={{backgroundColor:'#C2185B'}} positionValue={180} opacity={0.8}/>
       </View>
     )
   }

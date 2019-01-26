@@ -53,11 +53,9 @@ export default StyleSheet.create({
     paddingBottom: 20
   },
   activityBox: {
-    flex: 1,
-    alignItems: "center",
     borderBottomColor: '#bbb',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    justifyContent: "flex-start",
+    justifyContent: "space-around",
     height:50,
     flexDirection: "row"
   },
@@ -75,9 +73,7 @@ export default StyleSheet.create({
     color: '#C2185B',
     textAlign: 'center',
     fontSize: 14,
-    marginTop:3,
-    marginBottom:3,
-    marginRight:2,
+    margin:3,
   },
   boxDetails:{
     backgroundColor:'#C2185B',

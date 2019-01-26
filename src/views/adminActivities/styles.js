@@ -126,38 +126,30 @@ const modalActivityStyle = StyleSheet.create({
     flex: 0,
     justifyContent: 'space-between',
     marginBottom: 10,
-    //borderWidth: 2,
-    //borderColor: 'red',
-    //bottom: 0
   },
   bottomButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    //borderWidth: 2,
-    //borderColor: 'blue'
   },
   button: {
     margin: 20
   },
   registrationModalContainer: {
-    //flex:1,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: "center",
-    // marginTop: "10%",
+    marginTop: "20%",
     backgroundColor: "#B4B7BA",
     height: 300,
     width: "90%",
     borderRadius: 15,
-    //borderWidth: 2,
-    //borderColor: 'red'
   },
   modalContainer: {
-    marginTop: "50%",
+    marginTop: "30%",
     justifyContent: "center",
     alignSelf: "center",
     backgroundColor: "#B4B7BA",
-    height: "30%",
+    height: "80%",
     width: "90%",
     borderWidth: 2,
     borderRadius: 15

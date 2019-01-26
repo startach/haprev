@@ -6,12 +6,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Dimensions,
-  ToastAndroid,
   TextInput,
   KeyboardAvoidingView
 } from 'react-native'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from '../adminActivities/styles'
 import {FontAwesome} from '@expo/vector-icons';
+import Toast from 'react-native-easy-toast';
+import {showToast} from '../../utils/taost';
 
 const {width} = Dimensions.get('screen');
 
@@ -49,9 +50,15 @@ class EventRegistrationView extends Component {
     this.setState({extraParticipants: newText})
   }
 
+  alreadyExists = () => {
+    showToast(this.refs, 'אתה כבר רשום לפעילות זו');
+  }
+
   render() {
     return (
-      <View>
+      <React.Fragment>
+        <Toast ref="toast" style={{backgroundColor:'#C2185B'}} positionValue={180} opacity={0.8}/>
+        <View>
         {this.props.registeredNow ?
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity onPress={async () => {
@@ -67,7 +74,7 @@ class EventRegistrationView extends Component {
                 <FontAwesome style={[styles.cancelIcon, {backgroundColor: 'transparent'}]} name='calendar-o' size={20}/>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => ToastAndroid.show('אתה כבר רשום לפעילות זו', ToastAndroid.SHORT)}>
+            <TouchableOpacity onPress={() => this.alreadyExists}>
               <View style={[styles.cancelButton, {
                 width: width * 0.333,
                 backgroundColor: '#009B77',
@@ -76,7 +83,7 @@ class EventRegistrationView extends Component {
               }]}>
                 <Text style={[styles.cancelText, {fontSize: 14, marginBottom: 3}]}>נרשמת לפעילות</Text>
                 <FontAwesome style={[styles.cancelIcon, {backgroundColor: 'transparent'}]} name='check-circle'
-                             size={20}/>
+                            size={20}/>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
@@ -102,7 +109,7 @@ class EventRegistrationView extends Component {
             </View>
           </TouchableOpacity>
         }
-        <Modal
+          <Modal
           transparent
           visible={this.state.displayCancelEventDialog}
           animationType={'slide'}
@@ -152,7 +159,8 @@ class EventRegistrationView extends Component {
           }
         </Modal>
 
-      </View>
+        </View>
+      </React.Fragment>
     )
   }
 }
