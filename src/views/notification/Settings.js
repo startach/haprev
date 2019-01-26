@@ -112,8 +112,8 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     modalContainer: {
-        marginTop: "5%",
-        marginBottom: "5%",
+        marginVertical: 15,
+        padding: 2,
         justifyContent: 'center',
         alignSelf:'center',        
         backgroundColor: '#F0EDE5',
