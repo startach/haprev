@@ -90,7 +90,7 @@ class SideMenu extends Component {
                                         { action: this.instagramNavigation, imgPath: require('../images/InstagramLogo.png'), height: 30},
                                     ]}
                                     renderItem={({item,index}) => this.getSocialMediaIcon(item,index)}
-                                    keyExtractor={(item,index) => index}
+                                    keyExtractor={(item,index) => index.toString()}
                                 />
                             </LinearGradient>
                         </View>
@@ -137,11 +137,13 @@ const styles = StyleSheet.create({
         backgroundColor:'#ffffff',
         opacity: 0.85,
         height: 50,
+        alignItems: 'flex-start',
     },
     grayLine: {
         backgroundColor:'#dbdbdb',
         opacity: 0.85,
         height: 50,
+        alignItems: 'flex-start',
     },
     displayNone:{
         display:"none"

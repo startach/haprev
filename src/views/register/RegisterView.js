@@ -1,9 +1,11 @@
 import React from 'react';
-import {Text, View, Image, ImageBackground,ScrollView, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator,ToastAndroid } from 'react-native';
+import {Text, View, Image, ImageBackground,ScrollView, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
 import styles from './RegisterViewStyles';
 import RegisterInput from './RegisterInputField';
 import { ImagePicker } from 'expo';
 import {registerForPushNotificationsAsync} from '../notification/NotificationService'
+import Toast from 'react-native-easy-toast';
+import {showToast} from '../../utils/taost';
 
 const FIRSTNAME = 'first';
 const LASTNAME = 'last';
@@ -137,7 +139,7 @@ class RegisterView extends React.Component {
             user[PASSWORD] = this.state.password
             let register = await this.props.onAction(user);
             if(!register)
-                ToastAndroid.show('מספר הפלאפון קיים במערכת', ToastAndroid.SHORT)
+                showToast(this.refs, 'מספר הפלאפון קיים במערכת');
             else if(this.props.registerScreen){
                 let notificationSettingsUser = await registerForPushNotificationsAsync()
                 await this.props.updateNotificationSettingUser(notificationSettingsUser)
@@ -216,6 +218,7 @@ class RegisterView extends React.Component {
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
+        <Toast ref="toast" style={{backgroundColor:'#C2185B'}} opacity={0.8}/>
         </ImageBackground>
     );}
 };
