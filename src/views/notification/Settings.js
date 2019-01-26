@@ -1,8 +1,10 @@
 import React from 'react'
-import {View, Text, ScrollView, Switch, TouchableOpacity, StyleSheet, ToastAndroid} from 'react-native'
+import {View, Text, ScrollView, Switch, TouchableOpacity, StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
 import { updateNotificationSettingUser } from '../../store/modules/user';
 import {registerForPushNotificationsAsync} from '../notification/NotificationService'
+import Toast from 'react-native-easy-toast'
+import {showToast} from '../../utils/taost';
 
 class Settings extends React.Component{
     state = {
@@ -32,11 +34,11 @@ class Settings extends React.Component{
                 newSettings['status'] = 'no'
             }
             res = await this.props.updateNotificationSettingUser(newSettings)
-            ToastAndroid.show('ההגדרות נשמרו בהצלחה', ToastAndroid.SHORT)
+            showToast(this.refs, 'ההגדרות נשמרו בהצלחה');
             this.props.navigation.navigate('Home')
         }
         else
-            ToastAndroid.show('אין שינוי בהגדרות', ToastAndroid.SHORT)
+            showToast(this.refs, 'אין שינוי בהגדרות');
     }
 
     render() {
@@ -71,6 +73,7 @@ class Settings extends React.Component{
                             </View>
                         </View>
                     </View>
+                    <Toast ref="toast" style={{backgroundColor:'#C2185B'}} opacity={0.8}/>
                 </View>
             </ScrollView>
         )
