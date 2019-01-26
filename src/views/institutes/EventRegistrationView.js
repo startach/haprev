@@ -59,78 +59,78 @@ class EventRegistrationView extends Component {
       <React.Fragment>
         <Toast ref="toast" style={{backgroundColor:'#C2185B'}} positionValue={180} opacity={0.8}/>
         <View>
-          {this.props.registeredNow ?
-            <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity onPress={async () => {
-                await this.props.createEventOnDeviceCalendar()
-              }}>
-                <View style={[styles.cancelButton, {
-                  width: width * 0.333,
-                  backgroundColor: '#4283F2',
-                  flexDirection: 'column',
-                  alignSelf: 'center'
-                }]}>
-                  <Text style={[styles.cancelText, {fontSize: 14, marginBottom: 3}]}>עדכן בלוח שנה</Text>
-                  <FontAwesome style={[styles.cancelIcon, {backgroundColor: 'transparent'}]} name='calendar-o' size={20}/>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this.alreadyExists}>
-                <View style={[styles.cancelButton, {
-                  width: width * 0.333,
-                  backgroundColor: '#009B77',
-                  flexDirection: 'column',
-                  alignSelf: 'center'
-                }]}>
-                  <Text style={[styles.cancelText, {fontSize: 14, marginBottom: 3}]}>נרשמת לפעילות</Text>
-                  <FontAwesome style={[styles.cancelIcon, {backgroundColor: 'transparent'}]} name='check-circle'
-                              size={20}/>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => {
-                this.props.navigation.navigate('Institutes');
-                this.props.navigation.navigate('HomeRoute')
-              }}>
-                <View style={[styles.cancelButton, {
-                  width: width * 0.333,
-                  backgroundColor: '#C2185B',
-                  flexDirection: 'column',
-                  alignSelf: 'center'
-                }]}>
-                  <Text style={[styles.cancelText, {fontSize: 14, marginBottom: 3}]}>חזור למסך הבית</Text>
-                  <FontAwesome style={[styles.cancelIcon, {backgroundColor: 'transparent'}]} name='home' size={20}/>
-                </View>
-              </TouchableOpacity>
-            </View>
-            :
-            <TouchableOpacity onPress={this.showCancelEventDialog}>
-              <View style={[styles.cancelButton, {backgroundColor: '#009B77'}]}>
-                <Text style={styles.cancelText}>הרשם להתנדבות</Text>
-                <FontAwesome style={[styles.cancelIcon, {backgroundColor: 'transparent'}]} name='thumbs-up' size={30}/>
+        {this.props.registeredNow ?
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity onPress={async () => {
+              await this.props.createEventOnDeviceCalendar()
+            }}>
+              <View style={[styles.cancelButton, {
+                width: width * 0.333,
+                backgroundColor: '#4283F2',
+                flexDirection: 'column',
+                alignSelf: 'center'
+              }]}>
+                <Text style={[styles.cancelText, {fontSize: 14, marginBottom: 3}]}>עדכן בלוח שנה</Text>
+                <FontAwesome style={[styles.cancelIcon, {backgroundColor: 'transparent'}]} name='calendar-o' size={20}/>
               </View>
             </TouchableOpacity>
-            
-          }
+            <TouchableOpacity onPress={() => this.alreadyExists}>
+              <View style={[styles.cancelButton, {
+                width: width * 0.333,
+                backgroundColor: '#009B77',
+                flexDirection: 'column',
+                alignSelf: 'center'
+              }]}>
+                <Text style={[styles.cancelText, {fontSize: 14, marginBottom: 3}]}>נרשמת לפעילות</Text>
+                <FontAwesome style={[styles.cancelIcon, {backgroundColor: 'transparent'}]} name='check-circle'
+                            size={20}/>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              this.props.navigation.navigate('Institutes');
+              this.props.navigation.navigate('HomeRoute')
+            }}>
+              <View style={[styles.cancelButton, {
+                width: width * 0.333,
+                backgroundColor: '#C2185B',
+                flexDirection: 'column',
+                alignSelf: 'center'
+              }]}>
+                <Text style={[styles.cancelText, {fontSize: 14, marginBottom: 3}]}>חזור למסך הבית</Text>
+                <FontAwesome style={[styles.cancelIcon, {backgroundColor: 'transparent'}]} name='home' size={20}/>
+              </View>
+            </TouchableOpacity>
+          </View>
+          :
+          <TouchableOpacity onPress={this.showCancelEventDialog}>
+            <View style={[styles.cancelButton, {backgroundColor: '#009B77'}]}>
+              <Text style={styles.cancelText}>הרשם להתנדבות</Text>
+              <FontAwesome style={[styles.cancelIcon, {backgroundColor: 'transparent'}]} name='thumbs-up' size={30}/>
+            </View>
+          </TouchableOpacity>
+        }
           <Modal
-            transparent
-            visible={this.state.displayCancelEventDialog}
-            animationType={'slide'}
-            onRequestClose={() => this.setState({displayCancelEventDialog: true})}>
-            {!this.props.process ?
-              <KeyboardAvoidingView contentContainerStyle={{flexDirection: "column"}} behavior="position" enabled>
-                <View style={modalStyles.modalContainer}>
-                  <Text style={[modalStyles.title, {color: '#fff'}]}> האם להירשם לההתנדבות? {'\n'} </Text>
-                  <View style={modalStyles.extraParticipantsContainer}>
-                    <Text style={[modalStyles.extraParticipants, {color: '#fff'}]}> כמה אנשים יצטרפו? {'\n'} </Text>
-                    <TextInput
-                      style={styles.inputFieldExtraParticipants}
-                      placeholder='מספר משתתפים נוספים'
-                      underlineColorAndroid='transparent'
-                      onChangeText={(text) => this.onChanged(text)}
-                      value={(this.state.extraParticipants && this.state.extraParticipants.toString()) || null}
-                      maxLength={2}
-                    />
-                  </View>
-                  <View style={[modalStyles.buttonsContainer, {paddingTop: 5}]}>
+          transparent
+          visible={this.state.displayCancelEventDialog}
+          animationType={'slide'}
+          onRequestClose={() => this.setState({displayCancelEventDialog: true})}>
+          {!this.props.process ?
+            <KeyboardAvoidingView contentContainerStyle={{flex: 0, flexDirection: 'column'}} behavior="padding" enabled>
+              <View style={modalStyles.registrationModalContainer}>
+                <Text style={[modalStyles.title, {color: '#fff'}]}> האם להירשם לההתנדבות? {'\n'} </Text>
+                <View style={modalStyles.extraParticipantsContainer}>
+                  <Text style={[modalStyles.extraParticipants, {color: '#fff'}]}> כמה אנשים יצטרפו? {'\n'} </Text>
+                  <TextInput
+                    style={styles.inputFieldExtraParticipants}
+                    placeholder='מספר משתתפים נוספים'
+                    underlineColorAndroid='transparent'
+                    onChangeText={(text) => this.onChanged(text)}
+                    value={(this.state.extraParticipants && this.state.extraParticipants.toString()) || null}
+                    maxLength={2}
+                  />
+                </View>
+                <View style={modalStyles.bottom}>
+                  <View style={[modalStyles.bottomButtonsContainer]}>
                     <TouchableOpacity
                       rounded
                       style={modalStyles.modalButton}
@@ -149,14 +149,15 @@ class EventRegistrationView extends Component {
                     </TouchableOpacity>
                   </View>
                 </View>
-              </KeyboardAvoidingView>
-              :
-              <View style={modalStyles.modalContainer}>
-                <Text style={[modalStyles.title, {color: '#fff'}]}> רושם להתנדבות... {'\n'} </Text>
-                <ActivityIndicator size='large' color='#fff'/>
               </View>
-            }
-          </Modal>
+            </KeyboardAvoidingView>
+            :
+            <View style={modalStyles.modalContainer}>
+              <Text style={[modalStyles.title, {color: '#fff'}]}> רושם להתנדבות... {'\n'} </Text>
+              <ActivityIndicator size='large' color='#fff'/>
+            </View>
+          }
+        </Modal>
 
         </View>
       </React.Fragment>

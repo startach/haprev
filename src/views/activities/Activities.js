@@ -16,20 +16,22 @@ class Activities extends React.Component{
 
     async componentWillMount() {
         this.state.process ? null : this.setState({process:true})
-        activities = this.props.activities
-        activityElements = []
-        if(activities.length>0 || Object.keys(activities).length>0){
-            const res = map(activities, (activitiesInHospital, hospitalId) => {
-                activityElem = map(activitiesInHospital, (dataActivity, activityId) => {
+        const activities = this.props.activities
+        let activityElements = []
+
+        if (activities.length > 0 || Object.keys(activities).length > 0) {
+            map(activities, (activitiesInHospital, hospitalId) => {
+                map(activitiesInHospital, (dataActivity, activityId) => {
                     dataActivity['hospitalId']=hospitalId
                     dataActivity['hospitalName']= this.props.institutes[hospitalId-1].name
                     activityElements.push(dataActivity)
                 })
             })
-                activityElements = sortArrayByDate(activityElements)
+            activityElements = sortArrayByDate(activityElements)
+        } else {
+          activityElements = null
         }
-        else
-            activityElements = null
+
         this.setState({activityElements : activityElements, process:false})
     }
 

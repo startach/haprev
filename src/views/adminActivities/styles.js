@@ -122,18 +122,34 @@ const modalActivityStyle = StyleSheet.create({
     backgroundColor: "#080",
     margin: 5
   },
-  bottomButtons: {
-    bottom: 0
+  bottom: {
+    flex: 0,
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  bottomButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   button: {
     margin: 20
   },
+  registrationModalContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: "center",
+    marginTop: "20%",
+    backgroundColor: "#B4B7BA",
+    height: 300,
+    width: "90%",
+    borderRadius: 15,
+  },
   modalContainer: {
-    marginTop: "50%",
+    marginTop: "30%",
     justifyContent: "center",
     alignSelf: "center",
     backgroundColor: "#B4B7BA",
-    height: "55%",
+    height: "80%",
     width: "90%",
     borderWidth: 2,
     borderRadius: 15
@@ -142,17 +158,14 @@ const modalActivityStyle = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     textAlign: "center",
-    paddingTop: 10
-  },
-  extraParticipants: {
-    fontSize: 20,
-    textAlign: "center"
+    paddingTop: 20
   },
   buttonsContainer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    alignSelf: "center"
+    alignSelf: "center",
+    justifyContent: 'flex-end'
   },
   extraParticipantsContainer: {
     flex: 1,
