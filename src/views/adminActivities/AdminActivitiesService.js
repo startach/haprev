@@ -13,19 +13,22 @@ export const getUserData = async(appId) => {
   let phone = null
   let userId = null
   let name = 'לא זמין'
-  await firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' , 
+  let extraParticipants
+
+  await firebase.database().ref('users').orderByChild('appId').equalTo(appId).once('value' ,
     snapshot => {
       let dbUser = snapshot.val()
       if (dbUser) {
-        key=[Object.keys(dbUser)[0]]
+        const key=[Object.keys(dbUser)[0]]
         avatarUrl = dbUser[key].avatarUrl || null
         phone = dbUser[key].phone || null
-        userId = dbUser[key].userId || null        
-        name = (dbUser[key].first +' '+ dbUser[key].last) || null 
+        userId = dbUser[key].userId || null
+        name = (dbUser[key].first +' '+ dbUser[key].last) || null
+        extraParticipants = dbUser[key].extraParticipants || null
       }
     }
   )
-  return {avatarUrl:avatarUrl,phone:phone,userId:userId,name:name}
+  return {avatarUrl:avatarUrl,phone:phone,userId:userId,name:name, extraParticipants}
 }
 
 export const makeArrayFromObjects = (objects) => {
@@ -53,7 +56,7 @@ export const makeArrayParticipants = (events) =>{
   for (var key in events) {
       if(events[key].participants){
           temp = []
-          for (var pKey in events[key].participants) 
+          for (var pKey in events[key].participants)
               if(events[key].participants[pKey])
                   temp.push(events[key].participants[pKey])
           participantsArray.push(temp)

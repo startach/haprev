@@ -92,21 +92,40 @@ export default StyleSheet.create({
     borderColor: '#fff',
     backgroundColor:'#9f144b',
   },
-  modalContainer: {
+  /*modalContainer: {
     marginTop: "30%",
     marginBottom: "30%",
     justifyContent: 'center',
-    alignSelf:'center',        
+    alignSelf:'center',
     backgroundColor: '#B4B7BA',
     width: '70%',
     borderWidth:2,
     borderRadius:15,
+  },*/
+  modalContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: "center",
+    backgroundColor: "#B4B7BA",
+    marginTop: 100,
+    height: 300,
+    width: "90%",
+    borderRadius: 15
+  },
+  participantsContainer: {
+    flex: 1,
+    flexDirection:'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: "center",
+    width: "100%",
+    paddingTop: 30
   },
   participantItem: {
-    marginHorizontal: "17.5%",
-    width: "75%",
+    marginHorizontal: "10%",
+    width: "100%",
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
     borderTopColor: "#333",
     borderTopWidth: StyleSheet.hairlineWidth
@@ -135,4 +154,4 @@ export default StyleSheet.create({
     alignSelf: "center",
     color:'#ffffff',
   },
-});  
+});
