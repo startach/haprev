@@ -12,7 +12,7 @@ const renderText = (text)=> {
     return text
 }
 
-const ParticipantItem = ({avatarUrl, phone, _name}) => {
+const ParticipantItem = ({participant, avatarUrl, phone, _name}) => {
     return (
         <View style={styles.participantItem}>
             {avatarUrl ?
@@ -22,11 +22,13 @@ const ParticipantItem = ({avatarUrl, phone, _name}) => {
             }
             <View style={{flex:1,flexDirection: 'row',justifyContent: 'space-between'}}>
                 <Text style={styles.participantText}>{ renderText(_name) }</Text>
-                <FontAwesome 
-                style={[styles.phoneIcon, !phone && { color:'#ffffff'}]} 
-                name='phone-square' 
+              {participant.extraParticipants ?
+                <Text style={styles.participantText}>+ {participant.extraParticipants}</Text> : null}
+                <FontAwesome
+                style={[styles.phoneIcon, !phone && { color:'#ffffff'}]}
+                name='phone-square'
                 size={30}
-                onPress={()=>{phone ? Linking.openURL('tel:'+phone) : {}}} 
+                onPress={()=>{phone ? Linking.openURL('tel:'+phone) : {}}}
                 />
             </View>
         </View>)
@@ -50,6 +52,14 @@ class ActivityItem extends React.Component{
     renderActivityData = async(activityId,insId)=> {
         if(!this.state.showFullActivity){
             const activityData = await this.props.renderActicityData(activityId,insId)
+            const participants = makeArrayFromObjects(activityData.participants) || []
+
+            const reducer = (accumulator, currentValue) => {
+              return accumulator + parseInt(currentValue.extraParticipants || 0)
+            }
+
+            activityData.extraParticipants = participants.reduce(reducer, 0)
+
             const coordinatorData = await this.props.getUserData(activityData.coordinator)
             this.setState({
                 showFullActivity:!this.state.showFullActivity,
@@ -77,7 +87,7 @@ class ActivityItem extends React.Component{
             alert('מספר הטלפון של הרכז לא זמין במערכת')
         }
     }
-    
+
     showParticipantsHandle = async() => {
         const participants = await makeArrayFromObjects(this.state.activityData.participants)
         if(participants.length>0){
@@ -105,7 +115,7 @@ class ActivityItem extends React.Component{
     return (
     <View>
         <TouchableOpacity underlayColor='#fff' onPress={async() => {this.activityNode.tada(1000); await this.renderActivityData(activity.id,activity.hospitalId)}}>
-            <Animatable.View 
+            <Animatable.View
             style={[styles.activityBox,(index%2 === 0) ? {backgroundColor:'#F5F5F1'} : {backgroundColor:'#F0EDE0'}]}
             ref={(ref)=>{this.activityNode = ref}}
             >
@@ -144,13 +154,13 @@ class ActivityItem extends React.Component{
             null
             }
             <View style={styles.rowLine}>
-                <Text style={[styles.textBox,styles.textDetails]}>מספר משתתפים:  {Object.keys(this.state.activityData.participants).length} </Text>
-                <AnimatableView 
+                <Text style={[styles.textBox,styles.textDetails]}>מספר משתתפים:  {Object.keys(this.state.activityData.participants).length + this.state.activityData.extraParticipants} </Text>
+                <AnimatableView
                 viewStyle={{}}
                 duration={2500}
                 animation='wobble'
                 easing='ease'
-                viewContent= { 
+                viewContent= {
                     <TouchableOpacity onPress={async() => {await this.showParticipantsHandle()}}>
                         <FontAwesome name="group" size={30} color={'#fff'} style={{margin:10}}/>
                     </TouchableOpacity>
@@ -159,7 +169,7 @@ class ActivityItem extends React.Component{
             </View>
             <View style={{flexDirection:'row'}}>
                 <Text style={[styles.textBox,styles.textDetails]}>רכז:  {renderText(this.state.coordinatorData.name)} </Text>
-                <TouchableOpacity onPress={() => this.callToCoordinator()}>                
+                <TouchableOpacity onPress={() => this.callToCoordinator()}>
                     <FontAwesome name="phone" size={30} color={'#fff'} style={{paddingBottom:5,paddingTop:10}}/>
                 </TouchableOpacity>
             </View>
@@ -175,18 +185,19 @@ class ActivityItem extends React.Component{
             onRequestClose={() => this.setState({modalParticipantsVisible:true})}
             >
             <View style={styles.modalContainer}>
-                { this.state.avatarsArray && this.state.participants ?
+                { this.state.participants ?
                 <ScrollView horizontal={false}>
-                        <FlatList data={this.state.participants}
-                        renderItem={({item,index}) => <ParticipantItem 
-                        participant={item} 
-                        avatarUrl={this.state.avatarsArray[index]} 
-                        phone={this.state.phonesArray[index]}
-                        _name={this.state.namesArray[index]}
+                  <View style={styles.participantsContainer}>
+                        <FlatList data={this.state.participants} renderItem={({item,index}) => <ParticipantItem
+                        participant={item}
+                        avatarUrl={(this.state.avatarsArray && this.state.avatarsArray[index]) || ''}
+                        phone={(this.state.phonesArray && this.state.phonesArray[index]) || ''}
+                        _name={(this.state.namesArray && this.state.namesArray[index]) || ''}
                         />}
                         keyExtractor={(item) => item.appId}
                         refreshing={true}
                         />
+                  </View>
                 </ScrollView>
                 :
                 <ActivityIndicator size='large' color='#C2185B'/>

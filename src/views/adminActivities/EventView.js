@@ -153,7 +153,9 @@ class EventView extends Component {
     this.setState({process: true})
     const {userId, appId, fullName, event, addUserToEvent, addEventToUser} = this.props.navigation.state.params
     let res = 'ok'
+
     res = await addUserToEvent(event, appId, fullName, extraParticipants)
+
     if (res === 'ok')
       res = await addEventToUser(userId, event)
     //push notification to the coordinator
@@ -217,7 +219,7 @@ class EventView extends Component {
     const activity = params ? params.event : null
     const participants = this.state.participants || []
     const reducer = (accumulator, currentValue) => {
-      return accumulator + parseInt(currentValue.extraParticipants)
+      return accumulator + parseInt(currentValue.extraParticipants || 0)
     }
     const extraParticipants = participants instanceof Array && participants.reduce(reducer, 0)
     const adminActivityScreen = params.adminActivityScreen

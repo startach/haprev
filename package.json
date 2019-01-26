@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "react-native-scripts": "1.9.0",
-    "jest-expo": "25.0.0",
+    "jest-expo": "26.0.0",
     "react-test-renderer": "16.0.0"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
@@ -19,10 +19,10 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "expo": "^25.0.0",
+    "expo": "^26.0.0",
     "firebase": "^4.11.0",
     "react": "16.2.0",
-    "react-native": "0.52.0",
+    "react-native": "0.54.0",
     "react-native-calendars": "^1.17.0",
     "react-native-modal-datetime-picker": "^5.1.0",
     "react-native-swiper": "^1.5.13",

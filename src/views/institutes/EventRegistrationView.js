@@ -108,8 +108,8 @@ class EventRegistrationView extends Component {
           animationType={'slide'}
           onRequestClose={() => this.setState({displayCancelEventDialog: true})}>
           {!this.props.process ?
-            <KeyboardAvoidingView contentContainerStyle={{flexDirection: "column"}} behavior="position" enabled>
-              <View style={modalStyles.modalContainer}>
+            <KeyboardAvoidingView contentContainerStyle={{flex: 0, flexDirection: 'column'}} behavior="padding" enabled>
+              <View style={modalStyles.registrationModalContainer}>
                 <Text style={[modalStyles.title, {color: '#fff'}]}> האם להירשם לההתנדבות? {'\n'} </Text>
                 <View style={modalStyles.extraParticipantsContainer}>
                   <Text style={[modalStyles.extraParticipants, {color: '#fff'}]}> כמה אנשים יצטרפו? {'\n'} </Text>
@@ -122,23 +122,25 @@ class EventRegistrationView extends Component {
                     maxLength={2}
                   />
                 </View>
-                <View style={[modalStyles.buttonsContainer, {paddingTop: 5}]}>
-                  <TouchableOpacity
-                    rounded
-                    style={modalStyles.modalButton}
-                    onPress={() => {
-                      this.hideCancelEventDialog()
-                    }}
-                  >
-                    <Text style={modalStyles.modalRegisterButtonText}>ביטול</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    rounded
-                    style={[modalStyles.modalButton, {backgroundColor: '#009B77'}]}
-                    onPress={async () => await this.registration()}
-                  >
-                    <Text style={modalStyles.modalRegisterButtonText}>הירשם</Text>
-                  </TouchableOpacity>
+                <View style={modalStyles.bottom}>
+                  <View style={[modalStyles.bottomButtonsContainer]}>
+                    <TouchableOpacity
+                      rounded
+                      style={modalStyles.modalButton}
+                      onPress={() => {
+                        this.hideCancelEventDialog()
+                      }}
+                    >
+                      <Text style={modalStyles.modalRegisterButtonText}>ביטול</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      rounded
+                      style={[modalStyles.modalButton, {backgroundColor: '#009B77'}]}
+                      onPress={async () => await this.registration()}
+                    >
+                      <Text style={modalStyles.modalRegisterButtonText}>הירשם</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </KeyboardAvoidingView>
