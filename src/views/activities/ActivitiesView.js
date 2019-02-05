@@ -49,6 +49,14 @@ class ActivityItem extends React.Component{
         }
     }
 
+    deleteActivity = async () => {
+        try {
+            await this.props.deleteMyActivity(this.props.activity, this.state.coordinatorData.userId)
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     renderActivityData = async(activityId,insId)=> {
         if(!this.state.showFullActivity){
             const activityData = await this.props.renderActicityData(activityId,insId)
@@ -111,7 +119,7 @@ class ActivityItem extends React.Component{
     }
 
     render() {
-    const {activity, index, deleteMyActivity} = this.props
+    const {activity, index} = this.props
     return (
     <View>
         <TouchableOpacity underlayColor='#fff' onPress={async() => {this.activityNode.tada(1000); await this.renderActivityData(activity.id,activity.hospitalId)}}>
@@ -143,7 +151,7 @@ class ActivityItem extends React.Component{
             {this.state.deleteVisible ?
                 <View style={[styles.rowLine,styles.deleteLine]}>
                     <Text style={[styles.textBox,styles.textDetails]}>לבטל השתתפותך בפעילות? </Text>
-                    <TouchableOpacity onPress={async () => {await deleteMyActivity(activity,this.state.coordinatorData.userId)}}>
+                    <TouchableOpacity onPress={this.deleteActivity}>
                         <FontAwesome name="check" size={30} color={'#009B77'} style={{margin:10}}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.setState({deleteVisible:false})}>
