@@ -218,7 +218,7 @@ class RegisterView extends React.Component {
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
-        <Toast ref="toast" style={{backgroundColor:'#C2185B'}} opacity={0.8}/>
+        <Toast ref="toast" style={{backgroundColor:'#555'}} opacity={0.8}/>
         </ImageBackground>
     );}
 };

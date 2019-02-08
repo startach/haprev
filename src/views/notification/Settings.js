@@ -73,7 +73,7 @@ class Settings extends React.Component{
                             </View>
                         </View>
                     </View>
-                    <Toast ref="toast" style={{backgroundColor:'#C2185B'}} opacity={0.8}/>
+                    <Toast ref="toast" style={{backgroundColor:'#555'}} opacity={0.8}/>
                 </View>
             </ScrollView>
         )
