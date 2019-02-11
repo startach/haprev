@@ -33,7 +33,7 @@ export default StyleSheet.create({
         marginTop: 15,
         width: 135,
         height: 135,
-        borderRadius: 100,
+        borderRadius: 135 / 2,
         borderWidth: 1,
         borderColor: '#fff'
       },

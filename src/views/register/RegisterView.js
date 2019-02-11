@@ -1,8 +1,8 @@
 import React from 'react';
-import {Text, View, Image, ImageBackground,ScrollView, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
+import {Text, View, Image, ImageBackground,ScrollView, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, Platform} from 'react-native';
 import styles from './RegisterViewStyles';
 import RegisterInput from './RegisterInputField';
-import { ImagePicker } from 'expo';
+import { ImagePicker, Permissions } from 'expo';
 import {registerForPushNotificationsAsync} from '../notification/NotificationService'
 import Toast from 'react-native-easy-toast';
 import {showToast} from '../../utils/taost';
@@ -97,19 +97,28 @@ class RegisterView extends React.Component {
     }
 
     pickImage = async () => {
-        let pickerResult = await ImagePicker.launchImageLibraryAsync({
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 0.8,
-            base64: true,
-            mediaTypes: ImagePicker.MediaTypeOptions.Images 
-        });
-        
-        if (!pickerResult.cancelled) {
-            disabled = !this.state.firstValidate || !this.state.lastValidate || !this.state.phoneValidate || !this.state.passwordValidate
-            this.setState({ avatarUrl: pickerResult.uri, disabled: disabled});
-            let base64Img = `data:image/jpg;base64,${pickerResult.base64}`
-            this.base64Img = base64Img;
+        let cameraPermission = true;
+        if (Platform.OS === "ios"){
+            const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            cameraPermission = status === 'granted';
+        }
+        if(cameraPermission){
+            const pickerResult = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 0.8,
+                base64: true,
+                mediaTypes: ImagePicker.MediaTypeOptions.Images 
+            });
+            
+            if (!pickerResult.cancelled) {
+                const disabled = !this.state.firstValidate || !this.state.lastValidate || !this.state.phoneValidate || !this.state.passwordValidate
+                this.setState({ avatarUrl: pickerResult.uri, disabled: disabled});
+                let base64Img = `data:image/jpg;base64,${pickerResult.base64}`
+                this.base64Img = base64Img;
+            }
+        } else {
+            alert('אתה חייב לאשר גישה ללוח השנה של המכשיר בכדי לעדכן אותו');
         }
     };
 
