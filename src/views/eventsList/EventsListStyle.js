@@ -55,9 +55,11 @@ export default StyleSheet.create({
   activityBox: {
     borderBottomColor: '#bbb',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     height:50,
-    flexDirection: "row"
+    flexDirection: "row",
+      flex: 1,
+      padding: 4
   },
   activityBoxClean: {
     flex: 1,
@@ -101,7 +103,7 @@ export default StyleSheet.create({
     marginTop: "30%",
     marginBottom: "30%",
     justifyContent: 'center',
-    alignSelf:'center',        
+    alignSelf:'center',
     backgroundColor: '#B4B7BA',
     width: '70%',
     borderWidth:2,
@@ -146,15 +148,15 @@ export default StyleSheet.create({
     backgroundColor: '#cd1848',
   },
   filterText: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: 'center',
     padding: 3,
     color: '#ffffff',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   pickerText: {
     color: '#ffffff',
-    height: 40, 
-    width: 200,
-  },
-});  
+    height: 40,
+    width: 200
+  }
+});
