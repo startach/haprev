@@ -207,7 +207,7 @@ const adminActivityListStyle = StyleSheet.create({
   },
   userImage: {
     marginBottom: 10,
-    borderRadius: 100,
+    borderRadius: 65 / 2,
     width: 65,
     height: 65
   },
@@ -247,7 +247,22 @@ const adminActivityListStyle = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "#ddd"
-  }
+  },
+  dateText:{
+    width: '25%',
+    paddingRight: 2,
+    textAlign: 'left',
+  },
+  captionText:{
+    width: '35%',
+    paddingRight: 2,
+    textAlign: 'left',
+  },
+  participantsText:{
+    width: '25%',
+    paddingRight: 2,
+    textAlign: 'left',
+  },
 });
 
 const CreateActivityStyle = StyleSheet.create({
@@ -256,7 +271,10 @@ const CreateActivityStyle = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     borderWidth: 2,
-    borderColor: "#D81A4C"
+    borderColor: "#D81A4C",
+  },
+  scrollContainer:{
+    paddingVertical: 20
   },
   name: {
     height: 100
@@ -304,13 +322,12 @@ const CreateActivityStyle = StyleSheet.create({
   },
   modalContainer: {
     marginTop: "40%",
-    justifyContent: "center",
     alignSelf: "center",
     backgroundColor: "#B4B7BA",
-    height: "35%",
+    height: "45%",
     width: "90%",
     borderWidth: 2,
-    borderRadius: 15
+    borderRadius: 10,
   }
 });
 
