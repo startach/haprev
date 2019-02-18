@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const { height } = Dimensions.get('screen');
 
 export default StyleSheet.create({
   container: {
@@ -97,10 +98,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     alignSelf: "center",
     backgroundColor: "#B4B7BA",
-    marginTop: 100,
-    height: 300,
+    marginTop: height * 0.25,
+    height: height * 0.5,
     width: "90%",
-    borderRadius: 15
+    borderRadius: 10,
   },
   participantsContainer: {
     flex: 1,
@@ -125,7 +126,7 @@ export default StyleSheet.create({
     marginBottom: 3,
     width: 30,
     height: 30,
-    borderRadius: 100
+    borderRadius: 30 / 2
   },
   withoutImgList: {
     margin: 5,

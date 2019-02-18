@@ -77,7 +77,6 @@ class AdminActivitiyList extends React.Component {
     }
 
     render() {
-        const {navigation:{navigate}} =this.props;
         return (
             <AdminActiviyListView 
                 events= {this.state.events} 

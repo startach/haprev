@@ -102,10 +102,10 @@ export default StyleSheet.create({
     marginBottom: "30%",
     justifyContent: 'center',
     alignSelf:'center',        
-    backgroundColor: '#B4B7BA',
+    backgroundColor: '#c2185b',
     width: '70%',
     borderWidth:2,
-    borderRadius:15,
+    borderRadius:10,
   },
   participantItem: {
     marginHorizontal: "17.5%",
@@ -121,7 +121,7 @@ export default StyleSheet.create({
     marginBottom: 3,
     width: 30,
     height: 30,
-    borderRadius: 100
+    borderRadius: 30/2
   },
   withoutImgList: {
     margin: 5,

@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const { height } = Dimensions.get('screen');
 
 export default StyleSheet.create({
     container: {
@@ -56,13 +57,12 @@ export default StyleSheet.create({
       textAlign:'center',
     },
     modalContainer: {
-      marginTop: "40%",
+      marginTop: height * 0.25,
       justifyContent: 'center',
       alignSelf:'center',        
-      backgroundColor: '#B4B7BA',
+      backgroundColor: '#c2185b',
       height:'40%',
       width: '90%',
-      borderWidth:2,
-      borderRadius:15,
+      borderRadius:10,
     },
   });  

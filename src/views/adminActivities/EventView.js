@@ -288,7 +288,7 @@ class EventView extends Component {
             :
             null
         }
-        <Toast ref="toast" style={{backgroundColor:'#C2185B'}} positionValue={180} opacity={0.8}/>
+        <Toast ref="toast" style={{backgroundColor:'#555'}} positionValue={180} opacity={0.8}/>
       </View>
     )
   }
