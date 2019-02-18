@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+const { height } = Dimensions.get('screen');
 
 const adminActivityStyle = StyleSheet.create({
   container: {
@@ -26,7 +27,7 @@ const adminActivityStyle = StyleSheet.create({
     marginBottom: 3,
     width: 35,
     height: 35,
-    borderRadius: 100
+    borderRadius: 35 / 2
   },
   withoutImgList: {
     margin: 5,
@@ -138,21 +139,21 @@ const modalActivityStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: "center",
-    marginTop: "20%",
-    backgroundColor: "#B4B7BA",
-    height: 300,
+    marginTop: height * 0.2,
+    backgroundColor: '#c2185b',
+    height: height * 0.4,
     width: "90%",
-    borderRadius: 15,
+    borderRadius: 10,
   },
   modalContainer: {
-    marginTop: "30%",
+    marginTop: height * 0.2,
     justifyContent: "center",
     alignSelf: "center",
-    backgroundColor: "#B4B7BA",
-    height: "80%",
+    backgroundColor: '#c2185b',
+    height: height * 0.4,
     width: "90%",
     borderWidth: 2,
-    borderRadius: 15
+    borderRadius: 10
   },
   title: {
     fontSize: 22,
@@ -321,9 +322,9 @@ const CreateActivityStyle = StyleSheet.create({
     paddingBottom: 20
   },
   modalContainer: {
-    marginTop: "40%",
+    marginTop: height * 0.25,
     alignSelf: "center",
-    backgroundColor: "#B4B7BA",
+    backgroundColor: '#c2185b',
     height: "45%",
     width: "90%",
     borderWidth: 2,

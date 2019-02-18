@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#B4B7BA',
         width: '70%',
         borderWidth:2,
-        borderRadius:15,
+        borderRadius:10,
         zIndex:9999,
         borderColor:'red'
       },
