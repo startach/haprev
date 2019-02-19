@@ -45,7 +45,7 @@ class Settings extends React.Component{
         return(
             <ScrollView>
                 <View style = {{backgroundColor: '#EAE6DA'}}>
-                    <View style={styles.modalContainer}>
+                    <View style={styles.settingsContainer}>
                         <View style={styles.notificationBox} >
                             <Text style={styles.title}>קבלת התראות</Text>
                             <Switch 
@@ -73,7 +73,7 @@ class Settings extends React.Component{
                             </View>
                         </View>
                     </View>
-                    <Toast ref="toast" style={{backgroundColor:'#C2185B'}} opacity={0.8}/>
+                    <Toast ref="toast" style={{backgroundColor:'#555'}} position={'center'} opacity={0.8}/>
                 </View>
             </ScrollView>
         )
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center"
     },
-    modalContainer: {
+    settingsContainer: {
         marginVertical: 15,
         padding: 2,
         justifyContent: 'center',

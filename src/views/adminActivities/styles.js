@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+const { height } = Dimensions.get('screen');
 
 const adminActivityStyle = StyleSheet.create({
   container: {
@@ -26,7 +27,7 @@ const adminActivityStyle = StyleSheet.create({
     marginBottom: 3,
     width: 35,
     height: 35,
-    borderRadius: 100
+    borderRadius: 35 / 2
   },
   withoutImgList: {
     margin: 5,
@@ -138,21 +139,21 @@ const modalActivityStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: "center",
-    marginTop: "20%",
-    backgroundColor: "#B4B7BA",
-    height: 300,
+    marginTop: height * 0.2,
+    backgroundColor: '#c2185b',
+    height: height * 0.4,
     width: "90%",
-    borderRadius: 15,
+    borderRadius: 10,
   },
   modalContainer: {
-    marginTop: "30%",
+    marginTop: height * 0.2,
     justifyContent: "center",
     alignSelf: "center",
-    backgroundColor: "#B4B7BA",
-    height: "80%",
+    backgroundColor: '#c2185b',
+    height: height * 0.4,
     width: "90%",
     borderWidth: 2,
-    borderRadius: 15
+    borderRadius: 10
   },
   title: {
     fontSize: 22,
@@ -207,7 +208,7 @@ const adminActivityListStyle = StyleSheet.create({
   },
   userImage: {
     marginBottom: 10,
-    borderRadius: 100,
+    borderRadius: 65 / 2,
     width: 65,
     height: 65
   },
@@ -247,7 +248,22 @@ const adminActivityListStyle = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "#ddd"
-  }
+  },
+  dateText:{
+    width: '25%',
+    paddingRight: 2,
+    textAlign: 'left',
+  },
+  captionText:{
+    width: '35%',
+    paddingRight: 2,
+    textAlign: 'left',
+  },
+  participantsText:{
+    width: '25%',
+    paddingRight: 2,
+    textAlign: 'left',
+  },
 });
 
 const CreateActivityStyle = StyleSheet.create({
@@ -256,7 +272,10 @@ const CreateActivityStyle = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     borderWidth: 2,
-    borderColor: "#D81A4C"
+    borderColor: "#D81A4C",
+  },
+  scrollContainer:{
+    paddingVertical: 20
   },
   name: {
     height: 100
@@ -303,14 +322,13 @@ const CreateActivityStyle = StyleSheet.create({
     paddingBottom: 20
   },
   modalContainer: {
-    marginTop: "40%",
-    justifyContent: "center",
+    marginTop: height * 0.25,
     alignSelf: "center",
-    backgroundColor: "#B4B7BA",
-    height: "35%",
+    backgroundColor: '#c2185b',
+    height: "45%",
     width: "90%",
     borderWidth: 2,
-    borderRadius: 15
+    borderRadius: 10,
   }
 });
 
