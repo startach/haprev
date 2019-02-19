@@ -35,18 +35,22 @@ class Activities extends React.Component{
         this.setState({activityElements : activityElements, process:false})
     }
 
-    deleteMyActivity = async(activity,coordinatorUserId)=>{
-        const {first,last,deleteParticipant,deleteActivity,appId} = this.props
-        await deleteParticipant(activity.id,activity.hospitalId,appId)
-        res = await deleteActivity(activity.id,activity.hospitalId)
+    deleteMyActivity = async (activity, coordinatorUserId) => {
+        const { first, last, deleteParticipant, deleteActivity, appId } = this.props
+
+        await deleteParticipant(activity.id, activity.hospitalId, appId)
+        const res = await deleteActivity(activity.id, activity.hospitalId)
+
         let coordinatorToken = await getUserTokenNotification(coordinatorUserId)
-        if(coordinatorToken){
+
+        if (coordinatorToken) {
             let title = 'ביטול משתתף'
-            let msg = first +' '+last + ' ביטל את ההשתתפות בפעילות: ' + event.caption
-            sendPushNotification(coordinatorToken,title,msg)
+            let msg = first + ' ' + last + ' ביטל את ההשתתפות בפעילות: ' + activity.caption
+            sendPushNotification(coordinatorToken, title, msg)
         }
-        if(res == 'empty')
-            this.setState({activityElements : null})
+
+        if (res == 'empty')
+            this.setState({ activityElements: null })
         else
             await this.componentWillMount()
     }

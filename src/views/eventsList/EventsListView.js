@@ -19,13 +19,13 @@ class ActivityItem extends React.Component{
 
     renderText = (text,len)=> {
         if (text.length > len )
-            return text.slice(0, len-3)+'...'
+            return text.slice(0, len - 3) + '...'
         return text
     }
 
     renderDate = (fullDate,isNextEvents) =>{
         var fulldate = new Date(fullDate)
-        var dateString =  fulldate.getDate() + "/" + (fulldate.getMonth() + 1) 
+        var dateString =  fulldate.getDate() + "/" + (fulldate.getMonth() + 1)
         dateString += isNextEvents ?  '' :   "/" + fulldate.getFullYear()
         return dateString
     }
@@ -33,13 +33,15 @@ class ActivityItem extends React.Component{
     render() {
     const {activity, index, isNextEvents} = this.props
     return (
-        <View style={[styles.activityBox,isNextEvents 
-            ? {height:30} 
-            : (index%2 === 0) ? {backgroundColor:'#f9ccac'} : {backgroundColor:'#fff2df'}]
-        }>
+        <View style={[styles.activityBox,isNextEvents
+            ? {height:30}
+            : (index%2 === 0) ? {backgroundColor:'#f9ccac'} : {backgroundColor:'#fff2df'}]}>
             <Text style={[styles.textBox,activity.fullFormatDate < new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,{width:isNextEvents?'14%':'22%'}]}>{ this.renderDate(activity.fullFormatDate,isNextEvents)}</Text>
             <Text style={styles.textBox}>[ {activity.time} ]</Text>
-            <Text style={styles.textBox}>{this.renderText(activity.caption,isNextEvents ? 17 : 19)}</Text>
+            <Text style={styles.textBox}>
+                { activity && activity.caption && activity.caption.length > 17 ?
+                    activity.caption.substring(0, 17 - 3) + '...' : activity.caption }
+            </Text>
             <Text style={styles.textBox}>|</Text>
             <Text style={styles.textBox}>{activity.hospitalName}</Text>
         </View>

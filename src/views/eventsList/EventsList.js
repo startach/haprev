@@ -1,11 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Text, Slider, Picker, Dimensions } from 'react-native'
+import { View, Text, Slider, Picker } from 'react-native'
 import EventsListView from './EventsListView'
 import map from 'lodash/map'
 import {getEventsList} from './EventsListService'
 import {sortArrayByDate_Descending} from '../adminActivities/AdminActivitiesService.js'
 import styles from './EventsListStyle'
+import CustomPicker from '../../components/CustomPicker'
+
+const customStyles = {
+    historyInstitutesPicker: {
+        backgroundColor: 'transparent'
+    }
+}
 
 class EventsList extends React.Component{
     constructor(props) {
@@ -52,20 +59,16 @@ class EventsList extends React.Component{
     }
 
     getPicker = () => {
-            let serviceItems = this.props.institutes.map((ins, i) => {
-                return <Picker.Item key={i} value={ins.name} label={ins.name} />
-            });
-            return (
-                <Picker
-                selectedValue={this.state.currentHospital}
-                style={[styles.pickerText,{backgroundColor:'#d71a4e',width:'40%'}]}
-                mode="dropdown"
-                itemStyle={{textAlign: 'right'}} //IOS
-                onValueChange={async(itemValue, itemIndex) => {await this.setState({currentHospital: itemValue}); await this.componentWillMount(true)}}>
-                <Picker.Item key={-1} value={'הכל'} label={'הכל'} />
-                {serviceItems}
-                </Picker>
-            );
+        return (
+            <CustomPicker
+                containerStyle={customStyles.historyInstitutesPicker}
+                items={[{name: 'הכל'}, ...this.props.institutes]}
+                defaultIndex={0}
+                onValueChange={async (itemValue, itemIndex) => {
+                  await this.setState({currentHospital: itemValue.name});
+                  await this.componentWillMount(true)}
+                } />
+        );
     }
 
 

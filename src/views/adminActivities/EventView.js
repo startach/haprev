@@ -55,11 +55,9 @@ class EventView extends Component {
 
   async componentWillMount() {
     const {params} = this.props.navigation.state
-    if (params.adminActivityScreen)
-      currParticipants = params.event.participants
-    else
-      currParticipants = params.updateParticipants(params.event.id)
+    const currParticipants = params.adminActivityScreen ? params.event.participants : params.updateParticipants(params.event.id)
     const participants = await makeArrayFromObjects(currParticipants)
+
     if (!this.state.userIdArray) {
       registeredNow = await this.checkAlreadyRegistered(participants, params.appId)
       avatarsArray = []
