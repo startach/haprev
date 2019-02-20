@@ -86,7 +86,7 @@ const deleteParticipantRes = (eventId, insId, newParticipants) => ({
 export const getEvents = instituteId => async (dispatch, state) => {
   if (state().events.status != 'reqEvents') {
     dispatch(eventsReq(instituteId))
-    res = firebase.database().ref('events/').child(instituteId).once('value',
+    const res = firebase.database().ref('events/').child(instituteId).once('value',
       snapshot => {
         dispatch(eventsRes(snapshot.val()));
       })
@@ -96,6 +96,7 @@ export const getEvents = instituteId => async (dispatch, state) => {
       .catch(error => {
         return 'err'
       });
+
     return res;
   }
   return 'reqEvents'

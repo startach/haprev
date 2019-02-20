@@ -29,10 +29,18 @@ class EventRegistrationView extends Component {
     this.setState({displayCancelEventDialog: false});
 
   registration = async () => {
-    const res = await this.props.registerUserEventHandler(this.state.extraParticipants)
-    if (res !== 'ok')
-      alert("שגיאה בהרשמה, אנא נסה שנית מאוחר יותר")
-    this.hideCancelEventDialog()
+    debugger
+    try {
+      const res = await this.props.registerUserEventHandler(this.state.extraParticipants)
+
+      if (res !== 'ok') {
+        alert("שגיאה בהרשמה, אנא נסה שנית מאוחר יותר")
+      }
+
+      this.hideCancelEventDialog()
+    } catch (e) {
+      console.error(e)
+      }
   }
 
   onChanged = (text) => {

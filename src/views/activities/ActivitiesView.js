@@ -7,7 +7,7 @@ import {AnimatableView} from '../AnimatableService'
 import * as Animatable from 'react-native-animatable'
 
 const renderText = (text)=> {
-    if (text.length > 17 )
+    if (text.length > 15 )
         return text.slice(0,14)+'...'
     return text
 }
