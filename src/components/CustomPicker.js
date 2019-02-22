@@ -37,7 +37,7 @@ export default class CustomPicker extends Component {
                     underlayColor='#fff'>
                     <Text style={{color: 'white'}}>{this.state.pickerSelection.name}</Text>
                 </TouchableOpacity>
-                <Modal visible={this.state.pickerDisplayed} animationType={"slide"} transparent={true}>
+                <Modal visible={this.state.pickerDisplayed} animationType={"slide"} transparent={true} onRequestClose={() => this.setState({pickerDisplayed:false})}>
                     <View style={styles.modalView}>
                         <Text style={styles.pickerHeaderText}>אנא בחר בית חולים</Text>
                         {this.props.items.map((value, index) =>
