@@ -139,7 +139,7 @@ const modalActivityStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: "center",
-    marginTop: height * 0.2,
+    marginTop: height * 0.15,
     backgroundColor: '#c2185b',
     height: height * 0.4,
     width: "90%",

@@ -52,7 +52,7 @@ class EventRegistrationView extends Component {
         newText = newText + text[i]
       }
       else {
-        alert("please enter numbers only") // your call back function
+        alert("Please enter numbers only") // your call back function
       }
     }
     this.setState({extraParticipants: newText})
@@ -134,7 +134,8 @@ class EventRegistrationView extends Component {
                     underlineColorAndroid='transparent'
                     onChangeText={(text) => this.onChanged(text)}
                     value={(this.state.extraParticipants && this.state.extraParticipants.toString()) || null}
-                    maxLength={2}
+                    maxLength={1}
+                    keyboardType='numeric'
                   />
                 </View>
                 <View style={modalStyles.bottom}>
