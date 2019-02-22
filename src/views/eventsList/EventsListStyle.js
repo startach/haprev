@@ -8,8 +8,8 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderColor: "#D81A4C"
   },
-  name: {
-    height: 100
+  listContainer:{
+    flex: 1,
   },
   button: {
     width: "70%",
@@ -55,11 +55,14 @@ export default StyleSheet.create({
   activityBox: {
     borderBottomColor: '#bbb',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+    alignItems: 'center',
+    alignSelf: 'center',
     height:50,
     flexDirection: "row",
-      flex: 1,
-      padding: 4
+    flex: 1,
+    padding: 4,
+    width: '98%'
   },
   activityBoxClean: {
     flex: 1,
@@ -74,6 +77,19 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#C2185B',
     textAlign: 'center',
+    fontSize: 14,
+    flex: 1
+  },
+  smallFlex:{
+    flex: 0.5
+  },
+  noActivitiesText: {
+    margin: 5,
+    fontSize: 14,
+    color: "gray"
+  },
+  lineText:{
+    color: '#C2185B',
     fontSize: 14,
     margin:3,
   },

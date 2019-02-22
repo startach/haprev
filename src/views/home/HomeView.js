@@ -30,7 +30,7 @@ const HomeView = (props) => {
         images.map((img,i)=>
         <TouchableOpacity 
         key={i} 
-        style={styles.container}
+        style={styles.imageContainer}
         onPress={async() => {await WebBrowser.openBrowserAsync(img.imgUrl)}}
         >
             <Image style={styles.picture} source={{uri:img.imgUrl}}/>
@@ -42,62 +42,45 @@ const HomeView = (props) => {
     return (
         <ScrollView horizontal={false}>
             <View style={styles.container}>
-                <AnimatableView 
-                viewStyle={[styles.eventBox,{marginTop:13}]}
-                duration={notFirstTime?1:1000}
-                viewContent= { 
-                    <View>
-                        <AnimatableText 
-                        textStyle={styles.textCenter}
-                        textContent='ההתנדבויות הבאות'
-                        />
-                        <EventsListView
-                        processEventsList={processEventsList}
-                        activityElements={activityElements}
-                        isNextEvents={true}
-                        />
-                    </View>
-                }
-                />
-                <AnimatableView 
-                viewStyle={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#f2f2f2',paddingBottom:1}]}
-                duration={notFirstTime?1:1250}
-                viewContent= { 
-                    <View>
+                <View style={[styles.eventBox,{marginTop:20}]}>
+                    <AnimatableText 
+                    textStyle={styles.textCenter}
+                    textContent='ההתנדבויות הבאות'
+                    />
+                    <EventsListView
+                    processEventsList={processEventsList}
+                    activityElements={activityElements}
+                    isNextEvents={true}
+                    />
+                </View>
+                <View style={[styles.eventBox,{backgroundColor:'#C2185B',borderColor:'#f2f2f2',paddingBottom:1}]}>
                     <AnimatableText 
                     textStyle={[styles.textCenter,{color:'#FFFFFF'}]}
                     textContent='התנדבות הבאה שלי'
                     />
                     <Text style={[styles.textCenter,{color:'#FFFFFF'}]}>{myNextEvent ? (myNextEvent.caption + ' ב-' +myNextEvent.date) : 'לא קיימות התנדבויות'}</Text>
                     {allActivityButton}
+                </View>
+                <View>
+                    <AnimatableText 
+                    textStyle={[styles.textCenter,{paddingTop:5, paddingBottom:3}]}
+                    textContent='באנו לשמח, תראו בעצמכם'
+                    />
+                    <View style={[styles.box, styles.swiper]}>
+                    <Swiper
+                    autoplay
+                    autoplayTimeout={3.5}
+                    loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
+                    activeDotColor={'#C2185B'}
+                    dotColor={'#ffffff'}
+                    showsButtons
+                    nextButton={<Text style={styles.buttonText}>‹</Text>} 
+                    prevButton={<Text style={styles.buttonText}>›</Text>}
+                        >
+                            {swiperImages(images)}
+                        </Swiper>
                     </View>
-                }
-                />
-                <AnimatableView 
-                duration={notFirstTime?1:1500}
-                viewContent= { 
-                    <View>
-                        <AnimatableText 
-                        textStyle={[styles.textCenter,{paddingTop:5, paddingBottom:3}]}
-                        textContent='באנו לשמח, תראו בעצמכם'
-                        />
-                        <View style={[styles.box, styles.swiper]}>
-                        <Swiper
-                        autoplay
-                        autoplayTimeout={3.5}
-                        loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
-                        activeDotColor={'#C2185B'}
-                        dotColor={'#ffffff'}
-                        showsButtons
-                        nextButton={<Text style={styles.buttonText}>‹</Text>} 
-                        prevButton={<Text style={styles.buttonText}>›</Text>}
-                            >
-                                {swiperImages(images)}
-                            </Swiper>
-                        </View>
-                    </View>
-                    }
-                />
+                </View>
             </View>
         </ScrollView>
     )
