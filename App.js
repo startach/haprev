@@ -5,8 +5,6 @@ import clone from "lodash/clone";
 
 export default class App extends React.Component {
   async componentWillMount() {
-    console.log('start....');
-    
     try {
       //I18nManager.swapLeftAndRightInRTL(true)
       // if (Platform.OS === "android") await I18nManager.forceRTL(true);
