@@ -36,14 +36,14 @@ class ActivityItem extends React.Component{
             <View style={[styles.activityBox,isNextEvents
                 ? {height:30}
                 : (index%2 === 0) ? {backgroundColor:'#f9ccac'} : {backgroundColor:'#fff2df'}]}>
-                <Text style={[styles.textBox,styles.smallFlex,activity.fullFormatDate < new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,{width:isNextEvents?'14%':'22%'}]}>{ this.renderDate(activity.fullFormatDate,isNextEvents)}</Text>
-                <Text style={[styles.textBox,styles.smallFlex]}>[ {activity.time} ]</Text>
-                <Text style={styles.textBox}>
+                <Text style={[styles.textBox,styles.dateFlex,activity.fullFormatDate < new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,{width:isNextEvents?'14%':'22%'}]}>{ this.renderDate(activity.fullFormatDate,isNextEvents)}</Text>
+                <Text style={[styles.textBox,styles.timeFlex]}>[ {activity.time} ]</Text>
+                <Text style={[styles.textBox,styles.captionFlex]}>
                     { activity && activity.caption && activity.caption.length > 17 ?
                         activity.caption.substring(0, 17 - 3) + '...' : activity.caption }
                 </Text>
                 <Text style={styles.lineText}>|</Text>
-                <Text style={styles.textBox}>{activity.hospitalName}</Text>
+                <Text style={[styles.textBox,styles.hospitalFlex]}>{activity.hospitalName}</Text>
             </View>
         )
     }

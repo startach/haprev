@@ -3,7 +3,7 @@ import { View, Text, Image, ScrollView, ActivityIndicator, TouchableOpacity } fr
 import styles from './HomeStyle';
 import Swiper from 'react-native-swiper'
 import EventsListView from '../eventsList/EventsListView'
-import {AnimatableView,AnimatableText} from '../AnimatableService'
+import {AnimatableText} from '../AnimatableService'
 import { WebBrowser } from 'expo';
 
 const HomeView = (props) => {
@@ -13,7 +13,6 @@ const HomeView = (props) => {
         images,
         processEventsList,
         activityElements,
-        notFirstTime
     } = props
 
     const allActivityButton = (
@@ -42,7 +41,7 @@ const HomeView = (props) => {
     return (
         <ScrollView horizontal={false}>
             <View style={styles.container}>
-                <View style={[styles.eventBox,{marginTop:20}]}>
+                <View style={[styles.eventBox,styles.firstBox]}>
                     <AnimatableText 
                     textStyle={styles.textCenter}
                     textContent='ההתנדבויות הבאות'
@@ -67,15 +66,15 @@ const HomeView = (props) => {
                     textContent='באנו לשמח, תראו בעצמכם'
                     />
                     <View style={[styles.box, styles.swiper]}>
-                    <Swiper
-                    autoplay
-                    autoplayTimeout={3.5}
-                    loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
-                    activeDotColor={'#C2185B'}
-                    dotColor={'#ffffff'}
-                    showsButtons
-                    nextButton={<Text style={styles.buttonText}>‹</Text>} 
-                    prevButton={<Text style={styles.buttonText}>›</Text>}
+                        <Swiper
+                        autoplay
+                        autoplayTimeout={3.5}
+                        loadMinimalLoader={<ActivityIndicator size='large' color='#C2185B'/>}  
+                        activeDotColor={'#C2185B'}
+                        dotColor={'#ffffff'}
+                        showsButtons
+                        nextButton={<Text style={styles.buttonText}>‹</Text>} 
+                        prevButton={<Text style={styles.buttonText}>›</Text>}
                         >
                             {swiperImages(images)}
                         </Swiper>

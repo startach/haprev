@@ -57,12 +57,15 @@ export default (styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     borderWidth: 2,
-    marginVertical: height * .02,
+    marginVertical: height * .01,
     marginHorizontal: "5%",
     borderRadius: 10,
     width: "90%",
     backgroundColor: "#f2f2f2",
     borderColor: "#C2185B"
+  },
+  firstBox: {
+    marginTop: height * 0.02
   },
   imageContainer: {
     flex: 1

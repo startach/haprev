@@ -8,15 +8,18 @@ import RegisterNav from "../../nav/RegisterNav";
 
 class Splash extends Component {
   async componentDidMount() {
+    const start = new Date().getTime();
     this.props.splash(true);
     await this.props.getInstitutes();
-    this.props.authorize(Expo.Constants.deviceId);
-    this.props.splash(false);
+    await this.props.authorize(Expo.Constants.deviceId);
+    const totalTime = new Date().getTime() - start;
+    setTimeout(() => {
+      this.props.splash(false);
+    }, 2000 - totalTime);
   }
 
   render() {
     const { splashStatus, userStatus } = this.props;
-
     if (!splashStatus) {
       if (userStatus === "user") return <AppNav />;
       if (userStatus === "no_user") return <RegisterNav />;
