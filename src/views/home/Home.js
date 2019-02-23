@@ -20,7 +20,6 @@ class Home extends React.Component{
             exit:0,
             processNextEvents:true,
             EventsListElements:null,
-            notFirstTime:this.props.navScreen
         };
         this.onBackClicked = this._onBackClicked.bind(this);
     }
@@ -64,7 +63,6 @@ class Home extends React.Component{
     componentDidMount() {
         if(this.props.navScreen==''){
             this.props.updateNavScreen('Home')
-            this.setState({notFirstTime:true})
         }
     }
     
@@ -120,7 +118,6 @@ class Home extends React.Component{
                     images={this.state.images}
                     processEventsList={this.state.processNextEvents}
                     activityElements={this.state.EventsListElements}
-                    notFirstTime={this.state.notFirstTime}
                 />
             </View>
         )

@@ -1,8 +1,12 @@
-import { StyleSheet,Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+const { height } = Dimensions.get("screen");
 
-export default styles = StyleSheet.create({
+export default (styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    justifyContent: "space-around",
+    paddingBottom: 20,
+    backgroundColor: "#FFF"
   },
   picture: {
     flex: 1,
@@ -31,8 +35,8 @@ export default styles = StyleSheet.create({
   },
   allActivityButton: {
     alignSelf: "center",
-    marginRight: 10,
-    marginLeft: 10
+    marginHorizontal: 10,
+    marginVertical: 5,
   },
   opacityBtn: {
     backgroundColor: "#FFFFFF",
@@ -43,7 +47,7 @@ export default styles = StyleSheet.create({
     borderColor: "#9f144b"
   },
   swiper: {
-    height: Dimensions.get("screen").height / 3
+    height: height / 3
   },
   buttonText: {
     fontSize: 50,
@@ -53,13 +57,18 @@ export default styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     borderWidth: 2,
-    marginTop: 15,
+    marginVertical: height * .01,
     marginHorizontal: "5%",
     borderRadius: 10,
-    justifyContent: "flex-start",
     width: "90%",
     backgroundColor: "#f2f2f2",
     borderColor: "#C2185B"
+  },
+  firstBox: {
+    marginTop: height * 0.02
+  },
+  imageContainer: {
+    flex: 1
   },
   imageTitle: {
     color: "#C2185B",
@@ -71,6 +80,6 @@ export default styles = StyleSheet.create({
     width: "100%",
     opacity: 0.75,
     top: "90%",
-    paddingBottom: 1,
+    paddingBottom: 1
   }
-});
+}));
