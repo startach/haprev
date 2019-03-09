@@ -111,7 +111,7 @@ class AdminActivityView extends Component{
                     onRequestClose={() => this.setState({displaySendMessagesDialog:true})}
                     >
                     { !this.props.process ?
-                    <View style={[modalStyles.modalContainer,{height: "35%"}]}>
+                    <View style={[modalStyles.modalContainer]}>
                             <Text style={[modalStyles.title,{color:'#fff'}]}> שלח הודעה למתנדבים {'\n'} </Text>
                             <TextInput
                                 style={styles.inputField}

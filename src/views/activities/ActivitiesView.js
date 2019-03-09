@@ -7,7 +7,7 @@ import {AnimatableView} from '../AnimatableService'
 import * as Animatable from 'react-native-animatable'
 
 const renderText = (text)=> {
-    if (text.length > 17 )
+    if (text.length > 15 )
         return text.slice(0,14)+'...'
     return text
 }
@@ -46,6 +46,14 @@ class ActivityItem extends React.Component{
             participants:[],
             avatarsArray:null,
             phonesArray:null,
+        }
+    }
+
+    deleteActivity = async () => {
+        try {
+            await this.props.deleteMyActivity(this.props.activity, this.state.coordinatorData.userId)
+        } catch (e) {
+            console.error(e)
         }
     }
 
@@ -111,7 +119,7 @@ class ActivityItem extends React.Component{
     }
 
     render() {
-    const {activity, index, deleteMyActivity} = this.props
+    const {activity, index} = this.props
     return (
     <View>
         <TouchableOpacity underlayColor='#fff' onPress={async() => {this.activityNode.tada(1000); await this.renderActivityData(activity.id,activity.hospitalId)}}>
@@ -143,7 +151,7 @@ class ActivityItem extends React.Component{
             {this.state.deleteVisible ?
                 <View style={[styles.rowLine,styles.deleteLine]}>
                     <Text style={[styles.textBox,styles.textDetails]}>לבטל השתתפותך בפעילות? </Text>
-                    <TouchableOpacity onPress={async () => {await deleteMyActivity(activity,this.state.coordinatorData.userId)}}>
+                    <TouchableOpacity onPress={this.deleteActivity}>
                         <FontAwesome name="check" size={30} color={'#009B77'} style={{margin:10}}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.setState({deleteVisible:false})}>

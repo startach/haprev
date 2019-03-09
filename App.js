@@ -1,17 +1,15 @@
 import React from "react";
 import Nav from "./src/app/App";
-import { I18nManager, Platform } from "react-native";
+import { I18nManager } from "react-native";
 import clone from "lodash/clone";
 
 export default class App extends React.Component {
   async componentWillMount() {
     try {
       //I18nManager.swapLeftAndRightInRTL(true)
-      
       // if (Platform.OS === "android") await I18nManager.forceRTL(true);
       if(!I18nManager.isRTL)
         await I18nManager.forceRTL(true);
-      console.log("I18nManager:", I18nManager);
     } catch (e) {
       console.warn("RTL Error", e);
     }

@@ -29,10 +29,18 @@ class EventRegistrationView extends Component {
     this.setState({displayCancelEventDialog: false});
 
   registration = async () => {
-    const res = await this.props.registerUserEventHandler(this.state.extraParticipants)
-    if (res !== 'ok')
-      alert("שגיאה בהרשמה, אנא נסה שנית מאוחר יותר")
-    this.hideCancelEventDialog()
+    debugger
+    try {
+      const res = await this.props.registerUserEventHandler(this.state.extraParticipants)
+
+      if (res !== 'ok') {
+        alert("שגיאה בהרשמה, אנא נסה שנית מאוחר יותר")
+      }
+
+      this.hideCancelEventDialog()
+    } catch (e) {
+      console.error(e)
+      }
   }
 
   onChanged = (text) => {
@@ -44,7 +52,7 @@ class EventRegistrationView extends Component {
         newText = newText + text[i]
       }
       else {
-        alert("please enter numbers only") // your call back function
+        alert("Please enter numbers only") // your call back function
       }
     }
     this.setState({extraParticipants: newText})
@@ -57,7 +65,7 @@ class EventRegistrationView extends Component {
   render() {
     return (
       <React.Fragment>
-        <Toast ref="toast" style={{backgroundColor:'#C2185B'}} positionValue={180} opacity={0.8}/>
+        <Toast ref="toast" style={{backgroundColor:'#555'}} positionValue={180} opacity={0.8}/>
         <View>
         {this.props.registeredNow ?
           <View style={{flexDirection: 'row'}}>
@@ -126,7 +134,8 @@ class EventRegistrationView extends Component {
                     underlineColorAndroid='transparent'
                     onChangeText={(text) => this.onChanged(text)}
                     value={(this.state.extraParticipants && this.state.extraParticipants.toString()) || null}
-                    maxLength={2}
+                    maxLength={1}
+                    keyboardType='numeric'
                   />
                 </View>
                 <View style={modalStyles.bottom}>

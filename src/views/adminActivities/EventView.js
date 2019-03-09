@@ -9,6 +9,7 @@ import {getUserData, setMessage, makeArrayFromObjects, deleteActivityByUserId} f
 import {getUserTokenNotification, sendPushNotification} from '../notification/NotificationService';
 import Toast from 'react-native-easy-toast'
 import {showToast} from '../../utils/taost';
+import * as firebase from "firebase";
 
 export const ParticipantItem = ({avatarUrl, phone, _name, isCoordinator, participant}) => {
   return (
@@ -53,40 +54,48 @@ class EventView extends Component {
     };
   }
 
+  async getEventById () {
+      const {params} = this.props.navigation.state
+      const eventId = params.event.id
+      const instituteId = params.event.institute
+      let event
+
+      await firebase
+          .database()
+          .ref('events/')
+          .child(instituteId)
+          .child(eventId)
+          .once('value', snapshot => {
+            event = snapshot.val()
+          })
+
+      return event
+  }
+
   async componentWillMount() {
+    let event = await this.getEventById()
+    this.state.userIdArray = null
     const {params} = this.props.navigation.state
-    if (params.adminActivityScreen)
-      currParticipants = params.event.participants
-    else
-      currParticipants = params.updateParticipants(params.event.id)
+    const currParticipants = event.participants || {}
+    // const currParticipants = params.adminActivityScreen ? params.event.participants : params.updateParticipants(params.event.id)
     const participants = await makeArrayFromObjects(currParticipants)
-    if (!this.state.userIdArray) {
-      registeredNow = await this.checkAlreadyRegistered(participants, params.appId)
-      avatarsArray = []
-      phonesArray = []
-      userIdArray = []
-      namesArray = []
-      coordinatorData = await getUserData(params.event.coordinator)
-      for (var i in participants) {
-        userInfo = await getUserData(participants[i].appId)
+
+    const registeredNow = await this.checkAlreadyRegistered(participants, params.appId)
+    const avatarsArray = []
+    const phonesArray = []
+    const userIdArray = []
+    const namesArray = []
+    const coordinatorData = await getUserData(params.event.coordinator)
+
+    for (const key in participants) {
+        const userInfo = await getUserData(participants[key].appId)
+
         avatarsArray.push(userInfo.avatarUrl)
         phonesArray.push(userInfo.phone)
         userIdArray.push(userInfo.userId)
         namesArray.push(userInfo.name)
-      }
     }
-    else {
-      avatarsArray = this.state.avatarsArray
-      phonesArray = this.state.phonesArray
-      userIdArray = this.state.userIdArray
-      coordinatorData = this.state.coordinatorData
-      userInfo = await getUserData(params.appId)
-      avatarsArray.push(userInfo.avatarUrl)
-      phonesArray.push(userInfo.phone)
-      userIdArray.push(userInfo.userId)
-      namesArray.push(userInfo.name)
-      registeredNow = true
-    }
+
     this.setState({
       avatarsArray: avatarsArray,
       phonesArray: phonesArray,
@@ -162,7 +171,7 @@ class EventView extends Component {
       res = await addEventToUser(userId, event)
     //push notification to the coordinator
     if (res === 'ok') {
-      let coordinatorToken = await getUserTokenNotification(coordinatorData.userId)
+      let coordinatorToken = await getUserTokenNotification(this.state.coordinatorData.userId)
       if (coordinatorToken) {
         let title = 'רישום חדש להתנדבות'
         let msg = fullName + ' נרשם לפעילות: ' + event.caption
@@ -288,7 +297,7 @@ class EventView extends Component {
             :
             null
         }
-        <Toast ref="toast" style={{backgroundColor:'#C2185B'}} positionValue={180} opacity={0.8}/>
+        <Toast ref="toast" style={{backgroundColor:'#555'}} positionValue={180} opacity={0.8}/>
       </View>
     )
   }

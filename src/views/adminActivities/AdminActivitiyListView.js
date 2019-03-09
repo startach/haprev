@@ -17,11 +17,11 @@ const renderCaptionText = (caption)=> {
 const ActivityItem = ({activity, index, openActivity, participants}) => {
     return  <TouchableOpacity underlayColor='#fff' onPress={() => {openActivity(activity,participants[index])}}>
         <View style={(index%2 === 0) ? adminActivityListStyle.activityItemEven : adminActivityListStyle.activityItemOdd}>
-            <Text style={[activity.fullFormatDate<new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,{width: '25%'}]}>{activity.date}</Text>
+            <Text style={[activity.fullFormatDate<new Date().toISOString()?{color:'#E94B3C'}:{color:'#009B77'} ,adminActivityListStyle.dateText]}>{activity.date}</Text>
             <Text>|</Text>
-            <Text style={{width: '35%'}}>{renderCaptionText(activity.caption)}</Text>
+            <Text style={adminActivityListStyle.captionText}>{renderCaptionText(activity.caption)}</Text>
             <Text>|</Text>
-            <Text style={{width: '25%'}}>{renderParticipantsText(participants[index])}</Text>
+            <Text style={adminActivityListStyle.participantsText}>{renderParticipantsText(participants[index])}</Text>
             <FontAwesome name="chevron-left"/>
         </View>
     </TouchableOpacity>

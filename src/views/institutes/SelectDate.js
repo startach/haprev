@@ -55,7 +55,7 @@ class SelectDate extends Component {
     return (
       <SelectDateView
         navigation = {this.props.navigation}
-        events={this.state.events} 
+        events={this.state.events}
         eventDates={this.state.eventDates}
         openEventView={this.openEventView}
       />
@@ -64,7 +64,7 @@ class SelectDate extends Component {
 
 }
 
-mapStateToProps = state =>{
+const mapStateToProps = state =>{
   return {
     events:state.events.events,
     userId:state.user.user.userId,

@@ -8,8 +8,8 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderColor: "#D81A4C"
   },
-  name: {
-    height: 100
+  listContainer:{
+    flex: 1,
   },
   button: {
     width: "70%",
@@ -55,9 +55,12 @@ export default StyleSheet.create({
   activityBox: {
     borderBottomColor: '#bbb',
     borderBottomWidth: StyleSheet.hairlineWidth,
+    flexDirection: "row",
     justifyContent: "space-around",
+    alignItems: 'center',
     height:50,
-    flexDirection: "row"
+    padding: 4,
+    width: '98%'
   },
   activityBoxClean: {
     flex: 1,
@@ -73,7 +76,28 @@ export default StyleSheet.create({
     color: '#C2185B',
     textAlign: 'center',
     fontSize: 14,
-    margin:3,
+  },
+  dateFlex:{
+    flex: 0.25
+  },
+  timeFlex:{
+    flex: 0.5
+  },
+  captionFlex:{
+    flex: 1
+  },
+  hospitalFlex:{
+    flex: 0.75
+  },
+  noActivitiesText: {
+    margin: 5,
+    fontSize: 14,
+    color: "gray"
+  },
+  lineText:{
+    color: '#C2185B',
+    fontSize: 14,
+    margin: 1
   },
   boxDetails:{
     backgroundColor:'#C2185B',
@@ -102,10 +126,10 @@ export default StyleSheet.create({
     marginBottom: "30%",
     justifyContent: 'center',
     alignSelf:'center',        
-    backgroundColor: '#B4B7BA',
+    backgroundColor: '#c2185b',
     width: '70%',
     borderWidth:2,
-    borderRadius:15,
+    borderRadius:10,
   },
   participantItem: {
     marginHorizontal: "17.5%",
@@ -121,7 +145,7 @@ export default StyleSheet.create({
     marginBottom: 3,
     width: 30,
     height: 30,
-    borderRadius: 100
+    borderRadius: 30/2
   },
   withoutImgList: {
     margin: 5,
@@ -146,15 +170,15 @@ export default StyleSheet.create({
     backgroundColor: '#cd1848',
   },
   filterText: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: 'center',
     padding: 3,
     color: '#ffffff',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   pickerText: {
     color: '#ffffff',
-    height: 40, 
-    width: 200,
-  },
-});  
+    height: 40,
+    width: 200
+  }
+});
