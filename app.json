@@ -6,7 +6,8 @@
     "slug": "StartachHapRev",
     "version": "1.1.0",
     "icon": "./src/images/logo512x512.png",
-    "sdkVersion": "26.0.0",
+    "sdkVersion": "32.0.0",
+    "entryPoint": "./App.js",
     "privacy": "public",
     "ios": {
       "bundleIdentifier": "com.startach.HapRev"
