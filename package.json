@@ -19,6 +19,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "expo": "^32.0.0",
     "firebase": "^4.13.1",
     "react": "16.5.0",
