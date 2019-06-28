@@ -5,12 +5,14 @@
     "description": "אפליקציה לעידוד התנדבויות בבתי חולים",
     "slug": "StartachHapRev",
     "version": "1.1.0",
-    "icon": "./src/images/logo512x512.png",
+    "icon": "./src/images/1024.png",
     "sdkVersion": "32.0.0",
     "entryPoint": "./App.js",
     "privacy": "public",
     "ios": {
-      "bundleIdentifier": "com.startach.HapRev"
+      "bundleIdentifier": "com.startach.HapRev",
+      "buildNumber": "10",
+      "icon": "./src/images/1024.png"
     },
     "android": {
       "versionCode": 10,
@@ -28,6 +30,7 @@
     "notification": {
       "icon":"./src/images/logo512x512.png"
     },
-    "primaryColor":"#FFFFFF"
+    "primaryColor":"#FFFFFF",
+    "orientation": "portrait"
   }
 }
