@@ -12,7 +12,7 @@
     "ios": {
       "bundleIdentifier": "com.startach.HapRev",
       "buildNumber": "10",
-      "icon": "./src/images/1024.png"
+      "icon": "./src/images/logo_background.jpg"
     },
     "android": {
       "versionCode": 10,
