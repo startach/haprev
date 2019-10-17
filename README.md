@@ -3,8 +3,9 @@
 
 *פותח ב**סטארטאח** למען עמותת מהפכה של שמחה*
 
-Download from Google Play (Android): https://play.google.com/store/apps/details?id=com.startach.HapRev
-Download from App Store (IPhone): https://apps.apple.com/us/app/%D7%9E%D7%94%D7%A4%D7%9B%D7%94-%D7%A9%D7%9C-%D7%A9%D7%9E%D7%97%D7%94/id1478528494?l=iw&ls=1
+Download from Google Play (*Android*): https://play.google.com/store/apps/details?id=com.startach.HapRev
+
+Download from App Store (*IPhone*): https://apps.apple.com/us/app/%D7%9E%D7%94%D7%A4%D7%9B%D7%94-%D7%A9%D7%9C-%D7%A9%D7%9E%D7%97%D7%94/id1478528494?l=iw&ls=1
 
 
 <img src="https://user-images.githubusercontent.com/21155847/49574223-92c2c680-f948-11e8-9bee-b53541a515e1.gif" width="276" height="480"><img src="https://media.giphy.com/media/2vjWtHKyYC6ilPM7zy/giphy.gif" width="276" height="480"><img src="https://media.giphy.com/media/1eEB7lNMmX8JN1VMzL/giphy.gif" width="276" height="480">
