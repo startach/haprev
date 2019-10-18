@@ -2,8 +2,7 @@ import React from 'react'
 import {View,Text, StyleSheet} from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import styles from './RoutsStyle'
-import { LinearGradient } from 'expo';
-
+import { LinearGradient } from 'expo-linear-gradient'
 
 const GradientHeader = () => (
     <LinearGradient

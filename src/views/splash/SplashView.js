@@ -10,7 +10,7 @@ export default class SplashScreen extends React.Component {
   }
 
   onLoad = () => {
-    Animated.timing(this.state.opacity,{
+    Animated.timing(this.state.opacity, {
       toValue: 1,
       delay: 500,
       duration: 1000,
@@ -24,28 +24,28 @@ export default class SplashScreen extends React.Component {
         style={styles.container}
       >
         <Animated.Image
-        onLoad={this.onLoad}
-          style={[styles.splash,{opacity: this.state.opacity, zIndex: 99}]}
+          onLoad={this.onLoad}
+          style={[styles.splash, { opacity: this.state.opacity, zIndex: 99 }]}
           source={splashImg}
         />
         <Image
-        style={styles.splash}
-        source={splashImgWhite}
+          style={styles.splash}
+          source={splashImgWhite}
         />
-        <InternetConnectionPopUp/>
+        <InternetConnectionPopUp />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFFFFF'
   },
-  splash:{
+  splash: {
     position: 'absolute',
     left: 0,
     top: 0,
