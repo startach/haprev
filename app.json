@@ -6,7 +6,7 @@
     "slug": "StartachHapRev",
     "version": "1.1.1",
     "icon": "./src/images/haprev1024.png",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "33.0.0",
     "entryPoint": "./App.js",
     "privacy": "public",
     "ios": {

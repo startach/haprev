@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, Modal, TouchableOpacity } from 'react-native';
 
-
 export default class CustomPicker extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -12,7 +11,7 @@ export default class CustomPicker extends Component {
         }
     }
 
-    setPickerValue (newValue, newIndex) {
+    setPickerValue(newValue, newIndex) {
         this.setState({
             pickerSelection: newValue
         })
@@ -22,32 +21,32 @@ export default class CustomPicker extends Component {
         this.togglePicker();
     }
 
-    togglePicker () {
+    togglePicker() {
         this.setState({
             pickerDisplayed: !this.state.pickerDisplayed
         })
     }
 
-    render () {
+    render() {
         return (
             <View style={[styles.container, this.props.containerStyle]}>
                 <TouchableOpacity
-                    style={{backgroundColor: 'transparent'}}
+                    style={{ backgroundColor: 'transparent' }}
                     onPress={() => this.togglePicker()}
                     underlayColor='#fff'>
-                    <Text style={{color: 'white'}}>{this.state.pickerSelection.name}</Text>
+                    <Text style={{ color: 'white' }}>{this.state.pickerSelection.name}</Text>
                 </TouchableOpacity>
-                <Modal visible={this.state.pickerDisplayed} animationType={"slide"} transparent={true} onRequestClose={() => this.setState({pickerDisplayed:false})}>
+                <Modal visible={this.state.pickerDisplayed} animationType={"slide"} transparent={true} onRequestClose={() => this.setState({ pickerDisplayed: false })}>
                     <View style={styles.modalView}>
                         <Text style={styles.pickerHeaderText}>אנא בחר בית חולים</Text>
                         {this.props.items.map((value, index) =>
                             <TouchableHighlight key={index} onPress={() => this.setPickerValue(value, index)}
-                                                style={{ paddingTop: 4, paddingBottom: 4 }}>
+                                style={{ paddingTop: 4, paddingBottom: 4 }}>
                                 <Text>{value.name}</Text>
                             </TouchableHighlight>
                         )}
                         <TouchableHighlight onPress={() => this.togglePicker()}
-                                            style={{ paddingTop: 4, paddingBottom: 4 }}>
+                            style={{ paddingTop: 4, paddingBottom: 4 }}>
                             <Text style={{ color: '#999' }}>ביטול</Text>
                         </TouchableHighlight>
                     </View>
@@ -77,4 +76,3 @@ const styles = StyleSheet.create({
         position: 'absolute'
     }
 });
-

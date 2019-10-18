@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import { Permissions, Notifications } from 'expo';
 
-export const registerForPushNotificationsAsync= async() => {
+export const registerForPushNotificationsAsync = async () => {
   settings = {}
   const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
   let finalStatus = existingStatus;
@@ -15,60 +15,60 @@ export const registerForPushNotificationsAsync= async() => {
   // Stop here if the user did not grant permissions
   if (finalStatus !== 'granted')
     settings['token'] = ''
-  else{
+  else {
     // Get the token that uniquely identifies this device
     let token = await Notifications.getExpoPushTokenAsync();
     settings['token'] = token
-    sendPushNotification(token,'עדכון' ,'נרשמת בהצלחה לקבלת עדכונים')
+    sendPushNotification(token, 'עדכון', 'נרשמת בהצלחה לקבלת עדכונים')
   }
   settings['status'] = finalStatus
   return settings;
 }
 
 export const sendPushNotification = (token, title, body) => {
-    return fetch('https://exp.host/--/api/v2/push/send', {
-      body: JSON.stringify({
-        to: token,
-        title: title,
-        body: body,
-        data: { message: `${title} - ${body}` },
-        sound: "default",
+  return fetch('https://exp.host/--/api/v2/push/send', {
+    body: JSON.stringify({
+      to: token,
+      title: title,
+      body: body,
+      data: { message: `${title} - ${body}` },
+      sound: "default",
+      icon: "../../images/logo512x512.png",
+      android: {
         icon: "../../images/logo512x512.png",
-        android:{
-          icon: "../../images/logo512x512.png",
-          sound:"default"
-        }
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    });
+        sound: "default"
+      }
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  });
 }
 
-export const getUserTokenNotification = async(userId) =>{
-  let ref = firebase.database().ref('users/'+userId+'/settings')
+export const getUserTokenNotification = async (userId) => {
+  let ref = firebase.database().ref('users/' + userId + '/settings')
   let userToken = false
-  await ref.once('value', 
+  await ref.once('value',
     snapshot => {
       let settingsRes = snapshot.val()
-      if (settingsRes && settingsRes.token !=='')
+      if (settingsRes && settingsRes.token !== '')
         userToken = settingsRes.token
     })
-    .catch(error => {console.log('Error ' + error);})
+    .catch(error => { console.log('Error ' + error); })
   return userToken
 }
 
-export const sendNotificationToAllUsers = async(activity) =>{
-  let titleMsg = 'פעילות חדשה ב' +activity.hospital + ' ב' +activity.time; 
-  let contentMsg = 'הפעילות ' + activity.nameActivity + ' עם הרכז ' + activity.coordinatorName + ' מוזמנים להרשם!'; 
-  firebase.database().ref('users').once('value' , 
-  snapshot => {
-    var users = snapshot.val()
-    var usersList = Object.keys(users).map((u,k) => {return users[u].settings && users[u].settings.token!=='' && users[u].settings.token})
-    .filter(x=> x&&x)
-    usersList.forEach(userToken=>{
-      sendPushNotification(userToken,titleMsg,contentMsg)
+export const sendNotificationToAllUsers = async (activity) => {
+  let titleMsg = 'פעילות חדשה ב' + activity.hospital + ' ב' + activity.time;
+  let contentMsg = 'הפעילות ' + activity.nameActivity + ' עם הרכז ' + activity.coordinatorName + ' מוזמנים להרשם!';
+  firebase.database().ref('users').once('value',
+    snapshot => {
+      var users = snapshot.val()
+      var usersList = Object.keys(users).map((u, k) => { return users[u].settings && users[u].settings.token !== '' && users[u].settings.token })
+        .filter(x => x && x)
+      usersList.forEach(userToken => {
+        sendPushNotification(userToken, titleMsg, contentMsg)
+      })
     })
-  })
 }

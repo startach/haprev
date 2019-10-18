@@ -6,6 +6,7 @@ export default (styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     paddingBottom: 20,
+    paddingTop: 20,
     backgroundColor: "#FFF"
   },
   picture: {
