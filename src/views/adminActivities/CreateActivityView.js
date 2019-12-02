@@ -119,9 +119,8 @@ class CreateActivityView extends Component {
                     <View style={{flexDirection:'row',justifyContent: "center"}}>
                         <Text style={{fontSize: 14,color:'#B93A32'}}>לשלוח התראות על האירוע לכל המשתמשים?</Text>
                         <Switch 
-                        onTintColor={'#00A591'}
-                        thumbTintColor={ this.state.notificationToAll ? '#79C753' : '#898E8C'}
-                        tintColor={'#B93A32'}
+                        trackColor={{true: '#00A591', false: '#B93A32'}}
+                        thumbColor={ this.state.notificationToAll ? '#79C753' : '#898E8C'}
                         style= {styles.switch}
                         onValueChange={() => this.setState({notificationToAll:!this.state.notificationToAll})}
                         value={this.state.notificationToAll}
