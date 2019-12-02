@@ -86,7 +86,7 @@ class EventsList extends React.Component{
                         value={this.state.numberOfEvents}
                         onValueChange={val => this.setState({ numberOfEvents: val })}
                         onSlidingComplete={ val => this.eventsHandler(val)}
-                        thumbTintColor={'#f9ccac'}
+                        thumbColor={'#f9ccac'}
                         minimumTrackTintColor={'#FFFFFF'}
                         />
                         <Text style={styles.filterText}>

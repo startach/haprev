@@ -49,9 +49,8 @@ class Settings extends React.Component {
                         <View style={styles.notificationBox} >
                             <Text style={styles.title}>קבלת התראות</Text>
                             <Switch
-                                onTintColor={'#00A591'}
-                                thumbTintColor={this.state.NewNotificationStatus ? '#79C753' : '#898E8C'}
-                                tintColor={'#B93A32'}
+                                trackColor={{true: '#00A591', false: '#B93A32'}}
+                                thumbColor={this.state.NewNotificationStatus ? '#79C753' : '#898E8C'}
                                 style={styles.switch}
                                 onValueChange={() => this.setState({ NewNotificationStatus: !this.state.NewNotificationStatus })}
                                 value={this.state.NewNotificationStatus}
