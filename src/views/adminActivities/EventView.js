@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {View, Text, FlatList, Image, Linking, ActivityIndicator, ScrollView} from 'react-native'
-import {Permissions, Calendar} from 'expo'
+import * as Permissions from 'expo-permissions'
+import {Calendar} from 'expo'
 import AdminActivityView from './AdminActivityView'
 import EventRegistrationView from '../institutes/EventRegistrationView'
 import {adminActivityStyle as styles, modalActivityStyle as modalStyles} from './styles'

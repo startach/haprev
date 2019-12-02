@@ -2,7 +2,8 @@ import React from 'react';
 import {Text, View, Image, ImageBackground,ScrollView, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator, Platform} from 'react-native';
 import styles from './RegisterViewStyles';
 import RegisterInput from './RegisterInputField';
-import { ImagePicker, Permissions } from 'expo';
+import { ImagePicker } from 'expo';
+import * as Permissions from 'expo-permissions'
 import {registerForPushNotificationsAsync} from '../notification/NotificationService'
 import Toast from 'react-native-easy-toast';
 import {showToast} from '../../utils/taost';

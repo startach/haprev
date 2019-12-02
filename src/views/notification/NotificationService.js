@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
-import { Permissions, Notifications } from 'expo';
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions'
 
 export const registerForPushNotificationsAsync = async () => {
   settings = {}
