@@ -1,34 +1,34 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import Expo from 'expo';
-import getStore from '../store/createStore';
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+import Expo from 'expo'
+import getStore from '../store/createStore'
 import Splash from '../views/splash/Splash'
-import initdb from './initDb';
+import initdb from './initDb'
 
-const store = getStore;
+const store = getStore
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
-      fontsAreLoaded: false,
-    };
+      fontsAreLoaded: false
+    }
   }
 
-  componentWillMount() {
-    initdb();
-    this.setState({ fontsAreLoaded: true });
+  componentWillMount () {
+    initdb()
+    this.setState({ fontsAreLoaded: true })
   }
 
-  render() {
+  render () {
     if (this.state.fontsAreLoaded) {
       return (
-        <Provider store={store} >
+        <Provider store={store}>
           <Splash />
-        </Provider>);
+        </Provider>)
     }
-    return (<Expo.AppLoading />);
+    return (<Expo.AppLoading />)
   }
 }
 
-export default App;
+export default App

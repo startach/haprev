@@ -1,5 +1,5 @@
-import {StackNavigator } from 'react-navigation'
-import {headerDefinitions, homeNavigationOptions, appNavigationOptions} from './RoutsService'
+import { StackNavigator } from 'react-navigation'
+import { headerDefinitions, homeNavigationOptions, appNavigationOptions } from './RoutsService'
 import Home from '../../views/home/Home'
 import InstitutesList from '../../views/institutes/InstitutesList'
 import SelectDate from '../../views/institutes/SelectDate'
@@ -17,125 +17,122 @@ import Settings from '../../views/notification/Settings'
 import Messages from '../../views/messages/Messages'
 
 const HomeRoute = StackNavigator(
-    {
-        Home:{
-        screen: Home,
-        navigationOptions: headerDefinitions('מסך הבית')
-        },
-        Settings:{
-            screen: Settings,
-            navigationOptions: headerDefinitions('הגדרות')
-        },
-        Messages:{
-            screen: Messages,
-            navigationOptions: headerDefinitions('הודעות')
-        }
-    },{navigationOptions: homeNavigationOptions}
-);
+  {
+    Home: {
+      screen: Home,
+      navigationOptions: headerDefinitions('מסך הבית')
+    },
+    Settings: {
+      screen: Settings,
+      navigationOptions: headerDefinitions('הגדרות')
+    },
+    Messages: {
+      screen: Messages,
+      navigationOptions: headerDefinitions('הודעות')
+    }
+  }, { navigationOptions: homeNavigationOptions }
+)
 
 const InstitutesRoute = StackNavigator(
-        {
-            Institutes:{
-                screen: InstitutesList,
-                navigationOptions: headerDefinitions('רישום להתנדבות')
-            },
-            SelectDate:{
-                screen: SelectDate,
-                navigationOptions: headerDefinitions('בחר תאריך')
-            },
-            EventView:{
-                screen: EventView,                
-                navigationOptions: headerDefinitions('התנדבות')
-            },
-            EventOptions:{
-                screen: EventOptions,
-                navigationOptions: headerDefinitions('בחירת התנדבות')
-            }
-        },{navigationOptions: appNavigationOptions}
-);
+  {
+    Institutes: {
+      screen: InstitutesList,
+      navigationOptions: headerDefinitions('רישום להתנדבות')
+    },
+    SelectDate: {
+      screen: SelectDate,
+      navigationOptions: headerDefinitions('בחר תאריך')
+    },
+    EventView: {
+      screen: EventView,
+      navigationOptions: headerDefinitions('התנדבות')
+    },
+    EventOptions: {
+      screen: EventOptions,
+      navigationOptions: headerDefinitions('בחירת התנדבות')
+    }
+  }, { navigationOptions: appNavigationOptions }
+)
 
 const EventsListRoute = StackNavigator(
-    {
-        Institutes:{
-            screen: EventsList,
-            navigationOptions: headerDefinitions('היסטוריה')
-        },
-    },{navigationOptions: appNavigationOptions}
-);
+  {
+    Institutes: {
+      screen: EventsList,
+      navigationOptions: headerDefinitions('היסטוריה')
+    }
+  }, { navigationOptions: appNavigationOptions }
+)
 
 const ActivitiesRoute = StackNavigator(
-    {
-        Activities:{
-            screen: Activities,
-            navigationOptions: headerDefinitions('ההתנדבויות שלי')
-        },
-    },{navigationOptions: appNavigationOptions}
-);
+  {
+    Activities: {
+      screen: Activities,
+      navigationOptions: headerDefinitions('ההתנדבויות שלי')
+    }
+  }, { navigationOptions: appNavigationOptions }
+)
 
 const ActivitiesAdminRoute = StackNavigator(
-    {
-        AdminActivities:{
-            screen: AdminActivities,
-            navigationOptions: headerDefinitions('ממשק רכזים')
-        },
-        EventView:{
-            screen: EventView,                
-            navigationOptions: headerDefinitions('התנדבות')
-        },
-        CreateActivity:{
-            screen: CreateActivity,                
-            navigationOptions: headerDefinitions('צור התנדבות')
-        },
-    },{navigationOptions: appNavigationOptions}
-);
+  {
+    AdminActivities: {
+      screen: AdminActivities,
+      navigationOptions: headerDefinitions('ממשק רכזים')
+    },
+    EventView: {
+      screen: EventView,
+      navigationOptions: headerDefinitions('התנדבות')
+    },
+    CreateActivity: {
+      screen: CreateActivity,
+      navigationOptions: headerDefinitions('צור התנדבות')
+    }
+  }, { navigationOptions: appNavigationOptions }
+)
 
 const ContactsRoute = StackNavigator(
-    {
-        Contacts:{
-            screen: ContactsView,
-            navigationOptions: headerDefinitions('אנשי קשר')
-        },
-    },{navigationOptions: appNavigationOptions}
-);
+  {
+    Contacts: {
+      screen: ContactsView,
+      navigationOptions: headerDefinitions('אנשי קשר')
+    }
+  }, { navigationOptions: appNavigationOptions }
+)
 
 const AboutUsRoute = StackNavigator(
-    {
-        AboutUs:{
-            screen: AboutUsView,
-            navigationOptions: headerDefinitions('אודות')
-        },
-    },{navigationOptions: appNavigationOptions}
-);
+  {
+    AboutUs: {
+      screen: AboutUsView,
+      navigationOptions: headerDefinitions('אודות')
+    }
+  }, { navigationOptions: appNavigationOptions }
+)
 
 const ProfileRoute = StackNavigator(
-    {
-        Profile:{
-            screen: Profile,
-            navigationOptions: headerDefinitions('פרופיל')
-        },
-    },{navigationOptions: appNavigationOptions}
-);
+  {
+    Profile: {
+      screen: Profile,
+      navigationOptions: headerDefinitions('פרופיל')
+    }
+  }, { navigationOptions: appNavigationOptions }
+)
 
 const HelpRoute = StackNavigator(
-    {
-        Help:{
-            screen: Help,
-            navigationOptions: headerDefinitions('עזרה')
-        },
-    },{navigationOptions: appNavigationOptions}
-);
+  {
+    Help: {
+      screen: Help,
+      navigationOptions: headerDefinitions('עזרה')
+    }
+  }, { navigationOptions: appNavigationOptions }
+)
 
-export default{
-    HomeRoute,
-    InstitutesRoute,
-    EventsListRoute,
-    ActivitiesRoute,
-    ActivitiesAdminRoute,
-    ContactsRoute,
-    AboutUsRoute,    
-    ProfileRoute,
-    HelpRoute,
-};
-
-
-
+export default {
+  HomeRoute,
+  InstitutesRoute,
+  EventsListRoute,
+  ActivitiesRoute,
+  ActivitiesAdminRoute,
+  ContactsRoute,
+  AboutUsRoute,
+  ProfileRoute,
+  HelpRoute
+}
