@@ -21,6 +21,9 @@
   "jest": {
     "preset": "jest-expo"
   },
+  "standard.options": {
+    "envs": ["jest"]
+  },
   "dependencies": {
     "babel-plugin-transform-remove-console": "^6.9.4",
     "expo": "^35.0.0",

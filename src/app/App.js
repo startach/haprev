@@ -1,6 +1,6 @@
+import Expo from 'expo'
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import Expo from 'expo'
 import getStore from '../store/createStore'
 import Splash from '../views/splash/Splash'
 import initdb from './initDb'

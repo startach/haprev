@@ -1,8 +1,8 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
-import styles from './RoutsStyle'
 import { LinearGradient } from 'expo-linear-gradient'
+import React from 'react'
+import { View } from 'react-native'
+import styles from './RoutsStyle'
 
 const GradientHeader = () => (
   <LinearGradient

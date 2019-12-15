@@ -1,8 +1,8 @@
-import React from 'react'
-import Nav from './src/app/App'
-import { I18nManager } from 'react-native'
-import clone from 'lodash/clone'
 import { registerRootComponent } from 'expo'
+import clone from 'lodash/clone'
+import React from 'react'
+import { I18nManager } from 'react-native'
+import Nav from './src/app/App'
 
 class App extends React.Component {
   async componentWillMount () {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableHighlight, Modal, TouchableOpacity } from 'react-native'
+import { Modal, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
 
 export default class CustomPicker extends Component {
   constructor (props) {
