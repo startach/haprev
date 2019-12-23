@@ -2,7 +2,7 @@ import { FontAwesome } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import React from 'react'
 import { View } from 'react-native'
-import styles from './RoutsStyle'
+import { styles } from './RoutsStyle'
 
 const GradientHeader = () => (
   <LinearGradient
@@ -13,28 +13,26 @@ const GradientHeader = () => (
   />
 )
 
-export const headerDefinitions = (title) => (
-  {
-    headerMode: 'float',
-    headerTransitionPreset: 'fade-in-place'
-  },
-  {
-    headerBackground: GradientHeader(),
-    title: title,
-    headerStyle: styles.headerStyle,
-    headerTitleStyle: styles.headerTitleStyle
-  }
-)
+export const headerDefinitions = (title) => ({
+  headerMode: 'float',
+  headerTransitionPreset: 'fade-in-place',
+  headerBackground: GradientHeader(),
+  title: title,
+  headerStyle: styles.headerStyle,
+  headerTitleStyle: styles.headerTitleStyle
+})
 
 export const appNavigationOptions = ({ navigation }) => ({
-  headerRight: <FontAwesome
+  headerRight:
+  <FontAwesome
     style={styles.icon} name='chevron-left' size={24}
     onPress={() => { navigation.goBack() ? navigation.goBack() : navigation.navigate('HomeRoute') }}
-               />,
-  headerLeft: <FontAwesome
+  />,
+  headerLeft:
+  <FontAwesome
     style={styles.icon} name='navicon' size={24}
     onPress={() => { navigation.navigate('DrawerOpen') }}
-              />
+  />
 })
 
 export const homeNavigationOptions = ({ navigation }) => ({
@@ -50,8 +48,9 @@ export const homeNavigationOptions = ({ navigation }) => ({
       onPress={() => { navigation.state.routeName === 'Home' ? navigation.navigate('Settings') : navigation.navigate('Home') }}
     />
   </View>,
-  headerLeft: <FontAwesome
+  headerLeft:
+  <FontAwesome
     style={styles.icon} name='navicon' size={24}
     onPress={() => { navigation.navigate('DrawerOpen') }}
-              />
+  />
 })

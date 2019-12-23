@@ -4,7 +4,7 @@ import SplashView from './SplashView'
 import { authorize, splash } from '../../store/modules/user'
 import { getInstitutes } from '../../store/modules/Institutes'
 import AppNav from '../../nav/AppNav'
-import RegisterNav from '../../nav/RegisterNav'
+import { RegisterNav } from '../../nav/RegisterNav'
 
 class Splash extends Component {
   async componentDidMount () {
