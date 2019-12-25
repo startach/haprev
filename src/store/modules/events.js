@@ -1,27 +1,27 @@
-import * as firebase from 'firebase';
-import filter from 'lodash/filter';
-import keyBy from 'lodash/keyBy';
+import * as firebase from 'firebase'
+import filter from 'lodash/filter'
+import keyBy from 'lodash/keyBy'
 
-const REQUEST_EVENTS = 'haprev/events/REQUEST_EVENTS';
-const RESPONSE_EVENTS = 'haprev/events/RESPONSE_EVENTS';
-const RESPONSE_NEW_ACTIVITY = 'haprev/events/RESPONSE_NEW_ACTIVITY';
-const ADD_PARTICIPANT = 'haprev/events/ADD_PARTICIPANT';
-const DELETE_PARTICIPANT = 'haprev/events/DELETE_PARTICIPANT';
+const REQUEST_EVENTS = 'haprev/events/REQUEST_EVENTS'
+const RESPONSE_EVENTS = 'haprev/events/RESPONSE_EVENTS'
+const RESPONSE_NEW_ACTIVITY = 'haprev/events/RESPONSE_NEW_ACTIVITY'
+const ADD_PARTICIPANT = 'haprev/events/ADD_PARTICIPANT'
+const DELETE_PARTICIPANT = 'haprev/events/DELETE_PARTICIPANT'
 
 const initalState = {
   status: null,
   events: {},
   for: null
-};
+}
 
 export default (state = initalState, action = {}) => {
   switch (action.type) {
     case REQUEST_EVENTS:
-      return {...state, status: 'reqEvents', for: action.payload};
+      return { ...state, status: 'reqEvents', for: action.payload }
     case RESPONSE_EVENTS:
-      return {...state, status: '', events: action.payload};
+      return { ...state, status: '', events: action.payload }
     case RESPONSE_NEW_ACTIVITY:
-      return {...state, events: Object.assign(action.payload, state.events)}
+      return { ...state, events: Object.assign(action.payload, state.events) }
     case ADD_PARTICIPANT:
       const eventId = action.eventId
       const participants = action.participants
@@ -49,9 +49,9 @@ export default (state = initalState, action = {}) => {
         }
       }
     default:
-      return state;
+      return state
   }
-};
+}
 
 const eventsReq = instituteId => {
   return ({
@@ -63,41 +63,41 @@ const eventsReq = instituteId => {
 const eventsRes = data => ({
   type: RESPONSE_EVENTS,
   payload: data
-});
+})
 
 const newActivityRes = activity => ({
   type: RESPONSE_NEW_ACTIVITY,
-  payload: activity,
-});
+  payload: activity
+})
 
 const addParticipantRes = (participants, eventId) => ({
   type: ADD_PARTICIPANT,
   participants: participants,
-  eventId: eventId,
-});
+  eventId: eventId
+})
 
 const deleteParticipantRes = (eventId, insId, newParticipants) => ({
   type: DELETE_PARTICIPANT,
   eventId: eventId,
   insId: insId,
-  newParticipants: newParticipants,
-});
+  newParticipants: newParticipants
+})
 
 export const getEvents = instituteId => async (dispatch, state) => {
   if (state().events.status != 'reqEvents') {
     dispatch(eventsReq(instituteId))
     const res = firebase.database().ref('events/').child(instituteId).once('value',
       snapshot => {
-        dispatch(eventsRes(snapshot.val()));
+        dispatch(eventsRes(snapshot.val()))
       })
       .then(() => {
         return 'ok'
       })
       .catch(error => {
         return 'err'
-      });
+      })
 
-    return res;
+    return res
   }
   return 'reqEvents'
 }
@@ -106,7 +106,7 @@ export const addNewActivity = (activityName, appId, coordinator, date, time, ful
   let res = null
   var objActivity = {}
   ref = await firebase.database().ref('events/' + coordinator).push()
-  let newActivity = {
+  const newActivity = {
     caption: activityName,
     coordinator: appId,
     institute: coordinator,
@@ -115,16 +115,16 @@ export const addNewActivity = (activityName, appId, coordinator, date, time, ful
     fullFormatDate: fullFormatDate,
     id: ref.key
   }
-  objActivity[ref.key] = newActivity;
+  objActivity[ref.key] = newActivity
   await ref.set(newActivity)
     .then(() => {
       dispatch(newActivityRes(objActivity))
       res = 'ok'
     })
     .catch(error => {
-      console.log('Data could not be saved.', error);
+      console.log('Data could not be saved.', error)
       res = 'err'
-    });
+    })
   return res
 }
 
@@ -136,27 +136,27 @@ export const deleteActivity = (activityId) => async (dispatch, state) => {
   currentEvents = filter(eventsArray, (event) => {
     return event.id !== activityId
   })
-  currentEventsObjects = keyBy(currentEvents, 'id');
+  currentEventsObjects = keyBy(currentEvents, 'id')
   hospitalId = state().user.user.coordinator
   newEvents = {}
   newEvents[hospitalId] = currentEventsObjects
 
-  let res = await firebase.database().ref('events/')
+  const res = await firebase.database().ref('events/')
     .update(newEvents)
     .then(() => {
       dispatch(eventsRes(currentEventsObjects))
       return 'ok'
     })
     .catch(error => {
-      console.log('Data could not be saved.' + error);
+      console.log('Data could not be saved.' + error)
       return 'err'
-    });
-  return res;
+    })
+  return res
 }
 
 export const addUserToEvent = (event, appId, fullName, extraParticipants) => async (dispatch, state) => {
   let res = 'ok'
-  let newUser = {
+  const newUser = {
     appId: appId,
     name: fullName,
     extraParticipants
@@ -167,7 +167,7 @@ export const addUserToEvent = (event, appId, fullName, extraParticipants) => asy
     .push()
     .set(newUser)
     .then(() => {
-      const newParticipants = state().events.events[event.id]['participants'] || []
+      const newParticipants = state().events.events[event.id].participants || []
       const newParticipantsArray = Object.keys(newParticipants).map(key => newParticipants[key])
 
       newParticipantsArray.push(newUser)
@@ -176,7 +176,7 @@ export const addUserToEvent = (event, appId, fullName, extraParticipants) => asy
       res = 'ok'
     })
     .catch(error => {
-      console.log('Data could not be saved.', error);
+      console.log('Data could not be saved.', error)
 
       res = 'err'
     })
@@ -188,17 +188,16 @@ export const deleteParticipant = (activityId, insId, appId) => async (dispatch, 
   let participantsObj = null
   let eventsState = false
   if (state().events && state().events.for == insId) {
-    participantsObj = state().events.events[activityId]['participants']
+    participantsObj = state().events.events[activityId].participants
     eventsState = true
-  }
-  else {
+  } else {
     await firebase.database().ref('events/' + insId).child(activityId).child('participants').once('value',
       async snapshot => {
         participantsObj = await snapshot.val()
       })
       .catch(error => {
         console.log('error', error)
-      });
+      })
   }
   participantsArray = Object.keys(participantsObj).map(key => {
     return participantsObj[key]
@@ -207,9 +206,8 @@ export const deleteParticipant = (activityId, insId, appId) => async (dispatch, 
     return participant.appId !== appId
   })
   await firebase.database().ref('events/' + insId).child(activityId)
-    .update({participants: currParticipants})
+    .update({ participants: currParticipants })
     .then(() => {
-      if (eventsState)
-        dispatch(deleteParticipantRes(activityId, insId, currParticipants))
+      if (eventsState) { dispatch(deleteParticipantRes(activityId, insId, currParticipants)) }
     })
 }

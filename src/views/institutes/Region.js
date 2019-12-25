@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
+import { StyleSheet, View, Text, ScrollView } from 'react-native'
 
 const styles = StyleSheet.create({
   name: {
@@ -8,19 +8,19 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
     textAlign: 'left',
-    paddingRight:10,
+    paddingRight: 10
 
   },
   hospitalsSection: {
     flex: 1,
     alignSelf: 'flex-start',
-    marginTop: 5,
-  },
-});
+    marginTop: 5
+  }
+})
 
 class Region extends Component {
-  render() {
-    const { name, children } = this.props;
+  render () {
+    const { name, children } = this.props
     return (
       <View>
         <Text style={styles.name}>{name}</Text>
@@ -30,12 +30,12 @@ class Region extends Component {
           </ScrollView>
         </View>
       </View>
-    );
+    )
   }
 }
 
 Region.propTypes = {
-  name: PropTypes.string.isRequired,
-};
+  name: PropTypes.string.isRequired
+}
 
-export default Region;
+export default Region

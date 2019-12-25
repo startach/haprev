@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 import user from './user'
 import institutes from './Institutes'
 import events from './events'
@@ -10,8 +10,7 @@ const reducers = combineReducers({
   institutes,
   events,
   contacts,
-  nav,
-});
+  nav
+})
 
-export default reducers;
-
+export default reducers

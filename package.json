@@ -4,7 +4,8 @@
   "private": true,
   "devDependencies": {
     "jest-expo": "^35.0.0",
-    "react-test-renderer": "16.0.0"
+    "react-test-renderer": "16.0.0",
+    "standard": "^14.3.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -13,10 +14,15 @@
     "android": "expo android",
     "ios": "expo ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "hard-clean": "watchman watch-del-all & rm -rf node_modules & npm install"
+    "hard-clean": "watchman watch-del-all & rm -rf node_modules & npm install",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
   },
   "jest": {
     "preset": "jest-expo"
+  },
+  "standard.options": {
+    "envs": ["jest"]
   },
   "dependencies": {
     "babel-plugin-transform-remove-console": "^6.9.4",

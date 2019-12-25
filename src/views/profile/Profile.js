@@ -1,27 +1,28 @@
 import React, { Component } from 'react'
 import RegisterView from '../register/RegisterView'
 import { connect } from 'react-redux'
-import { update } from '../../store/modules/user';
-import { uploadImageHandler } from '../register/RegisterService';
+import { update } from '../../store/modules/user'
+import { uploadImageHandler } from '../register/RegisterService'
 
-class Profile extends Component{
-    render(){
-        return(
-            <RegisterView 
-            user={this.props.user} 
-            title="פרטי משתמש" 
-            actionTitle="עדכן"
-            registerScreen={false}
-            onAction = {async(user) => {return await this.props.update(user)}}
-            onUploadImage = {uploadImageHandler}            
-        />
-        )};
+class Profile extends Component {
+  render () {
+    return (
+      <RegisterView
+        user={this.props.user}
+        title='פרטי משתמש'
+        actionTitle='עדכן'
+        registerScreen={false}
+        onAction={async (user) => { return await this.props.update(user) }}
+        onUploadImage={uploadImageHandler}
+      />
+    )
+  };
 }
 
-const mapStateToProps = state =>{ 
-    return ({
-        user:state.user.user
-    })
+const mapStateToProps = state => {
+  return ({
+    user: state.user.user
+  })
 }
 
-export default connect(mapStateToProps, {update})( Profile)
+export default connect(mapStateToProps, { update })(Profile)
