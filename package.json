@@ -37,6 +37,7 @@
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-calendars": "^1.22.0",
+    "react-native-dotenv": "^0.2.0",
     "react-native-easy-toast": "^1.2.0",
     "react-native-modal-datetime-picker": "^5.1.0",
     "react-native-swiper": "^1.5.14",

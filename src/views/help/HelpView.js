@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput, Keyboard, Modal, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Keyboard, Modal, TouchableWithoutFeedback, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import styles from './HelpViewStyle'
-import * as firebase from 'firebase'
 
 const SUCCESS_SEND = { title: 'ההודעה נשלחה בהצלחה!', subtitle: 'צוות מהפכה של שמחה יענה בהקדם' }
 const FAIL_SEND = { title: 'בעיה בשליחה!', subtitle: 'נסה שוב מאוחר יותר' }
@@ -13,42 +12,29 @@ class HelpView extends Component {
       content: '',
       modalVisible: false,
       isButtonDisabled: true,
-      success: false
+      success: false,
+      loading: false
     }
   }
 
-  async componentDidMount() {
-    try {
-      const dest = 'idanlevi2@gmail.com'
-      const sendEmailFirebaseFunctionUrl = `https://us-central1-happrev.cloudfunctions.net/sendMail?dest=${dest}`
-      fetch(sendEmailFirebaseFunctionUrl)
-        .then((response) => {
-          console.log("TCL: HelpView -> componentDidMount -> response", response)
-          // return response.json();
-          alert('sent')
-        })
-        .catch((error) => {
-          console.log("TCL: HelpView -> componentDidMount -> catch error", error)
-          alert('error')
-
-        })
-    } catch (error) {
-      console.log("TCL: HelpView -> componentDidMount -> error", error)
-
-    }
-  }
-
-
-  Validation(inputText) {
-    return inputText && inputText.length > 0
-  }
+  Validation = (inputText) => inputText && inputText.length > 0
 
   async SandMessage() {
     const { first, last, email, phone } = this.props
-    content = this.state.content.replace(/\n/g, ' ')
-    res = await this.props.onHelpReq(first, last, email || phone, content)
-    if (res === 'ok') { this.setState({ success: true }) }
-    this.setState({ modalVisible: true })
+    const content = this.state.content.replace(/\n/g, ' ')
+    try {
+      this.setState({ loading: true })
+      const sendEmailFirebaseFunctionUrl = `https://us-central1-happrev.cloudfunctions.net/sendMail?name=${first} ${last}&email=${email}&phone=${phone}&content=${content}`
+      fetch(sendEmailFirebaseFunctionUrl)
+        .then((response) => {
+          this.setState({ success: true, modalVisible: true, loading: false })
+        }).catch((error) => {
+          this.setState({ modalVisible: true, loading: false })
+          console.log("TCL: HelpView -> componentDidMount -> catch error", error)
+        })
+    } catch (error) {
+      console.log("TCL: HelpView -> componentDidMount -> error", error)
+    }
   }
 
   render() {
@@ -81,7 +67,10 @@ class HelpView extends Component {
                 onPress={() => this.SandMessage()}
                 style={[styles.button, this.state.isButtonDisabled ? { backgroundColor: '#c6c6c6' } : {}]}
               >
-                <Text style={styles.buttonText}>שלח</Text>
+                {!this.state.loading ?
+                  <Text style={styles.buttonText}>שלח</Text>
+                  : <ActivityIndicator size='large' color='#fff' />
+                }
               </TouchableOpacity>
             </View>
           </View>

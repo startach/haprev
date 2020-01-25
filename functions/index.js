@@ -11,25 +11,28 @@ admin.initializeApp();
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'idanlevi2@gmail.com',
-        pass: 'ebkvatzfszgmkxpf'
+        user: 'user@gmail.com',
+        pass: 'password'
     }
 });
 
 exports.sendMail = functions.https.onRequest((req, res) => {
     console.log("TCL: req, res", req, res)
     cors(req, res, () => {
-
         // getting dest email by query string
-        const dest = req.query.dest || 'idanlevi2@gmail.coms';
-
+        const { name, email, phone, content } = req.query
         const mailOptions = {
-            from: 'סטארטאח', // Something like: Jane Doe <janedoe@gmail.com>
-            to: dest,
-            subject: 'הודעה חדשה', // email subject
-            html: `<p style="font-size: 16px;">new Message!!</p>
+            from: 'user@gmail.com',
+            to: 'idanlevi2@gmail.com', //TODO: dest
+            subject: `הודעה חדשה מ${name}`,
+            html: `<p style="font-size: 16px;">פרטי משתמש</p>
                 <br />
-                <img src="https://images.prod.meredith.com/product/fc8754735c8a9b4aebb786278e7265a5/1538025388228/l/rick-and-morty-pickle-rick-sticker" />
+                <p><b>שם:</b>${name}</p>
+                <p><b>אימייל:</b>${email}</p>
+                <p><b>פלאפון:</b>${phone}</p>
+                <br />
+                <p style="font-size: 16px;"><b>תוכן:</b></p>
+                <p>${content}</p>
             ` // email content in HTML
         };
 
