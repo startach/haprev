@@ -5,6 +5,8 @@
 
 #keys
 /src/app/keys.js
+.env
+.dev.env
 
 # dependencies
 /node_modules

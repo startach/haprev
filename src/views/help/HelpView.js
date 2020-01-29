@@ -1,34 +1,43 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput, Keyboard, Modal, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Keyboard, Modal, TouchableWithoutFeedback, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import styles from './HelpViewStyle'
 
 const SUCCESS_SEND = { title: 'ההודעה נשלחה בהצלחה!', subtitle: 'צוות מהפכה של שמחה יענה בהקדם' }
 const FAIL_SEND = { title: 'בעיה בשליחה!', subtitle: 'נסה שוב מאוחר יותר' }
 
 class HelpView extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       content: '',
       modalVisible: false,
       isButtonDisabled: true,
-      success: false
+      success: false,
+      loading: false
     }
   }
 
-  Validation (inputText) {
-    return inputText && inputText.length > 0
-  }
+  Validation = (inputText) => inputText && inputText.length > 0
 
-  async SandMessage () {
+  async SandMessage() {
     const { first, last, email, phone } = this.props
-    content = this.state.content.replace(/\n/g, ' ')
-    res = await this.props.onHelpReq(first, last, email || phone, content)
-    if (res === 'ok') { this.setState({ success: true }) }
-    this.setState({ modalVisible: true })
+    const content = this.state.content.replace(/\n/g, ' ')
+    try {
+      this.setState({ loading: true })
+      const sendEmailFirebaseFunctionUrl = `https://us-central1-happrev.cloudfunctions.net/sendMail?name=${first} ${last}&email=${email}&phone=${phone}&content=${content}`
+      fetch(sendEmailFirebaseFunctionUrl)
+        .then((response) => {
+          this.setState({ success: true, modalVisible: true, loading: false })
+        }).catch((error) => {
+          this.setState({ modalVisible: true, loading: false })
+          console.log("TCL: HelpView -> componentDidMount -> catch error", error)
+        })
+    } catch (error) {
+      console.log("TCL: HelpView -> componentDidMount -> error", error)
+    }
   }
 
-  render () {
+  render() {
     const { first, last, email, phone, navigation } = this.props
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
@@ -56,9 +65,12 @@ class HelpView extends Component {
                 rounded
                 disabled={this.state.isButtonDisabled}
                 onPress={() => this.SandMessage()}
-                style={[styles.button, this.state.isButtonDisabled ? { backgroundColor: '#c6c6c6' } : { }]}
+                style={[styles.button, this.state.isButtonDisabled ? { backgroundColor: '#c6c6c6' } : {}]}
               >
-                <Text style={styles.buttonText}>שלח</Text>
+                {!this.state.loading ?
+                  <Text style={styles.buttonText}>שלח</Text>
+                  : <ActivityIndicator size='large' color='#fff' />
+                }
               </TouchableOpacity>
             </View>
           </View>

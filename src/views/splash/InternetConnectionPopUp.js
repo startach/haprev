@@ -4,28 +4,27 @@ import { FontAwesome } from '@expo/vector-icons'
 const { height, width } = Dimensions.get('window')
 
 export default class InternetConnectionPopUp extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { connectionInfo: '' }
-    this.handleFirstConnectivityChange = this.handleFirstConnectivityChange.bind(this)
   }
 
-  handleFirstConnectivityChange (connectionInfo) {
+  handleFirstConnectivityChange = (connectionInfo) => {
     this.setState({ connectionInfo: connectionInfo.type })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     NetInfo.getConnectionInfo().then((connectionInfo) => {
       this.setState({ connectionInfo: connectionInfo.type })
     })
     NetInfo.addEventListener('connectionChange', this.handleFirstConnectivityChange)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     NetInfo.removeEventListener('connectionChange', this.handleFirstConnectivityChange)
   }
 
-  render () {
+  render() {
     const { connectionInfo } = this.state
     if (connectionInfo == 'none') {
       return (<View>
@@ -34,7 +33,7 @@ export default class InternetConnectionPopUp extends Component {
           visible
           animationType='slide'
           transparent
-          onRequestClose={() => {}}
+          onRequestClose={() => { }}
         >
           <View style={styles.modalContainer}>
             <Text style={[styles.buttonText, { fontSize: 22 }]}>שגיאה</Text>
@@ -43,7 +42,7 @@ export default class InternetConnectionPopUp extends Component {
           </View>
         </Modal>
         <Text style={styles.container}>.</Text>
-              </View>)
+      </View>)
     } else { return null }
   }
 }
