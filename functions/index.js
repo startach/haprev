@@ -5,9 +5,6 @@ const nodemailer = require('nodemailer');
 const cors = require('cors')({ origin: true });
 admin.initializeApp();
 
-/**
-* Here we're using Gmail to send 
-*/
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
