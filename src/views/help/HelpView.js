@@ -27,6 +27,7 @@ class HelpView extends Component {
       const sendEmailFirebaseFunctionUrl = `https://us-central1-happrev.cloudfunctions.net/sendMail?name=${first} ${last}&email=${email}&phone=${phone}&content=${content}`
       fetch(sendEmailFirebaseFunctionUrl)
         .then((response) => {
+          console.log("TCL: HelpView -> SandMessage -> response", response)
           this.setState({ success: true, modalVisible: true, loading: false })
         }).catch((error) => {
           this.setState({ modalVisible: true, loading: false })
