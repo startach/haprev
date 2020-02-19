@@ -1,3 +1,5 @@
+![Expo Build](https://github.com/startach/haprev/workflows/Expo%20Build/badge.svg)
+
 # React Native & Redux Application - מהפכה של שמחה
 **אפליקציה לעידוד התנדבויות בבתי חולים**
 
