@@ -1,0 +1,96 @@
+# Based on this: https://github.com/kaishuu0123/vscode-erd/
+# Install VSCode extention: https://marketplace.visualstudio.com/items?itemName=kaishuu0123.vscode-erd-preview
+# Install "dot" and "erd" binaries, see above GitHub page for instructions
+# Usage: F1 -> "ERD: Preview Current Window"
+# See some examples: https://github.com/kaishuu0123/erd-go/tree/master/examples
+
+
+
+
+# Entities are declared in '[' ... ']'. All attributes after the entity header
+# up until the end of the file (or the next entity declaration) correspond
+# to this entity.
+
+[contacts] {label: "רכזי פעילות"}
+*\id\\ {label: "base64"}
+city {label: "text"}
++institueId {label: "number"}
+institueName {label: "text"}
+name {label: "text"}
+phone {label: "text"}
+region {label: "text"}
+role {label: "text"}
+
+[Institutes]
+*\id\\ {label: "number"}
+id {label: "number"}
+city {label: "text"}
+name {label: "text"}
+pictureUrl {label: "text, URL"}
+region {label: "text"}
+
+[events]
+*\\id1\\id2\\ {label: "number/base64"}
+id {label: "base64"}
++institue {label: "number"}
+date {label: "text, d/m/yyyy"}
+time {label: "text, HH:MM"}
+fullFormatDate {label: "text, iso8601-date"}
+caption  {label: "text"}
++coordinator  {label: "text, UUID"}
+
+[users]
+*\\id1\\id2\\ {label: "number/base64"}
+userId {label: "text, base64"}
+appId {label: "text, UUID"}
+avatarUrl {label: "text, URL"}
+first {label: "text"}
+last {label: "text"}
+password {label: "text"}
+phone {label: "text"}
+
+
+[Messages]
+*\\id\\ {label: "base64"}
+id {label: "text, base64"}
+message {label: "text"}
+
+[images]
+
+[ImageUrlWithTitle]
+*\\id\\ {label: "number"}
+imgUrl {label: "text"}
+title  {label: "text"}
+
+[ImageUrl]
+*(array_index)
+(annonimous) {label: "text, URL"}
+
+[adm]
+*\\id\\ {label: "text (user-first-name)"}
+password {label: "text"}
+phone {label: "text"}
+
+[contactUs]
+*\\date\\id\\ {label: "dd-mm-yyyy/base64"}
+name {label: "text"}
+email_phone {label: "text"}
+content {label: "text"}
+
+# Each relationship must be between exactly two entities, which need not
+# be distinct. Each entity in the relationship has exactly one of four
+# possible cardinalities:
+#
+# Cardinality    Syntax
+# 0 or 1         0
+# exactly 1      1
+# 0 or more      *
+# 1 or more      +
+
+contacts *--1 Institutes {label: "רכזי פעילות במוסד"}
+Institutes 1--* events {label: "שיוך אירוע למוסד"}
+events *--1 users {label: "coordinator / מארגן"}
+events *--* users {label: "participants / משתתפים"}
+users 1--* Messages
+images 1--* ImageUrlWithTitle {label: "vol_images"}
+images 1--* ImageUrl {label: "vol"}
