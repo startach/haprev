@@ -36,7 +36,7 @@
     "expo-permissions": "~7.0.0",
     "firebase": "^7.5.0",
     "firebase-tools": "^7.12.1",
-    "nodemailer": "^6.4.2",
+    "nodemailer": "^6.4.16",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-calendars": "^1.22.0",
